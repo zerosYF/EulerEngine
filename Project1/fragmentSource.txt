@@ -1,0 +1,138 @@
+#version 330 core
+#define NR_POINT_LIGHTS 4
+struct Material{
+	sampler2D diffuse;
+	sampler2D specular;
+	float shininess;
+};
+struct PointLight{
+	vec3 position;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
+	float constant;
+	float linear;
+	float quadratic;
+};
+struct DirLight{
+	vec3 direction;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+struct SpotLight{
+	vec3 position;
+	vec3 direction;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
+	float constant;
+	float linear;
+	float quadratic;
+
+	float cutOff;
+	float outerCutOff;
+};
+
+out vec4 FragColor;
+in vec2 TexCoords;
+in vec3 Normal;
+in vec3 FragPos;
+
+uniform vec3 objectColor;
+uniform vec3 viewPos;
+uniform Material material;
+uniform PointLight pointlight[NR_POINT_LIGHTS];
+uniform DirLight dirlight;
+uniform SpotLight spotlight;
+
+vec3 CalDirLight(DirLight dirlight,vec3 normal,vec3 viewDir);
+vec3 CalPointLight(PointLight pointlight,vec3 normal,vec3 viewDir,vec3 fragPos);
+vec3 CalSpotLight(SpotLight spotlight,vec3 normal,vec3 viewDir,vec3 fragPos);
+
+void main(){
+	vec3 norm = normalize(Normal);
+	vec3 viewDir = normalize(viewPos - FragPos);
+	
+	vec3 result = CalDirLight(dirlight,norm,viewDir);
+	for(int i = 0;i< NR_POINT_LIGHTS;i++){
+		result += CalPointLight(pointlight[i],norm,viewDir,FragPos);
+	}
+	result += CalSpotLight(spotlight,norm,viewDir,FragPos);
+
+	FragColor = vec4(result,1.0);
+}
+// 计算方向光；
+vec3 CalDirLight(DirLight dirlight,vec3 normal,vec3 viewDir){
+	vec3 lightDir = normalize(-dirlight.direction);
+	float diff = max(dot(normal,lightDir),0.0);
+	vec3 reflectDir = reflect(-lightDir,normal);
+	float spec = pow(max(dot(viewDir,reflectDir),0.0),material.shininess);
+
+	vec3 ambient = dirlight.ambient * vec3(texture(material.diffuse,TexCoords));
+	vec3 diffuse = diff * dirlight.diffuse * vec3(texture(material.diffuse,TexCoords));
+	vec3 specular = spec * dirlight.specular * vec3(texture(material.specular,TexCoords));
+
+	return (ambient + diffuse + specular);
+}
+// 计算点光源；
+vec3 CalPointLight(PointLight pointlight,vec3 normal,vec3 viewDir,vec3 fragPos){
+	vec3 lightDir = normalize(pointlight.position - fragPos);
+	float diff = max(dot(normal,lightDir),0.0);
+	vec3 reflectDir = reflect(-lightDir,normal);
+	float spec = pow(max(dot(viewDir,reflectDir),0.0),material.shininess);
+
+	float distance = length(pointlight.position - fragPos);
+	float attenuation = 1.0 / (pointlight.constant 
+		+ pointlight.linear*distance 
+		+ pointlight.quadratic*(distance * distance));
+
+	vec3 ambient = attenuation 
+		* dirlight.ambient * vec3(texture(material.diffuse,TexCoords));
+	vec3 diffuse = attenuation 
+		* diff * dirlight.diffuse * vec3(texture(material.diffuse,TexCoords));
+	vec3 specular = attenuation 
+		* spec * dirlight.specular * vec3(texture(material.specular,TexCoords));
+	return (ambient + diffuse + specular);
+}
+// 计算聚光;
+vec3 CalSpotLight(SpotLight spotlight,vec3 normal,vec3 viewDir,vec3 fragPos){
+	vec3 lightDir = normalize(spotlight.position - fragPos);
+	float diff = max(dot(normal,lightDir),0.0);
+	vec3 reflectDir = reflect(-lightDir,normal);
+	float spec = pow(max(dot(viewDir,reflectDir),0.0),material.shininess);
+
+	float distance = length(spotlight.position-fragPos);
+	float attenuation = 1.0 / (spotlight.constant 
+		+ spotlight.linear*distance 
+		+ spotlight.quadratic*(distance * distance));
+
+	float theta = dot(lightDir,normalize(-spotlight.direction));
+	float epsilon = spotlight.cutOff - spotlight.outerCutOff;
+	float intensity = clamp((theta-spotlight.outerCutOff)/epsilon,0.0,1.0);
+
+	vec3 ambient = spotlight.ambient * vec3(texture(material.diffuse,TexCoords));
+	vec3 diffuse = spotlight.diffuse * (vec3(texture(material.diffuse,TexCoords)) * diff);
+	vec3 specular = spotlight.specular * (vec3(texture(material.specular,TexCoords)) * spec);
+
+	ambient *= attenuation;
+	diffuse *= attenuation * intensity;
+	specular *= attenuation * intensity;
+
+	return (ambient + diffuse + specular);
+}
+float Phong(vec3 viewDir,vec3 lightDir,vec3 normal){
+	vec3 reflectDir = reflect(-lightDir,normal);
+	float spec = pow(max(dot(viewDir,reflectDir),0.0),material.shininess);
+	return spec;
+}
+float Blinn_Phong(vec3 viewDir,vec3 lightDir,vec3 normal){
+	vec3 halfwayDir = normalize(lightDir+viewDir);
+	float spec = pow(max(dot(normal,halfwayDir),0.0),material.shininess);
+	return spec;
+}

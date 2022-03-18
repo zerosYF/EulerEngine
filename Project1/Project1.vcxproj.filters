@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\physics">
+      <UniqueIdentifier>{84d76126-5f37-4359-97dc-b9b898c6c58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件\shaders">
+      <UniqueIdentifier>{8eb9a1a7-e18b-4090-b3d1-b45a20023375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\mymath">
+      <UniqueIdentifier>{7cf87042-c846-464d-a62d-a4fabe9a504f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\myrender">
+      <UniqueIdentifier>{696c2c82-040c-4fe3-ba05-ee4aba3829ce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\glad\src\glad.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="door.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="door.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kinematics.h">
+      <Filter>头文件\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>头文件\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="cMyError.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cGame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cSourceMgr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mVector.h">
+      <Filter>头文件\mymath</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="cShader.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="cMesh.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="cModel.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="mDifferentialEquation.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="cText.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="cTexture.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>头文件\myrender</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="fragmentSource.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="vertexSource.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="LightVertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="LightFragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ModelVertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ModelFragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="depthTest.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="shaderSingleColor.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="GrassFragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="FRAME_FRAGMENT.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="FRAME_VERTEX.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="sky_vertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="sky_fragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="GrassVertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ModelGeo.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="NormalVertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="NormalFragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="NormalGeo.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="planetVertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="planetFragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="planet2Vertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="DebugQuadV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="DebugQuadF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="sinpleDepthShaderV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="sinpleDepthShaderF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ShadowMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ShadowMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PointShadowDepthG.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PointShadow_F.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PointShadow_V.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PointShadowDepthF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PointShadowDepthV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="NormalMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="NormalMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ParallaxMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ParallaxMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="hdrV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="hdrF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomLightV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomLightF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomBlurV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomBlurF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomFinalV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="BloomFinalF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssao_geoV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssao_geoF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssao_lightingV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssao_lightingF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssaoV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssaoF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssaoBlurV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="ssaoBlurF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PBR_fragment.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PBR_vertex.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="equirectangularMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="equirectangularMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="backgroundV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="backgroundF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="irradianceMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="irradianceMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PrefilterMapV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="PrefilterMapF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="brdfV.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="brdfF.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="textV.txt">
+      <Filter>资源文件\shaders</Filter>
+    </Text>
+    <Text Include="textF.txt">
+      <Filter>资源文件\shaders</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
