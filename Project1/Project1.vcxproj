@@ -23,6 +23,7 @@
     <ProjectGuid>{7359F121-28EB-4958-9939-99EEB11BACF7}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>EulerEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>G:\glfw-3.3\openglets\include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\glfw-3.3\openglets\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>G:\glfw-3.3\openglets\include;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>G:\glfw-3.3\openglets\libs;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,7 +82,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc141-mtd.lib;freetype.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc141-mtd.lib;freetype.lib;glew32s.lib;WinMM.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,6 +138,8 @@
     <ClInclude Include="cSourceMgr.h" />
     <ClInclude Include="cText.h" />
     <ClInclude Include="cTexture.h" />
+    <ClInclude Include="EulerSystem.h" />
+    <ClInclude Include="EulerTimer.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="mDifferentialEquation.h" />
     <ClInclude Include="door.h" />

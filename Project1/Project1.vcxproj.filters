@@ -25,6 +25,9 @@
     <Filter Include="头文件\myrender">
       <UniqueIdentifier>{696c2c82-040c-4fe3-ba05-ee4aba3829ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\EulerSystem">
+      <UniqueIdentifier>{95d89770-a386-409d-8feb-c997f3abfc84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\glad\src\glad.c">
@@ -94,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerSystem.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerTimer.h">
+      <Filter>头文件\EulerSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
