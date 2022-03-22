@@ -42,6 +42,27 @@
     <ClCompile Include="Input.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="EulerFile.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerImage.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerSystem.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerThread.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerTimer.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerSynchronize.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="EulerMemManager.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="door.h">
@@ -102,6 +123,21 @@
       <Filter>头文件\EulerSystem</Filter>
     </ClInclude>
     <ClInclude Include="EulerTimer.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerFile.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerImage.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerThread.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerSynchronize.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerMemManager.h">
       <Filter>头文件\EulerSystem</Filter>
     </ClInclude>
   </ItemGroup>

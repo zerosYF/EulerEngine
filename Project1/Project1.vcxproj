@@ -83,7 +83,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc141-mtd.lib;freetype.lib;glew32s.lib;WinMM.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,6 +125,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\glad\src\glad.c" />
     <ClCompile Include="door.cpp" />
+    <ClCompile Include="EulerFile.cpp" />
+    <ClCompile Include="EulerImage.cpp" />
+    <ClCompile Include="EulerMemManager.cpp" />
+    <ClCompile Include="EulerSynchronize.cpp" />
+    <ClCompile Include="EulerSystem.cpp" />
+    <ClCompile Include="EulerThread.cpp" />
+    <ClCompile Include="EulerTimer.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
@@ -138,7 +145,12 @@
     <ClInclude Include="cSourceMgr.h" />
     <ClInclude Include="cText.h" />
     <ClInclude Include="cTexture.h" />
+    <ClInclude Include="EulerFile.h" />
+    <ClInclude Include="EulerImage.h" />
+    <ClInclude Include="EulerMemManager.h" />
+    <ClInclude Include="EulerSynchronize.h" />
     <ClInclude Include="EulerSystem.h" />
+    <ClInclude Include="EulerThread.h" />
     <ClInclude Include="EulerTimer.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="mDifferentialEquation.h" />
