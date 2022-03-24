@@ -14,24 +14,22 @@ void* EulerBlock::FillBlockMask() {
 	*endMask_ptr = END_MASK;
 	return data_ptr;
 }
-void* EulerMemManager::Allocate(unsigned int size,bool isAlignment) {
+void* EulerMemManager::Allocate(unsigned int size) {
 	unsigned int SumSize = sizeof(EulerBlock)
 		+ sizeof(unsigned int) + size + sizeof(unsigned int);
 	char* ptr = (char*) malloc(SumSize);
 	if (!ptr) return NULL;
 	EulerBlock *block = (EulerBlock*)ptr;
 	block->SetSize(size);
-	block->SetAlignment(isAlignment);
 	AddBlock(block);
 	void* rtn_ptr = block->FillBlockMask();
 	return rtn_ptr;
 }
-void EulerMemManager::Recycle(char* data_ptr, bool isAlignment) {
+void EulerMemManager::Recycle(void* data_ptr) {
 	if (!data_ptr) return;
 	unsigned int* beginMask_ptr = (unsigned int*)data_ptr- sizeof(unsigned int*);
 	assert(*beginMask_ptr==BEGIN_MASK);
 	EulerBlock *block_ptr = (EulerBlock*)beginMask_ptr - sizeof(EulerBlock);
-	assert(block_ptr->GetAlignment()==isAlignment);
 	unsigned int* endMask_ptr = (unsigned int*)data_ptr + block_ptr->GetSize();
 	assert(*endMask_ptr==END_MASK);
 	RemoveBlock(block_ptr);

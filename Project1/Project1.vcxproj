@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\glad\src\glad.c" />
     <ClCompile Include="door.cpp" />
+    <ClCompile Include="EulerDebug.cpp" />
     <ClCompile Include="EulerFile.cpp" />
     <ClCompile Include="EulerImage.cpp" />
     <ClCompile Include="EulerMemManager.cpp" />
@@ -145,9 +146,11 @@
     <ClInclude Include="cSourceMgr.h" />
     <ClInclude Include="cText.h" />
     <ClInclude Include="cTexture.h" />
+    <ClInclude Include="EulerDebug.h" />
     <ClInclude Include="EulerFile.h" />
     <ClInclude Include="EulerImage.h" />
     <ClInclude Include="EulerMemManager.h" />
+    <ClInclude Include="EulerMemOperator.h" />
     <ClInclude Include="EulerSynchronize.h" />
     <ClInclude Include="EulerSystem.h" />
     <ClInclude Include="EulerThread.h" />

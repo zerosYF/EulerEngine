@@ -8,7 +8,6 @@ namespace EulerEngine {
 		//sizeof(EulerBlock)只与成员变量有关
 		void *ptr[CALL_STACK_SIZE];
 		unsigned int size;
-		bool isAlignment;
 	public:
 		EulerBlock *pre;
 		EulerBlock *next;
@@ -18,12 +17,6 @@ namespace EulerEngine {
 		}
 		inline unsigned int GetSize() {
 			return size;
-		}
-		inline void SetAlignment(bool isAlignment) {
-			this->isAlignment = isAlignment;
-		}
-		inline bool GetAlignment() {
-			return isAlignment;
 		}
 		void* FillBlockMask();
 	};
@@ -39,10 +32,18 @@ namespace EulerEngine {
 		EulerBlock *pHead;
 		EulerBlock *pTail;
 	public:
-		void *Allocate(unsigned int size,bool isAlignment);
-		void Recycle(char* dataPtr,bool isAlignment);
+		void *Allocate(unsigned int size);
+		void Recycle(void* dataPtr);
 	private:
 		void AddBlock(EulerBlock *block);
 		void RemoveBlock(EulerBlock *block);
+	};
+	class EulerMemObject {
+	private:
+		static EulerMemManager manager;
+	public:
+		static EulerMemManager& GetManager() {
+			return manager;
+		}
 	};
 }

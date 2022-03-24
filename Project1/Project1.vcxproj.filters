@@ -63,6 +63,9 @@
     <ClCompile Include="EulerMemManager.cpp">
       <Filter>头文件\EulerSystem</Filter>
     </ClCompile>
+    <ClCompile Include="EulerDebug.cpp">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="door.h">
@@ -138,6 +141,12 @@
       <Filter>头文件\EulerSystem</Filter>
     </ClInclude>
     <ClInclude Include="EulerMemManager.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerDebug.h">
+      <Filter>头文件\EulerSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerMemOperator.h">
       <Filter>头文件\EulerSystem</Filter>
     </ClInclude>
   </ItemGroup>
