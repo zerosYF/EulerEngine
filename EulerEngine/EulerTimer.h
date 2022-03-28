@@ -1,10 +1,11 @@
+#pragma once
 #include<windows.h>
 #include<mmsystem.h>
 //多媒体相关API
-#include"EulerSystem.h"
 namespace EulerEngine {
-	class EulerTimer {
+	class TimerManager {
 	private:
+		static TimerManager *_instance;
 		double FPS;
 		double Time;
 		double DeltaTime;
@@ -12,8 +13,18 @@ namespace EulerEngine {
 		double FrameCount;
 		double TimeStart;
 		double LastFPSTime;
-
-		void InitGameTime() {
+		TimerManager() {}
+		~TimerManager() {
+			delete _instance;
+		}
+	public:
+		static TimerManager* GetInstance() {
+			if (_instance == NULL) {
+				_instance = new TimerManager();
+			}
+			return _instance;
+		}
+		inline void InitGameTime() {
 			FPS = 0;
 			Time = 0;
 			DeltaTime = 0;
@@ -22,10 +33,10 @@ namespace EulerEngine {
 			LastFPSTime = 0;
 			TimeStart = timeGetTime();
 		}
-		double GetGamePlayTime() {
+		inline double GetGamePlayTime() {
 			return (timeGetTime() - TimeStart);
 		}
-		void UpdateFps() {
+		inline void UpdateFps() {
 			Time = this->GetGamePlayTime()*0.001;
 			DeltaTime = Time - LastTime;
 			LastTime = Time;
@@ -37,6 +48,10 @@ namespace EulerEngine {
 			else {
 				FrameCount++;
 			}
+		}
+	public:
+		inline double GetDeltaTime() {
+			return DeltaTime;
 		}
 	};
 }

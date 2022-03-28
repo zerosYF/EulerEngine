@@ -3,7 +3,6 @@
 #include<glad/glad.h>
 #include<vector>
 #include "stb_image.h"
-#include "door.h"
 #include "cShader.h"
 #include <vector>
 using namespace std;
