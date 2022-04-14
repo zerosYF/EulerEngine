@@ -54,4 +54,5 @@ namespace EulerEngine {
 			return DeltaTime;
 		}
 	};
+	TimerManager* TimerManager::_instance = NULL;
 }

@@ -1,11 +1,11 @@
 #pragma once
 #include"EulerSmartPointer.h"
-#include"ObjectBase.h"
+#include"EulerObjectBase.h"
 namespace EulerEngine {
 	class Test :public EulerRef{
 	};
 	void testfunc() {
-		EulerSmartPointer<Test> p = NULL;
+		EulerSmartPointer<Test> p = nullptr;
 		Test* t = new Test();
 		p = t;
 		Test* t1 = new Test();
