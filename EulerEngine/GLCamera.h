@@ -15,7 +15,7 @@ namespace EulerEngine {
 	const float PITCH = 0.0f;//俯仰角；
 	const float SPEED = 2.5f;//速度；
 	const float SENSITIVITY = 0.1f;//敏感度；
-	const float ZOOM = 45.0f;//缩放系数；
+	const float FOV = 45.0f;//变焦夹角；
 
 	class Camera {
 	public:
@@ -31,7 +31,7 @@ namespace EulerEngine {
 		// 相机设置；
 		float MovementSpeed;
 		float MovementSensitivity;
-		float Zoom;
+		float Fov_Angle;
 
 		// 向量初始化；
 		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
@@ -45,7 +45,7 @@ namespace EulerEngine {
 			Front = glm::vec3(0.0f, 0.0f, -1.0f);
 			MovementSpeed = SPEED;
 			MovementSensitivity = SENSITIVITY;
-			Zoom = ZOOM;
+			Fov_Angle = FOV;
 			updateCameraVectors();
 		}
 		// 标量初始化；
@@ -58,7 +58,7 @@ namespace EulerEngine {
 			Front = glm::vec3(0.0f, 0.0f, -1.0f);
 			MovementSpeed = SPEED;
 			MovementSensitivity = SENSITIVITY;
-			Zoom = ZOOM;
+			Fov_Angle = FOV;
 			updateCameraVectors();
 		}
 		glm::mat4 GetViewMatrix() {
@@ -100,14 +100,14 @@ namespace EulerEngine {
 		}
 
 		void ProcessMouseScroll(float Yoffset) {
-			if (Zoom >= 1.0f &&Zoom <= 45.0f) {
-				Zoom -= Yoffset;
+			if (Fov_Angle >= 1.0f &&Fov_Angle <= 45.0f) {
+				Fov_Angle -= Yoffset;
 			}
-			else if (Zoom <= 1.0f) {
-				Zoom = 1.0f;
+			else if (Fov_Angle <= 1.0f) {
+				Fov_Angle = 1.0f;
 			}
-			else if (Zoom >= 45.0f) {
-				Zoom = 45.0f;
+			else if (Fov_Angle >= 45.0f) {
+				Fov_Angle = 45.0f;
 			}
 		}
 

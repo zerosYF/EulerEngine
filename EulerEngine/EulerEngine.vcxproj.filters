@@ -157,9 +157,6 @@
     <ClInclude Include="EulerSerialize.h">
       <Filter>Resources\EulerSystem</Filter>
     </ClInclude>
-    <ClInclude Include="EulerCube.h">
-      <Filter>Resources\EulerRender\EulerGeo</Filter>
-    </ClInclude>
     <ClInclude Include="EulerGame.h">
       <Filter>Resources\EulerGame</Filter>
     </ClInclude>
@@ -187,9 +184,6 @@
     <ClInclude Include="GLTexture.h">
       <Filter>Resources\EulerRender</Filter>
     </ClInclude>
-    <ClInclude Include="GLBuffer.h">
-      <Filter>Resources\EulerRender\EulerGeo</Filter>
-    </ClInclude>
     <ClInclude Include="GLWindowManager.h">
       <Filter>Resources\EulerRender\OpenGLs</Filter>
     </ClInclude>
@@ -198,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="GLSourceManager.h">
       <Filter>Resources\EulerRender\OpenGLs</Filter>
+    </ClInclude>
+    <ClInclude Include="GLCube.h">
+      <Filter>Resources\EulerRender\EulerGeo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

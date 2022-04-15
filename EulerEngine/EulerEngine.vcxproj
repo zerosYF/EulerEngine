@@ -138,10 +138,9 @@
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GLBuffer.h" />
     <ClInclude Include="GLCamera.h" />
     <ClInclude Include="EulerGame.h" />
-    <ClInclude Include="EulerCube.h" />
+    <ClInclude Include="GLCube.h" />
     <ClInclude Include="EulerObject.h" />
     <ClInclude Include="GLModel.h" />
     <ClInclude Include="GLMyError.h" />
