@@ -43,10 +43,6 @@ namespace EulerEngine {
 			glfwMakeContextCurrent(window);
 		}
 		void glfwInputInit() {
-			glfwSetFramebufferSizeCallback(window, frameBuffer_size_Callback);
-			glfwSetCursorPosCallback(window, mouse_Callback);
-			glfwSetScrollCallback(window, scroll_Callback);
-			glfwSetKeyCallback(window, key_Callback);
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 	};

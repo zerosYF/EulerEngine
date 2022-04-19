@@ -1,42 +1,40 @@
 #pragma once
 #include<GLFW/glfw3.h>
+#include"EulerDelegate.h"
+#include"GLCamera.h"
+#include"EulerGame.h"
 namespace EulerEngine {
-	bool keys[1024];
-	bool keysPressed[1024];
 	bool firstMouse = true;
 	double lastX = 800.0f / 2.0f;
 	double lastY = 600.0f / 2.0f;
-	void frameBuffer_size_Callback(GLFWwindow* window, int width, int height) {
-		glViewport(0, 0, width, height);
-	}
-	void key_Callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-			glfwSetWindowShouldClose(window, GL_TRUE);
-		}
-		if (key >= 0 && key <= 1024) {
-			if (action == GLFW_PRESS) {
-				keys[key] = true;
-			}
-			else if (action == GLFW_RELEASE) {
-				keys[key] = false;
-				keysPressed[key] = false;
-
-			}
-		}
-	}
-	void mouse_Callback(GLFWwindow *window, double xpos, double ypos) {
+	void CursorInput(GLFWwindow* window, Camera *camera) {
+		double xPos, yPos;
+		glfwGetCursorPos(window, &xPos, &yPos);
 		if (firstMouse) {
-			lastX = xpos;
-			lastY = ypos;
+			lastX = xPos;
+			lastY = yPos;
 			firstMouse = false;
 		}
-		double xoffset = xpos - lastX;
-		double yoffset = lastY - ypos;
+		double xoffset = xPos - lastX;
+		double yoffset = lastY - yPos;
 
-		lastX = xpos;
-		lastY = ypos;
+		lastX = xPos;
+		lastY = yPos;
+		camera->ProcessMouseMovement(xoffset, yoffset);
 	}
-	void scroll_Callback(GLFWwindow *window, double xoffset, double yoffset) {
-	
+	void ProcessInput(GLFWwindow* window,Camera* camera) {
+		if (glfwGetKey(window, GLFW_KEY_W)) {
+			camera->ProcessKeyboard(FORWARD);
+		}
+		if (glfwGetKey(window, GLFW_KEY_A)) {
+			camera->ProcessKeyboard(LEFT);
+		}
+		if (glfwGetKey(window, GLFW_KEY_S)) {
+			camera->ProcessKeyboard(BACKWARD);
+		}
+		if (glfwGetKey(window, GLFW_KEY_D)) {
+			camera->ProcessKeyboard(RIGHT);
+		}
+		CursorInput(window,camera);
 	}
 }

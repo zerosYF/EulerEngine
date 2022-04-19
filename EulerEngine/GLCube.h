@@ -53,10 +53,9 @@ namespace EulerEngine {
 		CubeRender() {
 			this->Bind();
 		}
-		void Render(Shader &shader) {
+		void Render(Shader &shader, glm::mat4 pos) {
 			glBindVertexArray(VAO);
-			glm::mat4 model = glm::mat4(1.0f);
-			shader.setMat4("model", model);
+			shader.setMat4("model", pos);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 		void Bind() {

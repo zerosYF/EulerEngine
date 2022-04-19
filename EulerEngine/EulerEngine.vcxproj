@@ -126,7 +126,6 @@
     <ClCompile Include="..\..\..\glad\src\glad.c" />
     <ClCompile Include="EulerGame.cpp" />
     <ClCompile Include="EulerDebug.cpp" />
-    <ClCompile Include="EulerDelegate.cpp" />
     <ClCompile Include="EulerFile.cpp" />
     <ClCompile Include="EulerImage.cpp" />
     <ClCompile Include="EulerMemManager.cpp" />

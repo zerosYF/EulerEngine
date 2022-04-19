@@ -7,7 +7,7 @@ namespace EulerEngine {
 	class GLRenderManager {
 	private:
 		static GLRenderManager* _instance;
-		const float SCR_WIDTH = 600;
+		const float SCR_WIDTH = 800;
 		const float SCR_HEIGHT = 600;
 		GLRenderManager() {
 			gladInit();

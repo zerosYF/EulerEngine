@@ -65,9 +65,6 @@
     <ClCompile Include="EulerDebug.cpp">
       <Filter>Resources\EulerSystem</Filter>
     </ClCompile>
-    <ClCompile Include="EulerDelegate.cpp">
-      <Filter>Resources\EulerContainer</Filter>
-    </ClCompile>
     <ClCompile Include="EulerThread.cpp">
       <Filter>Resources\EulerThread</Filter>
     </ClCompile>

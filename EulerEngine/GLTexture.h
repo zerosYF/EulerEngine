@@ -26,12 +26,15 @@ public:
 		Image_Format = format;
 		glBindTexture(GL_TEXTURE_2D,ID);
 		glTexImage2D(GL_TEXTURE_2D,0,Interval_Format,Width,Height,0,Image_Format,GL_UNSIGNED_BYTE,data);
+		config();
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,0);
+	}
+	void config() {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->Wrap_S);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->Wrap_T);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->Filter_MIN);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->Filter_MAX);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D,0);
 	}
 	void bind() const {
 		glBindTexture(GL_TEXTURE_2D,ID);
