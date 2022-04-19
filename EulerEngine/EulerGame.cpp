@@ -13,25 +13,16 @@ void EulerGame::Update() {
 	GLFWwindow* window = GLWindowManager::GetInstance()->window;
 	GLRenderManager::GetInstance()->RenderConfig();
 
-	Shader shader = SourceManager::GetInstance()->
-		loadShader("sss","Normal.vertex", "Normal.fragment");
+	SourceManager::GetInstance()->loadShader("sss","Normal.vertex", "Normal.fragment");
 
 	CubeRender cube;
 
-	Texture2D texture2d;
-	int width, height,channel;
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load("mytextures/container2.png",&width,&height,&channel,0);
-	if (data) {
-		texture2d.generate(width, height, channel, data);
-	}
-	else {
-		cout << "Í¼Æ¬¼ÓÔØÊ§°Ü" << endl;
-	}
-	stbi_image_free(data);
+	SourceManager::GetInstance()->loadTexture("mytextures/wood.png","wood");
+	SourceManager::GetInstance()->loadTexture("mytextures/roadtexture.jpg","container");
 
-	shader.use();
-	shader.setInt("texture1",0);
+	SourceManager::GetInstance()->getShader("sss").use();
+	SourceManager::GetInstance()->getShader("sss").setInt("texture1",0);
+	SourceManager::GetInstance()->getShader("sss").setInt("texture2",1);
 
 	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
@@ -44,18 +35,20 @@ void EulerGame::Update() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		glActiveTexture(GL_TEXTURE0);
-		texture2d.bind();
+		SourceManager::GetInstance()->getTexture("wood").bind();
+		glActiveTexture(GL_TEXTURE1);
+		SourceManager::GetInstance()->getTexture("container").bind();
 
-		shader.use(); 
+		SourceManager::GetInstance()->getShader("sss").use();
 		float aspect = GLRenderManager::GetInstance()->GetAspect();
 		glm::mat4 projection = 
 			glm::perspective(glm::radians(camera->Fov_Angle),aspect,0.1f,100.0f);
-		shader.setMat4("projection",projection);
+		SourceManager::GetInstance()->getShader("sss").setMat4("projection",projection);
 		glm::mat4 view = camera->GetViewMatrix();
-		shader.setMat4("view",view);
+		SourceManager::GetInstance()->getShader("sss").setMat4("view",view);
 		
 		glm::mat4 model = glm::mat4(1.0f);
-		cube.Render(shader,model);
+		cube.Render(SourceManager::GetInstance()->getShader("sss"),model);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

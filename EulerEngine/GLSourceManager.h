@@ -7,6 +7,7 @@
 #include"GLShader.h"
 #include"GLTexture.h"
 #include "stb_image.h"
+#include<iostream>
 using namespace std;
 namespace EulerEngine {
 	class SourceManager {
@@ -28,7 +29,7 @@ namespace EulerEngine {
 		Shader getShader(string name) {
 			return shaders[name];
 		}
-		Texture2D loadTexture(const char* file, bool alpha, string name) {
+		Texture2D loadTexture(const char* file, string name) {
 			textures[name] = loadTextureFromFile(file);
 			return textures[name];
 		}
@@ -78,19 +79,20 @@ namespace EulerEngine {
 		Texture2D loadTextureFromFile(const char* file) {
 			Texture2D texture2D;
 			int width, height;
-			int nrChannels;
+			int Channel_cnt;
 			stbi_set_flip_vertically_on_load(true);
 			unsigned char* data = 0;
-			data = stbi_load(file, &width, &height, &nrChannels, 0);
+			data = stbi_load(file, &width, &height, &Channel_cnt, 0);
 			if (data) {
+				cout << "Í¼Æ¬Í¨µÀÊý:" << Channel_cnt << endl;
 				GLenum format = GL_RGB;
-				if (nrChannels == 1) {
+				if (Channel_cnt == 1) {
 					format = GL_RED;
 				}
-				else if (nrChannels == 3) {
+				else if (Channel_cnt == 3) {
 					format = GL_RGB;
 				}
-				else if (nrChannels == 4) {
+				else if (Channel_cnt == 4) {
 					format = GL_RGBA;
 				}
 				texture2D.generate(width, height, format, data);
