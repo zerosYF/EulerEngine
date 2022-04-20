@@ -43,7 +43,7 @@ namespace EulerEngine {
 			glfwMakeContextCurrent(window);
 		}
 		void glfwInputInit() {
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 	};
 	GLWindowManager* GLWindowManager::_instance = NULL;

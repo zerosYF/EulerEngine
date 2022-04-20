@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>G:\glfw-3.3\openglets\include;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\glfw-3.3\openglets\libs;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>External\include;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>External\libs;C:\Program Files %28x86%29\Microsoft SDKs\Windows\v7.1A\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,13 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\glad\src\glad.c" />
-    <ClCompile Include="Editor\GLRender\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Editor\GLRender\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Editor\imgui.cpp" />
-    <ClCompile Include="Editor\imgui_demo.cpp" />
-    <ClCompile Include="Editor\imgui_draw.cpp" />
-    <ClCompile Include="Editor\imgui_tables.cpp" />
-    <ClCompile Include="Editor\imgui_widgets.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Studio\imgui.cpp" />
+    <ClCompile Include="Studio\imgui_demo.cpp" />
+    <ClCompile Include="Studio\imgui_draw.cpp" />
+    <ClCompile Include="Studio\imgui_tables.cpp" />
+    <ClCompile Include="Studio\imgui_widgets.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
     <ClCompile Include="Src\Core\EulerDebug.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />
@@ -145,15 +145,15 @@
     <ClCompile Include="Src\Utils\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Editor\GLRender\imgui_impl_glfw.h" />
-    <ClInclude Include="Editor\GLRender\imgui_impl_opengl3.h" />
-    <ClInclude Include="Editor\GLRender\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Editor\imconfig.h" />
-    <ClInclude Include="Editor\imgui.h" />
-    <ClInclude Include="Editor\imgui_internal.h" />
-    <ClInclude Include="Editor\imstb_rectpack.h" />
-    <ClInclude Include="Editor\imstb_textedit.h" />
-    <ClInclude Include="Editor\imstb_truetype.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_glfw.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Studio\imconfig.h" />
+    <ClInclude Include="Studio\imgui.h" />
+    <ClInclude Include="Studio\imgui_internal.h" />
+    <ClInclude Include="Studio\imstb_rectpack.h" />
+    <ClInclude Include="Studio\imstb_textedit.h" />
+    <ClInclude Include="Studio\imstb_truetype.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCube.h" />
@@ -194,6 +194,9 @@
   <ItemGroup>
     <Text Include="Shaders\Normal.fragment" />
     <Text Include="Shaders\Normal.vertex" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

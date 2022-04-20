@@ -83,14 +83,14 @@
     <ClCompile Include="Src\Core\EulerTimer.cpp">
       <Filter>Resources\EulerSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Editor\GLRender\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Editor\GLRender\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Editor\imgui_demo.cpp" />
-    <ClCompile Include="Editor\imgui.cpp" />
-    <ClCompile Include="Editor\imgui_draw.cpp" />
-    <ClCompile Include="Editor\imgui_tables.cpp" />
-    <ClCompile Include="Editor\imgui_widgets.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Studio\imgui.cpp" />
+    <ClCompile Include="Studio\imgui_demo.cpp" />
+    <ClCompile Include="Studio\imgui_draw.cpp" />
+    <ClCompile Include="Studio\imgui_tables.cpp" />
+    <ClCompile Include="Studio\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\EulerGame.h">
@@ -201,31 +201,31 @@
     <ClInclude Include="Src\Core\EulerDelegate.h">
       <Filter>Resources\EulerContainer</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\GLRender\imgui_impl_glfw.h">
+    <ClInclude Include="Studio\GLRender\imgui_impl_glfw.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\GLRender\imgui_impl_opengl3.h">
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\GLRender\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3_loader.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imgui.h">
+    <ClInclude Include="Studio\imconfig.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imconfig.h">
+    <ClInclude Include="Studio\imgui.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imgui_internal.h">
+    <ClInclude Include="Studio\imgui_internal.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imstb_rectpack.h">
+    <ClInclude Include="Studio\imstb_rectpack.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imstb_textedit.h">
+    <ClInclude Include="Studio\imstb_textedit.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Editor\imstb_truetype.h">
+    <ClInclude Include="Studio\imstb_truetype.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
@@ -236,5 +236,8 @@
     <Text Include="Shaders\Normal.vertex">
       <Filter>Assets\shaders</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui.ini" />
   </ItemGroup>
 </Project>
