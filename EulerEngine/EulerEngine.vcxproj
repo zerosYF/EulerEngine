@@ -192,11 +192,13 @@
     <ClInclude Include="Studio\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\Normal.fragment" />
-    <Text Include="Shaders\Normal.vertex" />
+    <Text Include="Shaders\Light\light.frag" />
+    <Text Include="Shaders\Light\light.vert" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Shaders\Light\common.frag" />
+    <None Include="Shaders\Light\common.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

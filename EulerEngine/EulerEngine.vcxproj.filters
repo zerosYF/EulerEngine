@@ -230,14 +230,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\Normal.fragment">
+    <Text Include="Shaders\Light\light.frag">
       <Filter>Assets\shaders</Filter>
     </Text>
-    <Text Include="Shaders\Normal.vertex">
+    <Text Include="Shaders\Light\light.vert">
       <Filter>Assets\shaders</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Shaders\Light\common.frag" />
+    <None Include="Shaders\Light\common.vert" />
   </ItemGroup>
 </Project>

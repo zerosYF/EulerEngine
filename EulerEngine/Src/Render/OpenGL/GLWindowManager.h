@@ -50,16 +50,10 @@ namespace EulerEngine {
 			glfwSwapInterval(1); // Enable vsync
 
 			//imgui
-			// Setup Dear ImGui context
 			IMGUI_CHECKVERSION();
 			ImGui::CreateContext();
 			ImGuiIO& io = ImGui::GetIO(); (void)io;
-			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-			// Setup Dear ImGui style
 			ImGui::StyleColorsDark();
-			//ImGui::StyleColorsClassic();
 
 			// Setup Platform/Renderer backends
 			ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -67,6 +61,15 @@ namespace EulerEngine {
 		}
 		void glfwInputInit() {
 			//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		void StudioUIRender() {
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+			ImGui::Begin("Hello, world!");
+			ImGui::End();
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
 	};
 	GLWindowManager* GLWindowManager::_instance = NULL;

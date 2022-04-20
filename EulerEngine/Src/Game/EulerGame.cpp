@@ -14,18 +14,24 @@ void EulerGame::Update() {
 	GLFWwindow* window = GLWindowManager::GetInstance()->window;
 	GLRenderManager::GetInstance()->RenderConfig();
 
-	SourceManager::GetInstance()->loadShader("sss","Shaders/Normal.vertex", "Shaders/Normal.fragment");
+	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	CubeRender cube;
-
+	SourceManager::GetInstance()
+		->loadShader("box","Shaders/Light/common.vert", "Shaders/Light/common.frag");
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/wood.png","wood");
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/roadtexture.jpg","container");
+	SourceManager::GetInstance()->getShader("box").use();
+	SourceManager::GetInstance()->getShader("box").setInt("texture1",0);
+	SourceManager::GetInstance()->getShader("box").setInt("texture2",1);
 
-	SourceManager::GetInstance()->getShader("sss").use();
-	SourceManager::GetInstance()->getShader("sss").setInt("texture1",0);
-	SourceManager::GetInstance()->getShader("sss").setInt("texture2",1);
-
-	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+	CubeRender light;
+	SourceManager::GetInstance()
+		->loadShader("light", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
+	SourceManager::GetInstance()->getShader("light").use();
+	SourceManager::GetInstance()->getShader("light").setVec3("lightColor",glm::vec3(1.0f,1.0f,1.0f));
+	glm::vec3 lightPos(1.5f,1.0f,1.0f);
+	glm::vec3 lightColor(1.0f,1.0f,1.0f);
 
 	while (!(glfwWindowShouldClose(window))) {
 		// 定时器更新；
@@ -40,24 +46,24 @@ void EulerGame::Update() {
 		glActiveTexture(GL_TEXTURE1);
 		SourceManager::GetInstance()->getTexture("container").bind();
 
-		SourceManager::GetInstance()->getShader("sss").use();
 		float aspect = GLRenderManager::GetInstance()->GetAspect();
 		glm::mat4 projection = 
 			glm::perspective(glm::radians(camera->Fov_Angle),aspect,0.1f,100.0f);
-		SourceManager::GetInstance()->getShader("sss").setMat4("projection",projection);
 		glm::mat4 view = camera->GetViewMatrix();
-		SourceManager::GetInstance()->getShader("sss").setMat4("view",view);
-		
-		glm::mat4 model = glm::mat4(1.0f);
-		cube.Render(SourceManager::GetInstance()->getShader("sss"),model);
 
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-		ImGui::Begin("Hello, world!");
-		ImGui::End();
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		glm::mat4 model = glm::mat4(1.0f);
+		cube.Render(
+			SourceManager::GetInstance()->getShader("box"),
+			model,view,projection,lightPos,camera->Position,lightColor);
+
+		model = glm::mat4(1.0f);
+		model = glm::translate(model,lightPos);
+		model = glm::scale(model,glm::vec3(0.2f));
+		light.Render(
+			SourceManager::GetInstance()->getShader("light"),
+			model,view,projection);
+
+		GLWindowManager::GetInstance()->StudioUIRender();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
