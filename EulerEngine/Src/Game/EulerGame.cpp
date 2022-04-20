@@ -26,12 +26,12 @@ void EulerGame::Update() {
 	SourceManager::GetInstance()->getShader("box").setInt("texture2",1);
 
 	CubeRender light;
+	glm::vec3 lightPos(1.5f, 1.0f, 1.0f);
+	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 	SourceManager::GetInstance()
 		->loadShader("light", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
 	SourceManager::GetInstance()->getShader("light").use();
-	SourceManager::GetInstance()->getShader("light").setVec3("lightColor",glm::vec3(1.0f,1.0f,1.0f));
-	glm::vec3 lightPos(1.5f,1.0f,1.0f);
-	glm::vec3 lightColor(1.0f,1.0f,1.0f);
+	SourceManager::GetInstance()->getShader("light").setVec3("lightColor",lightColor);
 
 	while (!(glfwWindowShouldClose(window))) {
 		// 定时器更新；

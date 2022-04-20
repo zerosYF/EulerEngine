@@ -66,7 +66,11 @@ namespace EulerEngine {
 			shader.setVec3("lightPos",lightPos);
 			shader.setVec3("viewPos",viewPos);
 			shader.setVec3("lightColor",lightColor);
-			shader.setInt("reflectStrength",32);
+
+			shader.setFloat("material.reflectStrength",32.0f);
+			shader.setVec3("material.ambient", glm::vec3(0.3f,0.3f,0.3f));
+			shader.setVec3("material.diffuse", glm::vec3(0.1f, 0.5f, 0.2f));
+			shader.setVec3("material.specular", glm::vec3(1.0f, 0.5f, 0.2f));
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}

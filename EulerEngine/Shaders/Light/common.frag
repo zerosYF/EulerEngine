@@ -2,7 +2,6 @@
 uniform vec3 lightColor;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
-uniform int reflectStrength;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
 
@@ -12,20 +11,26 @@ in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoord;
 
+struct Material{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float reflectStrength;
+};
+uniform Material material;
+
 vec3 ambientLight(){
-	float ambientStrength = 0.1f;
-	return ambientStrength * lightColor;
+	return material.ambient * lightColor;
 }
 vec3 diffuseLight(vec3 n,vec3 lightDir){
 	float diff = max(dot(n,lightDir),0.0f);
-	return diff * lightColor;
+	return diff * lightColor * material.diffuse;
 }
 vec3 specularLight(vec3 n,vec3 lightDir){
-	float specularStrength = 0.5f;
 	vec3 viewDir = normalize(viewPos - FragPos);
 	vec3 reflectDir = reflect(-lightDir,n);
-	float spec = pow(max(dot(viewDir,reflectDir),0.0f),reflectStrength);
-	return spec * specularStrength * lightColor;
+	float spec = pow(max(dot(viewDir,reflectDir),0.0f),material.reflectStrength);
+	return spec * material.specular * lightColor;
 }
 
 void main(){
