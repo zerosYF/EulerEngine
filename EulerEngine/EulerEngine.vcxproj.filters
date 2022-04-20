@@ -86,11 +86,11 @@
     <ClCompile Include="Src\Game\main.cpp" />
     <ClCompile Include="Studio\GLRender\imgui_impl_glfw.cpp" />
     <ClCompile Include="Studio\GLRender\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Studio\imgui.cpp" />
-    <ClCompile Include="Studio\imgui_demo.cpp" />
-    <ClCompile Include="Studio\imgui_draw.cpp" />
-    <ClCompile Include="Studio\imgui_tables.cpp" />
     <ClCompile Include="Studio\imgui_widgets.cpp" />
+    <ClCompile Include="Studio\imgui_tables.cpp" />
+    <ClCompile Include="Studio\imgui_draw.cpp" />
+    <ClCompile Include="Studio\imgui_demo.cpp" />
+    <ClCompile Include="Studio\imgui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\EulerGame.h">
@@ -201,6 +201,9 @@
     <ClInclude Include="Src\Core\EulerDelegate.h">
       <Filter>Resources\EulerContainer</Filter>
     </ClInclude>
+    <ClInclude Include="Studio\imstb_textedit.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
     <ClInclude Include="Studio\GLRender\imgui_impl_glfw.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -210,22 +213,19 @@
     <ClInclude Include="Studio\GLRender\imgui_impl_opengl3_loader.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Studio\imconfig.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Studio\imgui.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Studio\imgui_internal.h">
+    <ClInclude Include="Studio\imstb_truetype.h">
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="Studio\imstb_rectpack.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Studio\imstb_textedit.h">
+    <ClInclude Include="Studio\imgui_internal.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Studio\imstb_truetype.h">
+    <ClInclude Include="Studio\imgui.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Studio\imconfig.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>

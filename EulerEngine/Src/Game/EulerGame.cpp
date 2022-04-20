@@ -51,6 +51,14 @@ void EulerGame::Update() {
 		glm::mat4 model = glm::mat4(1.0f);
 		cube.Render(SourceManager::GetInstance()->getShader("sss"),model);
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		ImGui::Begin("Hello, world!");
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

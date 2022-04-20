@@ -2,6 +2,11 @@
 #include"GLControl.h"
 #include<GLFW/glfw3.h>
 #include<iostream>
+
+#include"../../Studio/imgui.h"
+#include"../../Studio/GLRender/imgui_impl_glfw.h"
+#include"../../Studio/GLRender/imgui_impl_opengl3.h"
+
 using namespace std;
 namespace EulerEngine {
 	class GLWindowManager {
@@ -41,6 +46,24 @@ namespace EulerEngine {
 				glfwTerminate();
 			}
 			glfwMakeContextCurrent(window);
+
+			glfwSwapInterval(1); // Enable vsync
+
+			//imgui
+			// Setup Dear ImGui context
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+			// Setup Dear ImGui style
+			ImGui::StyleColorsDark();
+			//ImGui::StyleColorsClassic();
+
+			// Setup Platform/Renderer backends
+			ImGui_ImplGlfw_InitForOpenGL(window, true);
+			ImGui_ImplOpenGL3_Init("#version 330");
 		}
 		void glfwInputInit() {
 			//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

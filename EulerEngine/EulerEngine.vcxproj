@@ -124,13 +124,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\glad\src\glad.c" />
-    <ClCompile Include="Studio\GLRender\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Studio\GLRender\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Studio\imgui.cpp" />
-    <ClCompile Include="Studio\imgui_demo.cpp" />
-    <ClCompile Include="Studio\imgui_draw.cpp" />
-    <ClCompile Include="Studio\imgui_tables.cpp" />
-    <ClCompile Include="Studio\imgui_widgets.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
     <ClCompile Include="Src\Core\EulerDebug.cpp" />
     <ClCompile Include="Src\Game\main.cpp" />
@@ -143,17 +136,15 @@
     <ClCompile Include="Src\Thread\EulerThread.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
     <ClCompile Include="Src\Utils\stb_image.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Studio\GLRender\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Studio\imgui.cpp" />
+    <ClCompile Include="Studio\imgui_demo.cpp" />
+    <ClCompile Include="Studio\imgui_draw.cpp" />
+    <ClCompile Include="Studio\imgui_tables.cpp" />
+    <ClCompile Include="Studio\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Studio\GLRender\imgui_impl_glfw.h" />
-    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3.h" />
-    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Studio\imconfig.h" />
-    <ClInclude Include="Studio\imgui.h" />
-    <ClInclude Include="Studio\imgui_internal.h" />
-    <ClInclude Include="Studio\imstb_rectpack.h" />
-    <ClInclude Include="Studio\imstb_textedit.h" />
-    <ClInclude Include="Studio\imstb_truetype.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCube.h" />
@@ -190,6 +181,15 @@
     <ClInclude Include="Src\Test\Test_SmartPointer.h" />
     <ClInclude Include="Src\triangle.h" />
     <ClInclude Include="Src\Render\OpenGL\GLWindowManager.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_glfw.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3.h" />
+    <ClInclude Include="Studio\GLRender\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Studio\imconfig.h" />
+    <ClInclude Include="Studio\imgui.h" />
+    <ClInclude Include="Studio\imgui_internal.h" />
+    <ClInclude Include="Studio\imstb_rectpack.h" />
+    <ClInclude Include="Studio\imstb_textedit.h" />
+    <ClInclude Include="Studio\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\Normal.fragment" />
