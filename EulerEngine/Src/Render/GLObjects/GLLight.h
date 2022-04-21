@@ -59,16 +59,40 @@ namespace EulerEngine {
 		//Ë¥¼õÏµÊý
 		float constant;
 		float linear;
-		float quartric;
+		float quatratic;
 	public:
 		EulerPointLight() {
-
+			constant = 1.0f;
+			linear = 0.09f;
+			quatratic = 0.032f;
 		}
 	};
-	class EulerParallelLight:public EulerLight {
+	class EulerDirLight:public EulerLight {
 	public:
 		glm::vec3 direction;
-		EulerParallelLight() {
+		EulerDirLight() {
+			direction = glm::vec3(1.0f,0.0f,0.0f);
+		}
+		void setDirection(glm::vec3 dir) {
+			direction = dir;
+		}
+	};
+	class EulerSpotLight:public EulerPointLight {
+	public:
+		glm::vec3 direction;
+		float cutOff;
+		float outerCutOff;
+		EulerSpotLight() {
+			direction = glm::vec3(0.0f, 0.0f, -1.0f);
+			cutOff = 12.5f;
+			outerCutOff = 15.0f;
+		}
+		void setDirection(glm::vec3 dir) {
+			direction = dir;
+		}
+		void setCutOff(float innerCf,float outerCf) {
+			cutOff = innerCf;
+			outerCutOff = outerCf;
 		}
 	};
 }

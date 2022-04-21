@@ -80,8 +80,8 @@ namespace EulerEngine {
 			light_material.specular = 1.0f;
 			bindMesh();
 		}
-		void Render(glm::mat4 model,glm::mat4 view,glm::mat4 projection,
-			glm::vec3 viewPos,EulerPointLight light) {
+		void Render(glm::mat4 model,glm::mat4 view,glm::mat4 projection,glm::vec3 viewPos,
+			EulerPointLight pLight,EulerDirLight dLight,EulerSpotLight sLight) {
 			shader.use();
 			bindTexture(shader);
 
@@ -96,12 +96,9 @@ namespace EulerEngine {
 			shader.setMat3("normalMatrix",glm::transpose(glm::inverse(model)));
 
 			shader.setVec3("viewPos",viewPos);
-			shader.setVec3("light.position",light.transform.position);
-
-			shader.setVec3("light.ambient", light_material.ambient*light.color);
-			shader.setVec3("light.diffuse", light_material.diffuse*light.color);
-			shader.setVec3("light.specular", light_material.specular*light.color);
-			shader.setFloat("light.reflectStrength", light_material.reflectStrength);
+			setSpotLightRender(shader,sLight);
+			setPointLightRender(shader,pLight);
+			setDirLightRender(shader,dLight);
 
 			mesh.Draw(shader);
 		}
@@ -147,7 +144,38 @@ namespace EulerEngine {
 				}
 				glBindTexture(GL_TEXTURE_2D, textures[i].ID);
 			}
+			shader.setFloat("material.reflectStrength", light_material.reflectStrength);
 			glActiveTexture(GL_TEXTURE0);
+		}
+		void setSpotLightRender(Shader shader,EulerSpotLight light) {
+			shader.setVec3("spotLight.ambient", light_material.ambient*light.color);
+			shader.setVec3("spotLight.diffuse", light_material.diffuse*light.color);
+			shader.setVec3("spotLight.specular", light_material.specular*light.color);
+
+			shader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(light.outerCutOff)));
+			shader.setFloat("spotLight.cutOff", glm::cos(glm::radians(light.cutOff)));
+			shader.setVec3("spotLight.direction",light.direction);
+			shader.setVec3("spotLight.position",light.transform.position);
+
+			shader.setFloat("spotLight.constant", light.constant);
+			shader.setFloat("spotLight.linear", light.linear);
+			shader.setFloat("spotLight.quatratic", light.quatratic);
+		}
+		void setPointLightRender(Shader shader,EulerPointLight light) {
+			shader.setVec3("pointLight.position", light.transform.position);
+			shader.setVec3("pointLight.ambient", light_material.ambient*light.color);
+			shader.setVec3("pointLight.diffuse", light_material.diffuse*light.color);
+			shader.setVec3("pointLight.specular", light_material.specular*light.color);
+
+			shader.setFloat("pointLight.constant", light.constant);
+			shader.setFloat("pointLight.linear", light.linear);
+			shader.setFloat("pointLight.quatratic", light.quatratic);
+		}
+		void setDirLightRender(Shader shader,EulerDirLight light) {
+			shader.setVec3("dirLight.ambient", light_material.ambient*light.color);
+			shader.setVec3("dirLight.diffuse", light_material.diffuse*light.color);
+			shader.setVec3("dirLight.specular", light_material.specular*light.color);
+			shader.setVec3("dirLight.direction",light.direction);
 		}
 	};
 }

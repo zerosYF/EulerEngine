@@ -9,6 +9,18 @@
 
 using namespace std;
 using namespace EulerEngine;
+glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+};
 void EulerGame::Update() {
 	TimerManager::GetInstance()->InitGameTime();
 	GLFWwindow* window = GLWindowManager::GetInstance()->window;
@@ -17,7 +29,6 @@ void EulerGame::Update() {
 	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	Cube cube;
-	glm::vec3 cubePos(0.0f, 0.0f, 0.0f);
 	SourceManager::GetInstance()->loadShader("box","Shaders/Light/common.vert", "Shaders/Light/common.frag");
 	cube.setShader(SourceManager::GetInstance()->getShader("box"));
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png","wood");
@@ -25,11 +36,20 @@ void EulerGame::Update() {
 	cube.addTexture(SourceManager::GetInstance()->getTexture("wood"),DIFFUSE);
 	cube.addTexture(SourceManager::GetInstance()->getTexture("container"),SPECULAR);
 
-	EulerPointLight light;
-	glm::vec3 lightPos(1.5f, 1.0f, 1.0f);
-	Shader lightShader = SourceManager::GetInstance()
-		->loadShader("light", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
-	light.setShader(lightShader);
+	EulerPointLight light1;
+	Shader lightShader1 = SourceManager::GetInstance()
+		->loadShader("light1", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
+	light1.setShader(lightShader1);
+
+	EulerDirLight light2;
+	Shader lightShader2 = SourceManager::GetInstance()
+		->loadShader("light2", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
+	light2.setShader(lightShader2);
+
+	EulerSpotLight light3;
+	Shader lightShader3 = SourceManager::GetInstance()
+		->loadShader("light3", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
+	light3.setShader(lightShader3);
 
 	while (!(glfwWindowShouldClose(window))) {
 		// 定时器更新；
@@ -49,13 +69,22 @@ void EulerGame::Update() {
 		color.x = sin(glfwGetTime() * 2.0f);
 		color.y = sin(glfwGetTime() * 0.7f);
 		color.z = sin(glfwGetTime() * 1.3f);
-		light.setColor(color);
+		light1.setColor(color);
 
-		cube.setTransform(cubePos,glm::vec3(1.0f),glm::vec3(0.0f));
-		cube.Render(model,view,projection,camera->Position,light);
+		light1.setTransform(glm::vec3(1.5f, 1.0f, 1.0f), glm::vec3(0.1f), glm::vec3(0.0f));
+		light1.Render(model, view, projection);
 
-		light.setTransform(lightPos, glm::vec3(0.1f),glm::vec3(0.0f));
-		light.Render(model,view,projection);
+		light2.setTransform(glm::vec3(-1.5f, 1.0f, 1.0f), glm::vec3(0.1f), glm::vec3(0.0f));
+		light2.Render(model, view, projection);
+
+		light3.setTransform(camera->Position, glm::vec3(0.1f), glm::vec3(0.0f));
+		light3.setDirection(camera->Front);
+		light3.Render(model, view, projection);
+		
+		for (unsigned int i = 0; i < 10;i++) {
+			cube.setTransform(cubePositions[i], glm::vec3(1.0f), glm::vec3(0.0f));
+			cube.Render(model, view, projection, camera->Position, light1,light2,light3);
+		}
 
 		GLWindowManager::GetInstance()->StudioUIRender();
 
@@ -63,7 +92,7 @@ void EulerGame::Update() {
 		glfwPollEvents();
 	}
 	cube.Release();
-	light.Release();
+	light1.Release();
 	glfwTerminate();
 }
 
