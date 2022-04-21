@@ -156,9 +156,6 @@
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h">
       <Filter>Resources\EulerRender</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLCube.h">
-      <Filter>Resources\EulerRender\EulerGeo</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLMesh.h">
       <Filter>Resources\EulerRender</Filter>
     </ClInclude>
@@ -226,6 +223,15 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="Studio\imconfig.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLCube.h">
+      <Filter>Resources\EulerRender\EulerGeo</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLLight.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLTransform.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>

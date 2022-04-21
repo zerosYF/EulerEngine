@@ -145,9 +145,10 @@
     <ClCompile Include="Studio\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLCube.h" />
+    <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Render\OpenGL\GLModel.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Src\Core\EulerReflection.h" />
     <ClInclude Include="Src\Core\EulerSerialize.h" />
     <ClInclude Include="Src\Core\EulerSmartPointer.h" />
+    <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />

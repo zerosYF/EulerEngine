@@ -16,6 +16,7 @@ namespace EulerEngine {
 		//环绕方式；
 		unsigned int Filter_MIN; //缩小过滤方式；
 		unsigned int Filter_MAX;//放大过滤方式；
+
 		Texture2D() :ID(0),Width(0), Height(0),
 			Save_Format(GL_RGB), Image_Format(GL_RGB), Wrap_S(GL_REPEAT), Wrap_T(GL_REPEAT),
 			Filter_MIN(GL_LINEAR), Filter_MAX(GL_LINEAR) {
@@ -37,9 +38,6 @@ namespace EulerEngine {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->Wrap_T);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->Filter_MIN);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->Filter_MAX);
-		}
-		void bind() const {
-			glBindTexture(GL_TEXTURE_2D, ID);
 		}
 	};
 }
