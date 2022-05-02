@@ -2,44 +2,9 @@
 #include<glad/glad.h>
 #include <GLFW/glfw3.h>
 #include<vector>
-#include "stb_image.h"
 #include "GLShader.h"
 #include <vector>
 using namespace std;
-unsigned int addTexture(const char* path) {
-	cout << path << endl;
-	int width, height;
-	int nrChannels;
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = 0;
-	data = stbi_load(path, &width, &height, &nrChannels, 0);
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	// 设置环绕，过滤方式;
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		GLenum format;
-		if (nrChannels == 1)
-			format = GL_RED;
-		else if (nrChannels == 3)
-			format = GL_RGB;
-		else if (nrChannels == 4)
-			format = GL_RGBA;
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		stbi_image_free(data);
-		return texture;
-	}
-	else {
-		std::cout << "create texture failed" << std::endl;
-		stbi_image_free(data);
-		return -1;
-	}
-}
 
 unsigned int loadCubemap(vector<std::string> faces) {
 	unsigned int textureID;

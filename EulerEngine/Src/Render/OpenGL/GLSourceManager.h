@@ -30,11 +30,14 @@ namespace EulerEngine {
 			return shaders[name];
 		}
 		Texture2D loadTexture(const char* file, string name) {
-			textures[name] = loadTextureFromFile(file);
+			textures[name] = loadTextureFromFile(file,name);
 			return textures[name];
 		}
 		Texture2D getTexture(string name) {
 			return textures[name];
+		}
+		bool hasTexture(string name) {
+			return textures.find(name) != textures.end();
 		}
 		void Clear() {
 			for (auto &it : shaders) {
@@ -76,15 +79,14 @@ namespace EulerEngine {
 			shader.compile(vCode, fCode);
 			return shader;
 		}
-		Texture2D loadTextureFromFile(const char* file) {
-			Texture2D texture2D;
+		Texture2D loadTextureFromFile(const char* file,string name) {
+			Texture2D texture2D(name);
 			int width, height;
 			int Channel_cnt;
 			stbi_set_flip_vertically_on_load(true);
 			unsigned char* data = 0;
 			data = stbi_load(file, &width, &height, &Channel_cnt, 0);
 			if (data) {
-				cout << "Í¼Æ¬Í¨µÀÊý:" << Channel_cnt << endl;
 				GLenum format = GL_RGB;
 				if (Channel_cnt == 1) {
 					format = GL_RED;

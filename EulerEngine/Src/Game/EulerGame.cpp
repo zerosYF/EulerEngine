@@ -6,6 +6,7 @@
 #include"../Render/GLObjects/GLCube.h"
 #include"../Render/OpenGL/GLSourceManager.h"
 #include"../Render/OpenGL/GLCamera.h"
+#include"../Render/OpenGL/GLModel.h"
 
 using namespace std;
 using namespace EulerEngine;
@@ -28,13 +29,17 @@ void EulerGame::Update() {
 
 	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
+	SourceManager::GetInstance()->loadShader("universal", "Shaders/Light/common.vert", "Shaders/Light/common.frag");
+
 	Cube cube;
-	SourceManager::GetInstance()->loadShader("box","Shaders/Light/common.vert", "Shaders/Light/common.frag");
-	cube.setShader(SourceManager::GetInstance()->getShader("box"));
+	cube.setShader(SourceManager::GetInstance()->getShader("universal"));
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png","wood");
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2_specular.png","container");
 	cube.addTexture(SourceManager::GetInstance()->getTexture("wood"),DIFFUSE);
 	cube.addTexture(SourceManager::GetInstance()->getTexture("container"),SPECULAR);
+
+	Model nano("Assets/nanosuit/nanosuit.obj","myModel");
+	nano.setShader(SourceManager::GetInstance()->getShader("universal"));
 
 	EulerPointLight light1;
 	Shader lightShader1 = SourceManager::GetInstance()
@@ -85,14 +90,14 @@ void EulerGame::Update() {
 			cube.setTransform(cubePositions[i], glm::vec3(1.0f), glm::vec3(0.0f));
 			cube.Render(model, view, projection, camera->Position, light1,light2,light3);
 		}
+		nano.setTransform(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.1f), glm::vec3(0.0f));
+		nano.Draw(model, view, projection, camera->Position, light1, light2, light3);
 
 		GLWindowManager::GetInstance()->StudioUIRender();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	cube.Release();
-	light1.Release();
 	glfwTerminate();
 }
 

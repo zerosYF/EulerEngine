@@ -5,9 +5,14 @@ using namespace std;
 #define TEXTURE_H
 #include<glfw/glfw3.h>
 namespace EulerEngine {
+	enum TextureType {
+		DIFFUSE,
+		SPECULAR,
+	};
 	class Texture2D {
 	public:
 		unsigned int ID;
+		string name;
 		unsigned int Width, Height;
 		unsigned int Save_Format;
 		unsigned int Image_Format;
@@ -16,10 +21,14 @@ namespace EulerEngine {
 		//环绕方式；
 		unsigned int Filter_MIN; //缩小过滤方式；
 		unsigned int Filter_MAX;//放大过滤方式；
-
-		Texture2D() :ID(0),Width(0), Height(0),
+		Texture2D() :ID(0), Width(0), Height(0),
 			Save_Format(GL_RGB), Image_Format(GL_RGB), Wrap_S(GL_REPEAT), Wrap_T(GL_REPEAT),
 			Filter_MIN(GL_LINEAR), Filter_MAX(GL_LINEAR) {
+		}
+		Texture2D(string name) :ID(0),Width(0), Height(0),
+			Save_Format(GL_RGB), Image_Format(GL_RGB), Wrap_S(GL_REPEAT), Wrap_T(GL_REPEAT),
+			Filter_MIN(GL_LINEAR), Filter_MAX(GL_LINEAR) {
+			this->name = name;
 		}
 		void generate(unsigned int width, unsigned int height, GLenum format, const unsigned char* data) {
 			Width = width;
@@ -27,7 +36,7 @@ namespace EulerEngine {
 			Save_Format = format;
 			Image_Format = format;
 			glGenTextures(1, &ID);
-			cout << "纹理ID：" << ID << endl;
+			cout << "纹理ID：" << ID <<"  纹理名称: "<<name<< endl;
 			glBindTexture(GL_TEXTURE_2D, ID);
 			config();
 			glTexImage2D(GL_TEXTURE_2D, 0, Save_Format, Width, Height, 0, Image_Format, GL_UNSIGNED_BYTE, data);
