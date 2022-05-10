@@ -237,6 +237,12 @@
     <ClInclude Include="Src\Render\OpenGL\GLMaterial.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Test\Test_Stencil.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Test\Test_Cube.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\Light\light.frag">
@@ -250,5 +256,7 @@
     <None Include="imgui.ini" />
     <None Include="Shaders\Light\common.frag" />
     <None Include="Shaders\Light\common.vert" />
+    <None Include="Shaders\Stencil\Stencil.vert" />
+    <None Include="Shaders\Stencil\Stencil.frag" />
   </ItemGroup>
 </Project>

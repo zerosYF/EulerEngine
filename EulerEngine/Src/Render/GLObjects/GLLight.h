@@ -7,6 +7,11 @@
 #define CUBE_VERTEX_CNT 36
 #define CUBE_DATA_SIZE 8
 namespace EulerEngine {
+	enum Light_Type {
+		POINT_LIGHT,
+		DIR_LIGHT,
+		SPOT_LIGHT,
+	};
 	extern float vertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE];
 	class EulerLight {
 	public:
@@ -18,7 +23,7 @@ namespace EulerEngine {
 			color = glm::vec3(1.0f);
 			bindMesh();
 		}
-		void setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {
+		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {
 			transform.update(pos, scl, rot);
 		}
 		void setShader(Shader shader) {

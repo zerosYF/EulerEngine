@@ -66,10 +66,8 @@ namespace EulerEngine {
 		Cube() {
 			bindMesh();
 		}
-		void Render(glm::mat4 model,glm::mat4 view,glm::mat4 projection,glm::vec3 viewPos,
-			EulerPointLight pLight,EulerDirLight dLight,EulerSpotLight sLight) {
+		void Render(glm::mat4 model,glm::mat4 view,glm::mat4 projection,glm::vec3 viewPos) {
 			shader.use();
-			material.Draw(shader,pLight,dLight,sLight);
 
 			shader.setMat4("projection",projection);
 			shader.setMat4("view",view);
@@ -90,6 +88,13 @@ namespace EulerEngine {
 		}
 		void setShader(Shader shader) {
 			this->shader = shader;
+		}
+		void setMaterial(
+			int dCnt,EulerDirLight* dLight,
+			int sCnt,EulerSpotLight* sLight,
+			int pCnt,EulerPointLight* pLight) {
+			shader.use();
+			material.Draw(shader, dCnt,dLight, pCnt,pLight, sCnt,sLight);
 		}
 		void addTexture(Texture2D texture,TextureType type) {
 			material.addTexture(texture,type);

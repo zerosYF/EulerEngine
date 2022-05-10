@@ -25,8 +25,12 @@ namespace EulerEngine {
 			}
 		}
 		void RenderConfig() {
-			glEnable(GL_DEPTH_TEST);
 			glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+			glEnable(GL_STENCIL_TEST);
+			glStencilFunc(GL_NOTEQUAL,1,0xff);
+			glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);
 		}
 		float GetAspect() {
 			return SCR_WIDTH / SCR_HEIGHT;

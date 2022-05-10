@@ -170,6 +170,8 @@
     <ClInclude Include="Src\Core\EulerSerialize.h" />
     <ClInclude Include="Src\Core\EulerSmartPointer.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />
+    <ClInclude Include="Src\Test\Test_Cube.h" />
+    <ClInclude Include="Src\Test\Test_Stencil.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />
@@ -202,6 +204,8 @@
     <None Include="imgui.ini" />
     <None Include="Shaders\Light\common.frag" />
     <None Include="Shaders\Light\common.vert" />
+    <None Include="Shaders\Stencil\Stencil.frag" />
+    <None Include="Shaders\Stencil\Stencil.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

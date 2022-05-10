@@ -7,6 +7,8 @@
 #include"../Render/OpenGL/GLSourceManager.h"
 #include"../Render/OpenGL/GLCamera.h"
 #include"../Render/OpenGL/GLModel.h"
+#include"../Test/Test_Cube.h"
+#include"../Test/Test_Stencil.h"
 
 using namespace std;
 using namespace EulerEngine;
@@ -22,6 +24,7 @@ glm::vec3 cubePositions[] = {
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 };
+glm::vec3 plantPosition(0.0f, 0.0f, 0.0f);
 void EulerGame::Update() {
 	TimerManager::GetInstance()->InitGameTime();
 	GLFWwindow* window = GLWindowManager::GetInstance()->window;
@@ -32,29 +35,16 @@ void EulerGame::Update() {
 	SourceManager::GetInstance()->loadShader("universal", "Shaders/Light/common.vert", "Shaders/Light/common.frag");
 
 	Cube cube;
-	cube.setShader(SourceManager::GetInstance()->getShader("universal"));
-	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png","wood");
-	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2_specular.png","container");
-	cube.addTexture(SourceManager::GetInstance()->getTexture("wood"),DIFFUSE);
-	cube.addTexture(SourceManager::GetInstance()->getTexture("container"),SPECULAR);
+	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png", "wood");
+	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2_specular.png", "container");
+	cube.addTexture(SourceManager::GetInstance()->getTexture("wood"), DIFFUSE);
+	cube.addTexture(SourceManager::GetInstance()->getTexture("container"), SPECULAR);
+	TestStencilInit();
 
-	Model nano("Assets/nanosuit/nanosuit.obj","myModel");
-	nano.setShader(SourceManager::GetInstance()->getShader("universal"));
-
-	EulerPointLight light1;
-	Shader lightShader1 = SourceManager::GetInstance()
-		->loadShader("light1", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
-	light1.setShader(lightShader1);
-
-	EulerDirLight light2;
-	Shader lightShader2 = SourceManager::GetInstance()
-		->loadShader("light2", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
-	light2.setShader(lightShader2);
-
-	EulerSpotLight light3;
+	EulerSpotLight* light3 = new EulerSpotLight();
 	Shader lightShader3 = SourceManager::GetInstance()
 		->loadShader("light3", "Shaders/Light/light.vert", "Shaders/Light/light.frag");
-	light3.setShader(lightShader3);
+	light3->setShader(lightShader3);
 
 	while (!(glfwWindowShouldClose(window))) {
 		// 定时器更新；
@@ -62,36 +52,20 @@ void EulerGame::Update() {
 		// INPUT
 		ProcessInput(window,camera);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 
 		float aspect = GLRenderManager::GetInstance()->GetAspect();
 		glm::mat4 projection = 
 			glm::perspective(glm::radians(camera->Fov_Angle),aspect,0.1f,100.0f);
 		glm::mat4 view = camera->GetViewMatrix();
 		glm::mat4 model = glm::mat4(1.0f);
+
+		light3->setTransform(camera->Position, glm::vec3(0.1f), glm::vec3(0.0f));
+		light3->setDirection(camera->Front);
+		light3->Render(model, view, projection);
 		
-		glm::vec3 color;
-		color.x = sin(glfwGetTime() * 2.0f);
-		color.y = sin(glfwGetTime() * 0.7f);
-		color.z = sin(glfwGetTime() * 1.3f);
-		light1.setColor(color);
-
-		light1.setTransform(glm::vec3(1.5f, 1.0f, 1.0f), glm::vec3(0.1f), glm::vec3(0.0f));
-		light1.Render(model, view, projection);
-
-		light2.setTransform(glm::vec3(-1.5f, 1.0f, 1.0f), glm::vec3(0.1f), glm::vec3(0.0f));
-		light2.Render(model, view, projection);
-
-		light3.setTransform(camera->Position, glm::vec3(0.1f), glm::vec3(0.0f));
-		light3.setDirection(camera->Front);
-		light3.Render(model, view, projection);
-		
-		for (unsigned int i = 0; i < 10;i++) {
-			cube.setTransform(cubePositions[i], glm::vec3(1.0f), glm::vec3(0.0f));
-			cube.Render(model, view, projection, camera->Position, light1,light2,light3);
-		}
-		nano.setTransform(glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.1f), glm::vec3(0.0f));
-		nano.Draw(model, view, projection, camera->Position, light1, light2, light3);
+		TestPlantRender(cube, model, view, projection, camera->Position, 0, NULL, 1, light3, 0, NULL);
+		TestStencilRender(cube, model, view, projection, camera->Position,0, NULL, 1, light3, 0, NULL);
 
 		GLWindowManager::GetInstance()->StudioUIRender();
 

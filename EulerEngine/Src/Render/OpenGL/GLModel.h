@@ -29,7 +29,7 @@ namespace EulerEngine {
 			loadModel(path);
 		}
 		void Draw(glm::mat4 model, glm::mat4 view, glm::mat4 projection, glm::vec3 viewPos,
-			EulerPointLight pLight, EulerDirLight dLight, EulerSpotLight sLight) {
+			EulerDirLight* dLight,EulerPointLight* pLight,EulerSpotLight* sLight) {
 			shader.use();
 			shader.setMat4("projection", projection);
 			shader.setMat4("view", view);
@@ -42,7 +42,6 @@ namespace EulerEngine {
 			shader.setMat3("normalMatrix", glm::transpose(glm::inverse(model)));
 			shader.setVec3("viewPos", viewPos);
 			for (int i = 0; i < meshes.size(); i++) {
-				materials[i].Draw(shader, pLight, dLight, sLight);
 				meshes[i].Draw(shader);
 			}
 		}
@@ -51,6 +50,15 @@ namespace EulerEngine {
 		}
 		void setShader(Shader shader) {
 			this->shader = shader;
+		}
+		void setMaterial(
+			int dCnt, EulerDirLight* dLight,
+			int sCnt, EulerSpotLight* sLight,
+			int pCnt, EulerPointLight* pLight) {
+			shader.use();
+			for (int i = 0; i < meshes.size(); i++) {
+				materials[i].Draw(shader, dCnt, dLight, pCnt, pLight, sCnt, sLight);
+			}
 		}
 	private:
 		void loadModel(string const &path) {

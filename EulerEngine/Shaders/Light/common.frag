@@ -44,6 +44,11 @@ uniform Material material;
 uniform DirLight dirLight;
 uniform PointLight pointLight;
 uniform SpotLight spotLight;
+
+uniform int dirLightCnt = 0;
+uniform int pointLightCnt = 0;
+uniform int spotLightCnt = 0;
+
 uniform vec3 viewPos;
 //--------------------------------------------------------------------------
 vec3 ambientCal(vec3 ambient){
@@ -98,9 +103,18 @@ vec3 CalDirLight(DirLight dirLight){
 }
 
 void main(){
-	vec3 dirlight_res = CalDirLight(dirLight);
-	vec3 spotlight_res = CalSpotLight(spotLight);
-	vec3 pointlight_res = CalPointLight(pointLight);
+	vec3 dirlight_res = vec3(0.0);
+	vec3 spotlight_res = vec3(0.0);
+	vec3 pointlight_res = vec3(0.0);
+	for(int i=0;i<dirLightCnt;i++){
+		dirlight_res += CalDirLight(dirLight);
+	}
+	for(int i=0;i<spotLightCnt;i++){
+		spotlight_res += CalSpotLight(spotLight);
+	}
+	for(int i=0;i<pointLightCnt;i++){
+		pointlight_res += CalPointLight(pointLight);
+	}
 	vec3 result = dirlight_res + spotlight_res + pointlight_res;
 	FragColor = vec4(result,1.0f);
 }
