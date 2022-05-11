@@ -146,9 +146,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
+    <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
+    <ClInclude Include="Src\Render\GLObjects\GLSquare.h" />
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
-    <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
+    <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMaterial.h" />
     <ClInclude Include="Src\Render\OpenGL\GLModel.h" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Src\Core\EulerSmartPointer.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />
     <ClInclude Include="Src\Test\Test_Cube.h" />
+    <ClInclude Include="Src\Test\Test_Mix.h" />
     <ClInclude Include="Src\Test\Test_Stencil.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />

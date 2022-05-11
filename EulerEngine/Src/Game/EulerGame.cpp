@@ -4,6 +4,7 @@
 #include"../Render/OpenGL/GLWindowManager.h"
 #include"../Render/OpenGL/GLShader.h"
 #include"../Render/GLObjects/GLCube.h"
+#include"../Render/GLObjects/GLSquare.h"
 #include"../Render/OpenGL/GLSourceManager.h"
 #include"../Render/OpenGL/GLCamera.h"
 #include"../Render/OpenGL/GLModel.h"
@@ -34,12 +35,14 @@ void EulerGame::Update() {
 
 	SourceManager::GetInstance()->loadShader("universal", "Shaders/Light/common.vert", "Shaders/Light/common.frag");
 
-	Cube cube;
+	Cube* cube = InitCube();
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png", "wood");
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2_specular.png", "container");
-	cube.addTexture(SourceManager::GetInstance()->getTexture("wood"), DIFFUSE);
-	cube.addTexture(SourceManager::GetInstance()->getTexture("container"), SPECULAR);
+	cube->addTexture(SourceManager::GetInstance()->getTexture("wood"), DIFFUSE);
+	cube->addTexture(SourceManager::GetInstance()->getTexture("container"), SPECULAR);
 	TestStencilInit();
+
+	Square* square = InitSquare();
 
 	EulerSpotLight* light3 = new EulerSpotLight();
 	Shader lightShader3 = SourceManager::GetInstance()
