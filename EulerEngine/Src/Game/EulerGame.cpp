@@ -10,6 +10,7 @@
 #include"../Render/OpenGL/GLModel.h"
 #include"../Test/Test_Cube.h"
 #include"../Test/Test_Stencil.h"
+#include"../Test/Test_Blend.h"
 
 using namespace std;
 using namespace EulerEngine;
@@ -34,6 +35,8 @@ void EulerGame::Update() {
 	Camera *camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 	SourceManager::GetInstance()->loadShader("universal", "Shaders/Light/common.vert", "Shaders/Light/common.frag");
+	SourceManager::GetInstance()->loadShader("grass", "Shaders/Blend/Blend.vert", "Shaders/Blend/Blend.frag");
+	SourceManager::GetInstance()->loadShader("window", "Shaders/Blend/Blend.vert", "Shaders/Blend/Window.frag");
 
 	Cube* cube = InitCube();
 	SourceManager::GetInstance()->loadTexture("Assets/mytextures/container2.png", "wood");
@@ -43,6 +46,9 @@ void EulerGame::Update() {
 	TestStencilInit();
 
 	Square* square = InitSquare();
+	SourceManager::GetInstance()->loadTexture("Assets/mytextures/window.png", "window");
+	square->addTexture(SourceManager::GetInstance()->getTexture("window"), DIFFUSE);
+	vegetationInit();
 
 	EulerSpotLight* light3 = new EulerSpotLight();
 	Shader lightShader3 = SourceManager::GetInstance()
@@ -68,7 +74,8 @@ void EulerGame::Update() {
 		light3->Render(model, view, projection);
 		
 		TestPlantRender(cube, model, view, projection, camera->Position, 0, NULL, 1, light3, 0, NULL);
-		TestStencilRender(cube, model, view, projection, camera->Position,0, NULL, 1, light3, 0, NULL);
+		//TestWindowRender(square, model, view, projection, camera->Position,0, NULL, 1, light3, 0, NULL);
+		TestCubeRender(cube, model, view, projection, camera->Position, 0, NULL, 1, light3, 0, NULL);
 
 		GLWindowManager::GetInstance()->StudioUIRender();
 

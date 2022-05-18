@@ -173,7 +173,7 @@
     <ClInclude Include="Src\Core\EulerSmartPointer.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />
     <ClInclude Include="Src\Test\Test_Cube.h" />
-    <ClInclude Include="Src\Test\Test_Mix.h" />
+    <ClInclude Include="Src\Test\Test_Blend.h" />
     <ClInclude Include="Src\Test\Test_Stencil.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />
@@ -205,8 +205,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Shaders\Blend\Window.frag" />
     <None Include="Shaders\Light\common.frag" />
     <None Include="Shaders\Light\common.vert" />
+    <None Include="Shaders\Blend\Blend.frag" />
+    <None Include="Shaders\Blend\Blend.vert" />
     <None Include="Shaders\Stencil\Stencil.frag" />
     <None Include="Shaders\Stencil\Stencil.vert" />
   </ItemGroup>

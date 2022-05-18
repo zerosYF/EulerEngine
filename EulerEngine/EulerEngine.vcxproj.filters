@@ -240,9 +240,6 @@
     <ClInclude Include="Src\Test\Test_Cube.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Test\Test_Mix.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -250,6 +247,9 @@
       <Filter>Resources\EulerRender\EulerGeo</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLCube.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Test\Test_Blend.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
@@ -267,5 +267,8 @@
     <None Include="Shaders\Light\common.vert" />
     <None Include="Shaders\Stencil\Stencil.vert" />
     <None Include="Shaders\Stencil\Stencil.frag" />
+    <None Include="Shaders\Blend\Blend.frag" />
+    <None Include="Shaders\Blend\Blend.vert" />
+    <None Include="Shaders\Blend\Window.frag" />
   </ItemGroup>
 </Project>

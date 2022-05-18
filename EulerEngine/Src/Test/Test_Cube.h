@@ -11,7 +11,11 @@ namespace EulerEngine {
 		cube->setShader(SourceManager::GetInstance()->getShader("universal"));
 		cube->setTransform(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f));
 		cube->setMaterial(dCnt, dLight, sCnt, sLight, pCnt, pLight);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
 		cube->Render(model, view, projection, viewPos);
+		glDisable(GL_CULL_FACE);
 	}
 	void TestPlantRender(Cube* cube,
 		glm::mat4 model, glm::mat4 view, glm::mat4 projection, glm::vec3 viewPos,
@@ -20,7 +24,7 @@ namespace EulerEngine {
 		int pCnt, EulerPointLight* pLight) {
 		glStencilMask(0x00);
 		cube->setShader(SourceManager::GetInstance()->getShader("universal"));
-		cube->setTransform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(5.0f, 0.5f, 5.0f), glm::vec3(0.0f));
+		cube->setTransform(glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(5.0f, 0.5f, 5.0f), glm::vec3(0.0f));
 		cube->setMaterial(dCnt, dLight, sCnt, sLight, pCnt, pLight);
 		cube->Render(model, view, projection, viewPos);
 	}
