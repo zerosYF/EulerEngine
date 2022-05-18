@@ -74,7 +74,6 @@ void EulerGame::Update() {
 		light3->Render(model, view, projection);
 		
 		TestPlantRender(cube, model, view, projection, camera->Position, 0, NULL, 1, light3, 0, NULL);
-		//TestWindowRender(square, model, view, projection, camera->Position,0, NULL, 1, light3, 0, NULL);
 		TestCubeRender(cube, model, view, projection, camera->Position, 0, NULL, 1, light3, 0, NULL);
 
 		GLWindowManager::GetInstance()->StudioUIRender();

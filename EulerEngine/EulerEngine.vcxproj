@@ -206,6 +206,8 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="Shaders\Blend\Window.frag" />
+    <None Include="Shaders\FrameBuffer\FrameBuffer.frag" />
+    <None Include="Shaders\FrameBuffer\FrameBuffer.vert" />
     <None Include="Shaders\Light\common.frag" />
     <None Include="Shaders\Light\common.vert" />
     <None Include="Shaders\Blend\Blend.frag" />

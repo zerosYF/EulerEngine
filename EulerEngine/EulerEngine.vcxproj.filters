@@ -270,5 +270,7 @@
     <None Include="Shaders\Blend\Blend.frag" />
     <None Include="Shaders\Blend\Blend.vert" />
     <None Include="Shaders\Blend\Window.frag" />
+    <None Include="Shaders\FrameBuffer\FrameBuffer.vert" />
+    <None Include="Shaders\FrameBuffer\FrameBuffer.frag" />
   </ItemGroup>
 </Project>
