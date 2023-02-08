@@ -1,6 +1,7 @@
 #pragma once
 #include<tchar.h>
 #include"EulerObjectBase.h"
+#include"Component/ComponentBase.h"
 namespace EulerEngine {
 	class ClassInfo {
 		const TCHAR* name;
@@ -33,6 +34,7 @@ namespace EulerEngine {
 	};
 	class GameObject :public EulerRef{
 	public:
+		vector<ComponentBase*> components;
 		virtual ~GameObject() = 0;
 		GameObject();
 	};

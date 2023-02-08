@@ -252,6 +252,18 @@
     <ClInclude Include="Src\Test\Test_Blend.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Component\ComponentBase.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Component\TransformComponent.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Component\ModelComponent.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Component\AIComponent.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\Light\light.frag">

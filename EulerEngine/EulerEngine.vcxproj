@@ -145,6 +145,10 @@
     <ClCompile Include="Studio\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Game\Component\AIComponent.h" />
+    <ClInclude Include="Src\Game\Component\ComponentBase.h" />
+    <ClInclude Include="Src\Game\Component\ModelComponent.h" />
+    <ClInclude Include="Src\Game\Component\TransformComponent.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h" />
