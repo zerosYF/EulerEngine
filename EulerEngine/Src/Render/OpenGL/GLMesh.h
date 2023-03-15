@@ -5,20 +5,21 @@
 #include <GLFW/glfw3.h>
 #include "GLShader.h"
 
-using namespace std;
 struct Vertex{
 	glm::vec3 Position;
 	glm::vec2 TexCoords;
 	glm::vec3 Normal;
 };
-
+struct Triangle {
+	Vertex vertexs[3];
+};
 class Mesh {
 public:
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
 	Mesh() {
 	}
-	void setupVertex(vector<Vertex> v,vector<unsigned int> i) {
+	void setupVertex(std::vector<Vertex> v, std::vector<unsigned int> i) {
 		vertices = v;
 		indices = i;
 		this->setupMesh();

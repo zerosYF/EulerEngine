@@ -3,56 +3,27 @@
 #include<mmsystem.h>
 //多媒体相关API
 namespace EulerEngine {
-	class TimerManager {
+	class TimerSystem{
 	private:
-		static TimerManager *_instance;
-		double FPS;
-		double Time;
-		double DeltaTime;
-		double LastTime;
-		double FrameCount;
-		double TimeStart;
-		double LastFPSTime;
-		TimerManager() {}
-		~TimerManager() {
-			delete _instance;
-		}
+		unsigned int m_FPS{0};
+		double m_Time{ 0 };
+		double m_DeltaTime{ 0 };
+		double m_LastTime{ 0 };
+		double m_FrameCount{ 0 };
+		double m_LastFPSTime{ 0 };
+		double m_TimeStart;
 	public:
-		static TimerManager* GetInstance() {
-			if (_instance == NULL) {
-				_instance = new TimerManager();
-			}
-			return _instance;
+		TimerSystem() = default;
+		~TimerSystem();
+		void Initialize();
+		void clear();
+		double GetGamePlayTime();
+		void updateFps();
+		double GetDeltaTime() const{
+			return m_DeltaTime;
 		}
-		inline void InitGameTime() {
-			FPS = 0;
-			Time = 0;
-			DeltaTime = 0;
-			LastTime = 0;
-			FrameCount = 0;
-			LastFPSTime = 0;
-			TimeStart = timeGetTime();
-		}
-		inline double GetGamePlayTime() {
-			return (timeGetTime() - TimeStart);
-		}
-		inline void UpdateFps() {
-			Time = this->GetGamePlayTime()*0.001;
-			DeltaTime = Time - LastTime;
-			LastTime = Time;
-			if (Time - LastFPSTime > 1.0f) {
-				LastFPSTime = Time;
-				FPS = FrameCount;
-				FrameCount = 0;
-			}
-			else {
-				FrameCount++;
-			}
-		}
-	public:
-		inline double GetDeltaTime() {
-			return DeltaTime;
+		unsigned int GetFPS() const {
+			return m_FPS;
 		}
 	};
-	TimerManager* TimerManager::_instance = NULL;
 }

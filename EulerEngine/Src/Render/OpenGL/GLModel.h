@@ -8,23 +8,23 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include"GLSourceManager.h"
+#include"../../Resource/SourceManager.h"
 #include"GLMaterial.h"
 #include"../GLObjects/GLLight.h"
 #include"../OpenGL/GLTransform.h"
-using namespace std;
+#include"../../Game/Context/EulerContext.h"
 namespace EulerEngine {
 	class Model {
 	private:
 		EulerTransform transform;
-		vector<Mesh> meshes;
-		vector<Material> materials;
+		std::vector<Mesh> meshes;
+		std::vector<Material> materials;
 		Shader shader;
-		string directory;
-		string name;
+		std::string directory;
+		std::string name;
 	public:
 		Model() {}
-		Model(string const &path,string name) {
+		Model(std::string const &path, std::string name) {
 			this->name = name;
 			loadModel(path);
 		}
@@ -41,7 +41,7 @@ namespace EulerEngine {
 			shader.setMat4("model", model);
 			shader.setMat3("normalMatrix", glm::transpose(glm::inverse(model)));
 			shader.setVec3("viewPos", viewPos);
-			for (int i = 0; i < meshes.size(); i++) {
+			for (unsigned int i = 0; i < meshes.size(); i++) {
 				meshes[i].Draw(shader);
 			}
 		}
@@ -56,40 +56,40 @@ namespace EulerEngine {
 			int sCnt, EulerSpotLight* sLight,
 			int pCnt, EulerPointLight* pLight) {
 			shader.use();
-			for (int i = 0; i < meshes.size(); i++) {
+			for (unsigned int i = 0; i < meshes.size(); i++) {
 				materials[i].Draw(shader, dCnt, dLight, pCnt, pLight, sCnt, sLight);
 			}
 		}
 	private:
-		void loadModel(string const &path) {
+		void loadModel(std::string const &path) {
 			Assimp::Importer importer;
 			const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 			if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode) {
-				cout << "assimp出错了" << importer.GetErrorString() << endl;
+				std::cout << "assimp出错了" << importer.GetErrorString() << std::endl;
 				return;
 			}
 			directory = path.substr(0, path.find_last_of('/'));
 			this->processNode(scene->mRootNode, scene);
-			cout <<"骨骼数量: " <<meshes.size() << " 材质数量:" << materials.size() << endl;
+			std::cout <<"骨骼数量: " <<meshes.size() << " 材质数量:" << materials.size() << std::endl;
 		}
 		void processNode(aiNode *node, const aiScene *scene) {
 			// 处理节点网络；
-			for (int i = 0; i < node->mNumMeshes; i++) {
+			for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-				cout<<"骨骼名称: "<<mesh->mName.C_Str()<<endl;
+				std::cout<<"骨骼名称: "<<mesh->mName.C_Str()<< std::endl;
 				meshes.push_back(this->processMesh(mesh, scene));
 				materials.push_back(this->processTexture(mesh, scene));
 			}
 			// 相同方式处理子节点；
-			for (int i = 0; i < node->mNumChildren; i++) {
+			for (unsigned int i = 0; i < node->mNumChildren; i++) {
 				processNode(node->mChildren[i], scene);
 			}
 		}
 		Mesh processMesh(aiMesh *mesh, const aiScene *scene) {
-			vector<Vertex> vertices;
-			vector<unsigned int> indices;
+			std::vector<Vertex> vertices;
+			std::vector<unsigned int> indices;
 			//顶点相关；
-			for (int i = 0; i < mesh->mNumVertices; i++) {
+			for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 				Vertex vertex;
 				// 位置相关数组；
 				glm::vec3 vectorP;
@@ -116,10 +116,10 @@ namespace EulerEngine {
 				vertices.push_back(vertex);
 			}
 			//索引相关；
-			for (int i = 0; i < mesh->mNumFaces; i++) {
+			for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
 				// 面：图元，包含多个索引
 				aiFace face = mesh->mFaces[i];
-				for (int j = 0; j < face.mNumIndices; j++) {
+				for (unsigned int j = 0; j < face.mNumIndices; j++) {
 					indices.push_back(face.mIndices[j]);
 				}
 			}
@@ -132,34 +132,34 @@ namespace EulerEngine {
 			//材质相关；
 			if (mesh->mMaterialIndex >= 0) {
 				aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
-				vector<Texture2D> diffuseMaps =
+				std::vector<Texture2D> diffuseMaps =
 					this->loadMaterialTextures(mat, aiTextureType_DIFFUSE);
 				for(Texture2D texture : diffuseMaps) {
 					material.addTexture(texture,DIFFUSE);
-					cout << "diffuse" << endl;
+					std::cout << "diffuse" << std::endl;
 				}
-				vector<Texture2D> specularMaps =
+				std::vector<Texture2D> specularMaps =
 					this->loadMaterialTextures(mat, aiTextureType_SPECULAR);
 				for (Texture2D texture : specularMaps) {
 					material.addTexture(texture, SPECULAR);
-					cout << "specular" << endl;
+					std::cout << "specular" << std::endl;
 				}
 			}
 			return material;
 		}
-		vector<Texture2D> loadMaterialTextures(aiMaterial *mat, aiTextureType type) {
-			vector<Texture2D> textures;
-			for (int i = 0; i < mat->GetTextureCount(type); i++) {
+		std::vector<Texture2D> loadMaterialTextures(aiMaterial *mat, aiTextureType type) {
+			std::vector<Texture2D> textures;
+			for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
 				aiString str;
 				mat->GetTexture(type, i, &str);
-				string sourceName = this->name + "_texture_" + str.C_Str();
-				if (SourceManager::GetInstance()->hasTexture(sourceName)) {
-					Texture2D oldTexture = SourceManager::GetInstance()->getTexture(sourceName);
+				std::string sourceName = this->name + "_texture_" + str.C_Str();
+				if (g_global_context.m_source_mgr->hasTexture(sourceName)) {
+					Texture2D oldTexture = g_global_context.m_source_mgr->getTexture(sourceName);
 					textures.push_back(oldTexture);
 				}
 				else {
-					string filename = directory + '/' + str.C_Str();
-					Texture2D newTexture = SourceManager::GetInstance()->loadTexture(filename.c_str(),sourceName);
+					std::string filename = directory + '/' + str.C_Str();
+					Texture2D newTexture = g_global_context.m_source_mgr->loadTexture(filename.c_str(),sourceName);
 					textures.push_back(newTexture);
 				}
 			}

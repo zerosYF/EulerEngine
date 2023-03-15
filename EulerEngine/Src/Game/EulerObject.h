@@ -1,41 +1,42 @@
 #pragma once
 #include<tchar.h>
-#include"EulerObjectBase.h"
+#include<vector>
+#include<memory>
+#include<atomic>
+#include<iostream>
 #include"Component/ComponentBase.h"
 namespace EulerEngine {
-	class ClassInfo {
-		const TCHAR* name;
-		ClassInfo* base;
-		ClassInfo(const TCHAR* name,ClassInfo* base) {
-			this->name = name;
-			this->base = base;
-		}
-		inline const TCHAR* GetName() {
-			return name;
-		}
-		inline ClassInfo* GetBase() {
-			return base;
-		}
-		inline bool isSameType(const ClassInfo& another) const{
-			return (&another == this);
-		}
-		inline bool isMyBase(const ClassInfo& another) const{
-			const ClassInfo* tmp = this;
-			while (!tmp->isSameType(another)) {
-				if (tmp->base) {
-					tmp = tmp->base;
-				}
-				else {
-					return false;
-				}
-			}
-			return true;
-		}
-	};
-	class GameObject :public EulerRef{
+	using GameObjectID = size_t;
+	const GameObjectID k_invalidID = 1000;
+	class ObjectIDAllocator {
 	public:
-		vector<ComponentBase*> components;
-		virtual ~GameObject() = 0;
-		GameObject();
+		static GameObjectID allocate() {
+			atomic<GameObjectID> newID = m_nextID.load();
+			m_nextID++;
+			if (m_nextID > k_invalidID) {
+				std::cout << "对象ID overflow" << endl;
+				return 0;
+			}
+			return newID;
+		}
+	private:
+		static  atomic<GameObjectID> m_nextID;
+	};
+	class GameObject:public enable_shared_from_this<GameObject>{
+		//类内this指针获取使用shared_ptr
+	public:
+	 	virtual ~GameObject() = 0;
+		GameObject(GameObjectID id) :m_id(id) {}
+		virtual void update(double deltaTime);
+		bool load();
+		void save();
+		GameObjectID getID() const { return m_id; }
+		bool hasComponent(std::string componentName) const;
+
+	private:
+		GameObjectID m_id{k_invalidID};
+		std::string m_name;
+		std::string m_infoUrl;
+		std::vector<ComponentBase*> m_components;
 	};
 }

@@ -7,7 +7,6 @@
 #include<iostream>
 #include"GLShader.h"
 #include FT_FREETYPE_H
-using namespace std;
 struct Character {
 public:
 	unsigned int TextureID;
@@ -15,7 +14,7 @@ public:
 	glm::ivec2 Bearing;//基准线偏移值;
 	unsigned int Advance;//字符宽度;
 };
-unordered_map<char, Character> characters;
+std::unordered_map<char, Character> characters;
 unsigned int VAO;
 unsigned int VBO;
 
@@ -31,7 +30,7 @@ void Configure() {
 	glBindVertexArray(0);
 }
 
-void renderText(Shader &shader,string text,float x,float y,float scale,glm::vec3 color) {
+void renderText(Shader &shader, std::string text,float x,float y,float scale,glm::vec3 color) {
 	shader.use();
 	shader.setVec3("textColor",color);
 	glActiveTexture(GL_TEXTURE0);
@@ -66,11 +65,11 @@ void renderText(Shader &shader,string text,float x,float y,float scale,glm::vec3
 void buildCharacters() {
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) {
-		cout << "无法初始化freetype" << endl;
+		std::cout << "无法初始化freetype" << std::endl;
 	}
 	FT_Face face;
 	if (FT_New_Face(ft, "Fonts/Arial.ttf", 0, &face)) {
-		cout << "加载font失败" << endl;
+		std::cout << "加载font失败" << std::endl;
 	}
 	FT_Set_Pixel_Sizes(face, 0, 48);
 
@@ -79,7 +78,7 @@ void buildCharacters() {
 
 	for (unsigned char c = 0; c < 128; c++) {
 		if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-			cout << "加载glyph失败" << endl;
+			std::cout << "加载glyph失败" << std::endl;
 			continue;
 		}
 		unsigned int texture;
@@ -97,7 +96,7 @@ void buildCharacters() {
 		glm::ivec2 bearing(face->glyph->bitmap_left,face->glyph->bitmap_top);
 		unsigned int advance = face->glyph->advance.x;
 		Character ch = { texture,size,bearing,advance };
-		characters.insert(pair<char,Character>(c,ch));
+		characters.insert(std::pair<char,Character>(c,ch));
 	}
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);

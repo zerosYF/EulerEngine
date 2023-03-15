@@ -3,7 +3,6 @@
 #include"../OpenGL/GLTransform.h"
 #include"../OpenGL/GLMesh.h"
 #include"../OpenGL/GLShader.h"
-#include"GLCube.h"
 #define CUBE_VERTEX_CNT 36
 #define CUBE_DATA_SIZE 8
 namespace EulerEngine {
@@ -15,62 +14,28 @@ namespace EulerEngine {
 	extern float vertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE];
 	class EulerLight {
 	public:
-		glm::vec3 color;
+		glm::vec3 color{1.0f,1.0f,1.0f};
 		Mesh mesh;
 		Shader shader;
 		EulerTransform transform;
-		EulerLight() {
-			color = glm::vec3(1.0f);
-			bindMesh();
-		}
-		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {
-			transform.update(pos, scl, rot);
-		}
-		void setShader(Shader shader) {
-			this->shader = shader;
-		}
-		void setColor(glm::vec3 color) {
-			this->color = color;
-		}
-		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
-			shader.use();
-			shader.setVec3("lightColor", color);
-
-			shader.setMat4("projection", projection);
-			shader.setMat4("view", view);
-			model = glm::translate(model, transform.position);
-			model = glm::scale(model, transform.scale);
-			shader.setMat4("model", model);
-			mesh.Draw(shader);
-		}
+		EulerLight() {bindMesh();}
+		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {transform.update(pos, scl, rot);}
+		void setShader(Shader shader) {this->shader = shader;}
+		void setColor(glm::vec3 color) {this->color = color;}
+		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 		void Release() {
 		}
 	private:
-		void bindMesh() {
-			vector<Vertex> vs;
-			vector<unsigned int> is;
-			for (unsigned int i = 0; i < CUBE_VERTEX_CNT; i++) {
-				Vertex v;
-				v.Position = glm::vec3(vertices[i*CUBE_DATA_SIZE], vertices[i*CUBE_DATA_SIZE + 1], vertices[i*CUBE_DATA_SIZE + 2]);
-				v.TexCoords = glm::vec2(vertices[i*CUBE_DATA_SIZE + 3], vertices[i*CUBE_DATA_SIZE + 4]);
-				v.Normal = glm::vec3(vertices[i*CUBE_DATA_SIZE + 5], vertices[i*CUBE_DATA_SIZE + 6], vertices[i*CUBE_DATA_SIZE + 7]);
-				vs.push_back(v);
-			}
-			mesh.setupVertex(vs, is);
-		}
+		void bindMesh();
 	};
 	class EulerPointLight:public EulerLight{
 	public:
 		//Ë¥¼õÏµÊý
-		float constant;
-		float linear;
-		float quatratic;
+		float constant{1.0f};
+		float linear{0.09f};
+		float quatratic{0.032f};
 	public:
-		EulerPointLight() {
-			constant = 1.0f;
-			linear = 0.09f;
-			quatratic = 0.032f;
-		}
+		EulerPointLight() = default;
 	};
 	class EulerDirLight:public EulerLight {
 	public:
@@ -78,23 +43,15 @@ namespace EulerEngine {
 		EulerDirLight() {
 			direction = glm::vec3(1.0f,0.0f,0.0f);
 		}
-		void setDirection(glm::vec3 dir) {
-			direction = dir;
-		}
+		void setDirection(glm::vec3 dir) {direction = dir;}
 	};
 	class EulerSpotLight:public EulerPointLight {
 	public:
-		glm::vec3 direction;
-		float cutOff;
-		float outerCutOff;
-		EulerSpotLight() {
-			direction = glm::vec3(0.0f, 0.0f, -1.0f);
-			cutOff = 12.5f;
-			outerCutOff = 15.0f;
-		}
-		void setDirection(glm::vec3 dir) {
-			direction = dir;
-		}
+		glm::vec3 direction{ 0.0f, 0.0f, -1.0f };
+		float cutOff{12.5f};
+		float outerCutOff{15.0f};
+		EulerSpotLight() = default;
+		void setDirection(glm::vec3 dir) {direction = dir;}
 		void setCutOff(float innerCf,float outerCf) {
 			cutOff = innerCf;
 			outerCutOff = outerCf;

@@ -7,7 +7,6 @@
 #include<sstream>
 #include<fstream>
 #include"../../Math/EulerMath.h"
-using namespace std;
 class Shader 
 {
 private:
@@ -26,7 +25,7 @@ public:
 		CompileShader(fragmentCode, fragmentShader, EULER_FRAGMENT);
 
 		ID = glCreateProgram();
-		cout << "³ÌÐòID£º" << ID << endl;
+		std::cout << "³ÌÐòID£º" << ID << std::endl;
 		glAttachShader(ID, vertexShader);
 		glAttachShader(ID, fragmentShader);
 
@@ -96,20 +95,20 @@ private:
 		if (type != EULER_LINK_PROGRAM) {
 			glGetShaderiv(object,GL_COMPILE_STATUS,&success);
 			if (!success) {
-				string t;
+				std::string t;
 				if (type == EULER_VERTEX) t = "¶¥µãshader";
 				else if (type == EULER_FRAGMENT) t = "Æ¬¶Îshader";
 				else if (type == EULER_GEOMETRY) t = "¼¸ºÎshader";
 
 				glGetShaderInfoLog(object,512,NULL,infoLog);
-				cout<<t<<"±àÒëÊ§°Ü\n"<<"log: "<<infoLog<<endl;
+				std::cout<<t<<"±àÒëÊ§°Ü\n"<<"log: "<<infoLog<< std::endl;
 			}
 		}
 		else {
 			glGetProgramiv(object, GL_LINK_STATUS, &success);
 			if (!success) {
 				glGetProgramInfoLog(object,512,NULL,infoLog);
-				cout << "Á´½ÓÊ§°Ü\n" <<"log: "<<infoLog<< endl;
+				std::cout << "Á´½ÓÊ§°Ü\n" <<"log: "<<infoLog<< std::endl;
 			}
 		}
 	}

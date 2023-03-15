@@ -1,6 +1,5 @@
 #include<tchar.h>
 #include<string>
-using namespace std;
 namespace EulerEngine {
 	class EulerFile {
 	protected:
