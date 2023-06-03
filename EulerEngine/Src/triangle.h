@@ -10,6 +10,7 @@ unsigned int loadCubemap(vector<std::string> faces) {
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	//nihao
 
 	int width, height, nrChannels;
 	// ÁùÃæÃ¶¾ÙÌùÍ¼µİÔö£»
