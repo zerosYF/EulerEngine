@@ -124,7 +124,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\glad\src\glad.c" />
     <ClCompile Include="External\include\json11\json11.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
@@ -136,6 +135,7 @@
     <ClCompile Include="Src\Game\Window\EulerWindow.cpp" />
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp" />
     <ClCompile Include="Src\Game\World\EulerWorld.cpp" />
+    <ClCompile Include="Src\glad.c" />
     <ClCompile Include="Src\IO\EulerFile.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
     <ClCompile Include="Src\Core\EulerMemManager.cpp" />

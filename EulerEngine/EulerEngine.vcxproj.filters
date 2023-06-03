@@ -47,9 +47,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\glad\src\glad.c">
-      <Filter>Resources\EulerRender</Filter>
-    </ClCompile>
     <ClCompile Include="Src\IO\EulerFile.cpp">
       <Filter>Resources\EulerSystem</Filter>
     </ClCompile>
@@ -106,6 +103,7 @@
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
+    <ClCompile Include="Src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Game\EulerGame.h">
