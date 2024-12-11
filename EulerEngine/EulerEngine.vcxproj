@@ -56,6 +56,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)EulerEngine\Vendor\spdlog\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -69,6 +70,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)EulerEngine\Vendor\spdlog\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -81,7 +83,7 @@
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
-    <ClCompile Include="Src\Core\EulerDebug.cpp" />
+    <ClCompile Include="Src\GutKink\EulerLog.cpp" />
     <ClCompile Include="Src\Game\EulerObject.cpp" />
     <ClCompile Include="Src\Game\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Game\Window\EulerWindow.cpp" />
@@ -152,7 +154,7 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTexture.h" />
     <ClInclude Include="Src\Render\OpenGL\GLControl.h" />
-    <ClInclude Include="Src\Core\EulerDebug.h" />
+    <ClInclude Include="Src\GutKink\EulerLog.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\IO\EulerFile.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
