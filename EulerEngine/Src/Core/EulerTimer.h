@@ -3,7 +3,7 @@
 #include<mmsystem.h>
 //多媒体相关API
 namespace EulerEngine {
-	class TimerSystem{
+	/*class TimerSystem{
 	private:
 		unsigned int m_FPS{0};
 		double m_Time{ 0 };
@@ -25,5 +25,5 @@ namespace EulerEngine {
 		unsigned int GetFPS() const {
 			return m_FPS;
 		}
-	};
+	};*/
 }

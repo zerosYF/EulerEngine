@@ -1,10 +1,8 @@
 #pragma once
 #include<vector>
-#include<json11/json11.hpp>
 namespace EulerEngine {
-	using EulerJson = json11::Json;
-	template<typename...>
-	class Serialize {
+	//template<typename...>
+	/*class Serialize {
 	public:
 		template<typename T>
 		static EulerJson writePointer(T* instance) {
@@ -19,5 +17,5 @@ namespace EulerEngine {
 		template<typename T>
 		static T*& read() {
 		}
-	};
+	};*/
 }

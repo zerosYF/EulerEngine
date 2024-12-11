@@ -1,6 +1,6 @@
 #include"EulerTimer.h"
 namespace EulerEngine {
-	TimerSystem::~TimerSystem() {
+	/*TimerSystem::~TimerSystem() {
 	}
 	void TimerSystem::Initialize() {
 		m_TimeStart = timeGetTime();
@@ -20,5 +20,5 @@ namespace EulerEngine {
 		else {
 			m_FrameCount++;
 		}
-	}
+	}*/
 }

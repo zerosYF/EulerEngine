@@ -4,7 +4,7 @@
 #include<vector>
 namespace EulerEngine {
 
-	struct LightMaterial {
+	/*struct LightMaterial {
 		float ambient{0.1f};
 		float diffuse{0.5f};
 		float specular{1.0f};
@@ -29,5 +29,5 @@ namespace EulerEngine {
 		void setSpotLightRender(Shader shader, EulerSpotLight* light);
 		void setPointLightRender(Shader shader, EulerPointLight* light);
 		void setDirLightRender(Shader shader, EulerDirLight* light);
-	};
+	};*/
 }

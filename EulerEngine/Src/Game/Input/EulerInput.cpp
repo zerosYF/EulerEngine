@@ -1,48 +1,13 @@
 #include"EulerInput.h"
-#include<GLFW/glfw3.h>
 #include"../Context/EulerContext.h"
 #include"../../Math/EulerMath.h"
 using namespace placeholders;
 namespace EulerEngine {
-	unsigned int i_complement_control_cmd = 0xFFFFFFFF;
+	/*unsigned int i_complement_control_cmd = 0xFFFFFFFF;
 	void InputSystem::onKey(int key,int scanCode,int action,int mode) {
 		onKeyInGameMode(key,scanCode,action,mode);
 	}
 	void InputSystem::onKeyInGameMode(int key,int scanCode,int action,int mode) {
-		if (action == GLFW_PRESS) {
-			switch (key)
-			{
-			case GLFW_KEY_ESCAPE:
-				break;
-			case GLFW_KEY_W:
-				break;
-			case GLFW_KEY_A:
-				break;
-			case GLFW_KEY_S:
-				break;
-			case GLFW_KEY_D:
-				break;
-			default:
-				break;
-			}
-		}
-		else if (action == GLFW_RELEASE) {
-			switch (key)
-			{
-			case GLFW_KEY_ESCAPE:
-				break;
-			case GLFW_KEY_W:
-				break;
-			case GLFW_KEY_A:
-				break;
-			case GLFW_KEY_S:
-				break;
-			case GLFW_KEY_D:
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	void InputSystem::onCursorPos(double currentX,double currentY) {
 		if (g_global_context.m_window_system->getFocusMode()) {
@@ -64,8 +29,6 @@ namespace EulerEngine {
 		}
 		std::shared_ptr<Camera> render_camera = g_global_context.m_render_system->getRenderCamera();
 		float fov = render_camera->m_fovAngle;
-		m_deltaYaw = (glm::radians(fov) / width)*fov;
-		m_deltaPitch = (glm::radians(fov) / height)*fov;
 	}
 	void InputSystem::initialize() {
 		std::shared_ptr<WindowSystem> windowSys = g_global_context.m_window_system;
@@ -74,5 +37,5 @@ namespace EulerEngine {
 	}
 	void InputSystem::update() {
 		calCursorDeltaAngles();
-	}
+	}*/
 }

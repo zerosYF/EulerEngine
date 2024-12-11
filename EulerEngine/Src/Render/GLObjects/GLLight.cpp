@@ -1,6 +1,6 @@
 #include"GLLight.h"
 namespace EulerEngine {
-	void EulerLight::Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
+	/*void EulerLight::Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
 		shader.use();
 		shader.setVec3("lightColor", color);
 
@@ -22,5 +22,5 @@ namespace EulerEngine {
 			vs.push_back(v);
 		}
 		mesh.setupVertex(vs, is);
-	}
+	}*/
 }

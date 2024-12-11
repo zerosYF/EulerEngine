@@ -4,7 +4,7 @@
 #include<memory>
 #include"../EulerObject.h"
 namespace EulerEngine {
-	class Hierarchy {
+	/*class Hierarchy {
 		using GameObjects = std::unordered_map<GameObjectID, std::shared_ptr<GameObject>>;
 	public:
 		void clear();
@@ -19,5 +19,5 @@ namespace EulerEngine {
 		bool m_isLoaded{ false };
 		std::string m_resUrl;
 		GameObjects m_objects;
-	};
+	};*/
 }

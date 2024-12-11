@@ -1,6 +1,6 @@
 #include"GLMaterial.h"
 namespace EulerEngine {
-	void Material::Draw(Shader shader, int dCnt, EulerDirLight* dLight, int pCnt, EulerPointLight* pLight, int sCnt, EulerSpotLight* sLight) {
+	/*void Material::Draw(Shader shader, int dCnt, EulerDirLight* dLight, int pCnt, EulerPointLight* pLight, int sCnt, EulerSpotLight* sLight) {
 		bindTexture(shader);
 		shader.setInt("dirLightCnt", dCnt);
 		shader.setInt("pointLightCnt", pCnt);
@@ -62,5 +62,5 @@ namespace EulerEngine {
 		shader.setVec3("dirLight.diffuse", light_material.diffuse*light->color);
 		shader.setVec3("dirLight.specular", light_material.specular*light->color);
 		shader.setVec3("dirLight.direction", light->direction);
-	}
+	}*/
 }

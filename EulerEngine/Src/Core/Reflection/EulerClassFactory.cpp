@@ -1,6 +1,6 @@
 #include"EulerClassFactory.h"
 namespace EulerEngine {
-	void ClassFactory::register_class(const std::string& className,createObject method) {
+	/*void ClassFactory::register_class(const std::string& className,createObject method) {
 		m_classMap[className] = method;
 	}
 	Object* ClassFactory::create_class(const std::string& className) {
@@ -61,7 +61,7 @@ namespace EulerEngine {
 		auto func = method->method();
 		typedef std::function<void(decltype(this))> class_method;
 		(*((class_method*)func))(this);
-	}
+	}*/
 	/*template<typename T>
 	T Object::call(const std::string&methodName) {
 		ClassFactory* factory = Singleton<ClassFactory>::Instance();

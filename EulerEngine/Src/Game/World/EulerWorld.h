@@ -21,7 +21,7 @@ namespace EulerEngine {
 		bool m_isLoaded{false};
 		std::string m_currentWorldURL;
 		std::shared_ptr<WorldRes> m_currentWorldResource;
-		std::unordered_map<std::string, std::shared_ptr<Hierarchy>> m_loadedHierarchys;
-		std::weak_ptr<Hierarchy> m_currentActiveHierarchy;
+		//std::unordered_map<std::string, std::shared_ptr<Hierarchy>> m_loadedHierarchys;
+		//std::weak_ptr<Hierarchy> m_currentActiveHierarchy;
 	};
 }

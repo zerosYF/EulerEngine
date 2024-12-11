@@ -2,7 +2,7 @@
 #include"../../Test/TestFunc.h"
 #include<memory>
 namespace EulerEngine {
-	RuntimeGlobalContext g_global_context;
+	/*RuntimeGlobalContext g_global_context;
 	void RuntimeGlobalContext::startSystems() {
 		m_window_system = std::make_shared<WindowSystem>();
 		WindowInfo info;
@@ -43,5 +43,5 @@ namespace EulerEngine {
 	}
 	void RuntimeGlobalContext::shutdownSystems() {
 
-	}
+	}*/
 }
