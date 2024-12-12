@@ -1,327 +1,359 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Container">
+      <UniqueIdentifier>{68AD6C08-D417-217F-1D56-D22489FFFED3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerSystem">
-      <UniqueIdentifier>{95d89770-a386-409d-8feb-c997f3abfc84}</UniqueIdentifier>
+    <Filter Include="Container\ResourcePool">
+      <UniqueIdentifier>{39116931-250B-9283-0E78-2894FA10F8EF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerContainer">
-      <UniqueIdentifier>{280ffd31-e613-4c8e-bfce-8d55c8596295}</UniqueIdentifier>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerMath">
-      <UniqueIdentifier>{7cf87042-c846-464d-a62d-a4fabe9a504f}</UniqueIdentifier>
+    <Filter Include="Core\Reflection">
+      <UniqueIdentifier>{28B22CF9-943D-9ABD-9D4E-1DB20959F6BD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerRender">
-      <UniqueIdentifier>{696c2c82-040c-4fe3-ba05-ee4aba3829ce}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7FA9857C-6BE0-860D-14CD-6C1000E3020F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerRender\OpenGLs">
-      <UniqueIdentifier>{e8850a8f-1bac-42e7-8044-430a638e3d2f}</UniqueIdentifier>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{A1AC5C82-8D7A-5088-760E-C1AE627B2CED}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerRender\EulerGeo">
-      <UniqueIdentifier>{c9d7c079-2f4b-4a5f-8add-96f89d7b31f2}</UniqueIdentifier>
+    <Filter Include="Game\Context">
+      <UniqueIdentifier>{133363B2-FF95-F256-A81B-2B0D945DBED9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerPhysics">
-      <UniqueIdentifier>{84d76126-5f37-4359-97dc-b9b898c6c58c}</UniqueIdentifier>
+    <Filter Include="Game\Input">
+      <UniqueIdentifier>{BE3C8EE1-AAF4-CF2E-13FC-A88AFFD26A1F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerTest">
-      <UniqueIdentifier>{19837a47-7043-418d-873b-a5dc1e8f21e5}</UniqueIdentifier>
+    <Filter Include="Game\Window">
+      <UniqueIdentifier>{8631A233-F2E6-1A29-7BDB-1400E78F112D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerInput">
-      <UniqueIdentifier>{c471cc98-ec3b-4de4-80c1-00e7c8f25945}</UniqueIdentifier>
+    <Filter Include="Game\World">
+      <UniqueIdentifier>{76278CE2-62DF-CD2F-CBE6-A68BB7BD6820}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerGame">
-      <UniqueIdentifier>{07b7c78a-ead8-4ec7-81df-d72246d67517}</UniqueIdentifier>
+    <Filter Include="Game\World\ResInfo">
+      <UniqueIdentifier>{3BBB4051-279F-01A7-90FF-FBF97C02EC28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\EulerThread">
-      <UniqueIdentifier>{32364dce-a968-4d84-9cbe-17049af5e702}</UniqueIdentifier>
+    <Filter Include="GutKink">
+      <UniqueIdentifier>{A2107076-0EF0-EE11-1708-7AE883665573}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="IO">
+      <UniqueIdentifier>{FD735900-E9FF-870B-52AE-880B3E59880B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\shaders">
-      <UniqueIdentifier>{8eb9a1a7-e18b-4090-b3d1-b45a20023375}</UniqueIdentifier>
+    <Filter Include="Math">
+      <UniqueIdentifier>{AFF4887C-9B2B-8A0D-4418-7010302E060F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{888B590D-F46A-D8A8-FD82-637F69E13E0A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{C5BB87CE-B15D-B2A4-9A18-C6F8865939F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\GLObjects">
+      <UniqueIdentifier>{91AE8D19-7DA7-AC6B-A6D9-91F092318C77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL">
+      <UniqueIdentifier>{59D52C18-C595-A84E-8ED0-F1CBFA4FED2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\System">
+      <UniqueIdentifier>{391F2C22-A5DF-A758-6E1A-F1D5DA99EC34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{ED6CDF9B-D939-3AA7-0253-284FEE7E6F35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{45DC8C7C-3113-8E0D-DAFF-7310C6150A0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\ModelTest">
+      <UniqueIdentifier>{858C6176-715A-557C-5AEE-C5A2465B31E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{BD8B6AD3-A92D-95A9-92E8-A8FD7E291CFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{83755900-6F01-880B-D8AF-880BC45A880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{F68B420E-62A0-6ABF-2B22-0E1F97F566F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\IO\EulerFile.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Game\EulerGame.cpp">
-      <Filter>Resources\EulerGame</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Thread\EulerSynchronize.cpp">
-      <Filter>Resources\EulerThread</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Thread\EulerThread.cpp">
-      <Filter>Resources\EulerThread</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Utils\stb_image.cpp">
-      <Filter>Resources\EulerRender\OpenGLs</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\GutKink\EulerLog.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\EulerImage.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\EulerMemManager.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\EulerSystem.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\EulerTimer.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="External\include\json11\json11.cpp" />
-    <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
-    <ClCompile Include="Src\Game\Input\EulerInput.cpp" />
-    <ClCompile Include="Src\Game\Window\EulerWindow.cpp" />
-    <ClCompile Include="Src\UI\EulerUI.cpp" />
-    <ClCompile Include="Src\Render\System\EulerRender.cpp" />
-    <ClCompile Include="Src\Game\World\EulerWorld.cpp" />
-    <ClCompile Include="Src\Game\World\EulerHierarchy.cpp" />
-    <ClCompile Include="Src\Game\EulerObject.cpp" />
-    <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
-    <ClCompile Include="Src\Platform\FileSystem.cpp" />
-    <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
-    <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
-    <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp" />
-    <ClCompile Include="Src\Test\TestFunc.cpp" />
-    <ClCompile Include="Src\glad.c" />
-    <ClCompile Include="Src\GutKink\Application.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Src\Game\EulerGame.h">
-      <Filter>Resources\EulerGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\EulerObject.h">
-      <Filter>Resources\EulerGame</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Thread\EulerSynchronize.h">
-      <Filter>Resources\EulerThread</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Thread\EulerThread.h">
-      <Filter>Resources\EulerThread</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Math\EulerMath.h">
-      <Filter>Resources\EulerMath</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Utils\stb_image.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GutKink\EulerLog.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerImage.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerMemManager.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerMemOperator.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerSystem.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerTimer.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLCamera.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLMesh.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLModel.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLMyError.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLShader.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLText.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLTexture.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Physics\kinematics.h">
-      <Filter>Resources\EulerPhysics</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\triangle.h">
-      <Filter>Resources\EulerRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLControl.h">
-      <Filter>Resources\EulerInput</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\IO\EulerFile.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerDelegate.h">
-      <Filter>Resources\EulerContainer</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLLight.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLTransform.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLMaterial.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h">
-      <Filter>Resources\EulerRender\EulerGeo</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLCube.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\Component\ComponentBase.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\Component\TransformComponent.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\Component\ModelComponent.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\Component\AIComponent.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Container\ResourcePool\MeshPool.h">
-      <Filter>Resources</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
     <ClInclude Include="Src\Container\ResourcePool\ShaderPool.h">
-      <Filter>Resources</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
     <ClInclude Include="Src\Container\ResourcePool\TexturePool.h">
-      <Filter>Resources</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
-    <ClInclude Include="External\include\json11\json11.hpp">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\EulerDelegate.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Context\EulerContext.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\EulerImage.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Input\EulerInput.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\EulerMemManager.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Window\EulerWindow.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\UI\EulerUI.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\System\EulerRender.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLScene.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\EulerWorld.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\EulerHierarchy.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="External\include\mustache\mustache.hpp">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
-      <Filter>Resources\EulerSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\EulerMemOperator.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerSingleton.h">
-      <Filter>Resources</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\EulerSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\EulerTimer.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
-      <Filter>Resources</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h">
-      <Filter>Resources</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h">
-      <Filter>Resources</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Physics\EulerPhysics.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h">
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Platform\FileSystem.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Resource\SourceManager.h">
-      <Filter>Resources\EulerRender\OpenGLs</Filter>
+    <ClInclude Include="Src\Game\Component\AIComponent.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\World\ResInfo\WorldInfo.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Game\Component\ComponentBase.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\World\ResInfo\ObjectInfo.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Game\Component\ModelComponent.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Component\TransformComponent.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Context\EulerContext.h">
+      <Filter>Game\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\EulerGame.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\EulerObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Input\EulerInput.h">
+      <Filter>Game\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\Window\EulerWindow.h">
+      <Filter>Game\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\World\EulerHierarchy.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Game\World\EulerWorld.h">
+      <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\ResInfo\HierarchyInfo.h">
-      <Filter>Resources</Filter>
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
-      <Filter>Resources\EulerTest</Filter>
+    <ClInclude Include="Src\Game\World\ResInfo\ObjectInfo.h">
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\Game\World\ResInfo\WorldInfo.h">
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Test\TestFunc.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Src\GutKink.h" />
+    <ClInclude Include="Src\GutKink\Application.h">
+      <Filter>GutKink</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink\Core.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GutKink\Application.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\GutKink.h">
-      <Filter>Resources</Filter>
+      <Filter>GutKink</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink\EntryPoint.h">
-      <Filter>Resources</Filter>
+      <Filter>GutKink</Filter>
     </ClInclude>
+    <ClInclude Include="Src\GutKink\EulerLog.h">
+      <Filter>GutKink</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\IO\EulerFile.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Math\EulerMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Physics\EulerPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Physics\kinematics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\FileSystem.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLCube.h">
+      <Filter>Render\GLObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLLight.h">
+      <Filter>Render\GLObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h">
+      <Filter>Render\GLObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
+      <Filter>Render\GLObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLCamera.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLControl.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLMaterial.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLMesh.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLModel.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLMyError.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLScene.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLShader.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLText.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLTexture.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\OpenGL\GLTransform.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\System\EulerRender.h">
+      <Filter>Render\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Resource\SourceManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
+      <Filter>Test\ModelTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h">
+      <Filter>Test\ModelTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Test\TestFunc.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Thread\EulerSynchronize.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Thread\EulerThread.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UI\EulerUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utils\stb_image.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\triangle.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\Light\light.frag">
-      <Filter>Assets\shaders</Filter>
-    </Text>
-    <Text Include="Shaders\Light\light.vert">
-      <Filter>Assets\shaders</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\Light\common.frag" />
-    <None Include="Shaders\Light\common.vert" />
-    <None Include="Shaders\Stencil\Stencil.vert" />
-    <None Include="Shaders\Stencil\Stencil.frag" />
-    <None Include="Shaders\Blend\Blend.frag" />
-    <None Include="Shaders\Blend\Blend.vert" />
-    <None Include="Shaders\Blend\Window.frag" />
-    <None Include="Shaders\FrameBuffer\FrameBuffer.vert" />
-    <None Include="Shaders\FrameBuffer\FrameBuffer.frag" />
-    <None Include="External\Jolt\JoltPhysics\Assets\LICENSE" />
+    <ClCompile Include="Src\Core\EulerImage.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\EulerMemManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\EulerSystem.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\EulerTimer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
+      <Filter>Core\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
+      <Filter>Core\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Context\EulerContext.cpp">
+      <Filter>Game\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\EulerGame.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\EulerObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Input\EulerInput.cpp">
+      <Filter>Game\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\Window\EulerWindow.cpp">
+      <Filter>Game\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\World\EulerHierarchy.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Game\World\EulerWorld.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GutKink\Application.cpp">
+      <Filter>GutKink</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GutKink\EulerLog.cpp">
+      <Filter>GutKink</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\IO\EulerFile.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\FileSystem.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
+      <Filter>Render\GLObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp">
+      <Filter>Render\GLObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp">
+      <Filter>Render\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\System\EulerRender.cpp">
+      <Filter>Render\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Test\TestFunc.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Thread\EulerSynchronize.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Thread\EulerThread.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UI\EulerUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utils\stb_image.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
