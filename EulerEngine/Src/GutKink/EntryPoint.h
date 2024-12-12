@@ -2,11 +2,10 @@
 #ifdef KINK_PLATFORM_WINDOWS
 extern EulerEngine::Application* EulerEngine::CreateApplication();
 int main(int argc, char** argv) {
-	printf("welcome euler's world!\n");
 
 	EulerEngine::EulerLog::Init();
-	EulerEngine::EulerLog::GetCoreLogger()->warn("this is a warning!");
-	EulerEngine::EulerLog::GetClientLogger()->info("this is information!");
+	KINK_CORE_WARN("this is a warning!");
+	KINK_INFO("this is information!");
 
 	auto app = EulerEngine::CreateApplication();
 	app->Run();

@@ -1,5 +1,4 @@
 #include<GutKink.h>
-
 class Sandbox : public EulerEngine::Application {
 public:
 	Sandbox() {
