@@ -275,6 +275,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\triangle.h" />
+    <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
+    <ClInclude Include="Src\Core\Events\Event.h" />
+    <ClInclude Include="Src\Core\Events\InputEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">

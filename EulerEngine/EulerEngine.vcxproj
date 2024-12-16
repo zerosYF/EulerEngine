@@ -151,6 +151,9 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Core\EulerSingleton.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />
     <ClInclude Include="Src\Core\EulerTimer.h" />
+    <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
+    <ClInclude Include="Src\Core\Events\Event.h" />
+    <ClInclude Include="Src\Core\Events\InputEvent.h" />
     <ClInclude Include="Src\Core\Reflection\ClassField.h" />
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h" />
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h" />
