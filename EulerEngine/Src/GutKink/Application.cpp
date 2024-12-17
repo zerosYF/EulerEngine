@@ -1,3 +1,4 @@
+#include "../gkpch.h"
 #include "Application.h"
 namespace EulerEngine {
 	Application::Application()

@@ -1,6 +1,6 @@
 #pragma once
+#include "../GutKinkPch.h"
 #include "Event.h"
-#include <sstream>
 
 namespace EulerEngine{
 	class KINK_API WindowResizeEvent : public Event {
@@ -16,8 +16,8 @@ namespace EulerEngine{
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WINDOW_RESIZE)
-		EVENT_CLASS_CATEGORY(EVENT_CATEGORY_APPLICATION)
+		EVENT_CLASS_TYPE(KINK_WINDOW_RESIZE)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_APPLICATION)
 	private:
 		unsigned int m_Width;
 		unsigned int m_Height;
@@ -25,26 +25,26 @@ namespace EulerEngine{
 	class KINK_API WindowCloseEvent : public Event {
 	public:
 		WindowCloseEvent() {}
-		EVENT_CLASS_TYPE(WINDOW_CLOSE)
-		EVENT_CLASS_CATEGORY(EVENT_CATEGORY_APPLICATION)
+		EVENT_CLASS_TYPE(KINK_WINDOW_CLOSE)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_APPLICATION)
 	};
 	class KINK_API AppTickEvent : public Event {
 	public:
 		AppTickEvent() {}
-		EVENT_CLASS_TYPE(APP_TICK)
-		EVENT_CLASS_CATEGORY(EVENT_CATEGORY_APPLICATION)
+		EVENT_CLASS_TYPE(KINK_APP_TICK)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_APPLICATION)
 	};
 	class KINK_API AppUpdateEvent : public Event {
 	public:
 		AppUpdateEvent() {}
-		EVENT_CLASS_TYPE(APP_UPDATE)
-		EVENT_CLASS_CATEGORY(EVENT_CATEGORY_APPLICATION)
+		EVENT_CLASS_TYPE(KINK_APP_UPDATE)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_APPLICATION)
 	};
 	class KINK_API AppRenderEvent : public Event {
 	public:
 		AppRenderEvent() {}
-		EVENT_CLASS_TYPE(APP_RENDER)
-		EVENT_CLASS_CATEGORY(EVENT_CATEGORY_APPLICATION)
+		EVENT_CLASS_TYPE(KINK_APP_RENDER)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_APPLICATION)
 	};
 
 }

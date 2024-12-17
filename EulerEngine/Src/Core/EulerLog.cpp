@@ -1,3 +1,4 @@
+#include "../gkpch.h"
 #include "EulerLog.h"
 namespace EulerEngine {
 

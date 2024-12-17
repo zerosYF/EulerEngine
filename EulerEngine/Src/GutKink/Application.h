@@ -1,11 +1,12 @@
 #pragma once
 #include"Core.h"
+#include"../Core/Events/Event.h"
 namespace EulerEngine {
 	class KINK_API Application
 	{
 	public:
 		Application();
-		~Application();
+		virtual ~Application();
 		void Run();
 	};
 

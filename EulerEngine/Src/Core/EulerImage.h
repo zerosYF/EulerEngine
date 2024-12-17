@@ -1,5 +1,3 @@
-#include<string>
-#include<tchar.h>
 namespace EulerEngine {
 	class EulerImage {
 	public:

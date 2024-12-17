@@ -1,3 +1,4 @@
+#include "../gkpch.h"
 #include"EulerSystem.h"
 using namespace EulerEngine;
 bool EnlerSystem::Memcpy(void * pDes, const void *pSrc, int CountSize, int DesBufferSize) {

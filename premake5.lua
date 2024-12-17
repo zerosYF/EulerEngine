@@ -14,19 +14,32 @@ project "EulerEngine"
 	language "C++"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "gkpch.h"
+	pchsource "EulerEngine/Src/gkpch.cpp"
+
 	files{
 		"%{prj.name}/Src/**.h",
-		"%{prj.name}/Src/**.cpp"
+		"%{prj.name}/Src/**.cpp",
+		"%{prj.name}/Vendor/glad/**.c"
 	}
 	includedirs{
-		"%{prj.name}/Vendor/spdlog/include"
+		"%{prj.name}/Vendor/spdlog/include",
+		"%{prj.name}/External/include",
+		"%{prj.name}/Vendor/glad/include"
 	}
-
+	libdirs{
+		"%{prj.name}/External/libs"
+	}
+	links{
+		"glfw3"
+	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
+
 		defines{
 			"KINK_PLATFORM_WINDOWS",
 			"KINK_BUILD_DLL",
