@@ -1,393 +1,369 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Src">
-      <UniqueIdentifier>{0D23880B-792C-887C-02A8-9E7C6EB0937C}</UniqueIdentifier>
+    <Filter Include="Container">
+      <UniqueIdentifier>{68AD6C08-D417-217F-1D56-D22489FFFED3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Container">
-      <UniqueIdentifier>{1FDF455C-8B9F-C192-54DA-0A10C059066F}</UniqueIdentifier>
+    <Filter Include="Container\ResourcePool">
+      <UniqueIdentifier>{39116931-250B-9283-0E78-2894FA10F8EF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Container\ResourcePool">
-      <UniqueIdentifier>{5014D3E3-3C24-7FB4-A5DD-E3D2910C6E4D}</UniqueIdentifier>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core">
-      <UniqueIdentifier>{8537E246-7104-3D52-9A1D-2BFA864972E0}</UniqueIdentifier>
+    <Filter Include="Core\Events">
+      <UniqueIdentifier>{52201B74-BED5-9369-47CA-8D40B37E8A6D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Events">
-      <UniqueIdentifier>{C99B0723-3527-75E7-3E38-F8DBAA42D1E7}</UniqueIdentifier>
+    <Filter Include="Core\Reflection">
+      <UniqueIdentifier>{28B22CF9-943D-9ABD-9D4E-1DB20959F6BD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Log">
-      <UniqueIdentifier>{D689A7D4-C2EC-3679-6B72-6F2F57B402FC}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7FA9857C-6BE0-860D-14CD-6C1000E3020F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Reflection">
-      <UniqueIdentifier>{1F1148F8-8B72-2506-14E0-6BB880405CC5}</UniqueIdentifier>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{A1AC5C82-8D7A-5088-760E-C1AE627B2CED}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game">
-      <UniqueIdentifier>{D62CE446-C2F9-3E52-EB12-2DFAD73E74E0}</UniqueIdentifier>
+    <Filter Include="Game\Context">
+      <UniqueIdentifier>{133363B2-FF95-F256-A81B-2B0D945DBED9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\Component">
-      <UniqueIdentifier>{B8887C1D-A46C-3D73-0DCD-37C6F9CF27F5}</UniqueIdentifier>
+    <Filter Include="Game\Input">
+      <UniqueIdentifier>{BE3C8EE1-AAF4-CF2E-13FC-A88AFFD26A1F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\Context">
-      <UniqueIdentifier>{6A1DDF3E-5616-FE90-7F48-E3156BA0DD9C}</UniqueIdentifier>
+    <Filter Include="Game\World">
+      <UniqueIdentifier>{76278CE2-62DF-CD2F-CBE6-A68BB7BD6820}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\Input">
-      <UniqueIdentifier>{55A58DB0-4173-81B6-2A07-F2DC16745D1B}</UniqueIdentifier>
+    <Filter Include="Game\World\ResInfo">
+      <UniqueIdentifier>{3BBB4051-279F-01A7-90FF-FBF97C02EC28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\Window">
-      <UniqueIdentifier>{FDAC8EE2-6938-FCA6-7249-7F9BDE5358A7}</UniqueIdentifier>
+    <Filter Include="GutKink">
+      <UniqueIdentifier>{A2107076-0EF0-EE11-1708-7AE883665573}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\World">
-      <UniqueIdentifier>{0D908BB1-F95D-7FB7-E2F1-EFDDCE5E5B1C}</UniqueIdentifier>
+    <Filter Include="IO">
+      <UniqueIdentifier>{FD735900-E9FF-870B-52AE-880B3E59880B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Game\World\ResInfo">
-      <UniqueIdentifier>{D2CA8EF2-BEC4-B744-A731-4E5593CA1DB1}</UniqueIdentifier>
+    <Filter Include="Math">
+      <UniqueIdentifier>{AFF4887C-9B2B-8A0D-4418-7010302E060F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\GutKink">
-      <UniqueIdentifier>{996813D4-051E-8CC9-8E12-86A0FAC682CD}</UniqueIdentifier>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{888B590D-F46A-D8A8-FD82-637F69E13E0A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\IO">
-      <UniqueIdentifier>{9435C1D1-80D7-EBA7-6992-FFFB55D372F8}</UniqueIdentifier>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Math">
-      <UniqueIdentifier>{0678E746-F244-4252-1B5E-30FA078A77E0}</UniqueIdentifier>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Physics">
-      <UniqueIdentifier>{7FE3FC6A-EB98-7560-748D-6F37E0416C64}</UniqueIdentifier>
+    <Filter Include="Render">
+      <UniqueIdentifier>{C5BB87CE-B15D-B2A4-9A18-C6F8865939F5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Platform">
-      <UniqueIdentifier>{011E97C6-ED80-266B-9606-5F218248F2ED}</UniqueIdentifier>
+    <Filter Include="Render\GLObjects">
+      <UniqueIdentifier>{91AE8D19-7DA7-AC6B-A6D9-91F092318C77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Render">
-      <UniqueIdentifier>{DC7094AA-C828-D6F7-3130-AF531D0771E8}</UniqueIdentifier>
+    <Filter Include="Render\OpenGL">
+      <UniqueIdentifier>{59D52C18-C595-A84E-8ED0-F1CBFA4FED2A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Render\GLObjects">
-      <UniqueIdentifier>{68EC14FC-547B-9EC5-FD99-B2C0E907AF6B}</UniqueIdentifier>
+    <Filter Include="Render\System">
+      <UniqueIdentifier>{391F2C22-A5DF-A758-6E1A-F1D5DA99EC34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Render\OpenGL">
-      <UniqueIdentifier>{900A2634-FC20-24CA-4598-AFEBB1EDF451}</UniqueIdentifier>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{ED6CDF9B-D939-3AA7-0253-284FEE7E6F35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Render\System">
-      <UniqueIdentifier>{7054253E-DC6A-23D4-25E2-AEF59137F45B}</UniqueIdentifier>
+    <Filter Include="Test">
+      <UniqueIdentifier>{45DC8C7C-3113-8E0D-DAFF-7310C6150A0F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Resource">
-      <UniqueIdentifier>{C4C3EDAD-B026-7D52-59AC-B50845EE48D5}</UniqueIdentifier>
+    <Filter Include="Test\ModelTest">
+      <UniqueIdentifier>{858C6176-715A-557C-5AEE-C5A2465B31E1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Test">
-      <UniqueIdentifier>{9C5FEB46-882C-4652-B145-34FA9D717BE0}</UniqueIdentifier>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{BD8B6AD3-A92D-95A9-92E8-A8FD7E291CFA}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Test\ModelTest">
-      <UniqueIdentifier>{9C688111-884C-4267-F1AC-3CBADDAF2CE9}</UniqueIdentifier>
+    <Filter Include="UI">
+      <UniqueIdentifier>{83755900-6F01-880B-D8AF-880BC45A880B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Thread">
-      <UniqueIdentifier>{D44077AF-C0F8-B8FC-2900-925815D753ED}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\UI">
-      <UniqueIdentifier>{1A37C1D1-06D9-EBA7-EF93-FFFBDBD472F8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Utils">
-      <UniqueIdentifier>{2D7A7124-99E4-259B-E222-D7404ECC03F0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vendor">
-      <UniqueIdentifier>{935FDCD7-7F01-07AE-68BC-1A0254FD8DFE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vendor\glad">
-      <UniqueIdentifier>{7AE6E215-E69B-5B0B-6F90-55E2DB44520F}</UniqueIdentifier>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{F68B420E-62A0-6ABF-2B22-0E1F97F566F0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Container\ResourcePool\MeshPool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
     <ClInclude Include="Src\Container\ResourcePool\ShaderPool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
     <ClInclude Include="Src\Container\ResourcePool\TexturePool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
+      <Filter>Container\ResourcePool</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerDelegate.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerImage.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\EulerLog.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerMemManager.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerMemOperator.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerSingleton.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerSystem.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerTimer.h">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\EulerWindow.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h">
-      <Filter>Src\Core\Events</Filter>
+      <Filter>Core\Events</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Events\Event.h">
-      <Filter>Src\Core\Events</Filter>
+      <Filter>Core\Events</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Events\InputEvent.h">
-      <Filter>Src\Core\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Log\EulerLog.h">
-      <Filter>Src\Core\Log</Filter>
+      <Filter>Core\Events</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\AIComponent.h">
-      <Filter>Src\Game\Component</Filter>
+      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\ComponentBase.h">
-      <Filter>Src\Game\Component</Filter>
+      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\ModelComponent.h">
-      <Filter>Src\Game\Component</Filter>
+      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\TransformComponent.h">
-      <Filter>Src\Game\Component</Filter>
+      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Context\EulerContext.h">
-      <Filter>Src\Game\Context</Filter>
+      <Filter>Game\Context</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\EulerGame.h">
-      <Filter>Src\Game</Filter>
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\EulerObject.h">
-      <Filter>Src\Game</Filter>
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Input\EulerInput.h">
-      <Filter>Src\Game\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\Window\EulerWindow.h">
-      <Filter>Src\Game\Window</Filter>
+      <Filter>Game\Input</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\EulerHierarchy.h">
-      <Filter>Src\Game\World</Filter>
+      <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\EulerWorld.h">
-      <Filter>Src\Game\World</Filter>
+      <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\ResInfo\HierarchyInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\ResInfo\ObjectInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\ResInfo\WorldInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
+      <Filter>Game\World\ResInfo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GutKink.h">
-      <Filter>Src</Filter>
-    </ClInclude>
+    <ClInclude Include="Src\GutKink.h" />
     <ClInclude Include="Src\GutKink\Application.h">
-      <Filter>Src\GutKink</Filter>
+      <Filter>GutKink</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink\Core.h">
-      <Filter>Src\GutKink</Filter>
+      <Filter>GutKink</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink\EntryPoint.h">
-      <Filter>Src\GutKink</Filter>
+      <Filter>GutKink</Filter>
     </ClInclude>
     <ClInclude Include="Src\IO\EulerFile.h">
-      <Filter>Src\IO</Filter>
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="Src\Math\EulerMath.h">
-      <Filter>Src\Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Src\Physics\EulerPhysics.h">
-      <Filter>Src\Physics</Filter>
+      <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="Src\Physics\kinematics.h">
-      <Filter>Src\Physics</Filter>
+      <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Platform\FileSystem.h">
-      <Filter>Src\Platform</Filter>
+    <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLCube.h">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLLight.h">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLCamera.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLControl.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLMaterial.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLMesh.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLModel.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLScene.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLShader.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLTexture.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\System\EulerRender.h">
-      <Filter>Src\Render\System</Filter>
+      <Filter>Render\System</Filter>
     </ClInclude>
     <ClInclude Include="Src\Resource\SourceManager.h">
-      <Filter>Src\Resource</Filter>
+      <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
-      <Filter>Src\Test\ModelTest</Filter>
+      <Filter>Test\ModelTest</Filter>
     </ClInclude>
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h">
-      <Filter>Src\Test\ModelTest</Filter>
+      <Filter>Test\ModelTest</Filter>
     </ClInclude>
     <ClInclude Include="Src\Test\TestFunc.h">
-      <Filter>Src\Test</Filter>
+      <Filter>Test</Filter>
     </ClInclude>
     <ClInclude Include="Src\Thread\EulerSynchronize.h">
-      <Filter>Src\Thread</Filter>
+      <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Src\Thread\EulerThread.h">
-      <Filter>Src\Thread</Filter>
+      <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="Src\UI\EulerUI.h">
-      <Filter>Src\UI</Filter>
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Src\Utils\stb_image.h">
-      <Filter>Src\Utils</Filter>
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Src\gkpch.h">
-      <Filter>Src</Filter>
-    </ClInclude>
+    <ClInclude Include="Src\gkpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\EulerLog.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerMemManager.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerSystem.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerTimer.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\Log\EulerLog.cpp">
-      <Filter>Src\Core\Log</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
-      <Filter>Src\Core\Reflection</Filter>
+      <Filter>Core\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Context\EulerContext.cpp">
-      <Filter>Src\Game\Context</Filter>
+      <Filter>Game\Context</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\EulerGame.cpp">
-      <Filter>Src\Game</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\EulerObject.cpp">
-      <Filter>Src\Game</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\Input\EulerInput.cpp">
-      <Filter>Src\Game\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Game\Window\EulerWindow.cpp">
-      <Filter>Src\Game\Window</Filter>
+      <Filter>Game\Input</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp">
-      <Filter>Src\Game\World</Filter>
+      <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\World\EulerWorld.cpp">
-      <Filter>Src\Game\World</Filter>
+      <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Src\GutKink\Application.cpp">
-      <Filter>Src\GutKink</Filter>
+      <Filter>GutKink</Filter>
     </ClCompile>
     <ClCompile Include="Src\IO\EulerFile.cpp">
-      <Filter>Src\IO</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Platform\FileSystem.cpp">
-      <Filter>Src\Platform</Filter>
+    <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp">
-      <Filter>Src\Render\GLObjects</Filter>
+      <Filter>Render\GLObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp">
-      <Filter>Src\Render\OpenGL</Filter>
+      <Filter>Render\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\System\EulerRender.cpp">
-      <Filter>Src\Render\System</Filter>
+      <Filter>Render\System</Filter>
     </ClCompile>
     <ClCompile Include="Src\Test\TestFunc.cpp">
-      <Filter>Src\Test</Filter>
+      <Filter>Test</Filter>
     </ClCompile>
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp">
-      <Filter>Src\Thread</Filter>
+      <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="Src\Thread\EulerThread.cpp">
-      <Filter>Src\Thread</Filter>
+      <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="Src\UI\EulerUI.cpp">
-      <Filter>Src\UI</Filter>
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Src\Utils\stb_image.cpp">
-      <Filter>Src\Utils</Filter>
+      <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Src\gkpch.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="Vendor\glad\glad.c">
-      <Filter>Vendor\glad</Filter>
-    </ClCompile>
+    <ClCompile Include="Src\gkpch.cpp" />
   </ItemGroup>
 </Project>

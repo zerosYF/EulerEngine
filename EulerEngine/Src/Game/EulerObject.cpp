@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"EulerObject.h"
 #include"EulerGame.h"
 namespace EulerEngine {

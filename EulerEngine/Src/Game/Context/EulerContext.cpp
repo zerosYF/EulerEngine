@@ -1,4 +1,4 @@
-#include "../../gkpch.h"
+#include "gkpch.h"
 #include"EulerContext.h"
 #include"../../Test/TestFunc.h"
 #include<memory>

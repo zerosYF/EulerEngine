@@ -1,4 +1,4 @@
-#include "../gkpch.h"
+#include "gkpch.h"
 #include"EulerMemManager.h"
 #include<stdlib.h>
 #include<assert.h>

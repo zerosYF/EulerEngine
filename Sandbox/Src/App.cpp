@@ -1,3 +1,4 @@
+#include"gkpch.h"
 #include<GutKink.h>
 class Sandbox : public EulerEngine::Application {
 public:

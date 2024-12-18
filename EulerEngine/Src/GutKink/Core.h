@@ -8,4 +8,11 @@
 #else
 #error this engine only supports windows
 #endif
+#ifdef KINK_ENABLE_ASSERTS
+#define KINK_ASSERT(x, ...) { if(!(x)) {KINK_ERROR("Assertion Failed:{0}",__VA_ARGS__); __debugbreak();}}
+#define KINK_CORE_ASSERT(x, ...) { if(!(x)) {KINK_CORE_ERROR("Assertion Failed:{0}",__VA_ARGS__); __debugbreak();}}
+#else
+#define KINK_ASSERT(x, ...)
+#define KINK_CORE_ASSERT(x, ...)
+#endif
 #define BIT(x) (1 << x)

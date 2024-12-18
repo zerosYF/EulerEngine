@@ -1,4 +1,4 @@
-#include "../gkpch.h"
+#include "gkpch.h"
 #include"EulerTimer.h"
 namespace EulerEngine {
 	/*TimerSystem::~TimerSystem() {

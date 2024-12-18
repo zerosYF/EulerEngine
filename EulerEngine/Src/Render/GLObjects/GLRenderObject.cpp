@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"GLRenderObject.h"
 namespace EulerEngine {
 	//float vertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE] = {

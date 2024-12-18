@@ -1,4 +1,4 @@
-#include "../../gkpch.h"
+#include "gkpch.h"
 #include"EulerClassFactory.h"
 namespace EulerEngine {
 	/*void ClassFactory::register_class(const std::string& className,createObject method) {

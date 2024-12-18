@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"EulerInput.h"
 #include"../Context/EulerContext.h"
 #include"../../Math/EulerMath.h"

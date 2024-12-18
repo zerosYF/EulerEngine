@@ -1,3 +1,4 @@
+#include "gkpch.h"
 //#include"TestFunc.h"
 //namespace EulerEngine {
 //	TestClass test_class;

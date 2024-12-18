@@ -5,10 +5,10 @@
 namespace EulerEngine {
 	struct WindowInfo
 	{
-		float Width;
-		float Height;
+		int Width;
+		int Height;
 		std::string Title;
-		WindowInfo(const std::string& title = "Euler Engine", float width = 1280.0f, float height = 900.0f) 
+		WindowInfo(const std::string& title = "Euler Engine", int width = 1280, int height = 900)
 			:Title(title), Width(width), Height(height) {
 		}
 	};
@@ -25,8 +25,8 @@ namespace EulerEngine {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 		
-		virtual float getWIndowWidth() const = 0;
-		virtual float getWindowHeight() const = 0;
+		virtual int GetWidth() const = 0;
+		virtual int GetHeight() const = 0;
 
 		static EulerWindow* Create(const WindowInfo& info = WindowInfo());
 	};

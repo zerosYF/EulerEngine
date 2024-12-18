@@ -36,25 +36,25 @@ namespace EulerEngine{
 	class KINK_API MouseMovedEvent : public Event {
 
 	public:
-		MouseMovedEvent(float x, float y) : m_MouseX(x), m_MouseY(y){}
-		inline float GetX() const { return m_MouseX; }
-		inline float GetY() const { return m_MouseY; }
+		MouseMovedEvent(double x, double y) : m_MouseX(x), m_MouseY(y){}
+		inline double GetX() const { return m_MouseX; }
+		inline double GetY() const { return m_MouseY; }
 		EVENT_CLASS_TYPE(KINK_MOUSE_MOVED)
 		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_MOUSE)
 	private:
-		float m_MouseX;
-		float m_MouseY;
+		double m_MouseX;
+		double m_MouseY;
 	};
 	class KINK_API MouseScrolledEvent :public Event {
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset) :m_xOffset(xOffset), m_yOffset(yOffset) {}
-		inline float GetXOffset() const { return m_xOffset; }
-		inline float GetyOffset() const { return m_yOffset; }
+		MouseScrolledEvent(double xOffset, double yOffset) :m_xOffset(xOffset), m_yOffset(yOffset) {}
+		inline double GetXOffset() const { return m_xOffset; }
+		inline double GetyOffset() const { return m_yOffset; }
 		EVENT_CLASS_TYPE(KINK_MOUSE_SCROLLED)
 		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_INPUT)
 	private:
-		float m_xOffset;
-		float m_yOffset;
+		double m_xOffset;
+		double m_yOffset;
 	};
 	class KINK_API MouseButtonEvent : public Event {
 	public:

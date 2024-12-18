@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"EulerSynchronize.h"
 #include<windows.h>
 #include<assert.h>

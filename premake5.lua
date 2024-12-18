@@ -20,8 +20,7 @@ project "EulerEngine"
 
 	files{
 		"%{prj.name}/Src/**.h",
-		"%{prj.name}/Src/**.cpp",
-		"%{prj.name}/Vendor/glad/**.c"
+		"%{prj.name}/Src/**.cpp"
 	}
 	includedirs{
 		"%{prj.name}/Vendor/spdlog/include",
@@ -43,7 +42,8 @@ project "EulerEngine"
 		defines{
 			"KINK_PLATFORM_WINDOWS",
 			"KINK_BUILD_DLL",
-			"_WINDLL"	
+			"_WINDLL",
+			"KINK_ENABLE_ASSERTS"
 		}
 		postbuildcommands{
 			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),

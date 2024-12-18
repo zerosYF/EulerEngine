@@ -1,1 +1,2 @@
-#include "../gkpch.h"
+#include "gkpch.h"
+#include "EulerImage.h"

@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"EulerRender.h"
 #include"../../Game/Context/EulerContext.h"
 #include"../../Math/EulerMath.h"

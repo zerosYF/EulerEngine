@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -104,7 +104,7 @@ copy /B /Y ..\bin\Debug-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Debug-
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -129,7 +129,7 @@ copy /B /Y ..\bin\Release-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Rele
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -155,15 +155,16 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Container\ResourcePool\TexturePool.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
+    <ClInclude Include="Src\Core\EulerLog.h" />
     <ClInclude Include="Src\Core\EulerMemManager.h" />
     <ClInclude Include="Src\Core\EulerMemOperator.h" />
     <ClInclude Include="Src\Core\EulerSingleton.h" />
     <ClInclude Include="Src\Core\EulerSystem.h" />
     <ClInclude Include="Src\Core\EulerTimer.h" />
+    <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
     <ClInclude Include="Src\Core\Events\Event.h" />
     <ClInclude Include="Src\Core\Events\InputEvent.h" />
-    <ClInclude Include="Src\Core\EulerLog.h" />
     <ClInclude Include="Src\Core\Reflection\ClassField.h" />
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h" />
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h" />
@@ -177,7 +178,6 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Game\Input\EulerInput.h" />
-    <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Game\World\EulerHierarchy.h" />
     <ClInclude Include="Src\Game\World\EulerWorld.h" />
     <ClInclude Include="Src\Game\World\ResInfo\HierarchyInfo.h" />
@@ -222,10 +222,10 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp" />
+    <ClCompile Include="Src\Core\EulerLog.cpp" />
     <ClCompile Include="Src\Core\EulerMemManager.cpp" />
     <ClCompile Include="Src\Core\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
-    <ClCompile Include="Src\Core\EulerLog.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp" />
     <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
@@ -249,7 +249,6 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClCompile Include="Src\gkpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Vendor\glad\glad.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"EulerGame.h"
 #include"../Core/EulerTimer.h"
 #include"../Render/OpenGL/GLShader.h"

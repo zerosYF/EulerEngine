@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"GLMaterial.h"
 namespace EulerEngine {
 	/*void Material::Draw(Shader shader, int dCnt, EulerDirLight* dLight, int pCnt, EulerPointLight* pLight, int sCnt, EulerSpotLight* sLight) {

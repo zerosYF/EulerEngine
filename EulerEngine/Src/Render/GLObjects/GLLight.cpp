@@ -1,3 +1,4 @@
+#include "gkpch.h"
 #include"GLLight.h"
 namespace EulerEngine {
 	/*void EulerLight::Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection) {
