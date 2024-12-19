@@ -8,6 +8,10 @@ workspace "EulerEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["Glad"] = "EulerEngine/Vendor/Glad/include"
+include "EulerEngine/Vendor/Glad"
+
 project "EulerEngine"
 	location "EulerEngine"
 	kind "SharedLib"
@@ -25,13 +29,15 @@ project "EulerEngine"
 	includedirs{
 		"%{prj.name}/Vendor/spdlog/include",
 		"%{prj.name}/External/include",
-		"%{prj.name}/Vendor/glad/include"
+		"%{IncludeDir.Glad}"
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
 	}
 	links{
-		"glfw3"
+		"glfw3",
+		"Glad",
+		"opengl32"
 	}
 
 	filter "system:windows"
@@ -87,10 +93,13 @@ project "Sandbox"
 		}
 	filter "configurations:Debug"
 		defines "KINK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
 		defines "KINK_RELEASE"
+		buildoptions "/MD"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "KINK_DIST"
+		buildoptions "/MD"
 		symbols "On"
