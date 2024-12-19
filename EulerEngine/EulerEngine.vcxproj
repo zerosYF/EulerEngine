@@ -150,6 +150,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\Layer\EulerLayerStack.h" />
+    <ClInclude Include="Src\Core\Layer\EulerLayer.h" />
     <ClInclude Include="Src\Container\ResourcePool\MeshPool.h" />
     <ClInclude Include="Src\Container\ResourcePool\ShaderPool.h" />
     <ClInclude Include="Src\Container\ResourcePool\TexturePool.h" />
@@ -221,6 +223,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\gkpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp" />
+    <ClCompile Include="Src\Core\Layer\EulerLayer.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
     <ClCompile Include="Src\Core\EulerLog.cpp" />
     <ClCompile Include="Src\Core\EulerMemManager.cpp" />
