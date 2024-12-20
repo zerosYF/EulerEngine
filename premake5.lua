@@ -10,7 +10,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["Glad"] = "EulerEngine/Vendor/Glad/include"
-IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui/include"
+IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui"
 include "EulerEngine/Vendor/Glad"
 include "EulerEngine/Vendor/ImGui"
 
@@ -22,13 +22,14 @@ project "EulerEngine"
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "gkpch.h"
-	pchsource "EulerEngine/Src/gkpch.cpp"
+	pchsource "%{prj.name}/Src/gkpch.cpp"
 
 	files{
 		"%{prj.name}/Src/**.h",
 		"%{prj.name}/Src/**.cpp"
 	}
 	includedirs{
+		"%{prj.name}/Src",
 		"%{prj.name}/Vendor/spdlog/include",
 		"%{prj.name}/External/include",
 		"%{IncludeDir.Glad}",

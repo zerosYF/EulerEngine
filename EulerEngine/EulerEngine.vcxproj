@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -105,7 +105,7 @@ copy /B /Y ..\bin\Debug-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Debug-
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -130,7 +130,7 @@ copy /B /Y ..\bin\Release-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Rele
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -190,9 +190,12 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\GutKink\Core.h" />
     <ClInclude Include="Src\GutKink\EntryPoint.h" />
     <ClInclude Include="Src\IO\EulerFile.h" />
+    <ClInclude Include="Src\ImGui\ImGuiLayer.h" />
     <ClInclude Include="Src\Math\EulerMath.h" />
     <ClInclude Include="Src\Physics\EulerPhysics.h" />
     <ClInclude Include="Src\Physics\kinematics.h" />
+    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRenderer.h" />
+    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRendererLoader.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
@@ -240,6 +243,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClCompile Include="Src\Game\World\EulerWorld.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\IO\EulerFile.cpp" />
+    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\ImGuiGLRenderer.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />

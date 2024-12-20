@@ -1,11 +1,13 @@
- #include "gkpch.h"
+#include "gkpch.h"
 #include "Application.h"
 #include "../Core/EulerLog.h"
 #include "../Core/Events/Event.h"
 namespace EulerEngine {
 #define BIND_EVENT_FUNC(x) std::bind(&Application::x, this, std::placeholders::_1)
+	Application* Application::s_Instance = nullptr;
 	Application::Application()
 	{
+		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>  (EulerWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
 	}

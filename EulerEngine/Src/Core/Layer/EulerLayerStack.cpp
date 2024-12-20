@@ -11,10 +11,12 @@ namespace EulerEngine {
 	}
 	void EulerLayerStack::PushLayer(EulerLayer* layer) {
 		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+		layer->OnAttach();
 	}
 	void EulerLayerStack::PushOverlay(EulerLayer* overlay) {
 		//原地构造，提升性能
 		m_Layers.emplace_back(overlay);
+		overlay->OnAttach();
 	}
 	bool EulerLayerStack::PopLayer(EulerLayer* layer) {
 		auto it = std::find(m_Layers.begin(),m_Layers.end(), layer);

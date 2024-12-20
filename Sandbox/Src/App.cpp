@@ -3,6 +3,7 @@
 class Sandbox : public EulerEngine::Application {
 public:
 	Sandbox() {
+		PushLayer(new EulerEngine::ImGuiLayer());
 	}
 	~Sandbox() {
 	}

@@ -43,6 +43,9 @@
     <Filter Include="IO">
       <UniqueIdentifier>{FD735900-E9FF-870B-52AE-880B3E59880B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{C0FF640D-2C14-8DBE-F595-301E616989EF}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{AFF4887C-9B2B-8A0D-4418-7010302E060F}</UniqueIdentifier>
     </Filter>
@@ -51,6 +54,9 @@
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -205,6 +211,9 @@
     <ClInclude Include="Src\IO\EulerFile.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="Src\ImGui\ImGuiLayer.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Math\EulerMath.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -213,6 +222,12 @@
     </ClInclude>
     <ClInclude Include="Src\Physics\kinematics.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRendererLoader.h">
+      <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
       <Filter>Platform\Windows</Filter>
@@ -348,6 +363,12 @@
     </ClCompile>
     <ClCompile Include="Src\IO\EulerFile.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\ImGuiGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
       <Filter>Platform\Windows</Filter>

@@ -15,11 +15,15 @@ namespace EulerEngine {
 
 		void PushLayer(EulerLayer* layer);
 		void PushOverlay(EulerLayer* overlay);
+
+		inline static Application& Get() { return *s_Instance; }
+		inline EulerWindow& GetWIndow() { return *m_Window; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<EulerWindow> m_Window;
 		bool m_Running = true;
 		EulerLayerStack m_LayerStack;
+		static Application* s_Instance;
 	};
 	Application* CreateApplication();
 }
