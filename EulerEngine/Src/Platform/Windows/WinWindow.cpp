@@ -3,6 +3,7 @@
 #include"../../Core/EulerLog.h"
 #include"../../Core/Events/ApplicationEvent.h"
 #include"../../Core/Events/InputEvent.h"
+#include<Glad/glad.h>
 namespace EulerEngine {
 	static bool s_GLFWIntialized = false;
 
@@ -31,6 +32,8 @@ namespace EulerEngine {
 
 		m_Window = glfwCreateWindow((int)info.Width, (int)info.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		KINK_CORE_ASSERT(status, "Failed to intialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
