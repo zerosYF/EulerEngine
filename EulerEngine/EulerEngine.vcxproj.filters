@@ -108,7 +108,7 @@
     <ClInclude Include="Src\Core\EulerImage.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerLog.h">
+    <ClInclude Include="Src\Core\Log\EulerLog.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerMemManager.h">
@@ -180,7 +180,7 @@
     <ClInclude Include="Src\Game\EulerObject.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Input\EulerInput.h">
+    <ClInclude Include="Src\Core\Input\EulerInput.h">
       <Filter>Game\Input</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\EulerHierarchy.h">
@@ -311,12 +311,14 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\gkpch.h" />
+    <ClInclude Include="Src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="Src\Core\Input\InputCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerLog.cpp">
+    <ClCompile Include="Src\Core\Log\EulerLog.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerMemManager.cpp">
@@ -349,7 +351,7 @@
     <ClCompile Include="Src\Game\EulerObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Input\EulerInput.cpp">
+    <ClCompile Include="Src\Core\Input\EulerInput.cpp">
       <Filter>Game\Input</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp">
@@ -401,5 +403,6 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
   </ItemGroup>
 </Project>

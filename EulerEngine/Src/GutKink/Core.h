@@ -16,3 +16,5 @@
 #define KINK_CORE_ASSERT(x, ...)
 #endif
 #define BIT(x) (1 << x)
+
+#define KINK_BIND_EVENT_FUNC(func) std::bind(&func, this, std::placeholders::_1)

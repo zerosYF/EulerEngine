@@ -4,8 +4,7 @@ extern EulerEngine::Application* EulerEngine::CreateApplication();
 int main(int argc, char** argv) {
 
 	EulerEngine::EulerLog::Init();
-	KINK_CORE_WARN("this is a warning!");
-	KINK_INFO("this is information!");
+	KINK_CORE_INFO("Welcome to Euler's World!");
 
 	auto app = EulerEngine::CreateApplication();
 	app->Run();

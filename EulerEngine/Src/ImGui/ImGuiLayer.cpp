@@ -19,7 +19,70 @@ void EulerEngine::ImGuiLayer::OnAttach()
 
     ImGui_ImplOpenGL3_Init("#version 410");
 }
-int GetGuiKey(int keycode) {
+
+void EulerEngine::ImGuiLayer::OnDetach()
+{
+}
+void EulerEngine::ImGuiLayer::OnUpdate() 
+{
+    ImGuiIO& io = ImGui::GetIO();
+    Application& app = Application::Get();
+    io.DisplaySize = ImVec2(app.GetWIndow().GetWidth(), app.GetWIndow().GetHeight());
+
+    float time = (float)glfwGetTime();
+    io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
+    m_Time = time;
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui::NewFrame();
+
+    static bool show = true;
+    ImGui::ShowDemoWindow(&show);
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+void EulerEngine::ImGuiLayer::OnEvent(Event& e) {
+    EventDispatcher dispatch(e);
+    dispatch.Dispatch<MouseButtonPressedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnMouseBtnDown));
+    dispatch.Dispatch<MouseButtonReleasedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnMouseBtnUp));
+    dispatch.Dispatch<MouseMovedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnMouseMoved));
+    dispatch.Dispatch<MouseScrolledEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnMouseScrolled));
+    dispatch.Dispatch<KeyPressedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnKeyDown));
+    dispatch.Dispatch<KeyReleasedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnKeyUp));
+    dispatch.Dispatch<KeyTypedEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnKey));
+    dispatch.Dispatch<WindowResizeEvent>(KINK_BIND_EVENT_FUNC(ImGuiLayer::OnWindowResize));
+}
+
+bool EulerEngine::ImGuiLayer::OnMouseBtnDown(MouseButtonPressedEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.MouseDown[e.GetMouseButton()] = true;
+    return false;
+}
+
+bool EulerEngine::ImGuiLayer::OnMouseBtnUp(MouseButtonReleasedEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.MouseDown[e.GetMouseButton()] = false;
+    return false;
+}
+
+bool EulerEngine::ImGuiLayer::OnMouseMoved(MouseMovedEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.MousePos = ImVec2(e.GetX(), e.GetY());
+    return false;
+}
+
+bool EulerEngine::ImGuiLayer::OnMouseScrolled(MouseScrolledEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.MouseWheelH += e.GetXOffset();
+    io.MouseWheel += e.GetYOffset();
+    return false;
+}
+
+ImGuiKey GetGuiKeyFromGLFW(int keycode) {
     switch (keycode)
     {
     case GLFW_KEY_TAB: return ImGuiKey_Tab;
@@ -142,28 +205,46 @@ int GetGuiKey(int keycode) {
     default: return ImGuiKey_None;
     }
 }
-void EulerEngine::ImGuiLayer::OnDetach()
-{
-}
-void EulerEngine::ImGuiLayer::OnUpdate() 
+bool EulerEngine::ImGuiLayer::OnKeyDown(KeyPressedEvent& e)
 {
     ImGuiIO& io = ImGui::GetIO();
-    Application& app = Application::Get();
-    io.DisplaySize = ImVec2(app.GetWIndow().GetWidth(), app.GetWIndow().GetHeight());
-
-    float time = (float)glfwGetTime();
-    io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-    m_Time = time;
-
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui::NewFrame();
-
-    static bool show = true;
-    ImGui::ShowDemoWindow(&show);
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    io.KeysData[e.GetKeyCode()].Down = true;
+    
+    io.KeyCtrl = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_CONTROL)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_CONTROL));
+    io.KeyShift = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_SHIFT)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_SHIFT));
+    io.KeyAlt = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_ALT)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_ALT));
+    io.KeySuper = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_SUPER)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_SUPER));
+    return false;
 }
-void EulerEngine::ImGuiLayer::OnEvent(Event& e) {
 
+bool EulerEngine::ImGuiLayer::OnKeyUp(KeyReleasedEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.KeysData[e.GetKeyCode()].Down = false;
+
+    io.KeyCtrl = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_CONTROL)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_CONTROL));
+    io.KeyShift = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_SHIFT)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_SHIFT));
+    io.KeyAlt = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_ALT)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_ALT));
+    io.KeySuper = ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_LEFT_SUPER)) || ImGui::IsKeyDown(GetGuiKeyFromGLFW(GLFW_KEY_RIGHT_SUPER));
+    return false;
+}
+
+bool EulerEngine::ImGuiLayer::OnKey(KeyTypedEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    int keycode = e.GetKeyCode();
+    if (keycode > 0 && keycode < 0x10000) {
+        io.AddInputCharacter((unsigned short)keycode);
+    }
+    return false;
+}
+
+bool EulerEngine::ImGuiLayer::OnWindowResize(WindowResizeEvent& e)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
+    io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+    glViewport(0, 0, e.GetWidth(), e.GetHeight());
+    return false;
 }
 

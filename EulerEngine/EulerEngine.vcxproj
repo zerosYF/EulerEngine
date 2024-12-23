@@ -155,7 +155,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Container\ResourcePool\TexturePool.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
-    <ClInclude Include="Src\Core\EulerLog.h" />
+    <ClInclude Include="Src\Core\Input\InputCodes.h" />
+    <ClInclude Include="Src\Core\Log\EulerLog.h" />
     <ClInclude Include="Src\Core\EulerMemManager.h" />
     <ClInclude Include="Src\Core\EulerMemOperator.h" />
     <ClInclude Include="Src\Core\EulerSingleton.h" />
@@ -179,7 +180,7 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Game\Context\EulerContext.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
-    <ClInclude Include="Src\Game\Input\EulerInput.h" />
+    <ClInclude Include="Src\Core\Input\EulerInput.h" />
     <ClInclude Include="Src\Game\World\EulerHierarchy.h" />
     <ClInclude Include="Src\Game\World\EulerWorld.h" />
     <ClInclude Include="Src\Game\World\ResInfo\HierarchyInfo.h" />
@@ -196,6 +197,7 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Physics\kinematics.h" />
     <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRenderer.h" />
     <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRendererLoader.h" />
+    <ClInclude Include="Src\Platform\Windows\WinInput.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
@@ -227,7 +229,7 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp" />
-    <ClCompile Include="Src\Core\EulerLog.cpp" />
+    <ClCompile Include="Src\Core\Log\EulerLog.cpp" />
     <ClCompile Include="Src\Core\EulerMemManager.cpp" />
     <ClCompile Include="Src\Core\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
@@ -238,13 +240,14 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
     <ClCompile Include="Src\Game\EulerObject.cpp" />
-    <ClCompile Include="Src\Game\Input\EulerInput.cpp" />
+    <ClCompile Include="Src\Core\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp" />
     <ClCompile Include="Src\Game\World\EulerWorld.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\IO\EulerFile.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\ImGuiGLRenderer.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />

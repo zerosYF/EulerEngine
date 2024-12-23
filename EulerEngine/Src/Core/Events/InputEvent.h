@@ -27,7 +27,12 @@ namespace EulerEngine{
 		KeyReleasedEvent(int keycode) :KeyEvent(keycode) {}
 		EVENT_CLASS_TYPE(KINK_KEY_RELEASED)
 	};
-
+	class KINK_API KeyTypedEvent : public KeyEvent {
+	public:
+		KeyTypedEvent(int keycode) :KeyEvent(keycode) {
+		}
+		EVENT_CLASS_TYPE(KINK_KEY_TYPED)
+	};
 
 
 
@@ -49,7 +54,7 @@ namespace EulerEngine{
 	public:
 		MouseScrolledEvent(double xOffset, double yOffset) :m_xOffset(xOffset), m_yOffset(yOffset) {}
 		inline double GetXOffset() const { return m_xOffset; }
-		inline double GetyOffset() const { return m_yOffset; }
+		inline double GetYOffset() const { return m_yOffset; }
 		EVENT_CLASS_TYPE(KINK_MOUSE_SCROLLED)
 		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_INPUT)
 	private:

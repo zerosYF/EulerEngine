@@ -1,7 +1,9 @@
 #include "gkpch.h"
 #include "Application.h"
-#include "../Core/EulerLog.h"
+#include "../Core/Log/EulerLog.h"
 #include "../Core/Events/Event.h"
+#include "../Core/Input/EulerInput.h"
+#include <GLFW/glfw3.h>
 namespace EulerEngine {
 #define BIND_EVENT_FUNC(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_Instance = nullptr;
@@ -17,16 +19,18 @@ namespace EulerEngine {
 	}
 	void Application :: Run() {
 		while (m_Running) {
-			m_Window->OnUpdate();
-			for (EulerLayer* layer:m_LayerStack) {
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			for (EulerLayer* layer : m_LayerStack) {
 				layer->OnUpdate();
 			}
+			m_Window->OnUpdate();
+			auto [x, y] = InputSystem::GetCursorPosition();
 		}
 	}
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FUNC(OnWindowClose));
-		KINK_CORE_TRACE("dispatch event {0}", e.ToString());
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
 			(*--it)->OnEvent(e);

@@ -14,6 +14,8 @@ namespace EulerEngine {
 		inline void SetEventCallback(const EventCallbackFunc& callback) override { m_Data.Callback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+
+		inline void* GetNativeWindow() const override { return m_Window; }
 	private:
 		virtual void Initialize(const WindowInfo& info);
 		virtual void ShutDown();

@@ -1,6 +1,6 @@
 #include "gkpch.h"
 #include"WinWIndow.h"
-#include"../../Core/EulerLog.h"
+#include"../../Core/Log/EulerLog.h"
 #include"../../Core/Events/ApplicationEvent.h"
 #include"../../Core/Events/InputEvent.h"
 #include<Glad/glad.h>
@@ -72,6 +72,11 @@ namespace EulerEngine {
 					break;
 				}
 			}
+		});
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode) {
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent event(keycode);
+			data.Callback(event);
 		});
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int modes) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
