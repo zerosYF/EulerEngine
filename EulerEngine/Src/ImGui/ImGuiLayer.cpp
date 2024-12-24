@@ -19,6 +19,7 @@ void EulerEngine::ImGuiLayer::OnAttach()
 	ImGui::StyleColorsDark();
 	ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
+
 	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors | ImGuiBackendFlags_HasSetMousePos;
 
     ImGuiStyle& style = ImGui::GetStyle();

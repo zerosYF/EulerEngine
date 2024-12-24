@@ -13,8 +13,14 @@
     <Filter Include="Core\Events">
       <UniqueIdentifier>{52201B74-BED5-9369-47CA-8D40B37E8A6D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Input">
+      <UniqueIdentifier>{AD4E7BCD-9906-BD1A-020E-9676EEE4570B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core\Layer">
       <UniqueIdentifier>{7A9BAACD-6653-EC1A-CF5A-C576BB31870B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Log">
+      <UniqueIdentifier>{FF3299C2-EBFF-F3CD-1419-E2750045295C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Reflection">
       <UniqueIdentifier>{28B22CF9-943D-9ABD-9D4E-1DB20959F6BD}</UniqueIdentifier>
@@ -27,9 +33,6 @@
     </Filter>
     <Filter Include="Game\Context">
       <UniqueIdentifier>{133363B2-FF95-F256-A81B-2B0D945DBED9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Input">
-      <UniqueIdentifier>{BE3C8EE1-AAF4-CF2E-13FC-A88AFFD26A1F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\World">
       <UniqueIdentifier>{76278CE2-62DF-CD2F-CBE6-A68BB7BD6820}</UniqueIdentifier>
@@ -54,9 +57,6 @@
     </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\OpenGL">
-      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -108,9 +108,6 @@
     <ClInclude Include="Src\Core\EulerImage.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Log\EulerLog.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\EulerMemManager.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -138,11 +135,20 @@
     <ClInclude Include="Src\Core\Events\InputEvent.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Input\EulerInput.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Input\InputCodes.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\Layer\EulerLayer.h">
       <Filter>Core\Layer</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h">
       <Filter>Core\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Log\EulerLog.h">
+      <Filter>Core\Log</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
       <Filter>Core\Reflection</Filter>
@@ -179,9 +185,6 @@
     </ClInclude>
     <ClInclude Include="Src\Game\EulerObject.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Input\EulerInput.h">
-      <Filter>Game\Input</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\World\EulerHierarchy.h">
       <Filter>Game\World</Filter>
@@ -222,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="Src\Physics\kinematics.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\Windows\WinInput.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
       <Filter>Platform\Windows</Filter>
@@ -305,14 +311,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\gkpch.h" />
-    <ClInclude Include="Src\Platform\Windows\WinInput.h" />
-    <ClInclude Include="Src\Core\Input\InputCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\Log\EulerLog.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerMemManager.cpp">
@@ -324,11 +325,17 @@
     <ClCompile Include="Src\Core\EulerTimer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\Input\EulerInput.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Core\Layer\EulerLayer.cpp">
       <Filter>Core\Layer</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp">
       <Filter>Core\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Log\EulerLog.cpp">
+      <Filter>Core\Log</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
       <Filter>Core\Reflection</Filter>
@@ -345,9 +352,6 @@
     <ClCompile Include="Src\Game\EulerObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Input\EulerInput.cpp">
-      <Filter>Game\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp">
       <Filter>Game\World</Filter>
     </ClCompile>
@@ -359,6 +363,15 @@
     </ClCompile>
     <ClCompile Include="Src\IO\EulerFile.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ImGui\ImGuiBuild.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\Windows\WinInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
       <Filter>Platform\Windows</Filter>
@@ -391,8 +404,5 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
-    <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
-    <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
-    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
   </ItemGroup>
 </Project>
