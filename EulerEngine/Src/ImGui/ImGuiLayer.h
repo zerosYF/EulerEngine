@@ -8,19 +8,12 @@ namespace EulerEngine {
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach();
-		void OnDetach();
-		void OnUpdate();
-		void OnEvent(Event& e);
-	private:
-		bool OnMouseBtnDown(MouseButtonPressedEvent& e);
-		bool OnMouseBtnUp(MouseButtonReleasedEvent& e);
-		bool OnMouseMoved(MouseMovedEvent& e);
-		bool OnMouseScrolled(MouseScrolledEvent& e);
-		bool OnKeyDown(KeyPressedEvent& e);
-		bool OnKeyUp(KeyReleasedEvent& e);
-		bool OnKey(KeyTypedEvent& e);
-		bool OnWindowResize(WindowResizeEvent& e);
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
+		
+		void Begin();
+		void End();
 	private:
 		float m_Time = 0.0f;
 	};

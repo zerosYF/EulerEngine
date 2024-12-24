@@ -223,12 +223,6 @@
     <ClInclude Include="Src\Physics\kinematics.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRenderer.h">
-      <Filter>Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\ImGuiGLRendererLoader.h">
-      <Filter>Platform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -366,12 +360,6 @@
     <ClCompile Include="Src\IO\EulerFile.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\ImGuiGLRenderer.cpp">
-      <Filter>Platform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
@@ -404,5 +392,7 @@
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
+    <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
+    <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
   </ItemGroup>
 </Project>

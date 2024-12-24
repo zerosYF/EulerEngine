@@ -12,6 +12,8 @@ namespace EulerEngine {
 		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>  (EulerWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
+		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
+		PushOverlay(m_ImGuiLayer.get());
 	}
 
 	Application::~Application()
@@ -24,6 +26,12 @@ namespace EulerEngine {
 			for (EulerLayer* layer : m_LayerStack) {
 				layer->OnUpdate();
 			}
+			m_ImGuiLayer->Begin();
+			for (EulerLayer* layer : m_LayerStack) {
+				layer->OnImGuiRender();
+			}
+			m_ImGuiLayer->End();
+
 			m_Window->OnUpdate();
 			auto [x, y] = InputSystem::GetCursorPosition();
 		}

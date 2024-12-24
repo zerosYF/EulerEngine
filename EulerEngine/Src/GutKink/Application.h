@@ -3,6 +3,7 @@
 #include"../Core/Events/Event.h"
 #include"../Core/Events/ApplicationEvent.h"
 #include"../Core/EulerWindow.h"
+#include"../ImGui/ImGuiLayer.h"
 #include"../Core/Layer/EulerLayerStack.h"
 namespace EulerEngine {
 	class KINK_API Application
@@ -21,6 +22,7 @@ namespace EulerEngine {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<EulerWindow> m_Window;
+		std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
 		bool m_Running = true;
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;

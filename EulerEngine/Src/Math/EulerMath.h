@@ -1,4 +1,4 @@
 #pragma once
-namespace EulerEngine {
-	
+#include"glm/vec3.hpp"
+namespace EulerEngine { 
 }
