@@ -5,6 +5,7 @@ namespace EulerEngine {
 	}
 	EulerLayerStack::~EulerLayerStack() {
 		for (EulerLayer* layer: m_Layers) {
+			layer->OnDetach();
 			delete layer;
 		}
 	}
@@ -21,6 +22,7 @@ namespace EulerEngine {
 	bool EulerLayerStack::PopLayer(EulerLayer* layer) {
 		auto it = std::find(m_Layers.begin(),m_Layers.end(), layer);
 		if (it != m_Layers.end()) {
+			layer->OnDetach();
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
 			return true;
@@ -30,6 +32,7 @@ namespace EulerEngine {
 	bool EulerLayerStack::PopOverlay(EulerLayer* overlay) {
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end()) {
+			overlay->OnDetach();
 			m_Layers.erase(it);
 			return true;
 		}

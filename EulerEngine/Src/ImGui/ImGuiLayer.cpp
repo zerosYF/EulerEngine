@@ -9,9 +9,6 @@
 EulerEngine::ImGuiLayer::ImGuiLayer():EulerLayer("ImGuiLayer") {
 
 }
-EulerEngine::ImGuiLayer::~ImGuiLayer() {
-
-}
 void EulerEngine::ImGuiLayer::OnAttach()
 {
     IMGUI_CHECKVERSION();

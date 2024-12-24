@@ -12,12 +12,13 @@ namespace EulerEngine {
 		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>  (EulerWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FUNC(Application::OnEvent));
-		m_ImGuiLayer = std::make_unique<ImGuiLayer>();
-		PushOverlay(m_ImGuiLayer.get());
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
+		
 	}
 	void Application :: Run() {
 		while (m_Running) {

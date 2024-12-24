@@ -6,7 +6,7 @@ namespace EulerEngine {
 	class KINK_API ImGuiLayer :public EulerLayer {
 	public:
 		ImGuiLayer();
-		~ImGuiLayer();
+		~ImGuiLayer() = default;
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
