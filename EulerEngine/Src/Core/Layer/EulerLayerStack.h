@@ -18,7 +18,7 @@ namespace EulerEngine {
 		std::vector<EulerLayer*>::iterator end() { return m_Layers.end(); }
 	private:
 		std::vector<EulerLayer*> m_Layers;
-		std::vector<EulerLayer*>::iterator m_LayerInsert;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 }
 
