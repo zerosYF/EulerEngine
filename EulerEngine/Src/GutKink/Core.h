@@ -1,9 +1,13 @@
 #pragma once
 #ifdef KINK_PLATFORM_WINDOWS
+#ifdef KINK_DYNAMIC_LINK
 #ifdef KINK_BUILD_DLL
 #define KINK_API __declspec(dllexport)
 #else
 #define KINK_API __declspec(dllimport)
+#endif
+#else
+#define KINK_API
 #endif
 #else
 #error this engine only supports windows

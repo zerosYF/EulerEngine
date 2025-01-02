@@ -177,7 +177,7 @@
     <ClInclude Include="Src\Game\Component\TransformComponent.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Context\EulerContext.h">
+    <ClInclude Include="Src\Render\Context\EulerContext.h">
       <Filter>Game\Context</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\EulerGame.h">
@@ -311,6 +311,7 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\gkpch.h" />
+    <ClInclude Include="Src\Platform\OpenGL\OpenGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
@@ -343,7 +344,7 @@
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
       <Filter>Core\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\Context\EulerContext.cpp">
+    <ClCompile Include="Src\Render\Context\EulerContext.cpp">
       <Filter>Game\Context</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\EulerGame.cpp">
@@ -404,5 +405,6 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>

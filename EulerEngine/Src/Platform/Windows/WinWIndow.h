@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Core/EulerWindow.h"
+#include "Render/Context/EulerContext.h"
 #include "GLFW/glfw3.h"
 namespace EulerEngine {
 	class WinWindow :public EulerWindow {
@@ -21,6 +22,8 @@ namespace EulerEngine {
 		virtual void ShutDown();
 	private:
 		GLFWwindow* m_Window;
+		EulerContext* m_Context;
+
 		struct WindowData{
 			std::string Title;
 			int Width;

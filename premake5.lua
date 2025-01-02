@@ -16,8 +16,10 @@ include "EulerEngine/Vendor/ImGui"
 
 project "EulerEngine"
 	location "EulerEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "On"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 
@@ -46,19 +48,13 @@ project "EulerEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
+		systemversion "latest" 
 
 		defines{
 			"KINK_PLATFORM_WINDOWS",
 			"KINK_BUILD_DLL",
 			"_WINDLL",
 			"KINK_ENABLE_ASSERTS"
-		}
-		postbuildcommands{
-			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
 		}
 	filter "configurations:Debug"
 		defines "KINK_DEBUG"
@@ -74,6 +70,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "On"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 	files{
@@ -90,21 +87,19 @@ project "Sandbox"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		defines{
 			"KINK_PLATFORM_WINDOWS",	
 		}
 	filter "configurations:Debug"
 		defines "KINK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 	filter "configurations:Release"
 		defines "KINK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "KINK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"

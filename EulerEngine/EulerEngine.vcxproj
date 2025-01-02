@@ -23,19 +23,19 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
@@ -54,25 +54,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\Debug-windows-x86_64\EulerEngine\</OutDir>
     <IntDir>..\bin-interm\Debug-windows-x86_64\EulerEngine\</IntDir>
     <TargetName>EulerEngine</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\Release-windows-x86_64\EulerEngine\</OutDir>
     <IntDir>..\bin-interm\Release-windows-x86_64\EulerEngine\</IntDir>
     <TargetName>EulerEngine</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
-    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\Dist-windows-x86_64\EulerEngine\</OutDir>
     <IntDir>..\bin-interm\Dist-windows-x86_64\EulerEngine\</IntDir>
     <TargetName>EulerEngine</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -90,14 +87,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\EulerEngine\EulerEngine.lib</ImportLibrary>
-    </Link>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Debug-windows-x86_64\Sandbox (mkdir ..\bin\Debug-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Debug-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Debug-windows-x86_64\Sandbox</Command>
-    </PostBuildEvent>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -115,14 +109,11 @@ copy /B /Y ..\bin\Debug-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Debug-
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\bin\Release-windows-x86_64\EulerEngine\EulerEngine.lib</ImportLibrary>
-    </Link>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Release-windows-x86_64\Sandbox (mkdir ..\bin\Release-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Release-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Release-windows-x86_64\Sandbox</Command>
-    </PostBuildEvent>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -140,14 +131,11 @@ copy /B /Y ..\bin\Release-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Rele
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <ImportLibrary>..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.lib</ImportLibrary>
-    </Link>
-    <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Dist-windows-x86_64\Sandbox (mkdir ..\bin\Dist-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-windows-x86_64\Sandbox</Command>
-    </PostBuildEvent>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Src\Container\ResourcePool\MeshPool.h" />
@@ -178,7 +166,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClInclude Include="Src\Game\Component\ComponentBase.h" />
     <ClInclude Include="Src\Game\Component\ModelComponent.h" />
     <ClInclude Include="Src\Game\Component\TransformComponent.h" />
-    <ClInclude Include="Src\Game\Context\EulerContext.h" />
+    <ClInclude Include="Src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Src\Render\Context\EulerContext.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Game\World\EulerHierarchy.h" />
@@ -236,7 +225,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\EulerEngine\EulerEngine.dll ..\bin\Dist-wi
     <ClCompile Include="Src\Core\Log\EulerLog.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp" />
-    <ClCompile Include="Src\Game\Context\EulerContext.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Src\Render\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
     <ClCompile Include="Src\Game\EulerObject.cpp" />
     <ClCompile Include="Src\Game\World\EulerHierarchy.cpp" />

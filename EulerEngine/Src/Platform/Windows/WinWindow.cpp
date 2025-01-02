@@ -3,7 +3,7 @@
 #include"../../Core/Log/EulerLog.h"
 #include"../../Core/Events/ApplicationEvent.h"
 #include"../../Core/Events/InputEvent.h"
-#include<Glad/glad.h>
+#include"Platform/OpenGL/OpenGLContext.h"
 namespace EulerEngine {
 	static bool s_GLFWIntialized = false;
 
@@ -22,6 +22,7 @@ namespace EulerEngine {
 		m_Data.Width = info.Width;
 		m_Data.Height = info.Height;
 
+
 		KINK_CORE_INFO("Create Window {0} ({1} {2})", info.Title, info.Width, info.Height);
 
 		if (!s_GLFWIntialized) {
@@ -31,9 +32,10 @@ namespace EulerEngine {
 		}
 
 		m_Window = glfwCreateWindow((int)info.Width, (int)info.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		KINK_CORE_ASSERT(status, "Failed to intialize Glad!");
+
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Initialize();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -110,7 +112,7 @@ namespace EulerEngine {
 	}
 	void WinWindow::OnUpdate() {
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 	void WinWindow::SetVSync(bool enabled) {
 		if (enabled) {

@@ -6,7 +6,6 @@
 #include"../Render/GLObjects/GLSquare.h"
 #include"../Render/OpenGL/GLCamera.h"
 #include"../Render/OpenGL/GLModel.h"
-#include"Context/EulerContext.h"
 
 
 namespace EulerEngine {

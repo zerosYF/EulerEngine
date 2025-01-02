@@ -56,8 +56,5 @@ namespace EulerEngine {
 	void Application::PushOverlay(EulerLayer* layer) {
 		m_LayerStack.PushOverlay(layer);
 	}
-	Application* CreateApplication()
-	{
-		return nullptr;
-	}
+	
 }

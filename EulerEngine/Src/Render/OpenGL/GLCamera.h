@@ -4,7 +4,6 @@
 #include"../../Math/EulerMath.h"
 #include<vector>
 #include"../../Core/EulerTimer.h"
-#include"../../Game/Context/EulerContext.h"
 namespace EulerEngine {
 	enum RenderCameraType {
 		Editor,
