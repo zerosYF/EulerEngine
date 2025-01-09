@@ -311,7 +311,10 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\gkpch.h" />
-    <ClInclude Include="Src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
+    <ClInclude Include="Src\Render\EulerShader.h" />
+    <ClInclude Include="Src\Render\EulerBuffer.h" />
+    <ClInclude Include="Src\Render\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
@@ -405,6 +408,11 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
+    <ClCompile Include="Src\Render\EulerShader.cpp" />
+    <ClCompile Include="Src\Render\EulerBuffer.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.h" />
+    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
+    <ClCompile Include="Src\Render\Renderer.cpp" />
   </ItemGroup>
 </Project>

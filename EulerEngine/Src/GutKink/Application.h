@@ -5,6 +5,8 @@
 #include"../Core/EulerWindow.h"
 #include"../ImGui/ImGuiLayer.h"
 #include"../Core/Layer/EulerLayerStack.h"
+#include"Render/EulerShader.h"
+#include"Render/EulerBuffer.h"
 namespace EulerEngine {
 	class KINK_API Application
 	{
@@ -26,6 +28,11 @@ namespace EulerEngine {
 		bool m_Running = true;
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;
+
+		unsigned int m_VertexArray;
+		std::unique_ptr<EulerShader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	};
 	Application* CreateApplication();
 }

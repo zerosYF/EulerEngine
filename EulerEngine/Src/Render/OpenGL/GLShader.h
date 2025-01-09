@@ -19,21 +19,6 @@
 //	unsigned int ID;
 //public:
 //	Shader() {}
-//	void compile(const char*vertexCode,const char*fragmentCode) {
-//		unsigned int vertexShader, fragmentShader;
-//		CompileShader(vertexCode,vertexShader,EULER_VERTEX);
-//		CompileShader(fragmentCode, fragmentShader, EULER_FRAGMENT);
-//
-//		ID = glCreateProgram();
-//		std::cout << "³ÌÐòID£º" << ID << std::endl;
-//		glAttachShader(ID, vertexShader);
-//		glAttachShader(ID, fragmentShader);
-//
-//		glLinkProgram(ID);
-//		checkError(ID,EULER_LINK_PROGRAM);
-//		glDeleteShader(vertexShader);
-//		glDeleteShader(fragmentShader);
-//	}
 //	void use() {
 //		glUseProgram(ID);
 //	}
@@ -76,41 +61,6 @@
 //	}
 //	~Shader() {
 //		//Îö¹¹¸Ã¸ÉµãÉ¶ÄØ¡£
-//	}
-//private:
-//	void CompileShader(const char*Code,unsigned int& shader,CompileShaderType type) {
-//		if(type==EULER_VERTEX)
-//			shader = glCreateShader(GL_VERTEX_SHADER);
-//		else if (type == EULER_FRAGMENT) 
-//			shader = glCreateShader(GL_FRAGMENT_SHADER);
-//		else
-//			shader = glCreateShader(GL_GEOMETRY_SHADER);
-//		glShaderSource(shader, 1, &Code, NULL);
-//		glCompileShader(shader);
-//		checkError(shader, type);
-//	}
-//	void checkError(unsigned int object,unsigned int type) {
-//		int success;
-//		char infoLog[512];
-//		if (type != EULER_LINK_PROGRAM) {
-//			glGetShaderiv(object,GL_COMPILE_STATUS,&success);
-//			if (!success) {
-//				std::string t;
-//				if (type == EULER_VERTEX) t = "¶¥µãshader";
-//				else if (type == EULER_FRAGMENT) t = "Æ¬¶Îshader";
-//				else if (type == EULER_GEOMETRY) t = "¼¸ºÎshader";
-//
-//				glGetShaderInfoLog(object,512,NULL,infoLog);
-//				std::cout<<t<<"±àÒëÊ§°Ü\n"<<"log: "<<infoLog<< std::endl;
-//			}
-//		}
-//		else {
-//			glGetProgramiv(object, GL_LINK_STATUS, &success);
-//			if (!success) {
-//				glGetProgramInfoLog(object,512,NULL,infoLog);
-//				std::cout << "Á´½ÓÊ§°Ü\n" <<"log: "<<infoLog<< std::endl;
-//			}
-//		}
 //	}
 //};
 #endif // !SHADER_H

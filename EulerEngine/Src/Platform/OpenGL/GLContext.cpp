@@ -1,5 +1,5 @@
 #include"gkpch.h"
-#include"OpenGLContext.h"
+#include"GLContext.h"
 #include<glfw/glfw3.h>
 #include<glad/glad.h>
 #include"Core/Log/EulerLog.h"
