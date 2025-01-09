@@ -20,8 +20,7 @@ namespace EulerEngine {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-
-
+	
 
 
 	OpenGLIndexBuffer::OpenGLIndexBuffer(unsigned int* indices, unsigned int count):m_Count(count)

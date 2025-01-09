@@ -25,8 +25,16 @@ namespace EulerEngine {
 			0.0f, 0.5f, 0.0f
 		};
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"}
+		};
+		unsigned int index = 0;
+		for (const auto& element:layout) {
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, element.GetComponentCount(), GL_FLOAT, element.Normalized? GL_TRUE : GL_FALSE, layout.GetStride(), (const void*)element.Offset);
+			index++;
+		}
 
 		unsigned int indices[3]{ 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)/sizeof(unsigned int)));
