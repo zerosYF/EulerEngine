@@ -56,6 +56,8 @@ namespace EulerEngine {
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
+		const std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
+		const std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 		inline const unsigned int GetStride() const { return m_Stride; }
 	private:
 		void CalculateOffsetsAndStride() {

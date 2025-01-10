@@ -7,6 +7,7 @@
 #include"../Core/Layer/EulerLayerStack.h"
 #include"Render/EulerShader.h"
 #include"Render/EulerBuffer.h"
+#include"Render/VertexArray.h"
 namespace EulerEngine {
 	class KINK_API Application
 	{
@@ -29,10 +30,8 @@ namespace EulerEngine {
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<EulerShader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<EulerShader> m_Shader;
 	};
 	Application* CreateApplication();
 }

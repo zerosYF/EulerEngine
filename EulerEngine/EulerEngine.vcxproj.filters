@@ -315,6 +315,8 @@
     <ClInclude Include="Src\Render\EulerShader.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
+    <ClInclude Include="Src\Render\VertexArray.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
@@ -414,5 +416,7 @@
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.h" />
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
+    <ClCompile Include="Src\Render\VertexArray.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
   </ItemGroup>
 </Project>
