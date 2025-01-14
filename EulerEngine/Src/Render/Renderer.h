@@ -1,13 +1,12 @@
 #pragma once
+#include "RendererAPI.h"
+#include "RenderCmd.h"
 namespace EulerEngine {
-	enum class RendererAPI {
-		None = 0,
-		OpenGL = 1,
-	};
 	class Renderer {
 	public:
-		inline static RendererAPI GetAPI() { return s_API; }
-	private:
-		static RendererAPI s_API;
+		static void BeginScene();
+		static void EndScene();
+		static void Submit(const class std::shared_ptr<VertexArray>& vertexArray);
+		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 	};
 }

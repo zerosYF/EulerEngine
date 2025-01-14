@@ -167,6 +167,7 @@
     <ClInclude Include="Src\Game\Component\ModelComponent.h" />
     <ClInclude Include="Src\Game\Component\TransformComponent.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
     <ClInclude Include="Src\Game\EulerGame.h" />
@@ -206,7 +207,9 @@
     <ClInclude Include="Src\Render\OpenGL\GLTexture.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
+    <ClInclude Include="Src\Render\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
+    <ClInclude Include="Src\Render\RendererAPI.h" />
     <ClInclude Include="Src\Render\System\EulerRender.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Resource\SourceManager.h" />
@@ -232,6 +235,7 @@
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
     <ClCompile Include="Src\Render\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Game\EulerGame.cpp" />
@@ -250,7 +254,9 @@
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.h" />
     <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
+    <ClCompile Include="Src\Render\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
+    <ClCompile Include="Src\Render\RendererAPI.cpp" />
     <ClCompile Include="Src\Render\System\EulerRender.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />

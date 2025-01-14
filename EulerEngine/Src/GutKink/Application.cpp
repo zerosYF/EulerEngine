@@ -1,10 +1,11 @@
 #include "gkpch.h"
 #include "Application.h"
-#include "../Core/Log/EulerLog.h"
-#include "../Core/Events/Event.h"
-#include "../Core/Input/EulerInput.h"
+#include "Core/Log/EulerLog.h"
+#include "Core/Events/Event.h"
+#include "Core/Input/EulerInput.h"
 #include <GLFW/glfw3.h>
 #include <backends/imgui_impl_opengl3_loader.h>
+#include "Render/Renderer.h"
 namespace EulerEngine {
 #define BIND_EVENT_FUNC(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_Instance = nullptr;
@@ -48,12 +49,13 @@ namespace EulerEngine {
 	}
 	void Application :: Run() {
 		while (m_Running) {
-			glClearColor(0.1f, 0, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
+			RenderCommand::Clear();
 
+			Renderer::BeginScene();
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+			Renderer::EndScene();
 
 
 			for (EulerLayer* layer : m_LayerStack) {
