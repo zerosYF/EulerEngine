@@ -193,7 +193,7 @@
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h" />
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLCamera.h" />
+    <ClInclude Include="Src\Render\EulerCamera.h" />
     <ClInclude Include="Src\Render\OpenGL\GLControl.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMaterial.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMesh.h" />
@@ -202,7 +202,6 @@
     <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h" />
     <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h" />
     <ClInclude Include="Src\Render\OpenGL\GLScene.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLShader.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTexture.h" />
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h" />

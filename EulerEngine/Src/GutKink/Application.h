@@ -1,13 +1,14 @@
 #pragma once
 #include"Core.h"
-#include"../Core/Events/Event.h"
-#include"../Core/Events/ApplicationEvent.h"
-#include"../Core/EulerWindow.h"
-#include"../ImGui/ImGuiLayer.h"
-#include"../Core/Layer/EulerLayerStack.h"
+#include"Core/Events/Event.h"
+#include"Core/Events/ApplicationEvent.h"
+#include"Core/EulerWindow.h"
+#include"ImGui/ImGuiLayer.h"
+#include"Core/Layer/EulerLayerStack.h"
 #include"Render/EulerShader.h"
 #include"Render/EulerBuffer.h"
 #include"Render/VertexArray.h"
+#include"Render/EulerCamera.h"
 namespace EulerEngine {
 	class KINK_API Application
 	{
@@ -32,6 +33,7 @@ namespace EulerEngine {
 
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<EulerShader> m_Shader;
+		Camera m_Camera;
 	};
 	Application* CreateApplication();
 }

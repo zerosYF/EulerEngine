@@ -9,7 +9,7 @@
 namespace EulerEngine {
 #define BIND_EVENT_FUNC(x) std::bind(&Application::x, this, std::placeholders::_1)
 	Application* Application::s_Instance = nullptr;
-	Application::Application()
+	Application::Application():m_Camera()
 	{
 		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>(EulerWindow::Create());
@@ -52,9 +52,9 @@ namespace EulerEngine {
 			RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::BeginScene(m_Camera);
+
+			Renderer::Submit(m_VertexArray, m_Shader);
 			Renderer::EndScene();
 
 

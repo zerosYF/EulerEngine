@@ -244,7 +244,7 @@
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
       <Filter>Render\GLObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLCamera.h">
+    <ClInclude Include="Src\Render\EulerCamera.h">
       <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLControl.h">
@@ -269,9 +269,6 @@
       <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLScene.h">
-      <Filter>Render\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLShader.h">
       <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
