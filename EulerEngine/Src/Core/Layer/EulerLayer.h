@@ -1,6 +1,7 @@
 #pragma once
-#include "../../GutKink/Core.h"
-#include "../Events/Event.h"
+#include "GutKink/Core.h"
+#include "Core/Events/Event.h"
+#include "Core/EulerTimer.h"
 namespace EulerEngine {
 	class KINK_API EulerLayer
 	{
