@@ -1,16 +1,9 @@
 #include "gkpch.h"
 #include"EulerTimer.h"
+#include<GLFW/glfw3.h>
 namespace EulerEngine {
-	/*TimerSystem::~TimerSystem() {
-	}
-	void TimerSystem::Initialize() {
-		m_TimeStart = timeGetTime();
-	}
-	double TimerSystem::GetGamePlayTime() {
-		return (timeGetTime() - m_TimeStart);
-	}
-	void TimerSystem::updateFps() {
-		m_Time = GetGamePlayTime()*0.001;
+	void TimerSystem::Tick() {
+		m_Time = glfwGetTime();
 		m_DeltaTime = m_Time - m_LastTime;
 		m_LastTime = m_Time;
 		if (m_Time - m_LastFPSTime > 1.0f) {
@@ -21,5 +14,5 @@ namespace EulerEngine {
 		else {
 			m_FrameCount++;
 		}
-	}*/
+	}
 }

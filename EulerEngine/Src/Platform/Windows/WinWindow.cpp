@@ -1,9 +1,9 @@
 #include "gkpch.h"
 #include"WinWIndow.h"
-#include"../../Core/Log/EulerLog.h"
-#include"../../Core/Events/ApplicationEvent.h"
-#include"../../Core/Events/InputEvent.h"
-#include"Platform/OpenGL/OpenGLContext.h"
+#include"Core/Log/EulerLog.h"
+#include"Core/Events/ApplicationEvent.h"
+#include"Core/Events/InputEvent.h"
+#include"Platform/OpenGL/GLContext.h"
 namespace EulerEngine {
 	static bool s_GLFWIntialized = false;
 

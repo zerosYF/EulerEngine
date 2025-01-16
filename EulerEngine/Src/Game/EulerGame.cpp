@@ -1,10 +1,8 @@
 #include "gkpch.h"
 #include"EulerGame.h"
 #include"../Core/EulerTimer.h"
-#include"../Render/OpenGL/GLShader.h"
 #include"../Render/GLObjects/GLCube.h"
 #include"../Render/GLObjects/GLSquare.h"
-#include"../Render/OpenGL/GLCamera.h"
 #include"../Render/OpenGL/GLModel.h"
 
 

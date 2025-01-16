@@ -1,6 +1,5 @@
 #pragma once
 #include<memory>
-#include"../OpenGL/GLCamera.h"
 #include"../OpenGL/GLScene.h"
 #include"../GLObjects/GLLight.h"
 #include"../GLObjects/GLRenderObject.h"

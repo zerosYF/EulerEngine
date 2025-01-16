@@ -2,7 +2,6 @@
 #include"../../Math/EulerMath.h"
 #include <string>
 #include <vector>
-#include "GLShader.h"
 
 //struct Vertex{
 //	glm::vec3 Position;

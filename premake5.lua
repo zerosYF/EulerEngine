@@ -35,7 +35,7 @@ project "EulerEngine"
 		"%{prj.name}/Vendor/spdlog/include",
 		"%{prj.name}/External/include",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
@@ -79,7 +79,8 @@ project "Sandbox"
 	}
 	includedirs{
 		"EulerEngine/Vendor/spdlog/include",
-		"EulerEngine/Src"
+		"EulerEngine/Src",
+		"EulerEngine/External/include",
 	}
 	links{
 		"EulerEngine"

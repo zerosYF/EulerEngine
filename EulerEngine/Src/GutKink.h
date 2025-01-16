@@ -6,6 +6,13 @@
 #include"Core/Layer/EulerLayer.h"
 #include"Core/Log/EulerLog.h"
 #include"ImGui/ImGuiLayer.h"
-
+#include"Render/Renderer.h"
+#include"Render/RenderCmd.h"
+#include"Render/EulerBuffer.h"
+#include"Render/EulerCamera.h"
+#include"Render/EulerShader.h"
+#include"Render/VertexArray.h"
+#include"Render/RendererAPI.h"
+#include"Core/EulerTimer.h"
 //++++++++++++++++++++++++++++++++Èë¿Úµã+++++++++++++++++++++++++++
 #include"GutKink/EntryPoint.h"

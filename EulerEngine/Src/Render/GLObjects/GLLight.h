@@ -2,7 +2,6 @@
 #include"../../Math/EulerMath.h"
 #include"../OpenGL/GLTransform.h"
 #include"../OpenGL/GLMesh.h"
-#include"../OpenGL/GLShader.h"
 #define CUBE_VERTEX_CNT 36
 #define CUBE_DATA_SIZE 8
 namespace EulerEngine {

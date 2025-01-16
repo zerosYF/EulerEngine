@@ -50,6 +50,7 @@ namespace EulerEngine {
 	};
 	class BufferLayout {
 	public:
+		BufferLayout() {}
 		BufferLayout(const std::initializer_list<BufferElement>& element): m_Elements(element) {
 			CalculateOffsetsAndStride();
 		}

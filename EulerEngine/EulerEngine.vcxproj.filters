@@ -31,9 +31,6 @@
     <Filter Include="Game\Component">
       <UniqueIdentifier>{A1AC5C82-8D7A-5088-760E-C1AE627B2CED}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Context">
-      <UniqueIdentifier>{133363B2-FF95-F256-A81B-2B0D945DBED9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\World">
       <UniqueIdentifier>{76278CE2-62DF-CD2F-CBE6-A68BB7BD6820}</UniqueIdentifier>
     </Filter>
@@ -58,11 +55,17 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render">
       <UniqueIdentifier>{C5BB87CE-B15D-B2A4-9A18-C6F8865939F5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Context">
+      <UniqueIdentifier>{592B5E80-45F9-5186-2E8D-C2AC1AFA2DEB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render\GLObjects">
       <UniqueIdentifier>{91AE8D19-7DA7-AC6B-A6D9-91F092318C77}</UniqueIdentifier>
@@ -177,9 +180,6 @@
     <ClInclude Include="Src\Game\Component\TransformComponent.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Context\EulerContext.h">
-      <Filter>Game\Context</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Game\EulerGame.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -226,11 +226,35 @@
     <ClInclude Include="Src\Physics\kinematics.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Platform\Windows\WinInput.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
       <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Context\EulerContext.h">
+      <Filter>Render\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\EulerBuffer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\EulerCamera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\EulerShader.h">
+      <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLCube.h">
       <Filter>Render\GLObjects</Filter>
@@ -243,9 +267,6 @@
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
       <Filter>Render\GLObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\EulerCamera.h">
-      <Filter>Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLControl.h">
       <Filter>Render\OpenGL</Filter>
@@ -280,8 +301,20 @@
     <ClInclude Include="Src\Render\OpenGL\GLTransform.h">
       <Filter>Render\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\RenderCmd.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Renderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RendererAPI.h">
+      <Filter>Render</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\System\EulerRender.h">
       <Filter>Render\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\VertexArray.h">
+      <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Resource\SourceManager.h">
       <Filter>Resource</Filter>
@@ -308,15 +341,6 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\gkpch.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
-    <ClInclude Include="Src\Render\EulerShader.h" />
-    <ClInclude Include="Src\Render\EulerBuffer.h" />
-    <ClInclude Include="Src\Render\Renderer.h" />
-    <ClInclude Include="Src\Render\VertexArray.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
-    <ClInclude Include="Src\Render\RendererAPI.h" />
-    <ClInclude Include="Src\Render\RenderCmd.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\EulerImage.cpp">
@@ -349,9 +373,6 @@
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
       <Filter>Core\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Context\EulerContext.cpp">
-      <Filter>Game\Context</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Game\EulerGame.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -376,11 +397,32 @@
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
       <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Context\EulerContext.cpp">
+      <Filter>Render\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\EulerBuffer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\EulerShader.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
       <Filter>Render\GLObjects</Filter>
@@ -391,8 +433,20 @@
     <ClCompile Include="Src\Render\OpenGL\GLMaterial.cpp">
       <Filter>Render\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\RenderCmd.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Renderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RendererAPI.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Render\System\EulerRender.cpp">
       <Filter>Render\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\VertexArray.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Test\TestFunc.cpp">
       <Filter>Test</Filter>
@@ -410,16 +464,5 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Src\gkpch.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
-    <ClCompile Include="Src\Render\EulerShader.cpp" />
-    <ClCompile Include="Src\Render\EulerBuffer.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.h" />
-    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
-    <ClCompile Include="Src\Render\Renderer.cpp" />
-    <ClCompile Include="Src\Render\VertexArray.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
-    <ClCompile Include="Src\Render\RendererAPI.cpp" />
-    <ClCompile Include="Src\Render\RenderCmd.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

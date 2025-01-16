@@ -9,6 +9,7 @@
 #include"Render/EulerBuffer.h"
 #include"Render/VertexArray.h"
 #include"Render/EulerCamera.h"
+#include"Core/EulerTimer.h"
 namespace EulerEngine {
 	class KINK_API Application
 	{
@@ -30,10 +31,7 @@ namespace EulerEngine {
 		bool m_Running = true;
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;
-
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<EulerShader> m_Shader;
-		Camera m_Camera;
+		TimerSystem m_Timer;
 	};
 	Application* CreateApplication();
 }
