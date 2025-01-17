@@ -1,5 +1,8 @@
 #include"gkpch.h"
 #include<GutKink.h>
+#include"../Vendor/imgui/imgui.h"
+#include<glm/gtc/type_ptr.hpp>
+#include<glm/gtc/matrix_transform.hpp>
 using namespace EulerEngine;
 class ExampleLayer : public EulerEngine::EulerLayer {
 public:
@@ -13,7 +16,7 @@ public:
 			0.5f, -0.5f, 0.0f,
 			0.0f, 0.5f, 0.0f
 		};
-		std::shared_ptr<VertexBuffer> vertexBuffer;
+		Ref<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		BufferLayout layout = {
@@ -23,13 +26,13 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3]{ 0, 1, 2 };
-		std::shared_ptr<IndexBuffer> indexBuffer;
+		Ref<IndexBuffer> indexBuffer;
 		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = "";
 		std::string fragmentSrc = "";
-		m_Shader.reset(new EulerShader(vertexSrc, fragmentSrc));
+		m_Shader.reset(EulerShader::Create(vertexSrc, fragmentSrc));
 	}
 	void OnUpdate(TimerSystem timer) override{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT)) {
@@ -40,15 +43,28 @@ public:
 
 		Renderer::BeginScene(m_Camera);
 
-		Renderer::Submit(m_VertexArray, m_Shader);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
+		Material* material_ref = new Material(m_Shader);
+		material_ref->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
+		material_ref->addTexture(...,...);
+		CubeMesh->SetMaterial(material_ref);
+
+		Renderer::Submit(m_VertexArray, m_Shader, transform);
 		Renderer::EndScene();
+	}
+	virtual void OnImGuiRender() override {
+		ImGui::Begin("Settings");
+		glm::vec4 color = glm::vec4(1.0f);
+		ImGui::ColorEdit4("Clear Color", glm::value_ptr(color)); 
+		ImGui::SliderFloat("Camera Speed", &m_CameraSpeed, 0.0f, 100.0f);
+		ImGui::End();
 	}
 	void OnEvent(EulerEngine::Event& event) override {
 		
 	}
 private:
-	std::shared_ptr<VertexArray> m_VertexArray;
-	std::shared_ptr<EulerShader> m_Shader;
+	Ref<VertexArray> m_VertexArray;
+	Ref<EulerShader> m_Shader;
 	Camera m_Camera;
 	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 	float m_CameraSpeed = 5.0f;

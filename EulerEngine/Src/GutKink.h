@@ -14,5 +14,6 @@
 #include"Render/VertexArray.h"
 #include"Render/RendererAPI.h"
 #include"Core/EulerTimer.h"
+#include"Render/EulerMaterial.h"
 //++++++++++++++++++++++++++++++++Èë¿Úµã+++++++++++++++++++++++++++
 #include"GutKink/EntryPoint.h"

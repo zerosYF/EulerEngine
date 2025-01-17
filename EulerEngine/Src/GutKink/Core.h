@@ -22,3 +22,10 @@
 #define BIT(x) (1 << x)
 
 #define KINK_BIND_EVENT_FUNC(func) std::bind(&func, this, std::placeholders::_1)
+#include<memory>
+namespace EulerEngine {
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}
