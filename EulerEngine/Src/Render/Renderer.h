@@ -6,6 +6,7 @@
 namespace EulerEngine {
 	class Renderer {
 	public:
+		static void Init();
 		static void BeginScene(Camera& camera);
 		static void EndScene();
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<EulerShader>& shader, const glm::mat4& transform);

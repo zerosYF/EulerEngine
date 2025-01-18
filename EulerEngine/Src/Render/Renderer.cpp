@@ -4,6 +4,10 @@
 #include"Platform/OpenGL/GLShader.h"
 namespace EulerEngine {
 	Renderer::SceneData* m_SceneData = new Renderer::SceneData;
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
 	void Renderer::BeginScene(Camera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewMatrix();

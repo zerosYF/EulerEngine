@@ -15,5 +15,6 @@
 #include"Render/RendererAPI.h"
 #include"Core/EulerTimer.h"
 #include"Render/EulerMaterial.h"
+#include"Render/EulerTexture.h"
 //++++++++++++++++++++++++++++++++Èë¿Úµã+++++++++++++++++++++++++++
 #include"GutKink/EntryPoint.h"

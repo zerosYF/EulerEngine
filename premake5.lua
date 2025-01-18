@@ -28,7 +28,11 @@ project "EulerEngine"
 
 	files{
 		"%{prj.name}/Src/**.h",
-		"%{prj.name}/Src/**.cpp"
+		"%{prj.name}/Src/**.cpp",
+		"%{prj.name}/External/include/glm/**.hpp",
+		"%{prj.name}/External/include/glm/**.inl",
+		"%{prj.name}/External/include/stb_image/**.cpp",
+		"%{prj.name}/External/include/stb_image/**.h",
 	}
 	includedirs{
 		"%{prj.name}/Src",

@@ -20,7 +20,8 @@ public:
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		BufferLayout layout = {
-			{ShaderDataType::Float3, "a_Position"}
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float2, "a_TexCoord"},
 		};
 		vertexBuffer->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
@@ -33,6 +34,7 @@ public:
 		std::string vertexSrc = "";
 		std::string fragmentSrc = "";
 		m_Shader.reset(EulerShader::Create(vertexSrc, fragmentSrc));
+		m_Texture.reset(Texture2D::Create(""));
 	}
 	void OnUpdate(TimerSystem timer) override{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT)) {
@@ -48,6 +50,7 @@ public:
 		material_ref->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
 		material_ref->addTexture(...,...);
 		CubeMesh->SetMaterial(material_ref);
+		m_Texture->Bind();
 
 		Renderer::Submit(m_VertexArray, m_Shader, transform);
 		Renderer::EndScene();
@@ -65,6 +68,7 @@ public:
 private:
 	Ref<VertexArray> m_VertexArray;
 	Ref<EulerShader> m_Shader;
+	Ref<Texture2D> m_Texture;
 	Camera m_Camera;
 	glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
 	float m_CameraSpeed = 5.0f;
