@@ -16,9 +16,9 @@ namespace EulerEngine {
 	public:
 		glm::vec3 color{1.0f,1.0f,1.0f};
 		Mesh m_Mesh;
-		EulerShader m_Shader;
+		std::shared_ptr<EulerShader> m_Shader;
 		EulerTransform transform;
-		EulerLight(EulerShader shader) :m_Shader(shader), m_Mesh(shader) { bindMesh(); }
+		EulerLight(std::shared_ptr<EulerShader> shader) :m_Shader(shader), m_Mesh(shader) { bindMesh(); }
 		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {transform.update(pos, scl, rot);}
 		void setColor(glm::vec3 color) {this->color = color;}
 		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection);

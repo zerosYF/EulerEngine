@@ -1,5 +1,5 @@
-#include "gkpch.h"
-#include "EulerLog.h"
+#include"gkpch.h"
+#include"EulerLog.h"
 namespace EulerEngine {
 
 	std::shared_ptr<spdlog::logger> EulerLog::s_CoreLogger = nullptr;

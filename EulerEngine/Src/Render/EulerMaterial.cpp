@@ -10,7 +10,7 @@ namespace EulerEngine {
 		if (sLight != nullptr) setSpotLightRender(sLight);
 		if (pLight != nullptr) setPointLightRender(pLight);
 	}
-	void Material::addTexture(Texture2D texture, TextureType type) {
+	void Material::addTexture(std::shared_ptr<Texture2D> texture, TextureType type) {
 		textures.push_back(texture);
 		textures_type.push_back(type);
 	}

@@ -46,6 +46,9 @@
     <Filter Include="Src\Core\Layer">
       <UniqueIdentifier>{1104AA9C-FDD1-9DA2-E665-0EC9D2D27907}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Core\Logs">
+      <UniqueIdentifier>{09C59869-7585-14A0-3EC0-5D1DAA3F597C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Core\Reflection">
       <UniqueIdentifier>{1F1148F8-8B72-2506-14E0-6BB880405CC5}</UniqueIdentifier>
     </Filter>
@@ -1458,6 +1461,9 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Logs\EulerLog.h">
+      <Filter>Src\Core\Logs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1483,6 +1489,9 @@
     </ClCompile>
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp">
       <Filter>Src\Core\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Logs\EulerLog.cpp">
+      <Filter>Src\Core\Logs</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
       <Filter>Src\Core\Reflection</Filter>

@@ -15,11 +15,7 @@ namespace EulerEngine {
 		unsigned int Filter_MAX;//放大过滤方式；
 	public:
 		OpenGLTexture2D(std::string path);
-		OpenGLTexture2D(std::string path) :ID(0), Width(0), Height(0),
-			Save_Format(GL_RGB), Image_Format(GL_RGB), Wrap_S(GL_REPEAT), Wrap_T(GL_REPEAT),
-			Filter_MIN(GL_LINEAR), Filter_MAX(GL_LINEAR) {
-			this->m_Path = path;
-		}
+		~OpenGLTexture2D();
 		virtual unsigned int GetWidth() const override { return Width; }
 		virtual unsigned int GetHeight() const override { return Height; }
 		virtual void Bind(unsigned int slot) const override;

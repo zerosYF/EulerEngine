@@ -2,7 +2,7 @@
 #include"GLContext.h"
 #include<glfw/glfw3.h>
 #include<glad/glad.h>
-#include"Core/Log/EulerLog.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle):m_WindowHandle(windowHandle)
 	{

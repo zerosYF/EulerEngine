@@ -4,12 +4,6 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glad/glad.h>
 namespace EulerEngine {
-	enum CompileShaderType {
-		EULER_VERTEX,
-		EULER_FRAGMENT,
-		EULER_GEOMETRY,
-		EULER_LINK_PROGRAM,
-	};
 	class EulerShader {
 	public:
 		virtual ~EulerShader() = default;

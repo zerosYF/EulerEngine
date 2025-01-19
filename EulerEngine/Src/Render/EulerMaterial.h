@@ -22,11 +22,11 @@ namespace EulerEngine {
 		std::vector<TextureType> textures_type;
 		LightMaterial light_material;
 		glm::vec4 m_Color;
-		EulerShader m_Shader;
+		std::shared_ptr<EulerShader> m_Shader;
 	public:
-		Material(EulerShader shader):m_Shader(shader) {}
+		Material(std::shared_ptr<EulerShader> shader):m_Shader(shader) {}
 		void Draw(int dCnt, EulerDirLight* dLight, int pCnt, EulerPointLight* pLight, int sCnt, EulerSpotLight* sLight);
-		void addTexture(Texture2D texture, TextureType type);
+		void addTexture(std::shared_ptr<Texture2D> texture, TextureType type);
 		void setColor(glm::vec4 color) { m_Color = color; }
 	private:
 		void bindTexture();

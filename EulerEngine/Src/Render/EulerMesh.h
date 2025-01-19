@@ -1,6 +1,7 @@
 #pragma once
 #include"gkpch.h"
 #include"Math/EulerMath.h"
+#include"EulerShader.h"
 #include<glad/glad.h>
 namespace EulerEngine {
 	class Mesh {
@@ -15,8 +16,8 @@ namespace EulerEngine {
 		};
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
-		EulerShader m_Shader;
-		Mesh(EulerShader shader): m_Shader(shader) {
+		std::shared_ptr<EulerShader> m_Shader;
+		Mesh(std::shared_ptr<EulerShader> shader): m_Shader(shader) {
 		}
 		void setupVertex(std::vector<Vertex> v, std::vector<unsigned int> i) {
 			vertices = v;
