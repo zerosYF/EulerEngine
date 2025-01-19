@@ -1,6 +1,6 @@
 #include "gkpch.h"
 #include "Application.h"
-#include "Core/Log/EulerLog.h"
+#include "Core/Logs/EulerLog.h"
 #include "Core/Events/Event.h"
 #include "Core/Input/EulerInput.h"
 #include <GLFW/glfw3.h>

@@ -16,7 +16,7 @@ project "Glad"
     }
 
     filter "system:windows"
-        systemversion "latest"
+        --systemversion "latest"
 
     filter "configurations: Debug"
         runtime "Debug"

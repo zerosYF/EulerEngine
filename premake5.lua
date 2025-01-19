@@ -5,6 +5,7 @@ workspace "EulerEngine"
 		"Release",
 		"Dist"
 	}
+	toolset "v141"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -52,7 +53,7 @@ project "EulerEngine"
 	}
 
 	filter "system:windows"
-		systemversion "latest" 
+		--systemversion "latest" 
 
 		defines{
 			"KINK_PLATFORM_WINDOWS",
@@ -92,7 +93,7 @@ project "Sandbox"
 
 
 	filter "system:windows"
-		systemversion "latest"
+		--systemversion "latest"
 		defines{
 			"KINK_PLATFORM_WINDOWS",	
 		}
