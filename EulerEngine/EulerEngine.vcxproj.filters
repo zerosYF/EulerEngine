@@ -150,7 +150,7 @@
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h">
       <Filter>Core\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Log\EulerLog.h">
+    <ClInclude Include="Src\Core\Logs\EulerLog.h">
       <Filter>Core\Log</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
@@ -357,7 +357,7 @@
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp">
       <Filter>Core\Layer</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Log\EulerLog.cpp">
+    <ClCompile Include="Src\Core\Logs\EulerLog.cpp">
       <Filter>Core\Log</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
