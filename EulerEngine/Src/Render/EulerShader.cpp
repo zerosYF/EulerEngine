@@ -5,12 +5,12 @@
 #include"Render/Renderer.h"
 #include"Platform/OpenGL/GLShader.h"
 namespace EulerEngine {
-	EulerShader* EulerShader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
+	Ref<EulerShader> EulerShader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLShader(vertexSrc, fragmentSrc);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc);
 		}
 		return nullptr;
 	}

@@ -1,6 +1,6 @@
 #include"gkpch.h"
 #include<GutKink.h>
-#include"../Vendor/imgui/imgui.h"
+#include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 using namespace EulerEngine;
@@ -9,7 +9,7 @@ public:
 	ExampleLayer()
 		: m_Camera()
 	{
-		m_VertexArray.reset(VertexArray::Create());
+		m_VertexArray = VertexArray::Create();
 
 		float vertices[9]{
 			-0.5f, -0.5f, 0.0f,
@@ -33,8 +33,8 @@ public:
 
 		std::string vertexSrc = "";
 		std::string fragmentSrc = "";
-		m_Shader.reset(EulerShader::Create(vertexSrc, fragmentSrc));
-		m_Texture.reset(Texture2D::Create(""));
+		m_Shader = EulerShader::Create(vertexSrc, fragmentSrc);
+		m_Texture = Texture2D::Create("");
 	}
 	void OnUpdate(TimerSystem timer) override{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT)) {

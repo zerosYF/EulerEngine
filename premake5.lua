@@ -5,7 +5,7 @@ workspace "EulerEngine"
 		"Release",
 		"Dist"
 	}
-	toolset "v141"
+	toolset "v143"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -86,6 +86,8 @@ project "Sandbox"
 		"EulerEngine/Vendor/spdlog/include",
 		"EulerEngine/Src",
 		"EulerEngine/External/include",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 	}
 	links{
 		"EulerEngine"

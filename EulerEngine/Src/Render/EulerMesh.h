@@ -2,6 +2,8 @@
 #include"gkpch.h"
 #include"Math/EulerMath.h"
 #include"EulerShader.h"
+#include"VertexArray.h"
+#include"RenderCmd.h"
 #include<glad/glad.h>
 namespace EulerEngine {
 	class Mesh {
@@ -14,56 +16,32 @@ namespace EulerEngine {
 		struct Triangle {
 			Vertex vertexs[3];
 		};
-		std::vector<Vertex> vertices;
+		float* vertices;
 		std::vector<unsigned int> indices;
-		std::shared_ptr<EulerShader> m_Shader;
-		Mesh(std::shared_ptr<EulerShader> shader): m_Shader(shader) {
-		}
-		void setupVertex(std::vector<Vertex> v, std::vector<unsigned int> i) {
-			vertices = v;
-			indices = i;
-			this->setupMesh();
+		Ref<VertexBuffer> m_VertexBuffer;
+		Ref<IndexBuffer> m_IndexBuffer;
+		Mesh(float* v, std::vector<unsigned int> i): vertices(v), indices(i) {
+			Ref<VertexBuffer> vertexBuffer;
+			vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+
+			BufferLayout layout = {
+				{ShaderDataType::Float3, "a_Position"},
+				{ShaderDataType::Float2, "a_TexCoord"},
+			};
+			vertexBuffer->SetLayout(layout);
+			m_VertexArray->AddVertexBuffer(vertexBuffer);
+
+			unsigned int indices[3]{ 0, 1, 2 };
+			Ref<IndexBuffer> indexBuffer;
+			indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
+			m_VertexArray->SetIndexBuffer(indexBuffer);
 		}
 		void Draw() {
-			glBindVertexArray(VAO);
-			if (indices.size() != 0)
-				glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-			else {
-				glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-			}
-			glBindVertexArray(0);
-		}
-		unsigned int getVAO() {
-			return this->VAO;
+			m_VertexArray->Bind();
+			RenderCommand::DrawIndexed(m_VertexArray);
+			m_VertexArray->Unbind();
 		}
 	private:
-		unsigned int VAO, VBO, EBO;
-		void setupMesh() {
-			glGenVertexArrays(1, &VAO);
-			glGenBuffers(1, &VBO);
-			glGenBuffers(1, &EBO);
-
-			glBindVertexArray(VAO);
-			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER,
-				vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-			if (indices.size() != 0) {
-				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-					indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-			}
-
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, Position));
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-			glEnableVertexAttribArray(2);
-			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
-				sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-
-			glBindVertexArray(0);
-		}
+		Ref<VertexArray> m_VertexArray;
 	};
 }

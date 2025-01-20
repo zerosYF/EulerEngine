@@ -18,8 +18,8 @@ namespace EulerEngine {
 	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<EulerShader>& shader, const glm::mat4& transform=glm::mat4(1.0f))
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->setMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->setMat4("u_Transform", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
 
 		material->Bind();
 

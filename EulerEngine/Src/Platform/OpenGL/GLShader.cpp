@@ -60,10 +60,10 @@ namespace EulerEngine {
 			}
 		}
 	}
-	void EulerShader::Bind() const {
+	void OpenGLShader::Bind() const {
 		glUseProgram(m_RendererID);
 	}
-	void EulerShader::Unbind() const {
+	void OpenGLShader::Unbind() const {
 		glUseProgram(0);
 	}
 }

@@ -1275,6 +1275,9 @@
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h">
       <Filter>Src\Core\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Logs\EulerLog.h">
+      <Filter>Src\Core\Logs</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
       <Filter>Src\Core\Reflection</Filter>
     </ClInclude>
@@ -1460,9 +1463,6 @@
     </ClInclude>
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Logs\EulerLog.h">
-      <Filter>Src\Core\Logs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

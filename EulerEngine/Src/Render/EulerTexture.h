@@ -20,7 +20,10 @@ namespace EulerEngine {
 	};
 	class Texture2D :public Texture {
 	public:
-		static Texture2D* Create(const std::string& path);
+		static Ref<Texture2D> Create(const std::string& path, TextureType type);
+		virtual TextureType GetType() const { return m_Type; }
+	protected:
+		TextureType m_Type;
 	};
 	
 }

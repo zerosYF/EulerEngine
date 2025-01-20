@@ -21,37 +21,37 @@ namespace EulerEngine {
 		virtual void Unbind() const override;
 
 		//uniform¹¤¾ßº¯Êý;
-		void setBool(const std::string& name, bool value) const {
+		virtual void inline SetBool(const std::string& name, bool value) const override{
 			glUniform1i(glGetUniformLocation(m_RendererID, name.c_str()), (int)value);
 		}
-		void setInt(const std::string& name, int value) const {
+		virtual void inline SetInt(const std::string& name, int value) const override {
 			glUniform1i(glGetUniformLocation(m_RendererID, name.c_str()), value);
 		}
-		void setFloat(const std::string& name, float value) const {
+		virtual void inline SetFloat(const std::string& name, float value) const override {
 			glUniform1f(glGetUniformLocation(m_RendererID, name.c_str()), value);
 		}
-		void setMat3(const std::string& name, glm::mat3 value) const {
+		virtual void inline SetMat3(const std::string& name, glm::mat3 value) const override {
 			glUniformMatrix3fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 		}
-		void setMat4(const std::string& name, glm::mat4 value) const {
+		virtual void inline SetMat4(const std::string& name, glm::mat4 value) const override {
 			glUniformMatrix4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 		}
-		void setVec2(const std::string& name, float x, float y) const {
+		virtual void inline SetVec2(const std::string& name, float x, float y) const override {
 			glUniform2f(glGetUniformLocation(m_RendererID, name.c_str()), x, y);
 		}
-		void setVec2(const std::string& name, glm::vec2 value) const {
+		virtual void inline SetVec2(const std::string& name, glm::vec2 value) const override {
 			glUniform2fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, glm::value_ptr(value));
 		}
-		void setVec3(const std::string& name, float x, float y, float z) const {
+		virtual void inline SetVec3(const std::string& name, float x, float y, float z) const override {
 			glUniform3f(glGetUniformLocation(m_RendererID, name.c_str()), x, y, z);
 		}
-		void setVec3(const std::string& name, glm::vec3 value) const {
+		virtual void inline SetVec3(const std::string& name, glm::vec3 value) const override {
 			glUniform3fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, glm::value_ptr(value));
 		}
-		void setVec4(const std::string& name, float x, float y, float z, float w) const {
+		virtual void inline SetVec4(const std::string& name, float x, float y, float z, float w) const override {
 			glUniform4f(glGetUniformLocation(m_RendererID, name.c_str()), x, y, z, w);
 		}
-		void setVec4(const std::string& name, glm::vec4 value) const {
+		virtual void inline SetVec4(const std::string& name, glm::vec4 value) const override {
 			glUniform4fv(glGetUniformLocation(m_RendererID, name.c_str()), 1, glm::value_ptr(value));
 		}
 	private:

@@ -76,32 +76,6 @@ namespace EulerEngine {
 			shader.compile(vCode, fCode);
 			return shader;
 		}
-		Texture2D loadTextureFromFile(const char* file, std::string name) {
-			Texture2D texture2D(name);
-			int width, height;
-			int Channel_cnt;
-			stbi_set_flip_vertically_on_load(true);
-			unsigned char* data = 0;
-			data = stbi_load(file, &width, &height, &Channel_cnt, 0);
-			if (data) {
-				GLenum format = GL_RGB;
-				if (Channel_cnt == 1) {
-					format = GL_RED;
-				}
-				else if (Channel_cnt == 3) {
-					format = GL_RGB;
-				}
-				else if (Channel_cnt == 4) {
-					format = GL_RGBA;
-				}
-				texture2D.generate(width, height, format, data);
-			}
-			else {
-				std::cout << "创建纹理失败,大概率文件有问题" << std::endl;
-			}
-			stbi_image_free(data);
-			return texture2D;
-		}
 	};*/
 }
 #endif
