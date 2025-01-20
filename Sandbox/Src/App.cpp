@@ -34,7 +34,7 @@ public:
 		std::string vertexSrc = "";
 		std::string fragmentSrc = "";
 		m_Shader = EulerShader::Create(vertexSrc, fragmentSrc);
-		m_Texture = Texture2D::Create("");
+		m_Texture = Texture2D::Create("", TextureType::DIFFUSE);
 	}
 	void OnUpdate(TimerSystem timer) override{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT)) {
@@ -48,7 +48,7 @@ public:
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
 		Material* material_ref = new Material(m_Shader);
 		material_ref->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
-		material_ref->addTexture(...,...);
+		material_ref->addTexture("...", TextureType::DIFFUSE);
 		CubeMesh->SetMaterial(material_ref);
 		m_Texture->Bind();
 

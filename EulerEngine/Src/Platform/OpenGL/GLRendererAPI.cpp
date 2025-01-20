@@ -20,4 +20,7 @@ namespace EulerEngine {
 	{
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray) {
+		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetVertexBuffers().size());
+	}
 }
