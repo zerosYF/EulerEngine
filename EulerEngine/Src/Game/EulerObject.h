@@ -14,7 +14,7 @@ namespace EulerEngine {
 	//		atomic<GameObjectID> newID = m_nextID.load();
 	//		m_nextID++;
 	//		if (m_nextID > k_invalidID) {
-	//			std::cout << "对象ID overflow" << endl;
+	//			std::cout << "锟斤拷锟斤拷ID overflow" << endl;
 	//			return 0;
 	//		}
 	//		return newID;
@@ -23,7 +23,7 @@ namespace EulerEngine {
 	//	static  atomic<GameObjectID> m_nextID;
 	//};
 	//class GameObject:public enable_shared_from_this<GameObject>{
-	//	//类内this指针获取使用shared_ptr
+	//	//锟斤拷锟斤拷this指锟斤拷锟饺∈癸拷锟絪hared_ptr
 	//public:
 	// 	virtual ~GameObject() = 0;
 	//	GameObject(GameObjectID id) :m_id(id) {}

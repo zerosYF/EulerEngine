@@ -9,15 +9,15 @@
 //		std::string error;
 //		switch (errcode)
 //		{
-//		case GL_INVALID_ENUM: error = "ÎÞÐ§µÄÃ¶¾Ù"; break;
-//		case GL_INVALID_VALUE:error = "ÎÞÐ§µÄÖµ"; break;
-//		case GL_INVALID_OPERATION:error = "ÎÞÐ§µÄ²Ù×÷"; break;
-//		case GL_STACK_OVERFLOW:error = "Õ»Òç³ö"; break;
-//		case GL_STACK_UNDERFLOW: error = "ÏÂÒç³ö"; break;
-//		case GL_OUT_OF_MEMORY:error = "ÄÚ´æ²»×ã"; break;
-//		case GL_INVALID_FRAMEBUFFER_OPERATION: error = "ÎÞÐ§Ö¡»º³å²Ù×÷"; break;
+//		case GL_INVALID_ENUM: error = "ï¿½ï¿½Ð§ï¿½ï¿½Ã¶ï¿½ï¿½"; break;
+//		case GL_INVALID_VALUE:error = "ï¿½ï¿½Ð§ï¿½ï¿½Öµ"; break;
+//		case GL_INVALID_OPERATION:error = "ï¿½ï¿½Ð§ï¿½Ä²ï¿½ï¿½ï¿½"; break;
+//		case GL_STACK_OVERFLOW:error = "Õ»ï¿½ï¿½ï¿½"; break;
+//		case GL_STACK_UNDERFLOW: error = "ï¿½ï¿½ï¿½ï¿½ï¿½"; break;
+//		case GL_OUT_OF_MEMORY:error = "ï¿½Ú´æ²»ï¿½ï¿½"; break;
+//		case GL_INVALID_FRAMEBUFFER_OPERATION: error = "ï¿½ï¿½Ð§Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"; break;
 //		}
-//		std::cout <<"´íÎó´úÂë:"<<errcode<< "·¢Éú´íÎó:"<<error.c_str() <<file<<"("<<line<<")"<< std::endl;
+//		std::cout <<"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:"<<errcode<< "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:"<<error.c_str() <<file<<"("<<line<<")"<< std::endl;
 //	}
 //	return errcode;
 //}

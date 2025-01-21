@@ -1,17 +1,17 @@
-#include "gkpch.h"
+ï»¿#include "gkpch.h"
 #include"EulerMemManager.h"
 #include<stdlib.h>
 #include<assert.h>
 using namespace EulerEngine;
 void* EulerBlock::FillBlockMask() {
 	unsigned int *ptr = (unsigned int*)this;
-	//Ìø¹ıblockĞÅÏ¢Çø£»
+	//è·³è¿‡blockä¿¡æ¯åŒºï¼›
 	unsigned int *beginMask_ptr = ptr + sizeof(EulerBlock);
-	//Êı¾İÇøÍ·²¿±êÖ¾Ìî³ä;
+	//æ•°æ®åŒºå¤´éƒ¨æ ‡å¿—å¡«å……;
 	*beginMask_ptr = BEGIN_MASK;
 	unsigned int *data_ptr = ptr + sizeof(unsigned int*);
 	unsigned int *endMask_ptr = data_ptr + size;
-	//Êı¾İÇøÎ²²¿±êÖ¾Ìî³ä£»
+	//æ•°æ®åŒºå°¾éƒ¨æ ‡å¿—å¡«å……ï¼›
 	*endMask_ptr = END_MASK;
 	return data_ptr;
 }

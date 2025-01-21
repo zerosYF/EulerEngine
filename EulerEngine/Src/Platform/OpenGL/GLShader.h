@@ -20,7 +20,7 @@ namespace EulerEngine {
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		//uniform¹¤¾ßº¯Êý;
+		//uniformï¿½ï¿½ï¿½ßºï¿½ï¿½ï¿½;
 		virtual void inline SetBool(const std::string& name, bool value) const override{
 			glUniform1i(glGetUniformLocation(m_RendererID, name.c_str()), (int)value);
 		}

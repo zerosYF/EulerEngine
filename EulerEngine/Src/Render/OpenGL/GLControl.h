@@ -1,10 +1,9 @@
 #pragma once
 #include<GLFW/glfw3.h>
-#include"../OpenGL/GLCamera.h"
 namespace EulerEngine {
 	/*bool firstMouse = true;
 	double lastX = 800.0f / 2.0f;
-	double lastY = 600.0f / 2.0f;
+	double lastY = 600.0df / 2.0f;
 	void CursorInput(GLFWwindow* window, Camera *camera) {
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);

@@ -21,6 +21,7 @@ project "EulerEngine"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "On"
+	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 
@@ -54,7 +55,7 @@ project "EulerEngine"
 
 	filter "system:windows"
 		--systemversion "latest" 
-
+		buildoptions { "/utf-8" } 
 		defines{
 			"KINK_PLATFORM_WINDOWS",
 			"KINK_BUILD_DLL",
@@ -76,6 +77,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	staticruntime "On"
+	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 	files{
@@ -96,6 +98,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		--systemversion "latest"
+		buildoptions { "/utf-8" } 
 		defines{
 			"KINK_PLATFORM_WINDOWS",	
 		}

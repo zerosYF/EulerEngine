@@ -1,4 +1,4 @@
-#include "gkpch.h"
+ï»¿#include "gkpch.h"
 #include "EulerLayerStack.h"
 namespace EulerEngine {
 	EulerLayerStack::EulerLayerStack() {
@@ -15,7 +15,7 @@ namespace EulerEngine {
 		layer->OnAttach();
 	}
 	void EulerLayerStack::PushOverlay(EulerLayer* overlay) {
-		//Ô­µØ¹¹Ôì£¬ÌáÉýÐÔÄÜ
+		//åŽŸåœ°æž„é€ ï¼Œæå‡æ€§èƒ½
 		m_Layers.emplace_back(overlay);
 		overlay->OnAttach();
 	}

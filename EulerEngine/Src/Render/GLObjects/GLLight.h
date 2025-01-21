@@ -31,7 +31,7 @@ namespace EulerEngine {
 	};
 	class EulerPointLight:public EulerLight{
 	public:
-		//Ë¥¼õÏµÊý
+		//Ë¥ï¿½ï¿½Ïµï¿½ï¿½
 		float constant{1.0f};
 		float linear{0.09f};
 		float quatratic{0.032f};

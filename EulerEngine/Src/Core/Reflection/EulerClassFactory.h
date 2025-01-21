@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"../EulerSingleton.h"
 #include<unordered_map>
 #include<map>
@@ -14,13 +14,13 @@ namespace EulerEngine {
 		void setClassName(const std::string& className) { m_name = className; }
 		const std::string& getClassName() const { return m_name; }
 		virtual void show() = 0;
-		//Àà×Ö¶Î£»
+		//ç±»å­—æ®µï¼›
 		ClassField* getField(const std::string& fieldName);
 		template<typename T>
 		T get(const std::string&fieldName);
 		template<typename T>
 		void set(const std::string&fieldName, T&value);
-		//Àà·½·¨£»
+		//ç±»æ–¹æ³•ï¼›
 		ClassMethod* getMethod(const std::string& methodName);
 		void call(const std::string&methodName);
 		/*template<typename T>

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #define CUBE_VERTEX_CNT 36
 #define CUBE_DATA_SIZE 8
 #include"GLRenderObject.h"
@@ -8,7 +8,7 @@ namespace EulerEngine {
 	class Cube :public RenderObject{
 	public:
 		Cube(float* vertices) :RenderObject(vertices) {
-			std::cout<<"Éú³ÉÁ¢·½ÌåÄ£°å"<< std::endl;
+			std::cout<<"ç”Ÿæˆç«‹æ–¹ä½“æ¨¡æ¿"<< std::endl;
 		}
 	};*/
 }

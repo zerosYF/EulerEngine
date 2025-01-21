@@ -6,7 +6,7 @@ using namespace EulerEngine;
 EulerCriticalSection::EulerCriticalSection() {
 	InitializeCriticalSection(&section);
 	SetCriticalSectionSpinCount(&section, 4000);
-	//×ÔÐýËø¼õÇáÇÐ»»¸ºµ£
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 EulerCriticalSection::~EulerCriticalSection() {
 	DeleteCriticalSection(&section);
@@ -31,7 +31,7 @@ EulerSemaphore::~EulerSemaphore() {
 }
 void EulerSemaphore::Enter() {
 	DWORD result = WaitForSingleObject(semaphore,INFINITE);
-	//windowsÏÂ´´½¨µÄ¶ÔÏó»á±»¸³Óè×´Ì¬Á¿£¬objectÕýÔÚÊ¹ÓÃÎÞÐÅºÅ£¬objectµÈ´ý±»Ê¹ÓÃÊÇÓÐÐÅºÅ£»
+	//windowsï¿½Â´ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½á±»ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½objectï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½objectï¿½È´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½
 	assert(result);
 }
 void EulerSemaphore::Leave(unsigned int leaveCOunt) {

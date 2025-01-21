@@ -1,4 +1,4 @@
-namespace EulerEngine {
+ï»¿namespace EulerEngine {
 	class EulerImage {
 	public:
 		enum {
@@ -10,13 +10,13 @@ namespace EulerEngine {
 		unsigned int height;
 		unsigned int dataSize;
 		unsigned char *data;
-		unsigned char *palette;//µ÷É«°å
+		unsigned char *palette;//è°ƒè‰²æ¿
 
 		bool Load(const TCHAR* fileName) {
 
 		}
 		bool LoadFromBuffer(unsigned char* pBuffer, unsigned int size) {
-			// unsigned char* Ò»¸ö×Ö½Ú0~255 signed char Ò»¸ö×Ö½Ú-128~127
+			// unsigned char* ä¸€ä¸ªå­—èŠ‚0~255 signed char ä¸€ä¸ªå­—èŠ‚-128~127
 		}
 		const unsigned char* GetPixel(unsigned int x, unsigned int y)const {
 

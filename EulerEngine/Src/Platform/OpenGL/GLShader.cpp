@@ -11,7 +11,7 @@ namespace EulerEngine {
 		CompileShader(fragmentSrc.c_str(), fragmentShader, EULER_FRAGMENT);
 		unsigned int program = glCreateProgram();
 		m_RendererID = program;
-		std::cout << "äÖÈ¾Æ÷ID£º" << program << std::endl;
+		std::cout << "ï¿½ï¿½È¾ï¿½ï¿½IDï¿½ï¿½" << program << std::endl;
 		glAttachShader(program, vertexShader);
 		glAttachShader(program, fragmentShader);
 
@@ -43,19 +43,19 @@ namespace EulerEngine {
 			glGetShaderiv(object, GL_COMPILE_STATUS, &success);
 			if (!success) {
 				std::string t;
-				if (type == EULER_VERTEX) t = "¶¥µãshader";
-				else if (type == EULER_FRAGMENT) t = "Æ¬¶Îshader";
-				else if (type == EULER_GEOMETRY) t = "¼¸ºÎshader";
+				if (type == EULER_VERTEX) t = "ï¿½ï¿½ï¿½ï¿½shader";
+				else if (type == EULER_FRAGMENT) t = "Æ¬ï¿½ï¿½shader";
+				else if (type == EULER_GEOMETRY) t = "ï¿½ï¿½ï¿½ï¿½shader";
 
 				glGetShaderInfoLog(object, 512, NULL, infoLog);
-				std::cout << t << "±àÒëÊ§°Ü\n" << "log: " << infoLog << std::endl;
+				std::cout << t << "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½\n" << "log: " << infoLog << std::endl;
 			}
 		}
 		else {
 			glGetProgramiv(object, GL_LINK_STATUS, &success);
 			if (!success) {
 				glGetProgramInfoLog(object, 512, NULL, infoLog);
-				std::cout << "Á´½ÓÊ§°Ü\n" << "log: " << infoLog << std::endl;
+				std::cout << "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½\n" << "log: " << infoLog << std::endl;
 				glDeleteProgram(object);
 			}
 		}

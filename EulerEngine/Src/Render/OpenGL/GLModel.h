@@ -65,22 +65,22 @@
 //			Assimp::Importer importer;
 //			const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 //			if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode) {
-//				std::cout << "assimp³ö´íÁË" << importer.GetErrorString() << std::endl;
+//				std::cout << "assimpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << importer.GetErrorString() << std::endl;
 //				return;
 //			}
 //			directory = path.substr(0, path.find_last_of('/'));
 //			this->processNode(scene->mRootNode, scene);
-//			std::cout <<"¹Ç÷ÀÊýÁ¿: " <<meshes.size() << " ²ÄÖÊÊýÁ¿:" << materials.size() << std::endl;
+//			std::cout <<"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " <<meshes.size() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:" << materials.size() << std::endl;
 //		}
 //		void processNode(aiNode *node, const aiScene *scene) {
-//			// ´¦Àí½ÚµãÍøÂç£»
+//			// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ç£»
 //			for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 //				aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-//				std::cout<<"¹Ç÷ÀÃû³Æ: "<<mesh->mName.C_Str()<< std::endl;
+//				std::cout<<"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "<<mesh->mName.C_Str()<< std::endl;
 //				meshes.push_back(this->processMesh(mesh, scene));
 //				materials.push_back(this->processTexture(mesh, scene));
 //			}
-//			// ÏàÍ¬·½Ê½´¦Àí×Ó½Úµã£»
+//			// ï¿½ï¿½Í¬ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Úµã£»
 //			for (unsigned int i = 0; i < node->mNumChildren; i++) {
 //				processNode(node->mChildren[i], scene);
 //			}
@@ -88,22 +88,22 @@
 //		Mesh processMesh(aiMesh *mesh, const aiScene *scene) {
 //			std::vector<Vertex> vertices;
 //			std::vector<unsigned int> indices;
-//			//¶¥µãÏà¹Ø£»
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 //			for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 //				Vertex vertex;
-//				// Î»ÖÃÏà¹ØÊý×é£»
+//				// Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£»
 //				glm::vec3 vectorP;
 //				vectorP.x = mesh->mVertices[i].x;
 //				vectorP.y = mesh->mVertices[i].y;
 //				vectorP.z = mesh->mVertices[i].z;
 //				vertex.Position = vectorP;
-//				// ·¨ÏßÏà¹ØÊý×é£»
+//				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£»
 //				glm::vec3 vectorN;
 //				vectorN.x = mesh->mNormals[i].x;
 //				vectorN.y = mesh->mNormals[i].y;
 //				vectorN.z = mesh->mNormals[i].z;
 //				vertex.Normal = vectorN;
-//				// ÎÆÀí×ø±êÏà¹Ø(Ö§³Ö×î¶à8¸öÎÆÀí×ø±ê£¬Ö»¹ØÐÄµÚ1¸ö)£»
+//				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Ö§ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬Ö»ï¿½ï¿½ï¿½Äµï¿½1ï¿½ï¿½)ï¿½ï¿½
 //				if (mesh->mTextureCoords[0]) {
 //					glm::vec2 vecT;
 //					vecT.x = mesh->mTextureCoords[0][i].x;
@@ -115,9 +115,9 @@
 //				}
 //				vertices.push_back(vertex);
 //			}
-//			//Ë÷ÒýÏà¹Ø£»
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 //			for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-//				// Ãæ£ºÍ¼Ôª£¬°üº¬¶à¸öË÷Òý
+//				// ï¿½æ£ºÍ¼Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //				aiFace face = mesh->mFaces[i];
 //				for (unsigned int j = 0; j < face.mNumIndices; j++) {
 //					indices.push_back(face.mIndices[j]);
@@ -129,7 +129,7 @@
 //		}
 //		Material processTexture(aiMesh *mesh, const aiScene *scene) {
 //			Material material;
-//			//²ÄÖÊÏà¹Ø£»
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 //			if (mesh->mMaterialIndex >= 0) {
 //				aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 //				std::vector<Texture2D> diffuseMaps =

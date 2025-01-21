@@ -15,27 +15,27 @@ namespace EulerEngine {
 		LEFT,
 		RIGHT
 	};
-	const float YAW = -90.0f;//Æ«º½½Ç£»
-	const float PITCH = 0.0f;//¸©Ñö½Ç£»
-	const float SPEED = 2.5f;//ËÙ¶È£»
-	const float SENSITIVITY = 0.1f;//Ãô¸Ð¶È£»
-	const float FOV = 45.0f;//±ä½¹¼Ð½Ç£»
+	const float YAW = -90.0f;//Æ«ï¿½ï¿½ï¿½Ç£ï¿½
+	const float PITCH = 0.0f;//ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½
+	const float SPEED = 2.5f;//ï¿½Ù¶È£ï¿½
+	const float SENSITIVITY = 0.1f;//ï¿½ï¿½ï¿½Ð¶È£ï¿½
+	const float FOV = 45.0f;//ï¿½ä½¹ï¿½Ð½Ç£ï¿½
 	const float MIN_FOV = 10.0F;
 	const float MAX_FOV = 89.0f;
 
 	class Camera {
 	public:
 		RenderCameraType m_cameraType = RenderCameraType::Editor;
-		// »ù±¾²ÎÊý£»
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		glm::vec3 m_Position{0.0f,0.0f,0.0f};
 		glm::vec3 m_Front{0.0f,0.0f,-1.0f};
 		glm::vec3 m_Up;
 		glm::vec3 m_Right;
 		glm::vec3 m_WorldUp;
-		// Å·À­½Ç£»
+		// Å·ï¿½ï¿½ï¿½Ç£ï¿½
 		float m_Yaw;
 		float m_Pitch;
-		// Ïà»úÉèÖÃ£»
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½
 		float m_MovementSpeed{SPEED};
 		float m_MovementSensitivity{SENSITIVITY};
 		float m_FovAngle{FOV};
@@ -43,7 +43,7 @@ namespace EulerEngine {
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
 	public:
-		// ÏòÁ¿³õÊ¼»¯£»
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),float yaw = YAW, float pitch = PITCH):
 			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)){
 			m_Position = position;
@@ -52,7 +52,7 @@ namespace EulerEngine {
 			m_Pitch = pitch;
 			UpdateCameraVectors();
 		}
-		// ±êÁ¿³õÊ¼»¯£»
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 		Camera(float PosX, float PosY, float PosZ, float UpX, float UpY, float UpZ, float yaw, float pitch) {
 			m_Position = glm::vec3(PosX, PosY, PosZ);
 			m_WorldUp = glm::vec3(UpX, UpY, UpZ);

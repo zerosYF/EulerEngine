@@ -3,13 +3,13 @@ namespace EulerEngine {
 	class EulerCriticalSection {
 	public:
 		CRITICAL_SECTION section;
-		//ÁÙ½çÇø
+		//ï¿½Ù½ï¿½ï¿½ï¿½
 		EulerCriticalSection(void);
 		~EulerCriticalSection(void);
 		void Enter(void);
 		void Leave(void);
 	};
-	//ÐÅºÅÁ¿£»
+	//ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½
 	class EulerSemaphore {
 	protected:
 		HANDLE semaphore;
@@ -23,7 +23,7 @@ namespace EulerEngine {
 			return semaphore;
 		}
 	};
-	//»¥³âÁ¿£»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	class EulerMutex {
 	protected:
 		HANDLE mutex;

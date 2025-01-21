@@ -1,11 +1,11 @@
-#define CALL_STACK_SIZE 32
+О╩©#define CALL_STACK_SIZE 32
 #define BEGIN_MASK 0x77777777
 #define END_MASK 0X77777777
 #define RECORD_SIZE 64
 namespace EulerEngine {
 	class EulerBlock {
 	private:
-		//sizeof(EulerBlock)ж╩сКЁит╠╠Да©сп╧ь
+		//sizeof(EulerBlock)Е▐╙Д╦▌Ф┬░Е▒≤Е▐≤И┤▐Ф°┴Е┘Ё
 		void *ptr[CALL_STACK_SIZE];
 		unsigned int size;
 	public:
