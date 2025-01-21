@@ -29,7 +29,7 @@ namespace EulerEngine {
 				number = std::to_string(specularNr++);
 				m_Shader->SetInt(("material.specularTex" + number).c_str(), i);
 			}
-			glBindTexture(GL_TEXTURE_2D, textures[i].RendererID);
+			textures[i]->Bind(GL_TEXTURE_2D);
 		}
 		m_Shader->SetFloat("material.reflectStrength", light_material.reflectStrength);
 		glActiveTexture(GL_TEXTURE0);

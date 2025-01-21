@@ -15,10 +15,12 @@ namespace EulerEngine {
 	class EulerLight {
 	public:
 		glm::vec3 color{1.0f,1.0f,1.0f};
-		Mesh m_Mesh;
+		Ref<Mesh> m_Mesh;
 		Ref<EulerShader> m_Shader;
 		EulerTransform transform;
-		EulerLight(Ref<EulerShader> shader) :m_Shader(shader), m_Mesh(vertices) { bindMesh(); }
+		EulerLight(Ref<EulerShader> shader, Ref<Mesh> mesh, EulerTransform transform) :m_Shader(shader), m_Mesh(mesh) {
+			transform = transform;
+		}
 		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {transform.update(pos, scl, rot);}
 		void setColor(glm::vec3 color) {this->color = color;}
 		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection);

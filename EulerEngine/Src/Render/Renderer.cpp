@@ -3,7 +3,7 @@
 #include"RenderCmd.h"
 #include"Platform/OpenGL/GLShader.h"
 namespace EulerEngine {
-	Renderer::SceneData* m_SceneData = new Renderer::SceneData;
+	Scope<Renderer::SceneData> m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
@@ -15,13 +15,14 @@ namespace EulerEngine {
 	void Renderer::EndScene()
 	{
 	}
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<EulerShader>& shader, const glm::mat4& transform=glm::mat4(1.0f))
+	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& transform=glm::mat4(1.0f))
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
 
-		material->Bind();
+		material->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
+		material->addTexture("...", TextureType::DIFFUSE);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

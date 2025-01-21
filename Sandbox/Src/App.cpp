@@ -9,6 +9,7 @@ public:
 	ExampleLayer()
 		: m_Camera()
 	{
+		Renderer::Init();
 		m_VertexArray = VertexArray::Create();
 
 		float vertices[9]{
@@ -46,13 +47,12 @@ public:
 		Renderer::BeginScene(m_Camera);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
-		Material* material_ref = new Material(m_Shader);
-		material_ref->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
-		material_ref->addTexture("...", TextureType::DIFFUSE);
-		CubeMesh->SetMaterial(material_ref);
+		Ref<Material> material_ref = CreateRef<Material>(m_Shader);
+		std::vector<unsigned int> indices;
+		Ref<Mesh> mesh = CreateRef<Mesh>(vertices, indices);
 		m_Texture->Bind();
 
-		Renderer::Submit(m_VertexArray, m_Shader, transform);
+		Renderer::Submit(m_VertexArray, m_Shader, material_ref, transform);
 		Renderer::EndScene();
 	}
 	virtual void OnImGuiRender() override {

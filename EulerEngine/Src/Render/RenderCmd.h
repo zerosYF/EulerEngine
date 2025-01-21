@@ -19,7 +19,6 @@ namespace EulerEngine {
 			m_RendererAPI->Draw(vertexArray);
 		}
 	private:
-		static RendererAPI* m_RendererAPI;
-
+		static Scope<RendererAPI> m_RendererAPI;
 	};
 }
