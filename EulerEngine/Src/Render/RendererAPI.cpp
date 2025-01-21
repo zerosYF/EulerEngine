@@ -3,7 +3,7 @@
 #include"Platform/OpenGL/GLRendererAPI.h"
 
 namespace EulerEngine {
-	RendererAPI::API s_API = RendererAPI::API::OpenGL;
+	RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
 	Scope<RendererAPI> RendererAPI::Create()
 	{
 		switch (s_API) {

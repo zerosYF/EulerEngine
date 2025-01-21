@@ -3,7 +3,7 @@
 #include"RenderCmd.h"
 #include"Platform/OpenGL/GLShader.h"
 namespace EulerEngine {
-	Scope<Renderer::SceneData> m_SceneData = CreateScope<Renderer::SceneData>();
+	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
 	{
 		RenderCommand::Init();

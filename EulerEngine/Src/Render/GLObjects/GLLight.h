@@ -3,8 +3,7 @@
 #include"../EulerTransform.h"
 #include"../EulerMesh.h"
 #include"../EulerShader.h"
-#define CUBE_VERTEX_CNT 36
-#define CUBE_DATA_SIZE 8
+#include"GLRenderObject.h"
 namespace EulerEngine {
 	enum Light_Type {
 		POINT_LIGHT,

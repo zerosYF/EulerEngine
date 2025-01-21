@@ -1596,4 +1596,7 @@
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\premake5.lua" />
+  </ItemGroup>
 </Project>
