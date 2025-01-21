@@ -5,7 +5,7 @@ workspace "EulerEngine"
 		"Release",
 		"Dist"
 	}
-	toolset "v143"
+	toolset "v141"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
