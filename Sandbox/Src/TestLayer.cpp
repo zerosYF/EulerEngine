@@ -13,30 +13,24 @@ void TestLayer::OnDetach()
 
 void TestLayer::OnAttach()
 {
-	EulerEngine::Renderer::Init();
 	m_VertexArray = EulerEngine::VertexArray::Create();
 
 	EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer;
 	vertexBuffer.reset(EulerEngine::VertexBuffer::Create(EulerEngine::CubeVertices, sizeof(EulerEngine::CubeVertices)));
 
 	EulerEngine::BufferLayout layout = {
-		{EulerEngine::ShaderDataType::Float3, "a_Position"},
-		{EulerEngine::ShaderDataType::Float2, "a_TexCoord"},
-		{EulerEngine::ShaderDataType::Float3, "a_Normal"},
+		{EulerEngine::ShaderDataType::Float3, "aPosition"},
+		{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
+		{EulerEngine::ShaderDataType::Float3, "aNormal"},
 	};
 	vertexBuffer->SetLayout(layout);
 	m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-	unsigned int indices[3]{ 0, 1, 2 };
-	EulerEngine::Ref<EulerEngine::IndexBuffer> indexBuffer;
-	indexBuffer.reset(EulerEngine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
-	m_VertexArray->SetIndexBuffer(indexBuffer);
-
-	std::string vertexSrc = "";
-	std::string fragmentSrc = "";
-	m_Shader = EulerEngine::EulerShader::Create("first", vertexSrc, fragmentSrc);
-	m_ResourceLib.AddShader(m_Shader);
-	m_Texture2D = EulerEngine::Texture2D::Create("", EulerEngine::TextureType::DIFFUSE);
+	auto shader = m_ResourceLib.LoadShader("common", "Shaders/Light/common.glsl");
+	auto texture2D = m_ResourceLib.LoadTexture2D("container", "Assets/mytextures/container2.png", EulerEngine::TextureType::DIFFUSE);
+	EulerEngine::Ref<EulerEngine::Material> material = EulerEngine::CreateRef<EulerEngine::Material>(shader);
+	material->AddTexture("container", texture2D);
+	m_ResourceLib.AddMaterial("first", material);
 }
 
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
@@ -52,20 +46,17 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
-	EulerEngine::Ref<EulerEngine::Material> material_ref = EulerEngine::CreateRef<EulerEngine::Material>(m_Shader);
-	std::vector<unsigned int> indices;
-	EulerEngine::Ref<EulerEngine::Mesh> mesh = EulerEngine::CreateRef<EulerEngine::Mesh>(EulerEngine::CubeVertices, indices);
-	m_Texture2D->Bind();
-
-	EulerEngine::Renderer::Submit(m_VertexArray, m_Shader, material_ref, transform);
+	auto shader = m_ResourceLib.GetShader("common");
+	auto material_ref = m_ResourceLib.GetMaterial("first");
+	material_ref->SetColor(m_Color);
+	EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, transform);
 	EulerEngine::Renderer::EndScene();
 }
 
 void TestLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
-	glm::vec4 color = glm::vec4(1.0f);
-	ImGui::ColorEdit4("Clear Color", glm::value_ptr(color));
+	ImGui::ColorEdit4("Clear Color", glm::value_ptr(m_Color));
 	ImGui::End();
 }
 

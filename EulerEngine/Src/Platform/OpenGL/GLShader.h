@@ -14,13 +14,12 @@ namespace EulerEngine {
 	};
 	class OpenGLShader:public EulerShader{
 	public:
-		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		OpenGLShader(const std::string& path);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
-		virtual const std::string GetName() const override { return m_Name; }
 
 		//uniform;
 		virtual void inline SetBool(const std::string& name, bool value) const override{
@@ -60,8 +59,8 @@ namespace EulerEngine {
 		std::unordered_map<GLenum, std::string> PreProcess(std::string& source);
 		void CompileShader(const char* Code, unsigned int& shader, CompileShaderType type);
 		void CheckError(unsigned int object, unsigned int type);
+		std::string GetFileName(std::string& path);
 	private:
 		unsigned int m_RendererID;
-		std::string m_Name;
 	};
 }

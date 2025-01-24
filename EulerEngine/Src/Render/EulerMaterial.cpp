@@ -1,40 +1,57 @@
-#include "gkpch.h"
+#include"gkpch.h"
 #include"EulerMaterial.h"
 namespace EulerEngine {
-	void Material::Draw(int dCnt, EulerDirLight* dLight, int pCnt, EulerPointLight* pLight, int sCnt, EulerSpotLight* sLight) {
-		bindTexture();
-		m_Shader->SetInt("dirLightCnt", dCnt);
-		m_Shader->SetInt("pointLightCnt", pCnt);
-		m_Shader->SetInt("spotLightCnt", sCnt);
-		if (dLight != nullptr) setDirLightRender(dLight);
-		if (sLight != nullptr) setSpotLightRender(sLight);
-		if (pLight != nullptr) setPointLightRender(pLight);
+	Material::Material(Ref<EulerShader> shader):m_Shader(shader) {
+		
 	}
-	void Material::addTexture(std::string texture_path, TextureType type) {
-		Ref<Texture2D> new_texture =  Texture2D::Create(texture_path, type);
-		textures.push_back(new_texture);
+	void Material::AddTexture(const std::string& name, Ref<Texture2D> texture) {
+		m_Textures[name] = texture;
 	}
-	void Material::bindTexture() {
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
-		for (unsigned int i = 0; i < textures.size(); i++) {
-			glActiveTexture(GL_TEXTURE0 + i);
-			std::string number;
-			TextureType type = textures[i]->GetType();
-			if (type == DIFFUSE) {
-				number = std::to_string(diffuseNr++);
-				m_Shader->SetInt(("material.diffuseTex" + number).c_str(), i);
-			}
-			else if (type == SPECULAR) {
-				number = std::to_string(specularNr++);
-				m_Shader->SetInt(("material.specularTex" + number).c_str(), i);
-			}
-			textures[i]->Bind(GL_TEXTURE_2D);
+
+	void Material::SetColor(glm::vec4 color)
+	{
+		m_Color = color;
+	}
+
+	void Material::AddFloatParam(std::string& name, float param)
+	{
+		m_Paramters[name] = param;
+	}
+
+	Ref<Texture2D> Material::GetTexture(const std::string & name) const
+	{
+		auto it = m_Textures.find(name);
+		return it != m_Textures.end() ? it->second : nullptr;
+	}
+
+	glm::vec4 Material::GetColor() const
+	{
+		return m_Color;
+	}
+
+	float Material::GetFloatParam(const std::string & name) const
+	{
+		auto it = m_Paramters.find(name);
+		return it != m_Paramters.end() ? it->second : 0;
+	}
+
+	void Material::Apply() const
+	{
+		m_Shader->Bind();
+		int texture_slot = 0;
+		for (const auto& [name, texture]:m_Textures) {
+			texture->Bind(texture_slot);
+			m_Shader->SetFloat(name, texture_slot);
+			texture_slot++;
 		}
-		m_Shader->SetFloat("material.reflectStrength", light_material.reflectStrength);
-		glActiveTexture(GL_TEXTURE0);
+		for (const auto& [name, param]:m_Paramters) {
+			m_Shader->SetFloat(name, param);
+		}
+		m_Shader->SetVec4("color", m_Color);
+		m_Shader->Unbind();
 	}
-	void Material::setSpotLightRender(EulerSpotLight* light) {
+
+	/*void Material::setSpotLightRender(EulerSpotLight* light) {
 		m_Shader->SetVec3("spotLight.ambient", light_material.ambient*light->color);
 		m_Shader->SetVec3("spotLight.diffuse", light_material.diffuse*light->color);
 		m_Shader->SetVec3("spotLight.specular", light_material.specular*light->color);
@@ -60,5 +77,5 @@ namespace EulerEngine {
 		m_Shader->SetVec3("dirLight.diffuse", light_material.diffuse*light->color);
 		m_Shader->SetVec3("dirLight.specular", light_material.specular*light->color);
 		m_Shader->SetVec3("dirLight.direction", light->direction);
-	}
+	}*/
 }

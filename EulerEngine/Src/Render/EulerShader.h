@@ -11,9 +11,8 @@ namespace EulerEngine {
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
-		virtual const std::string GetName() const = 0;
 
-		static Ref<EulerShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Ref<EulerShader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 		static Ref<EulerShader> Create(const std::string& path);
 		//uniform;
 		virtual void inline SetBool(const std::string& name, bool value) const = 0;

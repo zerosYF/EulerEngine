@@ -18,6 +18,10 @@ namespace EulerEngine {
 	}
 	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 	{
+		if (vertexArray->GetIndexBuffer() == nullptr) {
+			Draw(vertexArray);
+			return;
+		}
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray) {

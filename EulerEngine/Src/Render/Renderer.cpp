@@ -20,10 +20,7 @@ namespace EulerEngine {
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
-
-		material->setColor({ 1.0f, 0.5f, 0.2f, 1.0f });
-		material->addTexture("...", TextureType::DIFFUSE);
-
+		material->Apply();
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}

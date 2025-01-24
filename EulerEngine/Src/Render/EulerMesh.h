@@ -22,8 +22,9 @@ namespace EulerEngine {
 			vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 			BufferLayout layout = {
-				{ShaderDataType::Float3, "a_Position"},
-				{ShaderDataType::Float2, "a_TexCoord"},
+				{ShaderDataType::Float3, "aPosition"},
+				{ShaderDataType::Float2, "aTexCoord"},
+				{ShaderDataType::Float3, "aNormal"},
 			};
 			vertexBuffer->SetLayout(layout);
 			m_VertexArray->AddVertexBuffer(vertexBuffer);

@@ -11,9 +11,9 @@ namespace EulerEngine {
 		unsigned int m_Wrap_S;
 		unsigned int m_Wrap_T;
 		int m_Channels;
-		//���Ʒ�ʽ��
-		unsigned int m_Filter_MIN; //��С���˷�ʽ��
-		unsigned int m_Filter_MAX;//�Ŵ���˷�ʽ��
+	
+		unsigned int m_Filter_MIN; 
+		unsigned int m_Filter_MAX;
 	public:
 		OpenGLTexture2D(std::string path, TextureType type);
 		~OpenGLTexture2D();

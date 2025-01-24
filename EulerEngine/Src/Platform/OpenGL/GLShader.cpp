@@ -12,16 +12,15 @@ namespace EulerEngine {
 		std::cout << "which type of shader?" << std::endl;
 		return 0;
 	}
-	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc) {
+	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc) {
 
-		this->m_Name = name;
 		unsigned int vertexShader;
 		CompileShader(vertexSrc.c_str(), vertexShader, EULER_VERTEX);
 		unsigned int fragmentShader;
 		CompileShader(fragmentSrc.c_str(), fragmentShader, EULER_FRAGMENT);
 		unsigned int program = glCreateProgram();
 		m_RendererID = program;
-		std::cout << "��Ⱦ��ID��" << program << std::endl;
+		std::cout << "GL_program_ID:" << program << std::endl;
 		glAttachShader(program, vertexShader);
 		glAttachShader(program, fragmentShader);
 
@@ -67,11 +66,6 @@ namespace EulerEngine {
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			auto lastSlash = path.find_last_of("/\\");
-			lastSlash = lastSlash == path.npos ? 0 : lastSlash + 1;
-			auto lastDot = path.rfind('.');
-			auto count = lastDot == path.npos ? path.size() - lastSlash : lastDot - lastSlash;
-			this->m_Name = path.substr(lastSlash, count);
 		}
 		catch (std::ifstream::failure e) {
 			std::cout << "Read File Failed" << std::endl;
@@ -137,6 +131,14 @@ namespace EulerEngine {
 				glDeleteProgram(object);
 			}
 		}
+	}
+	std::string OpenGLShader::GetFileName(std::string & path)
+	{
+		auto lastSlash = path.find_last_of("/\\");
+		lastSlash = lastSlash == path.npos ? 0 : lastSlash + 1;
+		auto lastDot = path.rfind('.');
+		auto count = lastDot == path.npos ? path.size() - lastSlash : lastDot - lastSlash;
+		return path.substr(lastSlash, count);
 	}
 	void OpenGLShader::Bind() const {
 		glUseProgram(m_RendererID);
