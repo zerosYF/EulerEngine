@@ -1,5 +1,4 @@
 #include "gkpch.h"
-#include"EulerGame.h"
 #include"../Core/EulerTimer.h"
 #include"../Render/GLObjects/GLCube.h"
 #include"../Render/GLObjects/GLSquare.h"

@@ -1,60 +1,6 @@
 #include "gkpch.h"
 #include"GLRenderObject.h"
 namespace EulerEngine {
-	float vertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE] = {
-		// Back face
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,0.0f,-1.0f,// Bottom-left
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,0.0f,-1.0f, // top-right
-		0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,0.0f,-1.0f,// bottom-right         
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,0.0f,-1.0f,// top-right
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,0.0f,-1.0f,// bottom-left
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,0.0f,-1.0f,// top-left
-		// Front face
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,0.0f,0.0f,1.0f, // bottom-left
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,0.0f,1.0f,// bottom-right
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f,0.0f,1.0f,// top-right
-		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,0.0f,1.0f, // top-right
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 0.0f,0.0f,1.0f,// top-left
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,0.0f,1.0f,// bottom-left
-		// Left face
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, -1.0f,0.0f,0.0f,// top-right
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f, -1.0f,0.0f,0.0f,// top-left
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, -1.0f,0.0f,0.0f,// bottom-left
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, -1.0f,0.0f,0.0f,// bottom-left
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, -1.0f,0.0f,0.0f,// bottom-right
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f, -1.0f,0.0f,0.0f,// top-right
-		// Right face
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,1.0f,0.0f,0.0f, // top-left
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f,0.0f,0.0f,// bottom-right
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f,0.0f,0.0f,// top-right         
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f,0.0f,0.0f,// bottom-right
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,1.0f,0.0f,0.0f, // top-left
-		0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,0.0f,0.0f,// bottom-left     
-		// Bottom face
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,-1.0f,0.0f,// top-right
-		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,-1.0f,0.0f, // top-left
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,-1.0f,0.0f,// bottom-left
-		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,0.0f,-1.0f,0.0f, // bottom-left
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 0.0f,-1.0f,0.0f,// bottom-right
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,0.0f,-1.0f,0.0f, // top-right
-		// Top face
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,1.0f,0.0f,// top-left
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,0.0f,1.0f,0.0f, // bottom-right
-		0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,1.0f,0.0f,// top-right     
-		0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,1.0f,0.0f,// bottom-right
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,1.0f,0.0f,// top-left
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,1.0f,0.0f // bottom-left
-	};
-	float SquareVertices[] = {
-		//position			texCoord      normal
-		0.0f,  0.5f,  0.0f,  0.0f,  0.0f, 0.0f,0.0f,0.0f,
-		0.0f, -0.5f,  0.0f,  0.0f,  1.0f, 0.0f,0.0f,0.0f,
-		1.0f, -0.5f,  0.0f,  1.0f,  1.0f, 0.0f,0.0f,0.0f,
-
-		0.0f,  0.5f,  0.0f,  0.0f,  0.0f, 0.0f,0.0f,0.0f,
-		1.0f, -0.5f,  0.0f,  1.0f,  1.0f, 0.0f,0.0f,0.0f,
-		1.0f,  0.5f,  0.0f,  1.0f,  0.0f, 0.0f,0.0f,0.0f
-	};
 	/*void RenderObject::Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection, glm::vec3 viewPos) {
 		shader.use();
 

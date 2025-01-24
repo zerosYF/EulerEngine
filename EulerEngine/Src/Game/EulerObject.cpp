@@ -1,6 +1,5 @@
 #include "gkpch.h"
 #include"EulerObject.h"
-#include"EulerGame.h"
 namespace EulerEngine {
 	//void GameObject::update(double deltaTime) {
 	//	auto func = ([](ComponentBase* component)->bool {

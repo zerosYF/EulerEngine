@@ -509,9 +509,6 @@
     <ClInclude Include="External\include\glm\vec4.hpp" />
     <ClInclude Include="External\include\glm\vector_relational.hpp" />
     <ClInclude Include="External\include\stb_image\stb_image.h" />
-    <ClInclude Include="Src\Container\ResourcePool\MeshPool.h" />
-    <ClInclude Include="Src\Container\ResourcePool\ShaderPool.h" />
-    <ClInclude Include="Src\Container\ResourcePool\TexturePool.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerMemManager.h" />
@@ -537,7 +534,6 @@
     <ClInclude Include="Src\Game\Component\ComponentBase.h" />
     <ClInclude Include="Src\Game\Component\ModelComponent.h" />
     <ClInclude Include="Src\Game\Component\TransformComponent.h" />
-    <ClInclude Include="Src\Game\EulerGame.h" />
     <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Game\World\EulerHierarchy.h" />
     <ClInclude Include="Src\Game\World\EulerWorld.h" />
@@ -575,8 +571,6 @@
     <ClInclude Include="Src\Render\OpenGL\GLControl.h" />
     <ClInclude Include="Src\Render\OpenGL\GLModel.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h" />
     <ClInclude Include="Src\Render\OpenGL\GLScene.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
     <ClInclude Include="Src\Render\RenderCmd.h" />
@@ -628,11 +622,13 @@
     <ClCompile Include="Src\Render\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
+    <ClCompile Include="Src\Render\Vertices\EulerVertices.h" />
     <ClCompile Include="Src\Render\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
     <ClCompile Include="Src\Render\RendererAPI.cpp" />
     <ClCompile Include="Src\Render\System\EulerRender.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
+    <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />

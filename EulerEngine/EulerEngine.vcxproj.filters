@@ -1221,15 +1221,6 @@
     <ClInclude Include="External\include\stb_image\stb_image.h">
       <Filter>External\include\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Container\ResourcePool\MeshPool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Container\ResourcePool\ShaderPool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Container\ResourcePool\TexturePool.h">
-      <Filter>Src\Container\ResourcePool</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\EulerDelegate.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
@@ -1304,9 +1295,6 @@
     </ClInclude>
     <ClInclude Include="Src\Game\Component\TransformComponent.h">
       <Filter>Src\Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\EulerGame.h">
-      <Filter>Src\Game</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\EulerObject.h">
       <Filter>Src\Game</Filter>
@@ -1411,12 +1399,6 @@
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h">
-      <Filter>Src\Render\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLPipelineBase.h">
-      <Filter>Src\Render\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLRenderPassBase.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLScene.h">
@@ -1598,6 +1580,8 @@
     </ClCompile>
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
     <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
+    <ClCompile Include="Src\Render\Vertices\EulerVertices.h" />
+    <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\premake5.lua" />

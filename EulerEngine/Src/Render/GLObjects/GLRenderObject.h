@@ -1,6 +1,4 @@
 #pragma once
-#define CUBE_VERTEX_CNT 36
-#define CUBE_DATA_SIZE 8
 //#include<glad/glad.h>
 //#include"../OpenGL/GLTexture.h"
 //#include"GLLight.h"

@@ -1,4 +1,5 @@
 #pragma once
+#include"Render/Vertices/EulerVertices.h"
 #include"GutKink/Application.h"
 #include"Core/Input/EulerInput.h"
 #include"Core/Input/InputCodes.h"

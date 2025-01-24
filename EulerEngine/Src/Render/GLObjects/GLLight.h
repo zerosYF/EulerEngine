@@ -1,9 +1,10 @@
 #pragma once
 #include"Math/EulerMath.h"
-#include"../EulerTransform.h"
-#include"../EulerMesh.h"
-#include"../EulerShader.h"
+#include"Render/EulerTransform.h"
+#include"Render/EulerMesh.h"
+#include"Render/EulerShader.h"
 #include"GLRenderObject.h"
+#include"Render/Vertices/EulerVertices.h"
 namespace EulerEngine {
 	enum Light_Type {
 		POINT_LIGHT,

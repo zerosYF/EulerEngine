@@ -56,7 +56,7 @@ namespace EulerEngine {
 			}
 			unsigned int program = glCreateProgram();
 			m_RendererID = program;
-			std::cout << "��Ⱦ��ID��" << program << std::endl;
+			std::cout << "GL_program_ID:" << program << std::endl;
 			glAttachShader(program, vertexShader);
 			glAttachShader(program, fragmentShader);
 

@@ -16,17 +16,13 @@ void TestLayer::OnAttach()
 	EulerEngine::Renderer::Init();
 	m_VertexArray = EulerEngine::VertexArray::Create();
 
-	float vertices[9]{
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f
-	};
 	EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer;
-	vertexBuffer.reset(EulerEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+	vertexBuffer.reset(EulerEngine::VertexBuffer::Create(EulerEngine::CubeVertices, sizeof(EulerEngine::CubeVertices)));
 
 	EulerEngine::BufferLayout layout = {
 		{EulerEngine::ShaderDataType::Float3, "a_Position"},
 		{EulerEngine::ShaderDataType::Float2, "a_TexCoord"},
+		{EulerEngine::ShaderDataType::Float3, "a_Normal"},
 	};
 	vertexBuffer->SetLayout(layout);
 	m_VertexArray->AddVertexBuffer(vertexBuffer);
@@ -58,7 +54,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
 	EulerEngine::Ref<EulerEngine::Material> material_ref = EulerEngine::CreateRef<EulerEngine::Material>(m_Shader);
 	std::vector<unsigned int> indices;
-	EulerEngine::Ref<EulerEngine::Mesh> mesh = EulerEngine::CreateRef<EulerEngine::Mesh>(EulerEngine::vertices, indices);
+	EulerEngine::Ref<EulerEngine::Mesh> mesh = EulerEngine::CreateRef<EulerEngine::Mesh>(EulerEngine::CubeVertices, indices);
 	m_Texture2D->Bind();
 
 	EulerEngine::Renderer::Submit(m_VertexArray, m_Shader, material_ref, transform);
