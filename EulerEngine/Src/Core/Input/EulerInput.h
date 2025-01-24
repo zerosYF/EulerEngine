@@ -1,6 +1,7 @@
 #pragma once
-#include"../../Math/EulerMath.h"
-#include"../../GutKink/Core.h"
+#include"Math/EulerMath.h"
+#include"GutKink/Core.h"
+#include"InputCodes.h"
 namespace EulerEngine {
 	extern unsigned int i_complement_control_cmd;
 	class KINK_API InputSystem {

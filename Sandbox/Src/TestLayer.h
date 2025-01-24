@@ -10,7 +10,7 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(EulerEngine::Event& e) override;
 private:
-	EulerEngine::PerspectiveCamera m_Camera;
+	EulerEngine::PerspectiveCameraController m_CameraController;
 	EulerEngine::Ref<EulerEngine::VertexArray> m_VertexArray;
 	EulerEngine::Ref<EulerEngine::EulerShader> m_Shader;
 	EulerEngine::Ref<EulerEngine::Texture2D> m_Texture2D;

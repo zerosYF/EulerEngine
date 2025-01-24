@@ -1,7 +1,7 @@
 #pragma once
 #include"RendererAPI.h"
 #include"RenderCmd.h"
-#include"EulerCamera.h"
+#include"Camera/EulerCamera.h"
 #include"EulerShader.h"
 #include"EulerMaterial.h"
 namespace EulerEngine {

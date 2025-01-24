@@ -2,7 +2,7 @@
 #include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_Camera()
+TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_CameraController()
 {
 
 }
@@ -45,7 +45,7 @@ void TestLayer::OnAttach()
 
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 {
-	m_Camera.OnUpdate(ts);
+	m_CameraController.OnUpdate(ts);
 
 	if (EulerEngine::InputSystem::IsKeyDown(KINK_KEY_LEFT)) {
 		m_CameraPosition.x -= m_CameraSpeed * ts.GetDeltaTime();
@@ -53,7 +53,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
-	EulerEngine::Renderer::BeginScene(m_Camera);
+	EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
 	glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
 	EulerEngine::Ref<EulerEngine::Material> material_ref = EulerEngine::CreateRef<EulerEngine::Material>(m_Shader);
@@ -75,5 +75,5 @@ void TestLayer::OnImGuiRender()
 
 void TestLayer::OnEvent(EulerEngine::Event& e)
 {
-	m_Camera.OnEvent(e);
+	m_CameraController.OnEvent(e);
 }
