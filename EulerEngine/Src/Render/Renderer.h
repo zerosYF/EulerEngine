@@ -14,8 +14,8 @@ namespace EulerEngine {
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 	public:
 		struct SceneData {
-			glm::mat4 ViewProjectionMatrix;
-
+			glm::mat4 ViewMatrix;
+			glm::mat4 ProjectionMatrix;
 		};
 		static Scope<SceneData> m_SceneData;
 	};

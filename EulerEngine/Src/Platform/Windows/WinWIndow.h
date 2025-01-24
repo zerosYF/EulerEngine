@@ -1,8 +1,11 @@
 #pragma once
-#include "../../Core/EulerWindow.h"
+#include "Core/EulerWindow.h"
 #include "Render/Context/EulerContext.h"
 #include "GLFW/glfw3.h"
 namespace EulerEngine {
+	bool FirstMouseMove = true;
+	double LastMouseX = 0.0f;
+	double LastMouseY = 0.0f;
 	class WinWindow :public EulerWindow {
 	public:
 		WinWindow(const WindowInfo& info);

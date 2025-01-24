@@ -41,14 +41,19 @@ namespace EulerEngine{
 	class KINK_API MouseMovedEvent : public Event {
 
 	public:
-		MouseMovedEvent(double x, double y) : m_MouseX(x), m_MouseY(y){}
+		MouseMovedEvent(double x, double y, double xOffset, double yOffset) 
+			: m_MouseX(x), m_MouseY(y), m_xOffset(xOffset), m_yOffset(yOffset){}
 		inline double GetX() const { return m_MouseX; }
 		inline double GetY() const { return m_MouseY; }
+		inline double GetXOffset() const { return m_xOffset; }
+		inline double GetYOffset() const { return m_yOffset; }
 		EVENT_CLASS_TYPE(KINK_MOUSE_MOVED)
 		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_MOUSE)
 	private:
 		double m_MouseX;
 		double m_MouseY;
+		double m_xOffset;
+		double m_yOffset;
 	};
 	class KINK_API MouseScrolledEvent :public Event {
 	public:

@@ -10,16 +10,18 @@ namespace EulerEngine {
 	}
 	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
-		m_SceneData->ViewProjectionMatrix = camera.GetViewMatrix();
+		m_SceneData->ViewMatrix = camera.GetViewMatrix();
+		m_SceneData->ProjectionMatrix = camera.GetProjectionMatrix();
 	}
 	void Renderer::EndScene()
 	{
 	}
-	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& transform=glm::mat4(1.0f))
+	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model=glm::mat4(1.0f))
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("u_Transform", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("view", m_SceneData->ViewMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("projection", m_SceneData->ProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("model", model);
 		material->Apply();
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

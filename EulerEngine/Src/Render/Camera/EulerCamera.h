@@ -9,33 +9,24 @@ namespace EulerEngine {
 		Editor,
 		Motor,
 	};
-	enum Camera_Movement {
-		FORWARD,
-		BACKWARD,
-		LEFT,
-		RIGHT
-	};
-	const float YAW = -90.0f;//ƫ���ǣ�
-	const float PITCH = 0.0f;//�����ǣ�
-	const float SPEED = 2.5f;//�ٶȣ�
-	const float SENSITIVITY = 0.1f;//���жȣ�
-	const float FOV = 45.0f;//�佹�нǣ�
+	const float YAW = -90.0f;
+	const float PITCH = 0.0f;
+	const float SPEED = 2.5f;
+	const float SENSITIVITY = 0.1f;
+	const float FOV = 45.0f;
 	const float MIN_FOV = 10.0F;
 	const float MAX_FOV = 89.0f;
 
 	class PerspectiveCamera {
 	public:
 		RenderCameraType m_cameraType = RenderCameraType::Editor;
-		// ����������
 		glm::vec3 m_Position{ 0.0f,0.0f,0.0f };
 		glm::vec3 m_Front{ 0.0f,0.0f,-1.0f };
 		glm::vec3 m_Up;
 		glm::vec3 m_Right;
 		glm::vec3 m_WorldUp;
-		// ŷ���ǣ�
 		float m_Yaw;
 		float m_Pitch;
-		// ������ã�
 		float m_MovementSpeed{ SPEED };
 		float m_MovementSensitivity{ SENSITIVITY };
 		float m_FovAngle{ FOV };
@@ -43,19 +34,14 @@ namespace EulerEngine {
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
 	public:
-		// ������ʼ����
-		PerspectiveCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) :
-			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)) {
+		PerspectiveCamera(
+			glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), 
+			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), 
+			float yaw = YAW, float pitch = PITCH) :
+			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)),
+			m_ViewMatrix(glm::lookAt(m_Position, m_Position + m_Front, m_Up)){
 			m_Position = position;
 			m_WorldUp = up;
-			m_Yaw = yaw;
-			m_Pitch = pitch;
-			UpdateCameraVectors();
-		}
-		// ������ʼ����
-		PerspectiveCamera(float PosX, float PosY, float PosZ, float UpX, float UpY, float UpZ, float yaw, float pitch) {
-			m_Position = glm::vec3(PosX, PosY, PosZ);
-			m_WorldUp = glm::vec3(UpX, UpY, UpZ);
 			m_Yaw = yaw;
 			m_Pitch = pitch;
 			UpdateCameraVectors();
@@ -63,8 +49,8 @@ namespace EulerEngine {
 		glm::mat4 GetViewMatrix() {
 			return m_ViewMatrix;
 		}
-		glm::mat4 LookAt(glm::vec3 target, glm::vec3 up, glm::vec3 position) {
-			return m_ViewMatrix;
+		glm::mat4 GetProjectionMatrix() {
+			return m_ProjectionMatrix;
 		}
 		void Move(glm::vec3 delta) {
 			m_Position += delta;
@@ -76,10 +62,12 @@ namespace EulerEngine {
 		void Zoom(float offset) {
 			m_FovAngle = glm::clamp(m_FovAngle - offset, MIN_FOV, MAX_FOV);
 		}
-		void OnUpdate(TimerSystem ts) {
 
+		void UpdateViewMatrix() {
+			m_ViewMatrix = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 		}
-		void OnEvent(Event& e) {
+		void UpdateProjectionMatrix() {
+			m_ProjectionMatrix = glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f);
 		}
 
 	private:
@@ -90,14 +78,6 @@ namespace EulerEngine {
 			m_Front = glm::normalize(front);
 			m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
 			m_Up = glm::normalize(cross(m_Right, m_Front));
-		}
-		void UpdateViewMatrix() {
-			glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position)
-				* glm::rotate(glm::mat4(1.0f), m_Yaw, glm::vec3(0, 0, 1));
-			m_ViewMatrix = glm::inverse(transform);
-		}
-		void UpdateProjectionMatrix() {
-
 		}
 	};
 }

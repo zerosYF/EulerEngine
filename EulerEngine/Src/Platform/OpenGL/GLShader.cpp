@@ -2,9 +2,7 @@
 #include"GLShader.h"
 #include<GLFW/glfw3.h>
 #include<glad/glad.h>
-#include<iostream>
-#include<fstream>
-#include<filesystem>
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	static GLenum ShaderTypeFromString(std::string& type) {
 		if (type == "vertex") return GL_VERTEX_SHADER;
@@ -37,7 +35,7 @@ namespace EulerEngine {
 
 		ShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
 		try {
-			ShaderFile.open(path, std::ios::in, std::ios::binary);
+			ShaderFile.open(path);
 			std::stringstream ShaderStream;
 			ShaderStream << ShaderFile.rdbuf();
 			std::string shaderSource = ShaderStream.str();
@@ -55,7 +53,7 @@ namespace EulerEngine {
 			}
 			unsigned int program = glCreateProgram();
 			m_RendererID = program;
-			std::cout << "GL_program_ID:" << program << std::endl;
+			KINK_CORE_INFO("GL_PROGRAM_ID: {0}", m_RendererID);
 			glAttachShader(program, vertexShader);
 			glAttachShader(program, fragmentShader);
 
@@ -68,7 +66,7 @@ namespace EulerEngine {
 
 		}
 		catch (std::ifstream::failure e) {
-			std::cout << "Read File Failed" << std::endl;
+			KINK_CORE_ERROR("error code: {0}", std::string(e.what()));
 		}
 	}
 	OpenGLShader::~OpenGLShader() {
@@ -106,6 +104,7 @@ namespace EulerEngine {
 			shader = glCreateShader(GL_GEOMETRY_SHADER);
 		glShaderSource(shader, 1, &Code, NULL);
 		glCompileShader(shader);
+		KINK_CORE_INFO("COMPILE SHADER...{0}", shader);
 		CheckError(shader, type);
 	}
 	void OpenGLShader::CheckError(unsigned int object, unsigned int type) {
@@ -115,19 +114,19 @@ namespace EulerEngine {
 			glGetShaderiv(object, GL_COMPILE_STATUS, &success);
 			if (!success) {
 				std::string t;
-				if (type == EULER_VERTEX) t = "����shader";
-				else if (type == EULER_FRAGMENT) t = "Ƭ��shader";
-				else if (type == EULER_GEOMETRY) t = "����shader";
+				if (type == EULER_VERTEX) t = "vertex shader";
+				else if (type == EULER_FRAGMENT) t = "fragment shader";
+				else if (type == EULER_GEOMETRY) t = "geometry shader";
 
 				glGetShaderInfoLog(object, 512, NULL, infoLog);
-				std::cout << t << "����ʧ��\n" << "log: " << infoLog << std::endl;
+				KINK_CORE_ERROR("INFO: {0}", infoLog);
 			}
 		}
 		else {
 			glGetProgramiv(object, GL_LINK_STATUS, &success);
 			if (!success) {
 				glGetProgramInfoLog(object, 512, NULL, infoLog);
-				std::cout << "����ʧ��\n" << "log: " << infoLog << std::endl;
+				KINK_CORE_ERROR("INFO: {0}", infoLog);
 				glDeleteProgram(object);
 			}
 		}

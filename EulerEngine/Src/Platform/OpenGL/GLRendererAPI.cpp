@@ -1,7 +1,7 @@
-#include "gkpch.h"
-#include "GLRendererAPI.h"
-#include "glad/glad.h"
-
+#include"gkpch.h"
+#include"GLRendererAPI.h"
+#include"glad/glad.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	void GLRendererAPI::Init()
 	{
@@ -19,6 +19,7 @@ namespace EulerEngine {
 	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 	{
 		if (vertexArray->GetIndexBuffer() == nullptr) {
+			//KINK_CORE_INFO("NO INDEX BUFFER,USE DRAW ARRAY...");
 			Draw(vertexArray);
 			return;
 		}

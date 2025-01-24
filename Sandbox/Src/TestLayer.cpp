@@ -31,25 +31,27 @@ void TestLayer::OnAttach()
 	EulerEngine::Ref<EulerEngine::Material> material = EulerEngine::CreateRef<EulerEngine::Material>(shader);
 	material->AddTexture("container", texture2D);
 	m_ResourceLib.AddMaterial("first", material);
+
 }
 
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 {
 	m_CameraController.OnUpdate(ts);
 
-	if (EulerEngine::InputSystem::IsKeyDown(KINK_KEY_LEFT)) {
-		m_CameraPosition.x -= m_CameraSpeed * ts.GetDeltaTime();
-	}
 	EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
 	EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
-	glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CameraPosition);
 	auto shader = m_ResourceLib.GetShader("common");
 	auto material_ref = m_ResourceLib.GetMaterial("first");
 	material_ref->SetColor(m_Color);
-	EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, transform);
+	for (int i = 0; i < 10; i++) {
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), m_CubePositions[i]);
+		float angle = 20.0f * i;
+		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+		EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model);
+	}
 	EulerEngine::Renderer::EndScene();
 }
 

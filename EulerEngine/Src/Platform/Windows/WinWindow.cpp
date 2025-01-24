@@ -21,7 +21,7 @@ namespace EulerEngine {
 		m_Data.Title = info.Title;
 		m_Data.Width = info.Width;
 		m_Data.Height = info.Height;
-
+		
 
 		KINK_CORE_INFO("Create Window {0} ({1} {2})", info.Title, info.Width, info.Height);
 
@@ -102,7 +102,18 @@ namespace EulerEngine {
 		});
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			MouseMovedEvent event(x, y);
+			if (FirstMouseMove) {
+				LastMouseX = x;
+				LastMouseY = y;
+				FirstMouseMove = false;
+			}
+
+			double xOffset = x - LastMouseX;
+			double yOffset = y - LastMouseY;
+
+			LastMouseX = x;
+			LastMouseY = y;
+			MouseMovedEvent event(x, y, xOffset, yOffset);
 			data.Callback(event);
 		});
 	}
@@ -112,6 +123,7 @@ namespace EulerEngine {
 	}
 	void WinWindow::OnUpdate() {
 		glfwPollEvents();
+		
 		m_Context->SwapBuffers();
 	}
 	void WinWindow::SetVSync(bool enabled) {

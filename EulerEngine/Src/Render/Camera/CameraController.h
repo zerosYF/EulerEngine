@@ -16,6 +16,7 @@ namespace EulerEngine {
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		bool OnWindowReized(WindowResizeEvent& e);
+		bool OnMouseMoved(MouseMovedEvent& e);
 	private:
 		PerspectiveCamera m_Camera;
 	};

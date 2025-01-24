@@ -3,6 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include"stb_image/stb_image.h"
 #include"glad/glad.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	OpenGLTexture2D::OpenGLTexture2D(std::string path, TextureType type) {
 		m_Wrap_S = GL_REPEAT;
@@ -40,6 +41,7 @@ namespace EulerEngine {
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
 			stbi_image_free(data);
+			KINK_CORE_INFO("texture load success...");
 		}
 	}
 	OpenGLTexture2D::~OpenGLTexture2D() {
@@ -47,6 +49,7 @@ namespace EulerEngine {
 	}
 	void OpenGLTexture2D::Bind(unsigned int slot) const
 	{
-		glBindTexture(slot, m_RendererID);
+		glActiveTexture(slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }
