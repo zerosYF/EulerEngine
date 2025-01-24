@@ -1,5 +1,5 @@
 #pragma once
-#include "../../gkpch.h"
+#include "gkpch.h"
 #include "Event.h"
 
 namespace EulerEngine{

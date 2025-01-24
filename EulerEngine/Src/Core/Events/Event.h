@@ -1,5 +1,7 @@
 #pragma once
-#include"../../GutKink/Core.h"
+#include"GutKink/Core.h"
+#include<string>
+#include<functional>
 namespace EulerEngine{
 	enum class EventType {
 		None = 0,

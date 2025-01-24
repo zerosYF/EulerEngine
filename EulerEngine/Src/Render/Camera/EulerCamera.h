@@ -1,7 +1,7 @@
 #pragma once
-#ifndef CAMERA_H
-#define CAMERA_H
 #include"gkpch.h"
+#include"Core/EulerTimer.h"
+#include"Core/Events/Event.h"
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 namespace EulerEngine {
@@ -23,12 +23,12 @@ namespace EulerEngine {
 	const float MIN_FOV = 10.0F;
 	const float MAX_FOV = 89.0f;
 
-	class Camera {
+	class PerspectiveCamera {
 	public:
 		RenderCameraType m_cameraType = RenderCameraType::Editor;
 		// ����������
-		glm::vec3 m_Position{0.0f,0.0f,0.0f};
-		glm::vec3 m_Front{0.0f,0.0f,-1.0f};
+		glm::vec3 m_Position{ 0.0f,0.0f,0.0f };
+		glm::vec3 m_Front{ 0.0f,0.0f,-1.0f };
 		glm::vec3 m_Up;
 		glm::vec3 m_Right;
 		glm::vec3 m_WorldUp;
@@ -36,16 +36,16 @@ namespace EulerEngine {
 		float m_Yaw;
 		float m_Pitch;
 		// ������ã�
-		float m_MovementSpeed{SPEED};
-		float m_MovementSensitivity{SENSITIVITY};
-		float m_FovAngle{FOV};
+		float m_MovementSpeed{ SPEED };
+		float m_MovementSensitivity{ SENSITIVITY };
+		float m_FovAngle{ FOV };
 	private:
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
 	public:
 		// ������ʼ����
-		Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),float yaw = YAW, float pitch = PITCH):
-			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)){
+		PerspectiveCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) :
+			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)) {
 			m_Position = position;
 			m_WorldUp = up;
 			m_Yaw = yaw;
@@ -53,7 +53,7 @@ namespace EulerEngine {
 			UpdateCameraVectors();
 		}
 		// ������ʼ����
-		Camera(float PosX, float PosY, float PosZ, float UpX, float UpY, float UpZ, float yaw, float pitch) {
+		PerspectiveCamera(float PosX, float PosY, float PosZ, float UpX, float UpY, float UpZ, float yaw, float pitch) {
 			m_Position = glm::vec3(PosX, PosY, PosZ);
 			m_WorldUp = glm::vec3(UpX, UpY, UpZ);
 			m_Yaw = yaw;
@@ -70,11 +70,16 @@ namespace EulerEngine {
 			m_Position += delta;
 		}
 		void Rotate(glm::vec2 delta) {
-			m_Pitch += SENSITIVITY*	delta.x;
+			m_Pitch += SENSITIVITY * delta.x;
 			m_Yaw += SENSITIVITY * delta.y;
 		}
 		void Zoom(float offset) {
-			m_FovAngle = glm::clamp(m_FovAngle - offset,MIN_FOV,MAX_FOV);
+			m_FovAngle = glm::clamp(m_FovAngle - offset, MIN_FOV, MAX_FOV);
+		}
+		void OnUpdate(TimerSystem ts) {
+
+		}
+		void OnEvent(Event& e) {
 		}
 
 	private:
@@ -87,13 +92,12 @@ namespace EulerEngine {
 			m_Up = glm::normalize(cross(m_Right, m_Front));
 		}
 		void UpdateViewMatrix() {
-			glm::mat4 transform = glm::translate(glm::mat4(1.0f),m_Position) 
+			glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position)
 				* glm::rotate(glm::mat4(1.0f), m_Yaw, glm::vec3(0, 0, 1));
 			m_ViewMatrix = glm::inverse(transform);
 		}
 		void UpdateProjectionMatrix() {
-		
+
 		}
 	};
 }
-#endif // CAMERA_H

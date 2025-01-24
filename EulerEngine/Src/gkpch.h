@@ -6,10 +6,12 @@
 #include<algorithm>
 #include<functional>
 #include<tchar.h>
-
+#include<stdio.h>
+#include<map>
 #include<string>
 #include<vector>
 #include<sstream>
+#include<fstream>
 #include<unordered_map>
 #include<unordered_set>
 

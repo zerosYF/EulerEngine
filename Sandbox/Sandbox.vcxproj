@@ -126,11 +126,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\App.cpp" />
+    <ClCompile Include="Src\TestLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EulerEngine\EulerEngine.vcxproj">
       <Project>{B8701701-2426-90F6-AD1A-8ACD19CF86FA}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\TestLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

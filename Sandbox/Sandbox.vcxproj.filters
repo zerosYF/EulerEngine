@@ -18,5 +18,13 @@
     <ClCompile Include="Src\App.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\TestLayer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\TestLayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

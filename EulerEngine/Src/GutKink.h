@@ -1,5 +1,4 @@
 #pragma once
-#include<stdio.h>
 #include"GutKink/Application.h"
 #include"Core/Input/EulerInput.h"
 #include"Core/Input/InputCodes.h"
@@ -16,5 +15,5 @@
 #include"Core/EulerTimer.h"
 #include"Render/EulerMaterial.h"
 #include"Render/EulerTexture.h"
-//++++++++++++++++++++++++++++++++��ڵ�+++++++++++++++++++++++++++
-#include"GutKink/EntryPoint.h"
+#include"Resource/ResourceLibrary.h"
+//++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

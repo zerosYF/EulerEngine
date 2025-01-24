@@ -1377,9 +1377,6 @@
     <ClInclude Include="Src\Render\EulerBuffer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\EulerCamera.h">
-      <Filter>Src\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\EulerMaterial.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
@@ -1443,9 +1440,6 @@
     <ClInclude Include="Src\Render\VertexArray.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Resource\SourceManager.h">
-      <Filter>Src\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
       <Filter>Src\Test\ModelTest</Filter>
     </ClInclude>
@@ -1464,6 +1458,13 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Resource\ResourceLibrary.h">
+      <Filter>Src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Camera\EulerCamera.h">
+      <Filter>Src\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Camera\CameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1595,6 +1596,8 @@
     <ClCompile Include="Src\gkpch.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
+    <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\premake5.lua" />

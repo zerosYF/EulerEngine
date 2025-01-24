@@ -559,9 +559,10 @@
     <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
     <ClInclude Include="Src\Platform\Windows\WinInput.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
+    <ClInclude Include="Src\Render\Camera\CameraController.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
-    <ClInclude Include="Src\Render\EulerCamera.h" />
+    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\EulerMaterial.h" />
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
@@ -583,7 +584,7 @@
     <ClInclude Include="Src\Render\RendererAPI.h" />
     <ClInclude Include="Src\Render\System\EulerRender.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
-    <ClInclude Include="Src\Resource\SourceManager.h" />
+    <ClInclude Include="Src\Resource\ResourceLibrary.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h" />
     <ClInclude Include="Src\Test\TestFunc.h" />
@@ -619,6 +620,7 @@
     <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
+    <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
     <ClCompile Include="Src\Render\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Render\EulerBuffer.cpp" />
     <ClCompile Include="Src\Render\EulerMaterial.cpp" />
@@ -631,6 +633,7 @@
     <ClCompile Include="Src\Render\RendererAPI.cpp" />
     <ClCompile Include="Src\Render\System\EulerRender.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
+    <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />
     <ClCompile Include="Src\Thread\EulerThread.cpp" />

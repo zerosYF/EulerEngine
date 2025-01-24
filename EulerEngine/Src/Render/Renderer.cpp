@@ -8,7 +8,7 @@ namespace EulerEngine {
 	{
 		RenderCommand::Init();
 	}
-	void Renderer::BeginScene(Camera& camera)
+	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewMatrix();
 	}
