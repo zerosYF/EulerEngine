@@ -568,11 +568,12 @@
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h" />
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h" />
-    <ClInclude Include="Src\Render\OpenGL\GLControl.h" />
     <ClInclude Include="Src\Render\OpenGL\GLModel.h" />
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h" />
     <ClInclude Include="Src\Render\OpenGL\GLScene.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
+    <ClInclude Include="Src\Render\Render2D\OrthoCamera.h" />
+    <ClInclude Include="Src\Render\Render2D\Renderer2D.h" />
     <ClInclude Include="Src\Render\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
     <ClInclude Include="Src\Render\RendererAPI.h" />
@@ -622,6 +623,8 @@
     <ClCompile Include="Src\Render\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
+    <ClCompile Include="Src\Render\Render2D\OrthoCamera.cpp" />
+    <ClCompile Include="Src\Render\Render2D\Renderer2D.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.h" />
     <ClCompile Include="Src\Render\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
