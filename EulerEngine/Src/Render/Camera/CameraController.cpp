@@ -21,6 +21,7 @@ namespace EulerEngine{
 		}
 		m_Camera.UpdateProjectionMatrix();
 		m_Camera.UpdateViewMatrix();
+		m_Camera.UpdateCameraVectors();
 	}
 	void PerspectiveCameraController::OnEvent(Event & e)
 	{

@@ -3,11 +3,11 @@
 #include"Render/Renderer.h"
 #include"Platform/OpenGL/GLTexture2D.h"
 namespace EulerEngine {
-	Ref<Texture2D> Texture2D::Create(const std::string& path, TextureType type) {
+	Ref<Texture2D> Texture2D::Create(const std::string& path) {
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: return nullptr;
-		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path, type);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path);
 		}
 		return nullptr;
 	}

@@ -16,14 +16,15 @@ namespace EulerEngine {
 	void Renderer::EndScene()
 	{
 	}
-	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model=glm::mat4(1.0f))
+	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, 
+		const glm::mat4& model=glm::mat4(1.0f), const unsigned int vertex_cnt = 0)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("view", m_SceneData->ViewMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("projection", m_SceneData->ProjectionMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("model", model);
-		material->Apply();
+		material->Apply(shader);
 		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		RenderCommand::Draw(vertexArray, vertex_cnt);
 	}
 }

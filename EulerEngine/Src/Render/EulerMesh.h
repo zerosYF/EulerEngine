@@ -18,8 +18,7 @@ namespace EulerEngine {
 			Vertex vertexs[3];
 		};
 		Mesh(float* vertices, std::vector<unsigned int> indices) {
-			Ref<VertexBuffer> vertexBuffer;
-			vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+			Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 
 			BufferLayout layout = {
 				{ShaderDataType::Float3, "aPosition"},
@@ -29,13 +28,12 @@ namespace EulerEngine {
 			vertexBuffer->SetLayout(layout);
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-			Ref<IndexBuffer> indexBuffer;
-			indexBuffer.reset(IndexBuffer::Create(indices.data(), sizeof(indices) / sizeof(unsigned int)));
+			Ref<IndexBuffer> indexBuffer = IndexBuffer::Create(indices.data(), sizeof(indices) / sizeof(unsigned int));
 			m_VertexArray->SetIndexBuffer(indexBuffer);
 		}
 		void Draw() {
 			m_VertexArray->Bind();
-			RenderCommand::DrawIndexed(m_VertexArray);
+			RenderCommand::Draw(m_VertexArray);
 			m_VertexArray->Unbind();
 		}
 	private:

@@ -20,8 +20,8 @@ namespace EulerEngine {
 	class PerspectiveCamera {
 	public:
 		RenderCameraType m_cameraType = RenderCameraType::Editor;
-		glm::vec3 m_Position{ 0.0f,0.0f,0.0f };
-		glm::vec3 m_Front{ 0.0f,0.0f,-1.0f };
+		glm::vec3 m_Position;
+		glm::vec3 m_Front;
 		glm::vec3 m_Up;
 		glm::vec3 m_Right;
 		glm::vec3 m_WorldUp;
@@ -35,12 +35,14 @@ namespace EulerEngine {
 		glm::mat4 m_ViewMatrix;
 	public:
 		PerspectiveCamera(
-			glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), 
-			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), 
+			glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f),
+			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
+			glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f),
 			float yaw = YAW, float pitch = PITCH) :
 			m_ProjectionMatrix(glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f)),
 			m_ViewMatrix(glm::lookAt(m_Position, m_Position + m_Front, m_Up)){
 			m_Position = position;
+			m_Front = front,
 			m_WorldUp = up;
 			m_Yaw = yaw;
 			m_Pitch = pitch;
@@ -70,7 +72,6 @@ namespace EulerEngine {
 			m_ProjectionMatrix = glm::perspective(glm::radians(m_FovAngle), 1.0f, 0.1f, 100.0f);
 		}
 
-	private:
 		void UpdateCameraVectors() {
 			glm::vec3 front{ glm::cos(glm::radians(m_Yaw))*glm::cos(glm::radians(m_Pitch)) ,
 								glm::sin(glm::radians(m_Pitch)),

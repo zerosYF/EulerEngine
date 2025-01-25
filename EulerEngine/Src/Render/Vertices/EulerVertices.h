@@ -5,4 +5,5 @@
 namespace EulerEngine {
 	extern float CubeVertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE];
 	extern float SquareVertices[];
+	extern float CubeVerticesWithoutNormal[CUBE_VERTEX_CNT*CUBE_DATA_SIZE];
 }

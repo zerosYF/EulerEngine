@@ -2,9 +2,8 @@
 #include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_CameraController()
+TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer")
 {
-
 }
 void TestLayer::OnDetach()
 {
@@ -15,22 +14,20 @@ void TestLayer::OnAttach()
 {
 	m_VertexArray = EulerEngine::VertexArray::Create();
 
-	EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer;
-	vertexBuffer.reset(EulerEngine::VertexBuffer::Create(EulerEngine::CubeVertices, sizeof(EulerEngine::CubeVertices)));
+	EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer
+		= EulerEngine::VertexBuffer::Create(EulerEngine::CubeVerticesWithoutNormal, sizeof(EulerEngine::CubeVerticesWithoutNormal));
 
 	EulerEngine::BufferLayout layout = {
 		{EulerEngine::ShaderDataType::Float3, "aPosition"},
 		{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
-		{EulerEngine::ShaderDataType::Float3, "aNormal"},
 	};
 	vertexBuffer->SetLayout(layout);
 	m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-	auto shader = m_ResourceLib.LoadShader("common", "Shaders/Light/common.glsl");
-	auto texture2D = m_ResourceLib.LoadTexture2D("container", "Assets/mytextures/container2.png", EulerEngine::TextureType::DIFFUSE);
-	EulerEngine::Ref<EulerEngine::Material> material = EulerEngine::CreateRef<EulerEngine::Material>(shader);
-	material->AddTexture("container", texture2D);
-	m_ResourceLib.AddMaterial("first", material);
+	auto shader = m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
+	auto texture2D = m_ResourceLib.LoadTexture2D("texture1", "Assets/mytextures/container2.png");
+	auto material = m_ResourceLib.LoadMaterial("first");
+    material->AddTexture("container", texture2D);
 
 }
 
@@ -50,7 +47,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), m_CubePositions[i]);
 		float angle = 20.0f * i;
 		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model);
+		EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model, 36);
 	}
 	EulerEngine::Renderer::EndScene();
 }

@@ -10,7 +10,7 @@ namespace EulerEngine {
 		static void Init();
 		static void BeginScene(PerspectiveCamera& camera);
 		static void EndScene();
-		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& transform);
+		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model, const unsigned int vertex_cnt);
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 	public:
 		struct SceneData {

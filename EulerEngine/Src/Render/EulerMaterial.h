@@ -7,11 +7,10 @@ namespace EulerEngine {
 	private:
 		std::unordered_map<std::string, Ref<Texture2D>> m_Textures;
 		std::unordered_map<std::string, float> m_Paramters;
-		glm::vec4 m_Color; 
-		std::shared_ptr<EulerShader> m_Shader;
-	public:
-		Material(Ref<EulerShader> shader);
+		glm::vec4 m_Color;
 
+	public:
+		Material();
 		void AddTexture(const std::string& name, Ref<Texture2D> texture);
 		void SetColor(glm::vec4 color);
 		void AddFloatParam(std::string& name, float param);
@@ -19,7 +18,7 @@ namespace EulerEngine {
 		Ref<Texture2D> GetTexture(const std::string& name) const;
 		glm::vec4 GetColor() const;
 		float GetFloatParam(const std::string& name) const;
-		void Apply() const;
-	
+		void Apply(Ref<EulerShader>& shader) const;
+		static Ref<Material> Create();
 	};
 }

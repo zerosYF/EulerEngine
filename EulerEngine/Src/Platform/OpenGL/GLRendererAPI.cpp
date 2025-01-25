@@ -16,16 +16,13 @@ namespace EulerEngine {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
-	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt)
 	{
 		if (vertexArray->GetIndexBuffer() == nullptr) {
 			//KINK_CORE_INFO("NO INDEX BUFFER,USE DRAW ARRAY...");
-			Draw(vertexArray);
+			glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
 			return;
 		}
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-	}
-	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray) {
-		glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetVertexBuffers().size());
 	}
 }

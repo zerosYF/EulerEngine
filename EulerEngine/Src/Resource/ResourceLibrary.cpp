@@ -1,5 +1,6 @@
 #include"gkpch.h"
 #include"ResourceLibrary.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	void ResourceLibrary::AddShader(const std::string & name, const Ref<EulerShader>& shader)
 	{
@@ -13,7 +14,8 @@ namespace EulerEngine {
 	}
 	Ref<EulerShader> ResourceLibrary::GetShader(const std::string & name)
 	{
-		return m_Shaders[name];
+		auto iter = m_Shaders.find(name);
+		return iter != m_Shaders.end() ? iter->second : nullptr;
 	}
 	bool ResourceLibrary::IsShaderExists(const std::string & name)
 	{
@@ -23,19 +25,22 @@ namespace EulerEngine {
 
 
 
-	void ResourceLibrary::AddTexture2D(const std::string & name, const Ref<Texture2D> texture)
+	void ResourceLibrary::AddTexture2D(const std::string & name, const Ref<Texture2D>& texture)
 	{
 		m_Texture2Ds[name] = texture;
 	}
-	Ref<Texture2D> ResourceLibrary::LoadTexture2D(const std::string& name, const std::string & path, TextureType type)
+	Ref<Texture2D> ResourceLibrary::LoadTexture2D(const std::string& name, const std::string & path)
 	{
-		auto texture = Texture2D::Create(path, type);
+		auto texture = Texture2D::Create(path);
+		KINK_CORE_INFO("Create texture success...");
 		this->AddTexture2D(name, texture);
+		KINK_CORE_INFO("Add texture success...");
 		return texture;
 	}
 	Ref<Texture2D> ResourceLibrary::GetTexture2D(const std::string & name)
 	{
-		return m_Texture2Ds[name];
+		auto iter = m_Texture2Ds.find(name);
+		return iter != m_Texture2Ds.end() ? iter->second : nullptr;
 	}
 	bool ResourceLibrary::IsTexture2DExists(const std::string & name)
 	{
@@ -46,9 +51,15 @@ namespace EulerEngine {
 
 
 
-	void ResourceLibrary::AddMaterial(const std::string name, Ref<Material>& material)
+	void ResourceLibrary::AddMaterial(const std::string& name, const Ref<Material>& material)
 	{
 		m_Materials[name] = material;
+	}
+	Ref<Material> ResourceLibrary::LoadMaterial(const std::string & name)
+	{
+		auto material = Material::Create();
+		this->AddMaterial(name, material);
+		return material;
 	}
 	Ref<Material> ResourceLibrary::GetMaterial(const std::string & name)
 	{

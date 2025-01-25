@@ -12,11 +12,8 @@ namespace EulerEngine {
 		inline static void Clear() {
 			m_RendererAPI->Clear();
 		}
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
-			m_RendererAPI->DrawIndexed(vertexArray);
-		}
-		inline static void Draw(const std::shared_ptr<VertexArray>& vertexArray) {
-			m_RendererAPI->Draw(vertexArray);
+		inline static void Draw(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt = 0) {
+			m_RendererAPI->Draw(vertexArray, vertex_cnt);
 		}
 	private:
 		static Scope<RendererAPI> m_RendererAPI;

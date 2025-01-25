@@ -26,4 +26,6 @@ private:
 		glm::vec3(1.5f,  0.2f, -1.5f),
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
+	EulerEngine::Ref<EulerEngine::Texture2D> m_Test_Texture;
+	EulerEngine::Ref<EulerEngine::Material> m_Test_Material;
 };

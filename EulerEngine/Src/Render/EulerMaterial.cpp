@@ -1,16 +1,24 @@
 #include"gkpch.h"
 #include"EulerMaterial.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
-	Material::Material(Ref<EulerShader> shader):m_Shader(shader) {
-		
+	Ref<Material> Material::Create()
+	{
+		return CreateRef<Material>();
+	}
+
+	Material::Material() {
+		KINK_CORE_INFO("Material init...");
 	}
 	void Material::AddTexture(const std::string& name, Ref<Texture2D> texture) {
 		m_Textures[name] = texture;
+		KINK_CORE_INFO("Material add Texture success...");
 	}
 
 	void Material::SetColor(glm::vec4 color)
 	{
 		m_Color = color;
+		KINK_CORE_INFO("Material set Color success...");
 	}
 
 	void Material::AddFloatParam(std::string& name, float param)
@@ -35,20 +43,19 @@ namespace EulerEngine {
 		return it != m_Paramters.end() ? it->second : 0;
 	}
 
-	void Material::Apply() const
+	void Material::Apply(Ref<EulerShader>& shader) const
 	{
-		m_Shader->Bind();
+		shader->Bind();
 		int texture_slot = 0;
 		for (const auto& [name, texture]:m_Textures) {
 			texture->Bind(texture_slot);
-			m_Shader->SetFloat(name, texture_slot);
+			shader->SetInt(name, texture_slot);
 			texture_slot++;
 		}
 		for (const auto& [name, param]:m_Paramters) {
-			m_Shader->SetFloat(name, param);
+			shader->SetFloat(name, param);
 		}
-		m_Shader->SetVec4("color", m_Color);
-		m_Shader->Unbind();
+		shader->SetVec4("color", m_Color);
 	}
 
 	/*void Material::setSpotLightRender(EulerSpotLight* light) {

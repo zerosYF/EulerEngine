@@ -2,7 +2,7 @@
 #include"GLBuffer.h"
 #include<glad/glad.h>
 namespace EulerEngine {
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, unsigned int size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, unsigned int size) 
 	{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);

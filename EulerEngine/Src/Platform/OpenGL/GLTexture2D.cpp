@@ -5,7 +5,7 @@
 #include"glad/glad.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
-	OpenGLTexture2D::OpenGLTexture2D(std::string path, TextureType type) {
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path) {
 		m_Wrap_S = GL_REPEAT;
 		m_Wrap_T = GL_REPEAT;
 		m_Filter_MIN = GL_LINEAR;
@@ -13,9 +13,8 @@ namespace EulerEngine {
 		m_RendererID = 0;
 		m_Internal_Format = 0;
 		m_Data_Format = 0;
-		this->m_Path = path;
-		this->m_Type = type;
-		stbi_uc* data = stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 4);
+		stbi_set_flip_vertically_on_load(true);
+		stbi_uc* data = stbi_load(path.c_str(), &m_Width, &m_Height, &m_Channels, 0);
 		if (data) {
 			if (m_Channels == 1) {
 				m_Internal_Format = GL_RED;
@@ -30,19 +29,22 @@ namespace EulerEngine {
 				m_Internal_Format = GL_RGBA;
 				m_Data_Format = GL_RGBA;
 			}
-			glGenTextures(GL_TEXTURE_2D, &m_RendererID);
+
+			glGenTextures(1, &m_RendererID);
 			glBindTexture(GL_TEXTURE_2D, m_RendererID);
+			glTexImage2D(GL_TEXTURE_2D, 0, m_Internal_Format, m_Width, m_Height, 0, m_Data_Format, GL_UNSIGNED_BYTE, data);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->m_Wrap_S);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->m_Wrap_T);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->m_Filter_MIN);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->m_Filter_MAX);
-			glTexImage2D(GL_TEXTURE_2D, 0, m_Internal_Format, m_Width, m_Height, 0, m_Data_Format, GL_UNSIGNED_BYTE, data);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_Width, m_Height, m_Data_Format, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			stbi_image_free(data);
-			KINK_CORE_INFO("texture load success...");
+			KINK_CORE_INFO("Texture load success...");
 		}
+		else {
+			KINK_CORE_ERROR("NO DATA FROM IMAGE");
+		}
+		stbi_image_free(data);
 	}
 	OpenGLTexture2D::~OpenGLTexture2D() {
 		glDeleteTextures(1, &m_RendererID);

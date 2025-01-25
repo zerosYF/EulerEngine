@@ -3,22 +3,22 @@
 #include"Renderer.h"
 #include"Platform/OpenGL/GLBuffer.h"
 namespace EulerEngine {
-	VertexBuffer* VertexBuffer::Create(float* vertices, unsigned int size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, unsigned int size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(unsigned int* indices, unsigned int count)
+	Ref<IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, count);
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 		return nullptr;
 	}

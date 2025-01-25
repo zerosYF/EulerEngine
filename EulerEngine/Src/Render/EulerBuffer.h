@@ -1,5 +1,5 @@
 #pragma once
-#include"gkpch.h"
+#include"GutKink/Core.h"
 namespace EulerEngine {
 	enum class ShaderDataType {
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
@@ -72,6 +72,7 @@ namespace EulerEngine {
 		}
 	private:
 		std::vector<BufferElement> m_Elements;
+		//Position,TexCoord, Normal,...
 		unsigned int m_Stride = 0;
 	};
 
@@ -82,7 +83,7 @@ namespace EulerEngine {
 		virtual void Unbind() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
-		static VertexBuffer* Create(float* vertices, unsigned int size);
+		static Ref<VertexBuffer> Create(float* vertices, unsigned int size);
 	};
 	class IndexBuffer {
 	public:
@@ -92,6 +93,6 @@ namespace EulerEngine {
 		virtual unsigned int GetCount() const = 0;
 		virtual void SetLayout(const BufferLayout& layout)= 0;
 		virtual const BufferLayout& GetLayout() const = 0;
-		static IndexBuffer* Create(unsigned int* indices, unsigned int count);
+		static Ref<IndexBuffer> Create(unsigned int* indices, unsigned int count);
 	};
 }
