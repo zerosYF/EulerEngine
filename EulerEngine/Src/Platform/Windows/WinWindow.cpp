@@ -110,7 +110,6 @@ namespace EulerEngine {
 
 			double xOffset = x - LastMouseX;
 			double yOffset = y - LastMouseY;
-
 			LastMouseX = x;
 			LastMouseY = y;
 			MouseMovedEvent event(x, y, xOffset, yOffset);

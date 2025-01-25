@@ -19,5 +19,6 @@ namespace EulerEngine {
 		bool OnMouseMoved(MouseMovedEvent& e);
 	private:
 		PerspectiveCamera m_Camera;
+		bool m_LeftBtn_Pressed = false;
 	};
 }

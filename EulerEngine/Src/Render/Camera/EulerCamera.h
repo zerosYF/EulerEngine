@@ -55,11 +55,11 @@ namespace EulerEngine {
 			return m_ProjectionMatrix;
 		}
 		void Move(glm::vec3 delta) {
-			m_Position += delta;
+			m_Position += delta * m_MovementSpeed;
 		}
 		void Rotate(glm::vec2 delta) {
-			m_Pitch += SENSITIVITY * delta.x;
-			m_Yaw += SENSITIVITY * delta.y;
+			m_Pitch -= SENSITIVITY * delta.y;
+			m_Yaw += SENSITIVITY * delta.x;
 		}
 		void Zoom(float offset) {
 			m_FovAngle = glm::clamp(m_FovAngle - offset, MIN_FOV, MAX_FOV);

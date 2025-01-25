@@ -18,7 +18,6 @@ namespace EulerEngine {
 	void Material::SetColor(glm::vec4 color)
 	{
 		m_Color = color;
-		KINK_CORE_INFO("Material set Color success...");
 	}
 
 	void Material::AddFloatParam(std::string& name, float param)
