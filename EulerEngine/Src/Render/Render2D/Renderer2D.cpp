@@ -24,7 +24,11 @@ namespace EulerEngine {
 		vertexBuffer->SetLayout({
 			{ EulerEngine::ShaderDataType::Float3, "aPosition" }
 		});
+		unsigned int SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		EulerEngine::Ref<EulerEngine::IndexBuffer> indexBuffer
+			= EulerEngine::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices));
 		s_Data->va->AddVertexBuffer(vertexBuffer);
+		s_Data->va->SetIndexBuffer(indexBuffer);
 		s_Data->m_ResourceLib.LoadShader("2d", "Shaders/Camera/2d.glsl");
 	}
 	void Renderer2D::ShutDown()
@@ -49,6 +53,6 @@ namespace EulerEngine {
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 		shader->SetMat4("model", model);
 		s_Data->va->Bind();
-		RenderCommand::Draw(s_Data->va, 6);
+		RenderCommand::Draw(s_Data->va);
 	}
 }

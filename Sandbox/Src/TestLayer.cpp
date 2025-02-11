@@ -7,7 +7,7 @@ TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_OrthoCameraContro
 }
 void TestLayer::OnDetach()
 {
-
+	EulerEngine::Renderer2D::ShutDown();
 }
 
 void TestLayer::OnAttach()
