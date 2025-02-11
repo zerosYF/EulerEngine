@@ -12,7 +12,6 @@ namespace EulerEngine {
 
 		const glm::mat4& GetProjectionMatrix() { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() { return m_ViewMatrix; }
-	private:
 		void CalViewMatrix();
 	private:
 		glm::vec3 m_Position = {0.0f, 0.0f, 0.0f};

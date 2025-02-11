@@ -2,6 +2,7 @@
 #include"Renderer.h"
 #include"RenderCmd.h"
 #include"Platform/OpenGL/GLShader.h"
+#include"Render2D/Renderer2D.h"
 namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
@@ -20,9 +21,9 @@ namespace EulerEngine {
 		const glm::mat4& model=glm::mat4(1.0f), const unsigned int vertex_cnt = 0)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("view", m_SceneData->ViewMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("projection", m_SceneData->ProjectionMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetMat4("model", model);
+		shader->SetMat4("view", m_SceneData->ViewMatrix);
+		shader->SetMat4("projection", m_SceneData->ProjectionMatrix);
+		shader->SetMat4("model", model);
 		material->Apply(shader);
 		vertexArray->Bind();
 		RenderCommand::Draw(vertexArray, vertex_cnt);

@@ -91,7 +91,7 @@ namespace EulerEngine {
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 
 	};
-	float SquareVertices[] = {
+	float SquareVertices[SQUARE_VERTEX_CNT * SQUARE_DATA_SIZE] = {
 		//position			texCoord      
 		0.0f,  0.5f,  0.0f,  0.0f,  0.0f, 
 		0.0f, -0.5f,  0.0f,  0.0f,  1.0f, 
@@ -100,5 +100,15 @@ namespace EulerEngine {
 		0.0f,  0.5f,  0.0f,  0.0f,  0.0f, 
 		1.0f, -0.5f,  0.0f,  1.0f,  1.0f, 
 		1.0f,  0.5f,  0.0f,  1.0f,  0.0f, 
+	};
+	float SquareVerticesWithoutTexture[SQUARE_VERTEX_CNT * SQUARE_DATA_SIZE] = {
+		//position			 
+		0.0f,  0.5f,  0.0f, 
+		0.0f, -0.5f,  0.0f, 
+		1.0f, -0.5f,  0.0f, 
+
+		0.0f,  0.5f,  0.0f, 
+		1.0f, -0.5f,  0.0f, 
+		1.0f,  0.5f,  0.0f, 
 	};
 }

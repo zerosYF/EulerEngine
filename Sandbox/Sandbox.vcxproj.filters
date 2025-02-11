@@ -28,6 +28,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Camera\2d.glsl" />
     <None Include="Shaders\Camera\first_test.glsl" />
   </ItemGroup>
 </Project>

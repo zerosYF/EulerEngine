@@ -8,7 +8,7 @@ namespace EulerEngine {
 		int Width;
 		int Height;
 		std::string Title;
-		WindowInfo(const std::string& title = "Euler Engine", int width = 1280, int height = 900)
+		WindowInfo(const std::string& title = "Euler Engine", int width = 1280, int height = 768)
 			:Title(title), Width(width), Height(height) {
 		}
 	};

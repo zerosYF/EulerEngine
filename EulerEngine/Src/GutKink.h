@@ -8,6 +8,8 @@
 #include"ImGui/ImGuiLayer.h"
 #include"Render/RendererAPI.h"
 #include"Render/Renderer.h"
+#include"Render/Render2D/Renderer2D.h"
+#include"Render/Render2D/OrthoCameraController.h"
 #include"Render/RenderCmd.h"
 #include"Render/EulerBuffer.h"
 #include"Render/Camera/EulerCamera.h"

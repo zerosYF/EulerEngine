@@ -25,19 +25,19 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -556,9 +556,9 @@
     <ClInclude Include="Src\Platform\Windows\WinInput.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
     <ClInclude Include="Src\Render\Camera\CameraController.h" />
+    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
-    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\EulerMaterial.h" />
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
@@ -573,12 +573,14 @@
     <ClInclude Include="Src\Render\OpenGL\GLScene.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
     <ClInclude Include="Src\Render\Render2D\OrthoCamera.h" />
+    <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h" />
     <ClInclude Include="Src\Render\Render2D\Renderer2D.h" />
     <ClInclude Include="Src\Render\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
     <ClInclude Include="Src\Render\RendererAPI.h" />
     <ClInclude Include="Src\Render\System\EulerRender.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
+    <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h" />
@@ -624,8 +626,8 @@
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\Render2D\OrthoCamera.cpp" />
+    <ClCompile Include="Src\Render\Render2D\OrthoCameraController.cpp" />
     <ClCompile Include="Src\Render\Render2D\Renderer2D.cpp" />
-    <ClCompile Include="Src\Render\Vertices\EulerVertices.h" />
     <ClCompile Include="Src\Render\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
     <ClCompile Include="Src\Render\RendererAPI.cpp" />
@@ -647,9 +649,6 @@
     <ProjectReference Include="Vendor\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\premake5.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
