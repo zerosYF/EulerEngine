@@ -9,7 +9,7 @@
 namespace EulerEngine {
 	struct Renderer2DStorage {
 		Ref<VertexArray> va;
-		EulerEngine::ResourceLibrary m_ResourceLib;
+		EulerEngine::ResourceLibrary s_ResourceLib;
 		glm::mat4 view_matrix;
 		glm::mat4 projection_matrix;
 	};
@@ -22,14 +22,14 @@ namespace EulerEngine {
 		EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer
 			= EulerEngine::VertexBuffer::Create(EulerEngine::SquareVerticesWithoutTexture, sizeof(EulerEngine::SquareVerticesWithoutTexture));
 		vertexBuffer->SetLayout({
-			{ EulerEngine::ShaderDataType::Float3, "aPosition" }
+			{ EulerEngine::ShaderDataType::Float3, "aPosition" },
 		});
 		unsigned int SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		EulerEngine::Ref<EulerEngine::IndexBuffer> indexBuffer
-			= EulerEngine::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices));
+			= EulerEngine::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices)/sizeof(unsigned int));
 		s_Data->va->AddVertexBuffer(vertexBuffer);
 		s_Data->va->SetIndexBuffer(indexBuffer);
-		s_Data->m_ResourceLib.LoadShader("2d", "Shaders/Camera/2d.glsl");
+		s_Data->s_ResourceLib.LoadShader("2d", "Shaders/Camera/2d.glsl");
 	}
 	void Renderer2D::ShutDown()
 	{
@@ -43,9 +43,13 @@ namespace EulerEngine {
 	void Renderer2D::EndScene()
 	{
 	}
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	{
+		DrawQuad({ position.x, position.y, 0.0f }, size, color);
+	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		auto shader = s_Data->m_ResourceLib.GetShader("2d");
+		auto shader = s_Data->s_ResourceLib.GetShader("2d");
 		shader->Bind();
 		shader->SetMat4("view", s_Data->view_matrix);
 		shader->SetMat4("projection", s_Data->projection_matrix);

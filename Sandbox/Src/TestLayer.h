@@ -11,7 +11,6 @@ public:
 	virtual void OnEvent(EulerEngine::Event& e) override;
 private:
 	EulerEngine::PerspectiveCameraController m_CameraController;
-	EulerEngine::OrthographicCameraController m_OrthoCameraController;
 	EulerEngine::Ref<EulerEngine::VertexArray> m_VertexArray;
 	EulerEngine::ResourceLibrary m_ResourceLib;
 	glm::vec4 m_Color = {0.2f, 0.3f, 0.1f, 1.0f};

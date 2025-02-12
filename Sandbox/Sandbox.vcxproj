@@ -125,9 +125,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\_2DLayer.h" />
     <ClInclude Include="Src\TestLayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\_2DLayer.cpp" />
     <ClCompile Include="Src\App.cpp" />
     <ClCompile Include="Src\TestLayer.cpp" />
   </ItemGroup>

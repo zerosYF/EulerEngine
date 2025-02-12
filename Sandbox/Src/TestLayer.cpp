@@ -2,18 +2,16 @@
 #include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_OrthoCameraController(1280.0f / 768.0f, true)
+TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer")
 {
 }
 void TestLayer::OnDetach()
 {
-	EulerEngine::Renderer2D::ShutDown();
 }
 
 void TestLayer::OnAttach()
 {
 	EulerEngine::Renderer::Init();
-	EulerEngine::Renderer2D::Init();
 
 	m_VertexArray = EulerEngine::VertexArray::Create();
 
@@ -27,7 +25,7 @@ void TestLayer::OnAttach()
 	vertexBuffer->SetLayout(layout);
 	m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-	auto shader = m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
+	m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
 	auto texture2D = m_ResourceLib.LoadTexture2D("texture1", "Assets/mytextures/container2.png");
 	auto material = m_ResourceLib.LoadMaterial("first");
     material->AddTexture("container", texture2D);
@@ -37,14 +35,10 @@ void TestLayer::OnAttach()
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 {
 	m_CameraController.OnUpdate(ts);
-	m_OrthoCameraController.OnUpdate(ts);
 
 	EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
-	EulerEngine::Renderer2D::BeginScene(m_OrthoCameraController.GetCamera());
-	EulerEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, m_Color);
-	EulerEngine::Renderer2D::EndScene();
 
 	EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
@@ -70,5 +64,4 @@ void TestLayer::OnImGuiRender()
 void TestLayer::OnEvent(EulerEngine::Event& e)
 {
 	m_CameraController.OnEvent(e);
-	m_OrthoCameraController.OnEvent(e);
 }

@@ -21,9 +21,15 @@
     <ClCompile Include="Src\TestLayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\_2DLayer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\TestLayer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\_2DLayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
