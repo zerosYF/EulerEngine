@@ -522,6 +522,7 @@
     <ClInclude Include="Src\Core\Events\InputEvent.h" />
     <ClInclude Include="Src\Core\Input\EulerInput.h" />
     <ClInclude Include="Src\Core\Input\InputCodes.h" />
+    <ClInclude Include="Src\Core\EulerInstrumentor.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayer.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h" />
     <ClInclude Include="Src\Core\Logs\EulerLog.h" />

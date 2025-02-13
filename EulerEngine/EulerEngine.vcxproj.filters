@@ -1459,6 +1459,7 @@
       <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h" />
+    <ClInclude Include="Src\Core\EulerInstrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">

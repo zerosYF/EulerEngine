@@ -14,10 +14,12 @@ namespace EulerEngine {
 		unsigned int m_Filter_MIN; 
 		unsigned int m_Filter_MAX;
 	public:
+		OpenGLTexture2D(unsigned int width, unsigned int height);
 		OpenGLTexture2D(const std::string& path);
 		~OpenGLTexture2D();
 		virtual unsigned int GetWidth() const override { return m_Width; }
 		virtual unsigned int GetHeight() const override { return m_Height; }
+		virtual void SetData(void* data, unsigned int size) override;
 		virtual void Bind(unsigned int slot) const override;
 	};
 }

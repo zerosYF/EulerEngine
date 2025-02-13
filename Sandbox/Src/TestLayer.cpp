@@ -2,6 +2,9 @@
 #include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
+#include<chrono>
+
+#define PROFILE_SCOPE(name) Timer<std::function<void(const ProfileResult&)>> timer##__LINE__(name,  [&](ProfileResult profileResult) {m_ProfileResults.push_back(profileResult); })
 TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer")
 {
 }
@@ -34,24 +37,33 @@ void TestLayer::OnAttach()
 
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 {
-	m_CameraController.OnUpdate(ts);
-
-	EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
-	EulerEngine::RenderCommand::Clear();
-
-
-	EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
-
-	auto shader = m_ResourceLib.GetShader("common");
-	auto material_ref = m_ResourceLib.GetMaterial("first");
-	material_ref->SetColor(m_Color);
-	for (int i = 0; i < 10; i++) {
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), m_CubePositions[i]);
-		float angle = 20.0f * i;
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model, 36);
+	KINK_PROFILE_FUNCTION();
+	{
+		KINK_PROFILE_SCOPE("camera_controller");
+		m_CameraController.OnUpdate(ts);
 	}
-	EulerEngine::Renderer::EndScene();
+
+	{
+		KINK_PROFILE_SCOPE("renderer_prep");
+		EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
+		EulerEngine::RenderCommand::Clear();
+	}
+
+	{
+		KINK_PROFILE_SCOPE("renderer_draw");
+		EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
+
+		auto shader = m_ResourceLib.GetShader("common");
+		auto material_ref = m_ResourceLib.GetMaterial("first");
+		material_ref->SetColor(m_Color);
+		for (int i = 0; i < 10; i++) {
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_CubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model, 36);
+		}
+		EulerEngine::Renderer::EndScene();
+	}
 }
 
 void TestLayer::OnImGuiRender()

@@ -28,5 +28,4 @@ private:
 	};
 	EulerEngine::Ref<EulerEngine::Texture2D> m_Test_Texture;
 	EulerEngine::Ref<EulerEngine::Material> m_Test_Material;
-
 };

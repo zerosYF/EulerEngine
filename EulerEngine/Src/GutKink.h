@@ -20,4 +20,5 @@
 #include"Render/EulerMaterial.h"
 #include"Render/EulerTexture.h"
 #include"Resource/ResourceLibrary.h"
+#include"Core/EulerInstrumentor.h"
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++
