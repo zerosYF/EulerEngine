@@ -23,6 +23,7 @@ namespace EulerEngine {
 			glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
 			return;
 		}
+		//KINK_CORE_INFO("INDEX BUFFER,USE DRAW ARRAY...{0}", vertexArray->GetIndexBuffer()->GetCount());
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 }

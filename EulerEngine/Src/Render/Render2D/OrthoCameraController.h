@@ -18,10 +18,12 @@ namespace EulerEngine {
 		bool OnWindowReized(WindowResizeEvent& e);
 		bool OnMouseMoved(MouseMovedEvent& e);
 	private:
-		OrthoCamera m_Camera;
-		bool m_LeftBtn_Pressed = false;
-		float m_AspectRatio;
+		float m_AspectRatio = 1.0f;
 		float m_ZoomLevel = 1.0f;
+		/// <summary>
+		/// camera必须放在后面
+		/// </summary>
+		OrthoCamera m_Camera;
 		bool m_Rotation;
 
 		glm::vec3 m_CameraPos = glm::vec3(0.0f, 0.0f, 0.0f);

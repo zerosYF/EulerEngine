@@ -1,7 +1,7 @@
 #include"gkpch.h"
 #include"_2DLayer.h"
 #include<../ImGui/imgui.h>
-_2DLayer::_2DLayer():EulerEngine::EulerLayer("2DLayer"), m_OrthoCameraController(1280.0f / 768.0f, true)
+_2DLayer::_2DLayer():EulerEngine::EulerLayer("2DLayer"), m_OrthoCameraController(1280.0f / 768.0f, false)
 {
 
 }
@@ -20,7 +20,7 @@ void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)
 {
 	m_OrthoCameraController.OnUpdate(ts);
 
-	EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
+	EulerEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
 	EulerEngine::Renderer2D::BeginScene(m_OrthoCameraController.GetCamera());

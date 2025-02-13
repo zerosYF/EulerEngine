@@ -10,8 +10,9 @@ namespace EulerEngine {
 		const float GetRotation() const { return m_Rotation; }
 		void SetRotation(float rotation) { m_Rotation = rotation; CalViewMatrix(); }
 
-		const glm::mat4& GetProjectionMatrix() { return m_ProjectionMatrix; }
-		const glm::mat4& GetViewMatrix() { return m_ViewMatrix; }
+		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
+		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
+	private:
 		void CalViewMatrix();
 	private:
 		glm::vec3 m_Position = {0.0f, 0.0f, 0.0f};
