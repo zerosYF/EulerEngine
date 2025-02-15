@@ -13,6 +13,16 @@ namespace EulerEngine {
 		return nullptr;
 	}
 
+	Ref<VertexBuffer> VertexBuffer::Create(unsigned int size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None: return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLVertexBuffer>(size);
+		}
+		return nullptr;
+	}
+
 	Ref<IndexBuffer> IndexBuffer::Create(unsigned int* indices, unsigned int count)
 	{
 		switch (Renderer::GetAPI())

@@ -15,24 +15,6 @@ void TestLayer::OnDetach()
 void TestLayer::OnAttach()
 {
 	EulerEngine::Renderer::Init();
-
-	m_VertexArray = EulerEngine::VertexArray::Create();
-
-	EulerEngine::Ref<EulerEngine::VertexBuffer> vertexBuffer
-		= EulerEngine::VertexBuffer::Create(EulerEngine::CubeVerticesWithoutNormal, sizeof(EulerEngine::CubeVerticesWithoutNormal));
-
-	EulerEngine::BufferLayout layout = {
-		{EulerEngine::ShaderDataType::Float3, "aPosition"},
-		{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
-	};
-	vertexBuffer->SetLayout(layout);
-	m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-	m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
-	auto texture2D = m_ResourceLib.LoadTexture2D("texture1", "Assets/mytextures/container2.png");
-	auto material = m_ResourceLib.LoadMaterial("first");
-    material->AddTexture("container", texture2D);
-
 }
 
 void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
@@ -53,14 +35,9 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 		KINK_PROFILE_SCOPE("renderer_draw");
 		EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
-		auto shader = m_ResourceLib.GetShader("common");
-		auto material_ref = m_ResourceLib.GetMaterial("first");
-		material_ref->SetColor(m_Color);
 		for (int i = 0; i < 10; i++) {
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_CubePositions[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			EulerEngine::Renderer::Submit(m_VertexArray, shader, material_ref, model, 36);
+			EulerEngine::Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), m_Color);
 		}
 		EulerEngine::Renderer::EndScene();
 	}
