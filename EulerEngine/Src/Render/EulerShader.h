@@ -17,6 +17,7 @@ namespace EulerEngine {
 		//uniform;
 		virtual void inline SetBool(const std::string& name, bool value) const = 0;
 		virtual void inline SetInt(const std::string& name, int value) const = 0;
+		virtual void inline SetIntArray(const std::string& name, int* values, unsigned int count) const = 0;
 		virtual void inline SetFloat(const std::string& name, float value) const = 0;
 		virtual void inline SetMat3(const std::string& name, glm::mat3 value) const = 0;
 		virtual void inline SetMat4(const std::string& name, glm::mat4 value) const = 0;

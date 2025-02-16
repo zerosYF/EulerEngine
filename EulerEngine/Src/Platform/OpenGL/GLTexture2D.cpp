@@ -88,4 +88,8 @@ namespace EulerEngine {
 		glActiveTexture(slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
+	bool OpenGLTexture2D::operator==(const Texture& another) const
+	{
+		return m_RendererID == ((OpenGLTexture2D&)another).m_RendererID;
+	}
 }

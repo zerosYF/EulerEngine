@@ -21,5 +21,6 @@ namespace EulerEngine {
 		virtual unsigned int GetHeight() const override { return m_Height; }
 		virtual void SetData(void* data, unsigned int size) override;
 		virtual void Bind(unsigned int slot) const override;
+		virtual bool operator==(const Texture& another) const override;
 	};
 }

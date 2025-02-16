@@ -28,6 +28,9 @@ namespace EulerEngine {
 		virtual void inline SetInt(const std::string& name, int value) const override {
 			glUniform1i(glGetUniformLocation(m_RendererID, name.c_str()), value);
 		}
+		virtual void inline SetIntArray(const std::string& name, int* values, unsigned int count) const override{
+			glUniform1iv(glGetUniformLocation(m_RendererID, name.c_str()), count, values);
+		}
 		virtual void inline SetFloat(const std::string& name, float value) const override {
 			glUniform1f(glGetUniformLocation(m_RendererID, name.c_str()), value);
 		}

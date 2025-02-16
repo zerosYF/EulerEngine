@@ -8,10 +8,12 @@ namespace EulerEngine {
 	}
 
 	Material::Material() {
+		m_Color = glm::vec4(1.0f);
+
 		KINK_CORE_INFO("Material init...");
 	}
-	void Material::AddTexture(const std::string& name, Ref<Texture2D> texture) {
-		m_Textures[name] = texture;
+	void Material::SetTexture(Ref<Texture2D> texture) {
+		m_Texture = texture;
 		KINK_CORE_INFO("Material add Texture success...");
 	}
 
@@ -25,15 +27,14 @@ namespace EulerEngine {
 		m_Paramters[name] = param;
 	}
 
-	Ref<Texture2D> Material::GetTexture(const std::string & name) const
-	{
-		auto it = m_Textures.find(name);
-		return it != m_Textures.end() ? it->second : nullptr;
-	}
-
 	glm::vec4 Material::GetColor() const
 	{
 		return m_Color;
+	}
+
+	Ref<Texture2D> Material::GetTexture() const
+	{
+		return m_Texture;
 	}
 
 	float Material::GetFloatParam(const std::string & name) const
@@ -42,15 +43,10 @@ namespace EulerEngine {
 		return it != m_Paramters.end() ? it->second : 0;
 	}
 
-	void Material::Apply(Ref<EulerShader>& shader) const
+	void Material::Apply(Ref<EulerShader>& shader, int texture_slot) const
 	{
 		shader->Bind();
-		int texture_slot = 0;
-		for (const auto& [name, texture]:m_Textures) {
-			texture->Bind(texture_slot);
-			shader->SetInt(name, texture_slot);
-			texture_slot++;
-		}
+		m_Texture->Bind(texture_slot);
 		for (const auto& [name, param]:m_Paramters) {
 			shader->SetFloat(name, param);
 		}

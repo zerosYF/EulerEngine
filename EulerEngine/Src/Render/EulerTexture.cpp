@@ -11,4 +11,12 @@ namespace EulerEngine {
 		}
 		return nullptr;
 	}
+	Ref<Texture2D> Texture2D::Create(unsigned int width, unsigned int height) {
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None: return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(width, height);
+		}
+		return nullptr;
+	}
 }
