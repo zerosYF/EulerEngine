@@ -11,6 +11,7 @@ namespace EulerEngine {
 	class Renderer {
 	public:
 		static void Init();
+		static void ShutDown();
 		static void BeginScene(PerspectiveCamera& camera);
 		static void EndScene();
 		static void Flush();
@@ -19,6 +20,15 @@ namespace EulerEngine {
 
 		static void DrawCube(Ref<EulerShader>& shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material);
 	public:
+		struct Statistics {
+			unsigned int DrawCalls = 0;
+			unsigned int CubeCount = 0;
+			unsigned int GetTotalVertexCount() { return CubeCount * 36; }
+			unsigned int GetTotalIndicesCount() { return CubeCount * 8; }
+		};
+		static void ResetStatistic();
+		static Statistics GetStats();
+
 		struct SceneData {
 			const unsigned int MaxVertices = MAX_CUBE_COUNT * CUBE_VERTEX_CNT;
 			Ref<VertexArray> Cube_VA;
@@ -30,6 +40,8 @@ namespace EulerEngine {
 
 			std::array<Ref<Texture2D>, MAX_TEXTURE_SLOTS> TextureSlots;
 			unsigned int TextureSlotIndex = 0;
+
+			Statistics stats;
 		};
 		static Scope<SceneData> m_SceneData;
 	};

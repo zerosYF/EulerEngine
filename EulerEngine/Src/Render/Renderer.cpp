@@ -28,6 +28,10 @@ namespace EulerEngine {
 			m_SceneData->TextureSlots[i] = 0;
 		}
 	}
+	void Renderer::ShutDown()
+	{
+		delete[] m_SceneData->CubeVertexBase;
+	}
 	void Renderer::BeginScene(PerspectiveCamera& camera)
 	{
 		m_SceneData->ViewMatrix = camera.GetViewMatrix();
@@ -49,6 +53,7 @@ namespace EulerEngine {
 		}
 
 		RenderCommand::Draw(m_SceneData->Cube_VA, size); 
+		m_SceneData->stats.DrawCalls++;
 	}
 
 	void Renderer::DrawCube(Ref<EulerShader>& shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material)
@@ -96,6 +101,19 @@ namespace EulerEngine {
 		shader->SetMat4("projection", m_SceneData->ProjectionMatrix);
 		shader->SetMat4("model", model);
 		shader->SetInt("texture_index", textureIndex);
+		shader->SetVec4("color", material->GetColor());
+
+		m_SceneData->stats.CubeCount++;
+	}
+
+	void Renderer::ResetStatistic()
+	{
+		memset(&m_SceneData->stats, 0, sizeof(Statistics));
+	}
+
+	Renderer::Statistics Renderer::GetStats()
+	{
+		return m_SceneData->stats;
 	}
 
 

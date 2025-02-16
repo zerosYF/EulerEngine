@@ -10,6 +10,7 @@ TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer")
 }
 void TestLayer::OnDetach()
 {
+	EulerEngine::Renderer::ShutDown();
 }
 
 void TestLayer::OnAttach()
@@ -28,7 +29,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 		KINK_PROFILE_SCOPE("camera_controller");
 		m_CameraController.OnUpdate(ts);
 	}
-
+	EulerEngine::Renderer::ResetStatistic();
 	{
 		KINK_PROFILE_SCOPE("renderer_prep");
 		EulerEngine::RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
@@ -54,6 +55,10 @@ void TestLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Clear Color", glm::value_ptr(m_Color));
+	ImGui::Text("Renderer Info:");
+	ImGui::Text("Draw Calls: %d", EulerEngine::Renderer::GetStats().DrawCalls);
+	ImGui::Text("Cubes: %d", EulerEngine::Renderer::GetStats().CubeCount);
+	ImGui::Text("Vertices: %d", EulerEngine::Renderer::GetStats().GetTotalVertexCount());
 	ImGui::End();
 }
 
