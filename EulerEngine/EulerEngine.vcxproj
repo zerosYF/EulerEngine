@@ -550,6 +550,7 @@
     <ClInclude Include="Src\Math\EulerMath.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLShader.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLTexture2D.h" />
@@ -565,6 +566,7 @@
     <ClInclude Include="Src\Render\EulerShader.h" />
     <ClInclude Include="Src\Render\EulerTexture.h" />
     <ClInclude Include="Src\Render\EulerTransform.h" />
+    <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h" />
@@ -612,6 +614,7 @@
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLShader.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp" />
@@ -624,6 +627,7 @@
     <ClCompile Include="Src\Render\EulerMaterial.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
     <ClCompile Include="Src\Render\EulerTexture.cpp" />
+    <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\Render2D\OrthoCamera.cpp" />

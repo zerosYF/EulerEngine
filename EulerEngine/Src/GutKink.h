@@ -19,6 +19,7 @@
 #include"Core/EulerTimer.h"
 #include"Render/EulerMaterial.h"
 #include"Render/EulerTexture.h"
+#include"Render/FrameBuffer.h"
 #include"Resource/ResourceLibrary.h"
 #include"Core/EulerInstrumentor.h"
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

@@ -1460,6 +1460,8 @@
     </ClInclude>
     <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
+    <ClInclude Include="Src\Render\FrameBuffer.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1607,5 +1609,7 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Render2D\OrthoCameraController.cpp" />
+    <ClCompile Include="Src\Render\FrameBuffer.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

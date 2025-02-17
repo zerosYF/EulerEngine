@@ -25,4 +25,5 @@ private:
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 	EulerEngine::ResourceLibrary m_ResourceLib;
+	EulerEngine::Ref<EulerEngine::FrameBuffer> m_FrameBuffer;
 };
