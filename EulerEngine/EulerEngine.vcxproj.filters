@@ -1230,6 +1230,9 @@
     <ClInclude Include="Src\Core\EulerImage.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\EulerInstrumentor.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\EulerMemManager.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
@@ -1344,6 +1347,9 @@
     <ClInclude Include="Src\Platform\OpenGL\GLContext.h">
       <Filter>Src\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h">
       <Filter>Src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -1389,6 +1395,9 @@
     <ClInclude Include="Src\Render\EulerTransform.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\FrameBuffer.h">
+      <Filter>Src\Render</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLCube.h">
       <Filter>Src\Render\GLObjects</Filter>
     </ClInclude>
@@ -1414,6 +1423,9 @@
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Render2D\OrthoCamera.h">
+      <Filter>Src\Render\Render2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h">
       <Filter>Src\Render\Render2D</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Render2D\Renderer2D.h">
@@ -1458,10 +1470,6 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h" />
-    <ClInclude Include="Src\Core\EulerInstrumentor.h" />
-    <ClInclude Include="Src\Render\FrameBuffer.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1527,6 +1535,9 @@
     <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp">
       <Filter>Src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp">
       <Filter>Src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1563,6 +1574,9 @@
     <ClCompile Include="Src\Render\EulerTexture.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\FrameBuffer.cpp">
+      <Filter>Src\Render</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
@@ -1570,6 +1584,9 @@
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Render2D\OrthoCamera.cpp">
+      <Filter>Src\Render\Render2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Render2D\OrthoCameraController.cpp">
       <Filter>Src\Render\Render2D</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Render2D\Renderer2D.cpp">
@@ -1608,8 +1625,5 @@
     <ClCompile Include="Src\gkpch.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Render2D\OrthoCameraController.cpp" />
-    <ClCompile Include="Src\Render\FrameBuffer.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

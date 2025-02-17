@@ -114,3 +114,46 @@ project "Sandbox"
 		defines "KINK_DIST"
 		runtime "Release"
 		symbols "On"
+
+project "Editor"
+	location "Editor"
+	kind "ConsoleApp"
+	language "C++"
+	staticruntime "On"
+	characterset "Unicode"
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
+	files{
+		"%{prj.name}/Src/**.h",
+		"%{prj.name}/Src/**.cpp"
+	}
+	includedirs{
+		"EulerEngine/Vendor/spdlog/include",
+		"EulerEngine/Src",
+		"EulerEngine/External/include",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
+	}
+	links{
+		"EulerEngine"
+	}
+
+
+	filter "system:windows"
+		--systemversion "latest"
+		buildoptions { "/utf-8" } 
+		defines{
+			"KINK_PLATFORM_WINDOWS",	
+		}
+	filter "configurations:Debug"
+		defines "KINK_DEBUG"
+		runtime "Debug"
+		symbols "On"
+	filter "configurations:Release"
+		defines "KINK_RELEASE"
+		runtime "Release"
+		symbols "On"
+	filter "configurations:Dist"
+		defines "KINK_DIST"
+		runtime "Release"
+		symbols "On"

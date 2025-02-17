@@ -125,22 +125,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Src\_2DLayer.h" />
     <ClInclude Include="Src\TestLayer.h" />
+    <ClInclude Include="Src\_2DLayer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\_2DLayer.cpp" />
     <ClCompile Include="Src\App.cpp" />
     <ClCompile Include="Src\TestLayer.cpp" />
+    <ClCompile Include="Src\_2DLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EulerEngine\EulerEngine.vcxproj">
       <Project>{B8701701-2426-90F6-AD1A-8ACD19CF86FA}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\Camera\2d.glsl" />
-    <None Include="Shaders\Camera\first_test.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
