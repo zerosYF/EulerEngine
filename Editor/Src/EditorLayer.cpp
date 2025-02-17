@@ -150,11 +150,20 @@ namespace EulerEngine {
         ImGui::Text("Draw Calls: %d", Renderer::GetStats().DrawCalls);
         ImGui::Text("Cubes: %d", Renderer::GetStats().CubeCount);
         ImGui::Text("Vertices: %d", Renderer::GetStats().GetTotalVertexCount());
-
-        unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
-        ImGui::Image(textureID, ImVec2(m_FrameBuffer->GetSpecifications().Width, m_FrameBuffer->GetSpecifications().Height));
         ImGui::End();
 
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::Begin("Viewport"); 
+        ImVec2 size = ImGui::GetContentRegionAvail();
+        if (m_ViewportSize.x != size.x || m_ViewportSize.y != size.y) {
+            m_ViewportSize = { size.x, size.y };
+            m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+        }
+        unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+        ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::End();
+        ImGui::PopStyleVar();
+         
         ImGui::End();
     }
 
