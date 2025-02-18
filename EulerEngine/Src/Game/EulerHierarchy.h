@@ -2,7 +2,6 @@
 #include<string>
 #include<unordered_map>
 #include<memory>
-#include"../EulerObject.h"
 namespace EulerEngine {
 	/*class Hierarchy {
 		using GameObjects = std::unordered_map<GameObjectID, std::shared_ptr<GameObject>>;

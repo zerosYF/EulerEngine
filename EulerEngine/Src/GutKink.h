@@ -22,4 +22,5 @@
 #include"Render/FrameBuffer.h"
 #include"Resource/ResourceLibrary.h"
 #include"Core/EulerInstrumentor.h"
+#include"Game/EulerScene.h"
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

@@ -26,6 +26,7 @@ namespace EulerEngine {
         spec.Width = 1280;
         spec.Height = 720;
         m_FrameBuffer = FrameBuffer::Create(spec);
+        m_ActiveScene = CreateRef<Scene>();
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
@@ -37,6 +38,7 @@ namespace EulerEngine {
             if(m_ViewportFocused || m_ViewportHovered)
                 m_CameraController.OnUpdate(ts);
         }
+        m_ActiveScene->OnUpdate(ts);
         Renderer::ResetStatistic();
         {
             KINK_PROFILE_SCOPE("renderer_prep");
