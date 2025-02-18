@@ -76,7 +76,7 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -99,7 +99,7 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -122,7 +122,7 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -512,10 +512,9 @@
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
-    <ClInclude Include="Src\Core\EulerMemManager.h" />
-    <ClInclude Include="Src\Core\EulerMemOperator.h" />
-    <ClInclude Include="Src\Core\EulerSingleton.h" />
-    <ClInclude Include="Src\Core\EulerSystem.h" />
+    <ClInclude Include="Src\Core\Memory\EulerMemManager.h" />
+    <ClInclude Include="Src\Core\Memory\EulerMemOperator.h" />
+    <ClInclude Include="Src\Core\Memory\EulerSystem.h" />
     <ClInclude Include="Src\Core\EulerTimer.h" />
     <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
@@ -581,7 +580,6 @@
     <ClInclude Include="Src\Render\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
     <ClInclude Include="Src\Render\RendererAPI.h" />
-    <ClInclude Include="Src\Render\System\EulerRender.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
@@ -595,8 +593,8 @@
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
-    <ClCompile Include="Src\Core\EulerMemManager.cpp" />
-    <ClCompile Include="Src\Core\EulerSystem.cpp" />
+    <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp" />
+    <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
     <ClCompile Include="Src\Core\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayer.cpp" />
@@ -636,7 +634,6 @@
     <ClCompile Include="Src\Render\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
     <ClCompile Include="Src\Render\RendererAPI.cpp" />
-    <ClCompile Include="Src\Render\System\EulerRender.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />

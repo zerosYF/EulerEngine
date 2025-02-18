@@ -43,6 +43,14 @@ void EulerEngine::ImGuiLayer::OnImGuiRender()
     ImGui::ShowDemoWindow(&show);
     
 }
+void EulerEngine::ImGuiLayer::OnEvent(Event& e)
+{
+    if (m_BlockEvents) {
+        ImGuiIO& io = ImGui::GetIO();
+        e.m_Handled |= e.IsInCategory(KINK_EVENT_CATEGORY_MOUSE) & io.WantCaptureMouse;
+        e.m_Handled |= e.IsInCategory(KINK_EVENT_CATEGORY_KEYBOARD) & io.WantCaptureKeyboard;
+    }
+}
 void EulerEngine::ImGuiLayer::Begin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();

@@ -6,7 +6,7 @@
 
 #define PROFILE_SCOPE(name) Timer<std::function<void(const ProfileResult&)>> timer##__LINE__(name,  [&](ProfileResult profileResult) {m_ProfileResults.push_back(profileResult); })
 namespace EulerEngine {
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer")
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0)
     {
     }
     void EditorLayer::OnDetach()
@@ -34,7 +34,8 @@ namespace EulerEngine {
         m_FrameBuffer->Bind();
         {
             KINK_PROFILE_SCOPE("camera_controller");
-            m_CameraController.OnUpdate(ts);
+            if(m_ViewportFocused || m_ViewportHovered)
+                m_CameraController.OnUpdate(ts);
         }
         Renderer::ResetStatistic();
         {
@@ -154,6 +155,11 @@ namespace EulerEngine {
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("Viewport"); 
+        m_ViewportFocused = ImGui::IsWindowFocused();
+        m_ViewportHovered = ImGui::IsWindowHovered();
+        //KINK_CORE_WARN("Focused: {0}", m_ViewportFocused);
+        //KINK_CORE_WARN("Hovered: {0}", m_ViewportHovered);
+        Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused && !m_ViewportHovered);
         ImVec2 size = ImGui::GetContentRegionAvail();
         if (m_ViewportSize.x != size.x || m_ViewportSize.y != size.y) {
             m_ViewportSize = { size.x, size.y };

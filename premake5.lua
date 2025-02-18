@@ -12,6 +12,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["Glad"] = "EulerEngine/Vendor/Glad/include"
 IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui"
+IncludeDir["Entt"] = "EulerEngine/Vendor/Entt/include"
 include "EulerEngine/Vendor/Glad"
 include "EulerEngine/Vendor/ImGui"
 
@@ -42,6 +43,7 @@ project "EulerEngine"
 		"%{prj.name}/External/include",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Entt}",
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
@@ -90,6 +92,7 @@ project "Sandbox"
 		"EulerEngine/External/include",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Entt}",
 	}
 	links{
 		"EulerEngine"

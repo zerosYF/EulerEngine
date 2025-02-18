@@ -48,7 +48,7 @@ namespace EulerEngine{
 		inline double GetXOffset() const { return m_xOffset; }
 		inline double GetYOffset() const { return m_yOffset; }
 		EVENT_CLASS_TYPE(KINK_MOUSE_MOVED)
-		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_MOUSE)
+		EVENT_CLASS_CATEGORY(KINK_EVENT_CATEGORY_MOUSE | KINK_EVENT_CATEGORY_MOUSE_BUTTON)
 	private:
 		double m_MouseX;
 		double m_MouseY;

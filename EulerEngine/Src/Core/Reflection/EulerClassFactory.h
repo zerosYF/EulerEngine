@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include"../EulerSingleton.h"
 #include<unordered_map>
 #include<map>
 #include<functional>
@@ -35,7 +34,6 @@ namespace EulerEngine {
 	typedef Object* (*createObject)(void);
 
 	class ClassFactory {
-		friend Singleton<ClassFactory>;
 	public: 
 		void register_class(const std::string& className,createObject method);
 		Object* create_class(const std::string& className);
