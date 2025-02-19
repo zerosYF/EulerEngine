@@ -13,6 +13,7 @@
 #error this engine only supports windows
 #endif
 #ifdef KINK_ENABLE_ASSERTS
+#include"Core/Logs/EulerLog.h"
 #define KINK_ASSERT(x, ...) { if(!(x)) {KINK_ERROR("Assertion Failed:{0}",__VA_ARGS__); __debugbreak();}}
 #define KINK_CORE_ASSERT(x, ...) { if(!(x)) {KINK_CORE_ERROR("Assertion Failed:{0}",__VA_ARGS__); __debugbreak();}}
 #else

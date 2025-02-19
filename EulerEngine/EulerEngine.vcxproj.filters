@@ -1443,6 +1443,7 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\Component\TagComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">

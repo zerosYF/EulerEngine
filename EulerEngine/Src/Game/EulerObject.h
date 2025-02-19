@@ -5,38 +5,38 @@
 #include<atomic>
 #include<iostream>
 #include"Component/ComponentBase.h"
+#include"entt.hpp"
+#include"GutKink/Core.h"
+#include"EulerScene.h"
 namespace EulerEngine {
-	//using GameObjectID = size_t;
-	//const GameObjectID k_invalidID = 1000;
-	//class ObjectIDAllocator {
-	//public:
-	//	static GameObjectID allocate() {
-	//		atomic<GameObjectID> newID = m_nextID.load();
-	//		m_nextID++;
-	//		if (m_nextID > k_invalidID) {
-	//			std::cout << "����ID overflow" << endl;
-	//			return 0;
-	//		}
-	//		return newID;
-	//	}
-	//private:
-	//	static  atomic<GameObjectID> m_nextID;
-	//};
-	//class GameObject:public enable_shared_from_this<GameObject>{
-	//	//����thisָ���ȡʹ��shared_ptr
-	//public:
-	// 	virtual ~GameObject() = 0;
-	//	GameObject(GameObjectID id) :m_id(id) {}
-	//	virtual void update(double deltaTime);
-	//	bool load();
-	//	void save();
-	//	GameObjectID getID() const { return m_id; }
-	//	bool hasComponent(std::string componentName) const;
+	class GameObject{
+	public:
+		GameObject(entt::entity entity, Scene* scene);
+		GameObject(const GameObject& other) = default;
 
-	//private:
-	//	GameObjectID m_id{k_invalidID};
-	//	std::string m_name;
-	//	std::string m_infoUrl;
-	//	std::vector<ComponentBase*> m_components;
-	//};
+		template<typename T, typename... Args>
+		T& AddComponent(Args&&... args) {
+			KINK_CORE_ASSERT(HasComponent<T>() == false, "Component already exists on GameObject");
+			return m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+		}
+		template<typename T>
+		T& GetComponent() {
+			KINK_CORE_ASSERT(HasComponent<T>(), "Component does not exist on GameObject");
+			return m_Scene->m_Registry.get<T>(m_Entity);
+		}
+
+		template<typename T>
+		bool HasComponent(){
+			return m_Scene->m_Registry.try_get<T>(m_Entity)!= nullptr;
+		}
+		template<typename T>
+		void RemoveComponent() {
+			KINK_CORE_ASSERT(HasComponent<T>(), "Component does not exist on GameObject");
+			m_Scene->m_Registry.remove<T>(m_Entity);
+		}
+		operator bool() const { return (unsigned int)m_Entity != 0; }
+	private:
+		entt::entity m_Entity{0};
+		Scene* m_Scene = nullptr;
+	};
 }

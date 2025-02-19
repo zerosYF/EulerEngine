@@ -22,9 +22,8 @@ namespace EulerEngine {
         spec.Height = 720;
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
-        auto cube = m_ActiveScene->CreateEntity();
-        m_ActiveScene->GetRegistry().emplace<TransformComponent>(cube);
-        m_ActiveScene->GetRegistry().emplace<RendererComponent>(cube);
+        auto cube = m_ActiveScene->CreateObject();
+        cube.AddComponent<RendererComponent>();
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)

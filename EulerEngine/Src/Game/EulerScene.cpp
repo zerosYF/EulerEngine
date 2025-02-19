@@ -2,6 +2,7 @@
 #include"EulerScene.h"
 #include"Component/TransformComponent.h"
 #include"Component/RendererComponent.h"
+#include"Component/TagComponent.h"
 #include"Render/Renderer.h"
 namespace EulerEngine {
 	Scene::Scene()
@@ -12,9 +13,12 @@ namespace EulerEngine {
 	Scene::~Scene()
 	{
 	}
-	entt::entity Scene::CreateEntity()
+	GameObject Scene::CreateObject(const std::string& name)
 	{
-		return m_Registry.create();
+		GameObject go = { m_Registry.create(), this };
+		go.AddComponent<TransformComponent>();
+		go.AddComponent<TagComponent>(name);
+		return go;
 	}
 	void Scene::OnUpdate(TimerSystem ts)
 	{
