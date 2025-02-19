@@ -25,7 +25,6 @@ namespace EulerEngine {
 			glm::vec3(1.5f,  0.2f, -1.5f),
 			glm::vec3(-1.3f,  1.0f, -1.5f)
 		};
-		ResourceLibrary m_ResourceLib;
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
 		glm::vec2 m_ViewportSize;

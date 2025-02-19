@@ -9,8 +9,6 @@ namespace EulerEngine {
 
 		m_Shader->SetMat4("projection", projection);
 		m_Shader->SetMat4("view", view);
-		model = glm::translate(model, transform.position);
-		model = glm::scale(model, transform.scale);
 		m_Shader->SetMat4("model", model);
 		m_Mesh->Draw();
 	}

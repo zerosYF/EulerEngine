@@ -512,9 +512,6 @@
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
-    <ClInclude Include="Src\Core\Memory\EulerMemManager.h" />
-    <ClInclude Include="Src\Core\Memory\EulerMemOperator.h" />
-    <ClInclude Include="Src\Core\Memory\EulerSystem.h" />
     <ClInclude Include="Src\Core\EulerTimer.h" />
     <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
@@ -525,6 +522,9 @@
     <ClInclude Include="Src\Core\Layer\EulerLayer.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h" />
     <ClInclude Include="Src\Core\Logs\EulerLog.h" />
+    <ClInclude Include="Src\Core\Memory\EulerMemManager.h" />
+    <ClInclude Include="Src\Core\Memory\EulerMemOperator.h" />
+    <ClInclude Include="Src\Core\Memory\EulerSystem.h" />
     <ClInclude Include="Src\Core\Reflection\ClassField.h" />
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h" />
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h" />
@@ -533,8 +533,8 @@
     <ClInclude Include="Src\Game\Component\ComponentBase.h" />
     <ClInclude Include="Src\Game\Component\RendererComponent.h" />
     <ClInclude Include="Src\Game\Component\TransformComponent.h" />
-    <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Game\EulerHierarchy.h" />
+    <ClInclude Include="Src\Game\EulerObject.h" />
     <ClInclude Include="Src\Game\EulerScene.h" />
     <ClInclude Include="Src\GutKink.h" />
     <ClInclude Include="Src\GutKink\Application.h" />
@@ -560,7 +560,6 @@
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
     <ClInclude Include="Src\Render\EulerTexture.h" />
-    <ClInclude Include="Src\Render\EulerTransform.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
@@ -589,17 +588,17 @@
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
-    <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp" />
-    <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
     <ClCompile Include="Src\Core\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayer.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp" />
     <ClCompile Include="Src\Core\Logs\EulerLog.cpp" />
+    <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp" />
+    <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp" />
-    <ClCompile Include="Src\Game\EulerObject.cpp" />
     <ClCompile Include="Src\Game\EulerHierarchy.cpp" />
+    <ClCompile Include="Src\Game\EulerObject.cpp" />
     <ClCompile Include="Src\Game\EulerScene.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\IO\EulerFile.cpp" />

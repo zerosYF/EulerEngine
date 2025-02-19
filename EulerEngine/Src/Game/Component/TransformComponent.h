@@ -3,9 +3,12 @@
 #include"glm/glm.hpp"
 namespace EulerEngine {
 	struct TransformComponent: public ComponentBase {
-		glm::mat4 Tranform;
+		glm::vec3 Position{1.0f};
+		glm::vec3 Rotation{0.0f};
+		glm::vec3 Scale{1.0f};
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent& other) = default;
-		TransformComponent(const glm::mat4& transform) :Tranform(transform) {}
-	};
+		TransformComponent(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale) 
+			:Position(position), Rotation(rotation), Scale(scale) {}
+	}; 
 }

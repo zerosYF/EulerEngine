@@ -78,6 +78,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
 	staticruntime "On"
 	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -122,6 +123,7 @@ project "Editor"
 	location "Editor"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
 	staticruntime "On"
 	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -136,6 +138,7 @@ project "Editor"
 		"EulerEngine/External/include",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Entt}"
 	}
 	links{
 		"EulerEngine"

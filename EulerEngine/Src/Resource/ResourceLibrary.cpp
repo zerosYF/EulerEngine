@@ -2,6 +2,7 @@
 #include"ResourceLibrary.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
+	ResourceLibrary* ResourceLibrary::s_Instance = nullptr;
 	void ResourceLibrary::AddShader(const std::string & name, const Ref<EulerShader>& shader)
 	{
 		m_Shaders[name] = shader;
@@ -69,5 +70,13 @@ namespace EulerEngine {
 	bool ResourceLibrary::IsMaterialExists(const std::string & name)
 	{
 		return m_Materials.find(name) != m_Materials.end();
+	}
+	ResourceLibrary* ResourceLibrary::GetResourceLibrary()
+	{
+		if (s_Instance == nullptr)
+		{
+			s_Instance = new ResourceLibrary();
+		}
+		return s_Instance;
 	}
 }

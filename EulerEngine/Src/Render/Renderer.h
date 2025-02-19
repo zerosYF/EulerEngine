@@ -18,7 +18,8 @@ namespace EulerEngine {
 		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model, const unsigned int vertex_cnt);
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 
-		static void DrawCube(Ref<EulerShader>& shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material);
+		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color);
+		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material);
 	public:
 		struct Statistics {
 			unsigned int DrawCalls = 0;

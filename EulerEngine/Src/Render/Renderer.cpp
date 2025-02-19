@@ -8,6 +8,11 @@ namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
 	{
+		auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
+		auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("texture1", "Assets/mytextures/container2.png");
+		auto material = ResourceLibrary::GetResourceLibrary()->LoadMaterial("first");
+		material->SetTexture(texture2D);
+
 		RenderCommand::Init();
 
 		m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();
@@ -56,8 +61,16 @@ namespace EulerEngine {
 		m_SceneData->stats.DrawCalls++;
 	}
 
-	void Renderer::DrawCube(Ref<EulerShader>& shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material)
+	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color)
 	{
+		auto material = ResourceLibrary::GetResourceLibrary()->GetMaterial("first");
+		material->SetColor(color);
+		DrawCube(position, rotation, scale, material);
+	}
+
+	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material)
+	{
+		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
 		int samplers[MAX_TEXTURE_SLOTS];
 		for (unsigned int i = 0; i < MAX_TEXTURE_SLOTS; i++) {
 			samplers[i] = i;

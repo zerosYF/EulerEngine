@@ -1,6 +1,5 @@
 #pragma once
 #include"Math/EulerMath.h"
-#include"Render/EulerTransform.h"
 #include"Render/EulerMesh.h"
 #include"Render/EulerShader.h"
 #include"GLRenderObject.h"
@@ -17,11 +16,8 @@ namespace EulerEngine {
 		glm::vec3 color{1.0f,1.0f,1.0f};
 		Ref<Mesh> m_Mesh;
 		Ref<EulerShader> m_Shader;
-		EulerTransform transform;
-		EulerLight(Ref<EulerShader> shader, Ref<Mesh> mesh, EulerTransform transform) :m_Shader(shader), m_Mesh(mesh) {
-			transform = transform;
+		EulerLight(Ref<EulerShader> shader, Ref<Mesh> mesh) :m_Shader(shader), m_Mesh(mesh) {
 		}
-		void virtual setTransform(glm::vec3 pos, glm::vec3 scl, glm::vec3 rot) {transform.update(pos, scl, rot);}
 		void setColor(glm::vec3 color) {this->color = color;}
 		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 		void Release() {
@@ -31,7 +27,6 @@ namespace EulerEngine {
 	};
 	class EulerPointLight:public EulerLight{
 	public:
-		//˥��ϵ��
 		float constant{1.0f};
 		float linear{0.09f};
 		float quatratic{0.032f};

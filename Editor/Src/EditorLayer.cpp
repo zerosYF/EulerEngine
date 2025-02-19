@@ -2,7 +2,6 @@
 #include<../ImGui/imgui.h>
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-#include<chrono>
 
 #define PROFILE_SCOPE(name) Timer<std::function<void(const ProfileResult&)>> timer##__LINE__(name,  [&](ProfileResult profileResult) {m_ProfileResults.push_back(profileResult); })
 namespace EulerEngine {
@@ -16,10 +15,6 @@ namespace EulerEngine {
 
     void EditorLayer::OnAttach()
     {
-        auto shader = m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
-        auto texture2D = m_ResourceLib.LoadTexture2D("texture1", "Assets/mytextures/container2.png");
-        auto material = m_ResourceLib.LoadMaterial("first");
-        material->SetTexture(texture2D);
         Renderer::Init();
 
         FrameBufferSpecifications spec;
@@ -27,6 +22,9 @@ namespace EulerEngine {
         spec.Height = 720;
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
+        auto cube = m_ActiveScene->CreateEntity();
+        m_ActiveScene->GetRegistry().emplace<TransformComponent>(cube);
+        m_ActiveScene->GetRegistry().emplace<RendererComponent>(cube);
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
@@ -38,7 +36,6 @@ namespace EulerEngine {
             if(m_ViewportFocused || m_ViewportHovered)
                 m_CameraController.OnUpdate(ts);
         }
-        m_ActiveScene->OnUpdate(ts);
         Renderer::ResetStatistic();
         {
             KINK_PROFILE_SCOPE("renderer_prep");
@@ -49,13 +46,12 @@ namespace EulerEngine {
         {
             KINK_PROFILE_SCOPE("renderer_draw");
             Renderer::BeginScene(m_CameraController.GetCamera());
-
+            m_ActiveScene->OnUpdate(ts);
             for (int i = 0; i < 10; i++) {
                 float angle = 20.0f * i;
-                auto material = m_ResourceLib.GetMaterial("first");
+                auto material = ResourceLibrary::GetResourceLibrary()->GetMaterial("first");
                 material->SetColor(m_Color);
-                auto shader = m_ResourceLib.GetShader("common");
-                Renderer::DrawCube(shader, m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
+                Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
             }
             Renderer::EndScene();
         }

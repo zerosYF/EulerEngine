@@ -43,6 +43,9 @@
     <Filter Include="Src\Core\Logs">
       <UniqueIdentifier>{09C59869-7585-14A0-3EC0-5D1DAA3F597C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Core\Memory">
+      <UniqueIdentifier>{4DA78134-B932-EFF8-C243-72ED2E4E4BF9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Core\Reflection">
       <UniqueIdentifier>{1F1148F8-8B72-2506-14E0-6BB880405CC5}</UniqueIdentifier>
     </Filter>
@@ -51,12 +54,6 @@
     </Filter>
     <Filter Include="Src\Game\Component">
       <UniqueIdentifier>{B8887C1D-A46C-3D73-0DCD-37C6F9CF27F5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Game\World">
-      <UniqueIdentifier>{0D908BB1-F95D-7FB7-E2F1-EFDDCE5E5B1C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Game\World\ResInfo">
-      <UniqueIdentifier>{D2CA8EF2-BEC4-B744-A731-4E5593CA1DB1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\GutKink">
       <UniqueIdentifier>{996813D4-051E-8CC9-8E12-86A0FAC682CD}</UniqueIdentifier>
@@ -96,9 +93,6 @@
     </Filter>
     <Filter Include="Src\Render\Render2D">
       <UniqueIdentifier>{41653260-ADC6-0F6E-3634-5620A294462D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Render\System">
-      <UniqueIdentifier>{7054253E-DC6A-23D4-25E2-AEF59137F45B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Render\Vertices">
       <UniqueIdentifier>{D0DBB11B-3C3D-8F29-C5AA-D5DB310BC6E8}</UniqueIdentifier>
@@ -1233,18 +1227,6 @@
     <ClInclude Include="Src\Core\EulerInstrumentor.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerMemManager.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerMemOperator.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerSingleton.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\EulerSystem.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\EulerTimer.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
@@ -1275,6 +1257,15 @@
     <ClInclude Include="Src\Core\Logs\EulerLog.h">
       <Filter>Src\Core\Logs</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Memory\EulerMemManager.h">
+      <Filter>Src\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Memory\EulerMemOperator.h">
+      <Filter>Src\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Memory\EulerSystem.h">
+      <Filter>Src\Core\Memory</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\Reflection\ClassField.h">
       <Filter>Src\Core\Reflection</Filter>
     </ClInclude>
@@ -1290,35 +1281,23 @@
     <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
       <Filter>Src\Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\AIComponent.h">
-      <Filter>Src\Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Game\Component\ComponentBase.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\ModelComponent.h">
+    <ClInclude Include="Src\Game\Component\RendererComponent.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\TransformComponent.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Game\EulerHierarchy.h">
+      <Filter>Src\Game</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Game\EulerObject.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\World\EulerHierarchy.h">
-      <Filter>Src\Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\EulerWorld.h">
-      <Filter>Src\Game\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\ResInfo\HierarchyInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\ResInfo\ObjectInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\World\ResInfo\WorldInfo.h">
-      <Filter>Src\Game\World\ResInfo</Filter>
+    <ClInclude Include="Src\Game\EulerScene.h">
+      <Filter>Src\Game</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink.h">
       <Filter>Src</Filter>
@@ -1392,9 +1371,6 @@
     <ClInclude Include="Src\Render\EulerTexture.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\EulerTransform.h">
-      <Filter>Src\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\FrameBuffer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
@@ -1440,9 +1416,6 @@
     <ClInclude Include="Src\Render\RendererAPI.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\System\EulerRender.h">
-      <Filter>Src\Render\System</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\VertexArray.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
@@ -1478,12 +1451,6 @@
     <ClCompile Include="Src\Core\EulerImage.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerMemManager.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\EulerSystem.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\EulerTimer.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
@@ -1499,23 +1466,26 @@
     <ClCompile Include="Src\Core\Logs\EulerLog.cpp">
       <Filter>Src\Core\Logs</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp">
+      <Filter>Src\Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Memory\EulerSystem.cpp">
+      <Filter>Src\Core\Memory</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
       <Filter>Src\Core\Reflection</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
       <Filter>Src\Core\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\EulerGame.cpp">
+    <ClCompile Include="Src\Game\EulerHierarchy.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="Src\Game\EulerObject.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\World\EulerHierarchy.cpp">
-      <Filter>Src\Game\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Game\World\EulerWorld.cpp">
-      <Filter>Src\Game\World</Filter>
+    <ClCompile Include="Src\Game\EulerScene.cpp">
+      <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="Src\GutKink\Application.cpp">
       <Filter>Src\GutKink</Filter>
@@ -1600,9 +1570,6 @@
     </ClCompile>
     <ClCompile Include="Src\Render\RendererAPI.cpp">
       <Filter>Src\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\System\EulerRender.cpp">
-      <Filter>Src\Render\System</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\VertexArray.cpp">
       <Filter>Src\Render</Filter>

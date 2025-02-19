@@ -10,6 +10,7 @@ namespace EulerEngine {
 		std::unordered_map<std::string, Ref<EulerShader>> m_Shaders;
 		std::unordered_map<std::string, Ref<Texture2D>> m_Texture2Ds;
 		std::unordered_map<std::string, Ref<Material>> m_Materials;
+		static ResourceLibrary* s_Instance;
 	public:
 		void AddShader(const std::string& name, const Ref<EulerShader>& shader);
 		Ref<EulerShader> LoadShader(const std::string& name, const std::string& path);
@@ -25,6 +26,8 @@ namespace EulerEngine {
 		Ref<Material> LoadMaterial(const std::string& name);
 		Ref<Material> GetMaterial(const std::string& name);
 		bool IsMaterialExists(const std::string& name);
+
+		static ResourceLibrary* GetResourceLibrary();
 
 	};
 }

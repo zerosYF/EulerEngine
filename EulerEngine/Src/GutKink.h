@@ -23,4 +23,6 @@
 #include"Resource/ResourceLibrary.h"
 #include"Core/EulerInstrumentor.h"
 #include"Game/EulerScene.h"
+#include"Game/Component/RendererComponent.h"
+#include"Game/Component/TransformComponent.h"
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

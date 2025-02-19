@@ -78,11 +78,12 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -95,11 +96,12 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -112,11 +114,12 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
