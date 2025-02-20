@@ -8,7 +8,6 @@
 #include"Render/EulerShader.h"
 #include"Render/EulerBuffer.h"
 #include"Render/VertexArray.h"
-#include"Render/Camera/EulerCamera.h"
 #include"Core/EulerTimer.h"
 namespace EulerEngine {
 	class KINK_API Application

@@ -11,7 +11,7 @@ namespace EulerEngine {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
 	private:
-		PerspectiveCameraController m_CameraController;
+		CameraController m_CameraController;
 		glm::vec4 m_Color = { 0.2f, 0.3f, 0.1f, 1.0f };
 		glm::vec3 m_CubePositions[10] = {
 			glm::vec3(0.0f,  0.0f,  0.0f),
@@ -27,6 +27,7 @@ namespace EulerEngine {
 		};
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
+		GameObject m_Camera;
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;

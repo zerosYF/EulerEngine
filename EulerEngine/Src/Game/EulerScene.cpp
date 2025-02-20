@@ -1,9 +1,8 @@
 #include"gkpch.h"
 #include"EulerScene.h"
-#include"Component/TransformComponent.h"
-#include"Component/RendererComponent.h"
-#include"Component/TagComponent.h"
+#include"Component/Component.h"
 #include"Render/Renderer.h"
+#include"EulerObject.h"
 namespace EulerEngine {
 	Scene::Scene()
 	{
@@ -22,10 +21,25 @@ namespace EulerEngine {
 	}
 	void Scene::OnUpdate(TimerSystem ts)
 	{
-		auto group = m_Registry.group<TransformComponent>(entt::get<RendererComponent>);
+		Ref<EulerCamera> mainCamera = nullptr;
+		auto group = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
 		for (auto entity : group) {
-			auto& [transform, mesh] = group.get<TransformComponent, RendererComponent>(entity);
-			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale,  mesh.Color);
+			auto& [transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
+			if (camera.isPrimary) {
+				mainCamera = camera.Camera;
+				mainCamera->SetPosition(transform.Position);
+				mainCamera->SetRotation(transform.Rotation);
+				break;
+			}
+		}
+		if (mainCamera) {
+			Renderer::BeginScene(mainCamera);
+			auto group = m_Registry.group<TransformComponent>(entt::get<RendererComponent>);
+			for (auto entity : group) {
+				auto& [transform, mesh] = group.get<TransformComponent, RendererComponent>(entity);
+				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Color);
+			}
+			Renderer::EndScene();
 		}
 	}
 }

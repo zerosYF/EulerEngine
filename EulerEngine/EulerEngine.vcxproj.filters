@@ -1281,7 +1281,7 @@
     <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
       <Filter>Src\Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\ComponentBase.h">
+    <ClInclude Include="Src\Game\Component\Component.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\RendererComponent.h">
@@ -1350,7 +1350,7 @@
     <ClInclude Include="Src\Render\Camera\CameraController.h">
       <Filter>Src\Render\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Camera\EulerCamera.h">
+    <ClInclude Include="Src\Render\Camera\PerspectiveCamera.h">
       <Filter>Src\Render\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Context\EulerContext.h">
@@ -1398,10 +1398,7 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Render2D\OrthoCamera.h">
-      <Filter>Src\Render\Render2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\Render2D\OrthoCameraController.h">
+    <ClInclude Include="Src\Render\Camera\OrthoCamera.h">
       <Filter>Src\Render\Render2D</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Render2D\Renderer2D.h">
@@ -1444,6 +1441,8 @@
       <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="Src\Game\Component\TagComponent.h" />
+    <ClInclude Include="Src\Game\Component\CameraComponent.h" />
+    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1554,12 +1553,6 @@
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp">
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Render2D\OrthoCamera.cpp">
-      <Filter>Src\Render\Render2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\Render2D\OrthoCameraController.cpp">
-      <Filter>Src\Render\Render2D</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Render\Render2D\Renderer2D.cpp">
       <Filter>Src\Render\Render2D</Filter>
     </ClCompile>
@@ -1593,5 +1586,6 @@
     <ClCompile Include="Src\gkpch.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 #pragma once
 #include"RendererAPI.h"
 #include"RenderCmd.h"
-#include"Camera/EulerCamera.h"
 #include"EulerShader.h"
 #include"EulerMaterial.h"
 #include"Vertices/EulerVertices.h"
+#include"Camera/EulerCamera.h"
 #define MAX_TEXTURE_SLOTS 32
 #define MAX_CUBE_COUNT 10000
 namespace EulerEngine {
@@ -12,7 +12,7 @@ namespace EulerEngine {
 	public:
 		static void Init();
 		static void ShutDown();
-		static void BeginScene(PerspectiveCamera& camera);
+		static void BeginScene(Ref<EulerCamera> camera);
 		static void EndScene();
 		static void Flush();
 		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model, const unsigned int vertex_cnt);

@@ -4,13 +4,14 @@
 #include<memory>
 #include<atomic>
 #include<iostream>
-#include"Component/ComponentBase.h"
+#include"Component/Component.h"
 #include"entt.hpp"
 #include"GutKink/Core.h"
 #include"EulerScene.h"
 namespace EulerEngine {
 	class GameObject{
 	public:
+		GameObject() = default;
 		GameObject(entt::entity entity, Scene* scene);
 		GameObject(const GameObject& other) = default;
 
@@ -34,9 +35,9 @@ namespace EulerEngine {
 			KINK_CORE_ASSERT(HasComponent<T>(), "Component does not exist on GameObject");
 			m_Scene->m_Registry.remove<T>(m_Entity);
 		}
-		operator bool() const { return (unsigned int)m_Entity != 0; }
+		operator bool() const { return m_Entity != entt::null; }
 	private:
-		entt::entity m_Entity{0};
+		entt::entity m_Entity{entt::null};
 		Scene* m_Scene = nullptr;
 	};
 }

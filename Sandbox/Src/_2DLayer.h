@@ -10,6 +10,6 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(EulerEngine::Event& e) override;
 private:
-	EulerEngine::OrthographicCameraController m_OrthoCameraController;
+	EulerEngine::CameraController m_OrthoCameraController;
 	glm::vec4 m_Color = { 1.0f, 1.0f, 1.0f, 1.0f };
 };

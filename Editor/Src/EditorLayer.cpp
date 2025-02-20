@@ -3,9 +3,8 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 
-#define PROFILE_SCOPE(name) Timer<std::function<void(const ProfileResult&)>> timer##__LINE__(name,  [&](ProfileResult profileResult) {m_ProfileResults.push_back(profileResult); })
 namespace EulerEngine {
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0)
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_CameraController(PERSPECTIVE)
     {
     }
     void EditorLayer::OnDetach()
@@ -22,37 +21,50 @@ namespace EulerEngine {
         spec.Height = 720;
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
-        auto cube = m_ActiveScene->CreateObject();
+        auto cube = m_ActiveScene->CreateObject("Cube");
         cube.AddComponent<RendererComponent>();
+
+        m_Camera = m_ActiveScene->CreateObject("Camera");
+        m_Camera.AddComponent<CameraComponent>(PERSPECTIVE);
+        m_Camera.GetComponent<TransformComponent>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
     {
-        KINK_PROFILE_FUNCTION();
+        if (InputSystem::IsKeyDown(KINK_KEY_W)) {
+            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
+        }
+        if (InputSystem::IsKeyDown(KINK_KEY_A)) {
+            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+        }
+        if (InputSystem::IsKeyDown(KINK_KEY_D)) {
+            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+        }
+        if (InputSystem::IsKeyDown(KINK_KEY_S)) {
+            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
+        }
+
         m_FrameBuffer->Bind();
         {
-            KINK_PROFILE_SCOPE("camera_controller");
             if(m_ViewportFocused || m_ViewportHovered)
                 m_CameraController.OnUpdate(ts);
         }
         Renderer::ResetStatistic();
         {
-            KINK_PROFILE_SCOPE("renderer_prep");
             RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
             RenderCommand::Clear();
         }
 
         {
-            KINK_PROFILE_SCOPE("renderer_draw");
-            Renderer::BeginScene(m_CameraController.GetCamera());
             m_ActiveScene->OnUpdate(ts);
+            /*Renderer::BeginScene(m_CameraController.GetCamera());
             for (int i = 0; i < 10; i++) {
                 float angle = 20.0f * i;
                 auto material = ResourceLibrary::GetResourceLibrary()->GetMaterial("first");
                 material->SetColor(m_Color);
                 Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
             }
-            Renderer::EndScene();
+            Renderer::EndScene();*/
         }
         m_FrameBuffer->Unbind();
     }

@@ -1,8 +1,7 @@
 #pragma once
-#include"ComponentBase.h"
 #include"glm/glm.hpp"
 namespace EulerEngine {
-	struct TagComponent : public ComponentBase {
+	struct TagComponent{
 		std::string Tag;
 		TagComponent() = default;
 		TagComponent(const TagComponent& other) = default;

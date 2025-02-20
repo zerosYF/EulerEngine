@@ -10,7 +10,7 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(EulerEngine::Event& e) override;
 private:
-	EulerEngine::PerspectiveCameraController m_CameraController;
+	EulerEngine::CameraController m_CameraController;
 	glm::vec4 m_Color = {0.2f, 0.3f, 0.1f, 1.0f};
 	glm::vec3 m_CubePositions[10] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),

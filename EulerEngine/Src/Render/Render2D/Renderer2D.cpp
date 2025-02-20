@@ -37,10 +37,10 @@ namespace EulerEngine {
 	{
 		delete s_Data;
 	}
-	void Renderer2D::BeginScene(const OrthoCamera& camera)
+	void Renderer2D::BeginScene(Ref<EulerCamera> camera)
 	{
-		s_Data->view_matrix = camera.GetViewMatrix();
-		s_Data->projection_matrix = camera.GetProjectionMatrix();
+		s_Data->view_matrix = camera->GetViewMatrix();
+		s_Data->projection_matrix = camera->GetProjectionMatrix();
 	}
 	void Renderer2D::EndScene()
 	{

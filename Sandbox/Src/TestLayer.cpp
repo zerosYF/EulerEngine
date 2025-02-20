@@ -3,9 +3,7 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<chrono>
-
-#define PROFILE_SCOPE(name) Timer<std::function<void(const ProfileResult&)>> timer##__LINE__(name,  [&](ProfileResult profileResult) {m_ProfileResults.push_back(profileResult); })
-TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer")
+TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_CameraController(EulerEngine::PERSPECTIVE)
 {
 }
 void TestLayer::OnDetach()
@@ -50,7 +48,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 			auto material = m_ResourceLib.GetMaterial("first");
 			material->SetColor(m_Color);
 			auto shader = m_ResourceLib.GetShader("common");
-			EulerEngine::Renderer::DrawCube(shader, m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
+			EulerEngine::Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
 		}
 		EulerEngine::Renderer::EndScene();
 	}

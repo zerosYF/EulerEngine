@@ -37,10 +37,10 @@ namespace EulerEngine {
 	{
 		delete[] m_SceneData->CubeVertexBase;
 	}
-	void Renderer::BeginScene(PerspectiveCamera& camera)
+	void Renderer::BeginScene(Ref<EulerCamera> camera)
 	{
-		m_SceneData->ViewMatrix = camera.GetViewMatrix();
-		m_SceneData->ProjectionMatrix = camera.GetProjectionMatrix();
+		m_SceneData->ViewMatrix = camera->GetViewMatrix();
+		m_SceneData->ProjectionMatrix = camera->GetProjectionMatrix();
 
 		m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;
 		m_SceneData->TextureSlotIndex = 0;
