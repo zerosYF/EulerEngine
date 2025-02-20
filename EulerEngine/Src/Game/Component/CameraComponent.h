@@ -5,6 +5,7 @@ namespace EulerEngine {
 		Ref<EulerCamera> Camera;
 		CameraType type{ PERSPECTIVE };
 		bool isPrimary = true;
+		bool isFixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;

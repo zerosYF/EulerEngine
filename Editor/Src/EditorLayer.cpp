@@ -17,8 +17,8 @@ namespace EulerEngine {
         Renderer::Init();
 
         FrameBufferSpecifications spec;
-        spec.Width = 1280;
-        spec.Height = 720;
+        spec.Width = 0;
+        spec.Height = 0;
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
         auto cube = m_ActiveScene->CreateObject("Cube");
@@ -42,6 +42,13 @@ namespace EulerEngine {
         }
         if (InputSystem::IsKeyDown(KINK_KEY_S)) {
             m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
+        }
+
+        FrameBufferSpecifications spec = m_FrameBuffer->GetSpecifications();
+        if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {
+            m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+            m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+            m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
         }
 
         m_FrameBuffer->Bind();
@@ -170,10 +177,7 @@ namespace EulerEngine {
         //KINK_CORE_WARN("Hovered: {0}", m_ViewportHovered);
         Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused && !m_ViewportHovered);
         ImVec2 size = ImGui::GetContentRegionAvail();
-        if (m_ViewportSize.x != size.x || m_ViewportSize.y != size.y) {
-            m_ViewportSize = { size.x, size.y };
-            m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
-        }
+        m_ViewportSize = { size.x, size.y };
         unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
         ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();

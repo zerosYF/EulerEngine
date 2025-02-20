@@ -5,20 +5,17 @@
 namespace EulerEngine {
 	class OrthoCamera :public EulerCamera{
 	public:
-		OrthoCamera(float left = -1.0f, float right = 1.0f, float top = 1.0f, float bottom = -1.0f, float nearClip = -1.0f, float farClip = 1.0f) :
-			m_Left(left), m_Right(right), m_Bottom(bottom), m_Top(top), m_NearClip(nearClip), m_FarClip(farClip),
-			EulerCamera(glm::ortho(left, right, bottom, top, nearClip, farClip))
+		OrthoCamera(float aspectRatio = 1.0f, float nearClip = -1.0f, float farClip = 1.0f) :
+			m_NearClip(nearClip), m_FarClip(farClip),
+			EulerCamera(glm::ortho(-aspectRatio * m_ZoomLevel, aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel, nearClip, farClip), aspectRatio)
 		{
 		}
 		virtual void UpdateProjection() override{
-			m_ProjectionMatrix = glm::ortho(m_Left, m_Right, m_Bottom, m_Top, m_NearClip, m_FarClip);
+			m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel, m_NearClip, m_FarClip);
 		}
 
 	private:
-		float m_Left = -1.0f;
-		float m_Right = 1.0f;
-		float m_Bottom = -1.0f;
-		float m_Top = 1.0f;
+		float m_ZoomLevel = 1.0f;
 		float m_NearClip = -1.0f;
 		float m_FarClip = 1.0f;
 	};

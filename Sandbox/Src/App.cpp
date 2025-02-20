@@ -7,8 +7,8 @@
 class Sandbox : public EulerEngine::Application {
 public:
 	Sandbox() {
-		PushLayer(new TestLayer());
-		//PushLayer(new _2DLayer());
+		//PushLayer(new TestLayer());
+		PushLayer(new _2DLayer());
 	}
 	~Sandbox() {
 	}

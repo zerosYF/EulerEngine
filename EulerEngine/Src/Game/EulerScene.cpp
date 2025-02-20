@@ -42,4 +42,16 @@ namespace EulerEngine {
 			Renderer::EndScene();
 		}
 	}
+	void Scene::OnViewportResize(int width, int height)
+	{
+		m_ViewportWidth = width;
+		m_ViewportHeight = height;
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity: view) {
+			auto& camera_com = view.get<CameraComponent>(entity);
+			if (!camera_com.isFixedAspectRatio) {
+				camera_com.Camera->SetAspectRatio(float(m_ViewportWidth) / float(m_ViewportHeight));
+			}
+		}
+	}
 }

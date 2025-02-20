@@ -52,6 +52,7 @@ namespace EulerEngine {
 	{
 		m_Specifications.Width = width;
 		m_Specifications.Height = height;
+		KINK_CORE_ASSERT(width > 0 && height > 0, "Framebuffer size cannot be zero!");
 		Invalidate();
 	}
 }

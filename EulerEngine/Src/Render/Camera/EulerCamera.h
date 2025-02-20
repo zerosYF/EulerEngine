@@ -9,8 +9,8 @@ namespace EulerEngine {
 	};
 	class EulerCamera {
 	public:
-		EulerCamera(glm::mat4 projectionMatrix)
-			:m_ProjectionMatrix(projectionMatrix) {
+		EulerCamera(glm::mat4 projectionMatrix, float aspectRatio)
+			:m_ProjectionMatrix(projectionMatrix), m_AspectRatio(aspectRatio) {
 			UpdateView();
 		}
 		glm::mat4 GetProjectionMatrix() {
@@ -35,6 +35,14 @@ namespace EulerEngine {
 		const void SetRotation(const glm::vec3& rotation) {
 			m_Rotation = rotation + glm::vec3(0.0f, -90.0f, 0.0f);
 			UpdateView();
+		}
+		
+		const float GetAspectRatio() const {
+			return m_AspectRatio;
+		}
+		const void SetAspectRatio(float aspectRatio) {
+			m_AspectRatio = aspectRatio;
+			UpdateProjection();
 		}
 
 		static Ref<EulerCamera> Create(CameraType type);
@@ -65,5 +73,6 @@ namespace EulerEngine {
 
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
+		float m_AspectRatio = 1.0f;
 	};
 }

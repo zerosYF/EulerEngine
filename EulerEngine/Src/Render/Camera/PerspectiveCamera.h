@@ -11,13 +11,12 @@ namespace EulerEngine {
 	class PerspectiveCamera:public EulerCamera {
 	private:
 		float m_FovAngle;
-		float m_AspectRatio;
 		float m_NearClip;
 		float m_FarClip;
 	public:
 		PerspectiveCamera(float fov = FOV, float aspectRatio = 1.0f, float nearClip = 0.1f, float farClip = 100.0f) :
-			m_FovAngle(fov), m_AspectRatio(aspectRatio), m_NearClip(nearClip), m_FarClip(farClip),
-			EulerCamera(glm::perspective(glm::radians(m_FovAngle), m_AspectRatio, m_NearClip, m_FarClip)){
+			m_FovAngle(fov), m_NearClip(nearClip), m_FarClip(farClip),
+			EulerCamera(glm::perspective(glm::radians(m_FovAngle), aspectRatio, m_NearClip, m_FarClip), aspectRatio){
 		}
 		virtual void UpdateProjection() override{
 			m_ProjectionMatrix = glm::perspective(glm::radians(m_FovAngle), m_AspectRatio, m_NearClip, m_FarClip);
