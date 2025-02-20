@@ -1,9 +1,4 @@
 #pragma once
-#include<tchar.h>
-#include<vector>
-#include<memory>
-#include<atomic>
-#include<iostream>
 #include"Component/Component.h"
 #include"entt.hpp"
 #include"GutKink/Core.h"

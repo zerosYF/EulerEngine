@@ -1443,6 +1443,8 @@
     <ClInclude Include="Src\Game\Component\TagComponent.h" />
     <ClInclude Include="Src\Game\Component\CameraComponent.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
+    <ClInclude Include="Src\Game\Component\NativeScriptComponent.h" />
+    <ClInclude Include="Src\Game\EulerBehaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">

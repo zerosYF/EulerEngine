@@ -3,6 +3,7 @@
 #include"Component/Component.h"
 #include"Render/Renderer.h"
 #include"EulerObject.h"
+#include"EulerBehaviour.h"
 namespace EulerEngine {
 	Scene::Scene()
 	{
@@ -21,6 +22,16 @@ namespace EulerEngine {
 	}
 	void Scene::OnUpdate(TimerSystem ts)
 	{
+		m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc) {
+			if (nsc.Instance == nullptr) {
+				nsc.Instance = nsc.InstantiateScript();
+				nsc.Instance->m_gameObject = GameObject{entity, this};
+				nsc.Instance->OnCreate();
+			}
+			nsc.Instance->OnUpdate(ts);
+
+		});
+
 		Ref<EulerCamera> mainCamera = nullptr;
 		auto group = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
 		for (auto entity : group) {

@@ -24,25 +24,43 @@ namespace EulerEngine {
         auto cube = m_ActiveScene->CreateObject("Cube");
         cube.AddComponent<RendererComponent>();
 
-        m_Camera = m_ActiveScene->CreateObject("Camera");
-        m_Camera.AddComponent<CameraComponent>(PERSPECTIVE);
-        m_Camera.GetComponent<TransformComponent>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
+        m_MainCamera = m_ActiveScene->CreateObject("Camera");
+        m_MainCamera.AddComponent<CameraComponent>(PERSPECTIVE);
+        m_MainCamera.GetComponent<TransformComponent>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
+
+        m_ClipCamera = m_ActiveScene->CreateObject("ClipCamera");
+        auto& cc = m_ClipCamera.AddComponent<CameraComponent>(PERSPECTIVE);
+        cc.isPrimary = false;
+
+        class CameraController:public EulerBehaviour {
+
+        public:
+            void OnCreate() {
+            }
+            void OnDestroy() {
+            }
+            void OnUpdate(TimerSystem ts) {
+                auto& transform = GetComponent<TransformComponent>();
+                if (InputSystem::IsKeyDown(KINK_KEY_W)) {
+                    transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
+                }
+                if (InputSystem::IsKeyDown(KINK_KEY_A)) {
+                    transform.Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+                }
+                if (InputSystem::IsKeyDown(KINK_KEY_D)) {
+                    transform.Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+                }
+                if (InputSystem::IsKeyDown(KINK_KEY_S)) {
+                    transform.Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
+                }
+            }
+        };
+        auto& nsc = m_MainCamera.AddComponent<NativeScriptComponent>();
+        nsc.Bind<CameraController>();
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
     {
-        if (InputSystem::IsKeyDown(KINK_KEY_W)) {
-            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
-        }
-        if (InputSystem::IsKeyDown(KINK_KEY_A)) {
-            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-        }
-        if (InputSystem::IsKeyDown(KINK_KEY_D)) {
-            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-        }
-        if (InputSystem::IsKeyDown(KINK_KEY_S)) {
-            m_Camera.GetComponent<TransformComponent>().Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
-        }
 
         FrameBufferSpecifications spec = m_FrameBuffer->GetSpecifications();
         if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {

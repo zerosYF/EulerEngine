@@ -28,4 +28,5 @@
 #include"Game/EulerScene.h"
 #include"Game/Component/Component.h"
 #include"Game/EulerObject.h"
+#include"Game/EulerBehaviour.h"
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

@@ -3,3 +3,4 @@
 #include"TransformComponent.h"
 #include"TagComponent.h"
 #include"CameraComponent.h"
+#include"NativeScriptComponent.h"

@@ -532,7 +532,9 @@
     <ClInclude Include="Src\Core\Reflection\EulerSerialize.h" />
     <ClInclude Include="Src\Game\Component\CameraComponent.h" />
     <ClInclude Include="Src\Game\Component\Component.h" />
+    <ClInclude Include="Src\Game\Component\NativeScriptComponent.h" />
     <ClInclude Include="Src\Game\Component\RendererComponent.h" />
+    <ClInclude Include="Src\Game\EulerBehaviour.h" />
     <ClInclude Include="Src\Game\Component\TagComponent.h" />
     <ClInclude Include="Src\Game\Component\TransformComponent.h" />
     <ClInclude Include="Src\Game\EulerHierarchy.h" />
