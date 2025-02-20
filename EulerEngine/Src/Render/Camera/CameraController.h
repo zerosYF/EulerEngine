@@ -30,7 +30,7 @@ namespace EulerEngine {
 	private:
 		Ref<EulerCamera> m_Camera;
 		CameraType m_CameraType = CameraType::PERSPECTIVE;
-		glm::vec3 m_CameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+		glm::vec3 m_CameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 m_CameraRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 		bool m_LeftBtn_Pressed = false;
 	};

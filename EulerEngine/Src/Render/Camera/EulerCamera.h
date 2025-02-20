@@ -55,7 +55,7 @@ namespace EulerEngine {
 	public:
 		virtual void UpdateProjection() = 0;
 	protected:
-		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
+		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 m_Rotation = glm::vec3(0.0f, -90.0f, 0.0f);
 
 		glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
