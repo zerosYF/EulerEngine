@@ -33,12 +33,12 @@ namespace EulerEngine {
 		return m_Shader;
 	}
 
-	glm::vec4 EulerMaterial::GetColor() const
+	glm::vec4& EulerMaterial::GetColor()
 	{
 		return m_Color;
 	}
 
-	Ref<Texture2D> EulerMaterial::GetTexture() const
+	Ref<Texture2D>& EulerMaterial::GetTexture()
 	{
 		return m_Texture;
 	}
