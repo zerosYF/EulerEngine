@@ -5,7 +5,7 @@
 #include "Core/Input/EulerInput.h"
 #include <GLFW/glfw3.h>
 #include <backends/imgui_impl_opengl3_loader.h>
-#include "Render/Renderer.h"
+#include "Render/Renderer/Renderer.h"
 namespace EulerEngine {
 	Application* Application::s_Instance = nullptr;
 	Application::Application()

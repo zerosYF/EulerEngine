@@ -1,14 +1,15 @@
 #include"gkpch.h"
 #include"EulerScene.h"
 #include"Component/Component.h"
-#include"Render/Renderer.h"
+#include"Render/Renderer/Renderer.h"
 #include"EulerObject.h"
 #include"EulerBehaviour.h"
+#include"Resource/ResourceLibrary.h"
 namespace EulerEngine {
 	Scene::Scene()
 	{
 		entt::entity entity = m_Registry.create();
-		m_Registry.emplace<TransformComponent>(entity);
+		m_Registry.emplace<Transform>(entity);
 	}
 	Scene::~Scene()
 	{
@@ -16,13 +17,13 @@ namespace EulerEngine {
 	GameObject Scene::CreateObject(const std::string& name)
 	{
 		GameObject go = { m_Registry.create(), this };
-		go.AddComponent<TransformComponent>();
-		go.AddComponent<TagComponent>(name);
+		go.AddComponent<Transform>();
+		go.AddComponent<Profile>(name);
 		return go;
 	}
 	void Scene::OnUpdate(TimerSystem ts)
 	{
-		m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc) {
+		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
 			if (nsc.Instance == nullptr) {
 				nsc.Instance = nsc.InstantiateScript();
 				nsc.Instance->m_gameObject = GameObject{entity, this};
@@ -33,11 +34,11 @@ namespace EulerEngine {
 		});
 
 		Ref<EulerCamera> mainCamera = nullptr;
-		auto group = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
+		auto group = m_Registry.group<Camera>(entt::get<Transform>);
 		for (auto entity : group) {
-			auto& [transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
+			auto& [transform, camera] = group.get<Transform, Camera>(entity);
 			if (camera.isPrimary) {
-				mainCamera = camera.Camera;
+				mainCamera = camera.RendererCamera;
 				mainCamera->SetPosition(transform.Position);
 				mainCamera->SetRotation(transform.Rotation);
 				break;
@@ -45,10 +46,10 @@ namespace EulerEngine {
 		}
 		if (mainCamera) {
 			Renderer::BeginScene(mainCamera);
-			auto group = m_Registry.group<TransformComponent>(entt::get<RendererComponent>);
+			auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 			for (auto entity : group) {
-				auto& [transform, mesh] = group.get<TransformComponent, RendererComponent>(entity);
-				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Color);
+				auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
+				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material);
 			}
 			Renderer::EndScene();
 		}
@@ -57,11 +58,11 @@ namespace EulerEngine {
 	{
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
-		auto view = m_Registry.view<CameraComponent>();
+		auto view = m_Registry.view<Camera>();
 		for (auto entity: view) {
-			auto& camera_com = view.get<CameraComponent>(entity);
+			auto& camera_com = view.get<Camera>(entity);
 			if (!camera_com.isFixedAspectRatio) {
-				camera_com.Camera->SetAspectRatio(float(m_ViewportWidth) / float(m_ViewportHeight));
+				camera_com.RendererCamera->SetAspectRatio(float(m_ViewportWidth) / float(m_ViewportHeight));
 			}
 		}
 	}

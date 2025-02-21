@@ -17,12 +17,26 @@ namespace EulerEngine {
         spec.Height = 0;
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
-        auto cube = m_ActiveScene->CreateObject("Cube");
-        cube.AddComponent<RendererComponent>();
+
+        auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
+        auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
+        auto material = EulerMaterial::Create();
+        material->SetShader(shader);
+        material->SetColor(m_Color);
+        material->SetTexture(texture2D);
 
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
-        m_MainCamera.AddComponent<CameraComponent>(PERSPECTIVE);
-        m_MainCamera.GetComponent<TransformComponent>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
+        m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
+        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
+        
+        m_CanvasCamera = m_ActiveScene->CreateObject("CanvasCamera");
+        m_CanvasCamera.AddComponent<Camera>(ORTHOGRAPHIC);
+        m_CanvasCamera.GetComponent<Camera>().isPrimary = false;
+
+        auto cube = m_ActiveScene->CreateObject("Cube");
+        cube.AddComponent<MeshRenderer>();
+        cube.GetComponent<MeshRenderer>().Material = material;
+
 
         class CameraController:public EulerBehaviour {
 
@@ -32,7 +46,7 @@ namespace EulerEngine {
             void OnDestroy() {
             }
             void OnUpdate(TimerSystem ts) {
-                auto& transform = GetComponent<TransformComponent>();
+                auto& transform = GetComponent<Transform>();
                 if (InputSystem::IsKeyDown(KINK_KEY_W)) {
                     transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
                 }
@@ -47,7 +61,7 @@ namespace EulerEngine {
                 }
             }
         };
-        auto& nsc = m_MainCamera.AddComponent<NativeScriptComponent>();
+        auto& nsc = m_MainCamera.AddComponent<NativeScript>();
         nsc.Bind<CameraController>();
 
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
@@ -76,14 +90,14 @@ namespace EulerEngine {
 
         {
             m_ActiveScene->OnUpdate(ts);
-            /*Renderer::BeginScene(m_CameraController.GetCamera());
+            auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
+            Renderer::BeginScene(m_MainCamera.GetComponent<Camera>().RendererCamera);
             for (int i = 0; i < 10; i++) {
                 float angle = 20.0f * i;
-                auto material = ResourceLibrary::GetResourceLibrary()->GetMaterial("first");
-                material->SetColor(m_Color);
-                Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
+                auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
+                Renderer::DrawCube(shader, m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), m_Color, texture2D);
             }
-            Renderer::EndScene();*/
+            Renderer::EndScene();
         }
         m_FrameBuffer->Unbind();
     }

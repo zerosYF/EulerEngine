@@ -2,21 +2,15 @@
 #include"Renderer.h"
 #include"RenderCmd.h"
 #include"Platform/OpenGL/GLShader.h"
-#include"Render2D/Renderer2D.h"
 #include"Core/Logs/EulerLog.h"
+#include"Resource/ResourceLibrary.h"
 namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
 	{
-		auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
-		auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("texture1", "Assets/mytextures/container2.png");
-		auto material = ResourceLibrary::GetResourceLibrary()->LoadMaterial("first");
-		material->SetTexture(texture2D);
-
 		RenderCommand::Init();
 
 		m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();
-
 		m_SceneData->Cube_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::CubeVertex));
 
 		EulerEngine::BufferLayout layout = {
@@ -61,16 +55,17 @@ namespace EulerEngine {
 		m_SceneData->stats.DrawCalls++;
 	}
 
-	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color)
+	void Renderer::DrawCube(const Ref<EulerShader> shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, const Ref<Texture2D>& texture)
 	{
-		auto material = ResourceLibrary::GetResourceLibrary()->GetMaterial("first");
+		auto material = EulerMaterial::Create();
+		material->SetShader(shader);
 		material->SetColor(color);
+		material->SetTexture(texture);
 		DrawCube(position, rotation, scale, material);
 	}
-
-	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material)
+	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material)
 	{
-		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
+		auto shader = material->GetShader();
 		int samplers[MAX_TEXTURE_SLOTS];
 		for (unsigned int i = 0; i < MAX_TEXTURE_SLOTS; i++) {
 			samplers[i] = i;
@@ -78,7 +73,6 @@ namespace EulerEngine {
 		shader->SetIntArray("sampler2D", samplers, MAX_TEXTURE_SLOTS);
 
 		auto texture = material->GetTexture();
-
 		float textureIndex = 0.0f;
 
 		for (unsigned int i = 1; i < m_SceneData->TextureSlotIndex; i++) {
@@ -130,14 +124,14 @@ namespace EulerEngine {
 	}
 
 
-	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, 
+	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, glm::vec4 color, Ref<Texture2D> texture,
 		const glm::mat4& model=glm::mat4(1.0f), const unsigned int vertex_cnt = 0)
 	{
 		shader->Bind();
 		shader->SetMat4("view", m_SceneData->ViewMatrix);
 		shader->SetMat4("projection", m_SceneData->ProjectionMatrix);
 		shader->SetMat4("model", model);
-		material->Apply(shader, 0);
+		texture->Bind(0);
 		vertexArray->Bind();
 		RenderCommand::Draw(vertexArray, vertex_cnt);
 	}

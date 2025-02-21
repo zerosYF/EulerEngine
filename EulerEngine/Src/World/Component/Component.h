@@ -1,6 +1,7 @@
 #pragma once
-#include"RendererComponent.h"
-#include"TransformComponent.h"
-#include"TagComponent.h"
-#include"CameraComponent.h"
-#include"NativeScriptComponent.h"
+#include"MeshRenderer.h"
+#include"Transform.h"
+#include"Profile.h"
+#include"Camera.h"
+#include"NativeScript.h"
+#include"SpriteRenderer.h"

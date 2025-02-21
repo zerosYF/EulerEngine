@@ -1,7 +1,7 @@
 #pragma once
 #include"gkpch.h"
 #include<glm/glm.hpp>
-#include"VertexArray.h"
+#include"Render/VertexArray.h"
 namespace EulerEngine {
 	class RendererAPI {
 	public:

@@ -52,17 +52,17 @@ namespace EulerEngine {
 
 
 
-	void ResourceLibrary::AddMaterial(const std::string& name, const Ref<Material>& material)
+	void ResourceLibrary::AddMaterial(const std::string& name, const Ref<EulerMaterial>& material)
 	{
 		m_Materials[name] = material;
 	}
-	Ref<Material> ResourceLibrary::LoadMaterial(const std::string & name)
+	Ref<EulerMaterial> ResourceLibrary::LoadMaterial(const std::string & name)
 	{
-		auto material = Material::Create();
+		auto material = EulerMaterial::Create();
 		this->AddMaterial(name, material);
 		return material;
 	}
-	Ref<Material> ResourceLibrary::GetMaterial(const std::string & name)
+	Ref<EulerMaterial> ResourceLibrary::GetMaterial(const std::string & name)
 	{
 		auto iter = m_Materials.find(name);
 		return iter != m_Materials.end() ? iter->second : nullptr;

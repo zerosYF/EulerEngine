@@ -2,55 +2,61 @@
 #include"EulerMaterial.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
-	Ref<Material> Material::Create()
+	Ref<EulerMaterial> EulerMaterial::Create()
 	{
-		return CreateRef<Material>();
+		return CreateRef<EulerMaterial>();
 	}
 
-	Material::Material() {
+	EulerMaterial::EulerMaterial() {
 		m_Color = glm::vec4(1.0f);
-
-		KINK_CORE_INFO("Material init...");
 	}
-	void Material::SetTexture(Ref<Texture2D> texture) {
+	void EulerMaterial::SetShader(Ref<EulerShader> shader)
+	{
+		m_Shader = shader;
+	}
+	void EulerMaterial::SetTexture(Ref<Texture2D> texture) {
 		m_Texture = texture;
-		KINK_CORE_INFO("Material add Texture success...");
 	}
 
-	void Material::SetColor(glm::vec4 color)
+	void EulerMaterial::SetColor(glm::vec4 color)
 	{
 		m_Color = color;
 	}
 
-	void Material::AddFloatParam(std::string& name, float param)
+	void EulerMaterial::AddFloatParam(std::string& name, float param)
 	{
 		m_Paramters[name] = param;
 	}
 
-	glm::vec4 Material::GetColor() const
+	Ref<EulerShader> EulerMaterial::GetShader() const
+	{
+		return m_Shader;
+	}
+
+	glm::vec4 EulerMaterial::GetColor() const
 	{
 		return m_Color;
 	}
 
-	Ref<Texture2D> Material::GetTexture() const
+	Ref<Texture2D> EulerMaterial::GetTexture() const
 	{
 		return m_Texture;
 	}
 
-	float Material::GetFloatParam(const std::string & name) const
+	float EulerMaterial::GetFloatParam(const std::string & name) const
 	{
 		auto it = m_Paramters.find(name);
 		return it != m_Paramters.end() ? it->second : 0;
 	}
 
-	void Material::Apply(Ref<EulerShader>& shader, int texture_slot) const
+	void EulerMaterial::Apply(int texture_slot) const
 	{
-		shader->Bind();
+		m_Shader->Bind();
 		m_Texture->Bind(texture_slot);
 		for (const auto& [name, param]:m_Paramters) {
-			shader->SetFloat(name, param);
+			m_Shader->SetFloat(name, param);
 		}
-		shader->SetVec4("color", m_Color);
+		m_Shader->SetVec4("color", m_Color);
 	}
 
 	/*void Material::setSpotLightRender(EulerSpotLight* light) {

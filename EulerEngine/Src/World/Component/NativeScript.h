@@ -4,14 +4,14 @@
 namespace EulerEngine {
 	// Forward declaration
 	class EulerBehaviour;
-	struct NativeScriptComponent {
+	struct NativeScript {
 		EulerBehaviour* Instance = nullptr;
 		EulerBehaviour*(*InstantiateScript)();
-		void (*DestroyScript)(NativeScriptComponent*);
+		void (*DestroyScript)(NativeScript*);
 		template<typename T>
 		void Bind() {
 			InstantiateScript = []() { return static_cast<EulerBehaviour*>(new T()); };
-			DestroyScript = [](NativeScriptComponent* component) { delete component->Instance; component->Instance = nullptr; };
+			DestroyScript = [](NativeScript* component) { delete component->Instance; component->Instance = nullptr; };
 		}
 	};
 }

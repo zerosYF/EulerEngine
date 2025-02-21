@@ -1284,10 +1284,10 @@
     <ClInclude Include="Src\World\Component\Component.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\World\Component\RendererComponent.h">
+    <ClInclude Include="Src\World\Component\MeshRenderer.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\World\Component\TransformComponent.h">
+    <ClInclude Include="Src\World\Component\Transform.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\EulerObject.h">
@@ -1392,16 +1392,16 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Render2D\Renderer2D.h">
+    <ClInclude Include="Src\Render\Renderer\Renderer2D.h">
       <Filter>Src\Render\Render2D</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\RenderCmd.h">
+    <ClInclude Include="Src\Render\Renderer\RenderCmd.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Renderer.h">
+    <ClInclude Include="Src\Render\Renderer\Renderer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\RendererAPI.h">
+    <ClInclude Include="Src\Render\Renderer\RendererAPI.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\VertexArray.h">
@@ -1431,11 +1431,12 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\World\Component\TagComponent.h" />
-    <ClInclude Include="Src\World\Component\CameraComponent.h" />
+    <ClInclude Include="Src\World\Component\Profile.h" />
+    <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
-    <ClInclude Include="Src\World\Component\NativeScriptComponent.h" />
+    <ClInclude Include="Src\World\Component\NativeScript.h" />
     <ClInclude Include="Src\World\EulerBehaviour.h" />
+    <ClInclude Include="Src\World\Component\SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1543,16 +1544,16 @@
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp">
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Render2D\Renderer2D.cpp">
+    <ClCompile Include="Src\Render\Renderer\Renderer2D.cpp">
       <Filter>Src\Render\Render2D</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\RenderCmd.cpp">
+    <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Renderer.cpp">
+    <ClCompile Include="Src\Render\Renderer\Renderer.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\RendererAPI.cpp">
+    <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\VertexArray.cpp">
@@ -1577,5 +1578,6 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
+    <ClCompile Include="Src\Render\EulerMesh.cpp" />
   </ItemGroup>
 </Project>

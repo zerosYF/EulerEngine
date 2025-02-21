@@ -1,10 +1,10 @@
 #pragma once
 #include"RendererAPI.h"
 #include"RenderCmd.h"
-#include"EulerShader.h"
-#include"EulerMaterial.h"
-#include"Vertices/EulerVertices.h"
-#include"Camera/EulerCamera.h"
+#include"Render/EulerShader.h"
+#include"Render/EulerMaterial.h"
+#include"Render/Vertices/EulerVertices.h"
+#include"Render/Camera/EulerCamera.h"
 #define MAX_TEXTURE_SLOTS 32
 #define MAX_CUBE_COUNT 10000
 namespace EulerEngine {
@@ -15,11 +15,11 @@ namespace EulerEngine {
 		static void BeginScene(Ref<EulerCamera> camera);
 		static void EndScene();
 		static void Flush();
-		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, Ref<Material>& material, const glm::mat4& model, const unsigned int vertex_cnt);
+		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, glm::vec4 color, Ref<Texture2D> texture, const glm::mat4& model,const unsigned int vertex_cnt);
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 
-		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color);
-		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<Material>& material);
+		static void DrawCube(const Ref<EulerShader> shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, const Ref<Texture2D>& texture);
+		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material);
 	public:
 		struct Statistics {
 			unsigned int DrawCalls = 0;

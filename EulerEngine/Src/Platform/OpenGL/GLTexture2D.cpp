@@ -31,7 +31,7 @@ namespace EulerEngine {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->m_Filter_MAX);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		KINK_CORE_INFO("Texture load success...");
+		KINK_CORE_INFO("Texture load success... ID:{0}", m_RendererID);
 	}
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path) {
 		m_Wrap_S = GL_REPEAT;
@@ -67,7 +67,7 @@ namespace EulerEngine {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->m_Filter_MAX);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			KINK_CORE_INFO("Texture load success...");
+			KINK_CORE_INFO("Texture load success...ID:{0}", m_RendererID);
 		}
 		else {
 			KINK_CORE_ERROR("NO DATA FROM IMAGE");

@@ -3,7 +3,7 @@
 #include"Render/VertexArray.h"
 #include"Render/EulerShader.h"
 #include"Render/Vertices/EulerVertices.h"
-#include"Render/Renderer.h"
+#include"RenderCmd.h"
 #include"Platform/OpenGL/GLShader.h"
 #include<memory>
 namespace EulerEngine {
@@ -45,11 +45,11 @@ namespace EulerEngine {
 	void Renderer2D::EndScene()
 	{
 	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, color);
+		DrawQuad({ position.x, position.y, 0.0f }, size, color, texture);
 	}
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const Ref<Texture2D>& texture)
 	{
 		auto shader = s_Data->s_ResourceLib.GetShader("2d_quad");
 		
@@ -57,24 +57,12 @@ namespace EulerEngine {
 		shader->SetMat4("view", s_Data->view_matrix);
 		shader->SetMat4("projection", s_Data->projection_matrix);
 		shader->SetVec4("color", color);
+		if (texture) {
+			texture->Bind(0);
+			shader->SetInt("texture", 0);
+		}
+
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-		shader->SetMat4("model", model);
-		s_Data->va->Bind();
-		RenderCommand::Draw(s_Data->va);
-	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
-	{
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture);
-	}
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
-	{
-		auto shader = s_Data->s_ResourceLib.GetShader("2d_quad");
-		shader->Bind();
-		shader->SetMat4("view", s_Data->view_matrix);
-		shader->SetMat4("projection", s_Data->projection_matrix);
-		texture->Bind(0);
-		shader->SetInt("texture", 0);
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 		shader->SetMat4("model", model);
 		s_Data->va->Bind();
 		RenderCommand::Draw(s_Data->va);
