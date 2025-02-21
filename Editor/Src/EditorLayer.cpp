@@ -1,8 +1,4 @@
 #include"EditorLayer.h"
-#include<../ImGui/imgui.h>
-#include<glm/gtc/type_ptr.hpp>
-#include<glm/gtc/matrix_transform.hpp>
-
 namespace EulerEngine {
     EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_CameraController(PERSPECTIVE)
     {
@@ -27,10 +23,6 @@ namespace EulerEngine {
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
         m_MainCamera.AddComponent<CameraComponent>(PERSPECTIVE);
         m_MainCamera.GetComponent<TransformComponent>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
-
-        m_ClipCamera = m_ActiveScene->CreateObject("ClipCamera");
-        auto& cc = m_ClipCamera.AddComponent<CameraComponent>(PERSPECTIVE);
-        cc.isPrimary = false;
 
         class CameraController:public EulerBehaviour {
 
@@ -57,6 +49,8 @@ namespace EulerEngine {
         };
         auto& nsc = m_MainCamera.AddComponent<NativeScriptComponent>();
         nsc.Bind<CameraController>();
+
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
@@ -76,7 +70,7 @@ namespace EulerEngine {
         }
         Renderer::ResetStatistic();
         {
-            RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
+            RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.5f, 1.0f });
             RenderCommand::Clear();
         }
 
@@ -98,7 +92,7 @@ namespace EulerEngine {
     {
 
 
-        static bool dockspaceOpen = true;
+        static bool dockspaceOpen = false;
 
         static bool opt_fullscreen = true;
         static bool opt_padding = false;
@@ -136,6 +130,7 @@ namespace EulerEngine {
         if (!opt_padding)
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
+
         if (!opt_padding)
             ImGui::PopStyleVar();
 
@@ -179,6 +174,10 @@ namespace EulerEngine {
             ImGui::EndMenuBar();
         }
 
+        
+
+        m_SceneHierarchyPanel.OnImGuiRender();
+
         ImGui::Begin("Settings");
         ImGui::ColorEdit4("Clear Color", glm::value_ptr(m_Color));
         ImGui::Text("Renderer Info:");
@@ -191,8 +190,7 @@ namespace EulerEngine {
         ImGui::Begin("Viewport"); 
         m_ViewportFocused = ImGui::IsWindowFocused();
         m_ViewportHovered = ImGui::IsWindowHovered();
-        //KINK_CORE_WARN("Focused: {0}", m_ViewportFocused);
-        //KINK_CORE_WARN("Hovered: {0}", m_ViewportHovered);
+        
         Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused && !m_ViewportHovered);
         ImVec2 size = ImGui::GetContentRegionAvail();
         m_ViewportSize = { size.x, size.y };
@@ -202,6 +200,7 @@ namespace EulerEngine {
         ImGui::PopStyleVar();
          
         ImGui::End();
+
     }
 
     void EditorLayer::OnEvent(Event& e)

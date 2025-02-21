@@ -21,12 +21,15 @@
 #include"Resource/ResourceLibrary.h"
 
 #include"Render/Camera/EulerCamera.h"
-#include"Render/Camera/OrthoCamera.h"
-#include"Render/Camera/PerspectiveCamera.h"
 #include"Render/Camera/CameraController.h"
 
-#include"Game/EulerScene.h"
-#include"Game/Component/Component.h"
-#include"Game/EulerObject.h"
-#include"Game/EulerBehaviour.h"
+#include"World/EulerScene.h"
+#include"World/Component/Component.h"
+#include"World/EulerObject.h"
+#include"World/EulerBehaviour.h"
+
+#include<../ImGui/imgui.h>
+
+#include<glm/gtc/type_ptr.hpp>
+#include<glm/gtc/matrix_transform.hpp>
 //++++++++++++++++++++++++++++++++entry point+++++++++++++++++++++++++++

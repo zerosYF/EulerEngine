@@ -5,8 +5,7 @@
 namespace EulerEngine{
 	CameraController::CameraController(CameraType type)
 	{
-		m_CameraType = type;
-		m_Camera = EulerCamera::Create(type);
+		m_Camera = CreateRef<EulerCamera>(type);
 	}
 	void CameraController::OnUpdate(TimerSystem ts)
 	{

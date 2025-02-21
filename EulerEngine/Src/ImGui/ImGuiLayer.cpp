@@ -39,8 +39,8 @@ void EulerEngine::ImGuiLayer::OnDetach()
 void EulerEngine::ImGuiLayer::OnImGuiRender() 
 {
  
-    static bool show = true;
-    ImGui::ShowDemoWindow(&show);
+    //static bool show = false;
+    //ImGui::ShowDemoWindow(&show);
     
 }
 void EulerEngine::ImGuiLayer::OnEvent(Event& e)

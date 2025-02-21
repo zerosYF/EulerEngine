@@ -1281,22 +1281,19 @@
     <ClInclude Include="Src\Core\Reflection\EulerSerialize.h">
       <Filter>Src\Core\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\Component.h">
+    <ClInclude Include="Src\World\Component\Component.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\RendererComponent.h">
+    <ClInclude Include="Src\World\Component\RendererComponent.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\TransformComponent.h">
+    <ClInclude Include="Src\World\Component\TransformComponent.h">
       <Filter>Src\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\EulerHierarchy.h">
+    <ClInclude Include="Src\World\EulerObject.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\EulerObject.h">
-      <Filter>Src\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Game\EulerScene.h">
+    <ClInclude Include="Src\World\EulerScene.h">
       <Filter>Src\Game</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink.h">
@@ -1350,9 +1347,6 @@
     <ClInclude Include="Src\Render\Camera\CameraController.h">
       <Filter>Src\Render\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Camera\PerspectiveCamera.h">
-      <Filter>Src\Render\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\Context\EulerContext.h">
       <Filter>Src\Render\Context</Filter>
     </ClInclude>
@@ -1398,9 +1392,6 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Camera\OrthoCamera.h">
-      <Filter>Src\Render\Render2D</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\Render2D\Renderer2D.h">
       <Filter>Src\Render\Render2D</Filter>
     </ClInclude>
@@ -1440,11 +1431,11 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Game\Component\TagComponent.h" />
-    <ClInclude Include="Src\Game\Component\CameraComponent.h" />
+    <ClInclude Include="Src\World\Component\TagComponent.h" />
+    <ClInclude Include="Src\World\Component\CameraComponent.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
-    <ClInclude Include="Src\Game\Component\NativeScriptComponent.h" />
-    <ClInclude Include="Src\Game\EulerBehaviour.h" />
+    <ClInclude Include="Src\World\Component\NativeScriptComponent.h" />
+    <ClInclude Include="Src\World\EulerBehaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1480,13 +1471,10 @@
     <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp">
       <Filter>Src\Core\Reflection</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\EulerHierarchy.cpp">
+    <ClCompile Include="Src\World\EulerObject.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Game\EulerObject.cpp">
-      <Filter>Src\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Game\EulerScene.cpp">
+    <ClCompile Include="Src\World\EulerScene.cpp">
       <Filter>Src\Game</Filter>
     </ClCompile>
     <ClCompile Include="Src\GutKink\Application.cpp">

@@ -1,5 +1,5 @@
 #pragma once
-#include"Render/Camera/OrthoCamera.h"
+#include"Render/Camera/EulerCamera.h"
 #include"Resource/ResourceLibrary.h"
 namespace EulerEngine {
 	class Renderer2D {

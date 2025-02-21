@@ -1,5 +1,6 @@
 #pragma once
 #include"GutKink.h"
+#include"Panels/HierarchyPanel.h"
 namespace EulerEngine { 
 	class EditorLayer :public EulerLayer {
 	public:
@@ -28,9 +29,10 @@ namespace EulerEngine {
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
 		GameObject m_MainCamera;
-		GameObject m_ClipCamera;
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
+
+		HierarchyPanel m_SceneHierarchyPanel;
 	};
 }

@@ -31,6 +31,8 @@ namespace EulerEngine {
 			m_Scene->m_Registry.remove<T>(m_Entity);
 		}
 		operator bool() const { return m_Entity != entt::null; }
+		operator unsigned int() const { return (unsigned int)m_Entity; }
+		bool operator ==(const GameObject& other) const { return m_Entity == other.m_Entity && m_Scene == other.m_Scene; }
 	private:
 		entt::entity m_Entity{entt::null};
 		Scene* m_Scene = nullptr;
