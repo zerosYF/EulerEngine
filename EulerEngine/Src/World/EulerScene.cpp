@@ -8,8 +8,6 @@
 namespace EulerEngine {
 	Scene::Scene()
 	{
-		entt::entity entity = m_Registry.create();
-		m_Registry.emplace<Transform>(entity);
 	}
 	Scene::~Scene()
 	{
@@ -20,6 +18,10 @@ namespace EulerEngine {
 		go.AddComponent<Transform>();
 		go.AddComponent<Profile>(name);
 		return go;
+	}
+	void Scene::DestroyObject(GameObject& obj)
+	{
+		m_Registry.destroy(obj);
 	}
 	void Scene::OnUpdate(TimerSystem ts)
 	{
@@ -65,5 +67,43 @@ namespace EulerEngine {
 				camera_com.RendererCamera->SetAspectRatio(float(m_ViewportWidth) / float(m_ViewportHeight));
 			}
 		}
+	}
+
+	template<typename T>
+	void Scene::OnComponentAdded(GameObject obj, T& component) {
+		static_assert(false);
+	}
+
+	/// <summary>
+	/// template specialization for Components
+	/// </summary>
+	/// <param name="obj"></param>
+	/// <param name="component"></param>
+	template<>
+	void Scene::OnComponentAdded<Profile>(GameObject obj, Profile& component) {
+	}
+	template<>
+	void Scene::OnComponentAdded<Transform>(GameObject obj, Transform& component) {
+		
+	}
+	template<>
+	void Scene::OnComponentAdded<Camera>(GameObject obj, Camera& component) {
+		//KINK_CORE_ERROR("viewport_size:{0}, {1}", m_ViewportWidth, m_ViewportHeight);
+		component.RendererCamera->SetAspectRatio((float)m_ViewportWidth / (float)m_ViewportHeight);
+	}
+	template<>
+	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
+		//temp;
+		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
+		auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
+		auto material = EulerMaterial::Create();
+		material->SetShader(shader);
+		material->SetColor(glm::vec4(1.0f));
+		material->SetTexture(texture2D);
+		component.Material = material;
+	}
+	template<>
+	void Scene::OnComponentAdded<NativeScript>(GameObject obj, NativeScript& component) {
+		
 	}
 }

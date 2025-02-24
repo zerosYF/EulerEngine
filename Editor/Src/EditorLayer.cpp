@@ -153,6 +153,8 @@ namespace EulerEngine {
 
         // Submit the DockSpace
         ImGuiIO& io = ImGui::GetIO();
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.WindowMinSize.x = 250.0f;
         if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
         {
             ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
@@ -162,6 +164,7 @@ namespace EulerEngine {
         {
             //ShowDockingDisabledMessage();
         }
+        style.WindowMinSize.x = 32.0f;
 
         if (ImGui::BeginMenuBar())
         {

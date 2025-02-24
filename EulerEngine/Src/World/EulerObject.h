@@ -13,7 +13,9 @@ namespace EulerEngine {
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args) {
 			KINK_CORE_ASSERT(HasComponent<T>() == false, "Component already exists on GameObject");
-			return m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+			T& component = m_Scene->m_Registry.emplace<T>(m_Entity, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 		template<typename T>
 		T& GetComponent() {
@@ -32,6 +34,7 @@ namespace EulerEngine {
 		}
 		operator bool() const { return m_Entity != entt::null; }
 		operator unsigned int() const { return (unsigned int)m_Entity; }
+		operator entt::entity() const { return m_Entity; }
 		bool operator ==(const GameObject& other) const { return m_Entity == other.m_Entity && m_Scene == other.m_Scene; }
 	private:
 		entt::entity m_Entity{entt::null};
