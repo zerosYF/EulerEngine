@@ -28,10 +28,6 @@ namespace EulerEngine {
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
         m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
         m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
-        
-        m_CanvasCamera = m_ActiveScene->CreateObject("CanvasCamera");
-        m_CanvasCamera.AddComponent<Camera>(ORTHOGRAPHIC);
-        m_CanvasCamera.GetComponent<Camera>().isPrimary = false;
 
         auto cube = m_ActiveScene->CreateObject("Cube");
         cube.AddComponent<MeshRenderer>();
