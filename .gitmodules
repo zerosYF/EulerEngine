@@ -4,3 +4,6 @@
 [submodule "EulerEngine/Vendor/ImGui"]
 	path = EulerEngine/Vendor/ImGui
 	url = https://gitee.com/ets_zeros/imgui
+[submodule "EulerEngine/Vendor/Yaml-cpp"]
+	path = EulerEngine/Vendor/Yaml-cpp
+	url = https://gitee.com/ets_zeros/yaml-cpp
