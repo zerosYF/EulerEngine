@@ -1,0 +1,25 @@
+Scene: Untitled
+GameObjects:
+  - GameObject: 12093821903
+    Profile:
+      Tag: Cube
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12093821903
+    Profile:
+      Tag: Camera
+    Transform:
+      Position: [0, 0, 3]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      CameraType: 0
+      AspectRatio: 1.487912
+      FOV: 45
+      NearClip: 0.1
+      FarClip: 100
+      Size: 1
+      NearClip: -1
+      FarClip: 1

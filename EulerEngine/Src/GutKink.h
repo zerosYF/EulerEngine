@@ -27,6 +27,7 @@
 #include"World/Component/Component.h"
 #include"World/EulerObject.h"
 #include"World/EulerBehaviour.h"
+#include"World/EulerSerialize.h"
 
 #include<../ImGui/imgui.h>
 

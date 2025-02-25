@@ -6,6 +6,7 @@ workspace "EulerEngine"
 		"Dist"
 	}
 	toolset "v143"
+	defines { "YAML_CPP_STATIC_DEFINE" }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -13,8 +14,10 @@ IncludeDir = {}
 IncludeDir["Glad"] = "EulerEngine/Vendor/Glad/include"
 IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui"
 IncludeDir["Entt"] = "EulerEngine/Vendor/Entt/include"
+IncludeDir["Yaml_cpp"] = "EulerEngine/Vendor/Yaml-cpp/include"
 include "EulerEngine/Vendor/Glad"
 include "EulerEngine/Vendor/ImGui"
+include "EulerEngine/Vendor/Yaml-cpp"
 
 project "EulerEngine"
 	location "EulerEngine"
@@ -44,6 +47,7 @@ project "EulerEngine"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.Entt}",
+		"%{IncludeDir.Yaml_cpp}",
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
@@ -52,6 +56,7 @@ project "EulerEngine"
 		"glfw3",
 		"Glad",
 		"ImGui",
+		"Yaml-cpp",
 		"opengl32"
 	}
 
@@ -94,6 +99,7 @@ project "Sandbox"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.Entt}",
+		"%{IncludeDir.Yaml_cpp}",
 	}
 	links{
 		"EulerEngine"
@@ -138,7 +144,8 @@ project "Editor"
 		"EulerEngine/External/include",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Entt}"
+		"%{IncludeDir.Entt}",
+		"%{IncludeDir.Yaml_cpp}",
 	}
 	links{
 		"EulerEngine"

@@ -39,6 +39,10 @@ namespace EulerEngine {
 			auto [x, y] = InputSystem::GetCursorPosition();
 		}
 	}
+	void Application::Close() {
+		m_Running = false;
+	}
+
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(KINK_BIND_EVENT_FUNC(Application::OnWindowClose));

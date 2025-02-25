@@ -19,6 +19,7 @@ namespace EulerEngine {
 		unsigned int m_ViewportWidth = 1200;
 		unsigned int m_ViewportHeight = 720;
 		friend class GameObject;
+		friend class SceneSerializer;
 		friend class HierarchyPanel;
 	};
 

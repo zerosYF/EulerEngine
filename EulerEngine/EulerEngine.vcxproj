@@ -75,8 +75,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -98,8 +98,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -121,8 +121,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -529,17 +529,6 @@
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h" />
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h" />
     <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h" />
-    <ClInclude Include="Src\Core\Reflection\EulerSerialize.h" />
-    <ClInclude Include="Src\World\Component\Camera.h" />
-    <ClInclude Include="Src\World\Component\Component.h" />
-    <ClInclude Include="Src\World\Component\NativeScript.h" />
-    <ClInclude Include="Src\World\Component\MeshRenderer.h" />
-    <ClInclude Include="Src\World\Component\SpriteRenderer.h" />
-    <ClInclude Include="Src\World\EulerBehaviour.h" />
-    <ClInclude Include="Src\World\Component\Profile.h" />
-    <ClInclude Include="Src\World\Component\Transform.h" />
-    <ClInclude Include="Src\World\EulerObject.h" />
-    <ClInclude Include="Src\World\EulerScene.h" />
     <ClInclude Include="Src\GutKink.h" />
     <ClInclude Include="Src\GutKink\Application.h" />
     <ClInclude Include="Src\GutKink\Core.h" />
@@ -557,9 +546,9 @@
     <ClInclude Include="Src\Platform\Windows\WinInput.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
     <ClInclude Include="Src\Render\Camera\CameraController.h" />
+    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
-    <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\EulerMaterial.h" />
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
@@ -573,9 +562,9 @@
     <ClInclude Include="Src\Render\OpenGL\GLMyError.h" />
     <ClInclude Include="Src\Render\OpenGL\GLScene.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
-    <ClInclude Include="Src\Render\Renderer\Renderer2D.h" />
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer\Renderer.h" />
+    <ClInclude Include="Src\Render\Renderer\Renderer2D.h" />
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
@@ -585,6 +574,17 @@
     <ClInclude Include="Src\Test\TestFunc.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />
+    <ClInclude Include="Src\World\Component\Camera.h" />
+    <ClInclude Include="Src\World\Component\Component.h" />
+    <ClInclude Include="Src\World\Component\MeshRenderer.h" />
+    <ClInclude Include="Src\World\Component\NativeScript.h" />
+    <ClInclude Include="Src\World\Component\Profile.h" />
+    <ClInclude Include="Src\World\Component\SpriteRenderer.h" />
+    <ClInclude Include="Src\World\Component\Transform.h" />
+    <ClInclude Include="Src\World\EulerBehaviour.h" />
+    <ClInclude Include="Src\World\EulerObject.h" />
+    <ClInclude Include="Src\World\EulerScene.h" />
+    <ClInclude Include="Src\World\EulerSerialize.h" />
     <ClInclude Include="Src\gkpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -598,10 +598,6 @@
     <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp" />
     <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
-    <ClCompile Include="Src\Core\Reflection\EulerSerialize.cpp" />
-    <ClCompile Include="Src\Render\EulerMesh.cpp" />
-    <ClCompile Include="Src\World\EulerObject.cpp" />
-    <ClCompile Include="Src\World\EulerScene.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\IO\EulerFile.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
@@ -615,19 +611,20 @@
     <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
-    <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
     <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
+    <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
     <ClCompile Include="Src\Render\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Render\EulerBuffer.cpp" />
     <ClCompile Include="Src\Render\EulerMaterial.cpp" />
+    <ClCompile Include="Src\Render\EulerMesh.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
     <ClCompile Include="Src\Render\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
-    <ClCompile Include="Src\Render\Renderer\Renderer2D.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />
+    <ClCompile Include="Src\Render\Renderer\Renderer2D.cpp" />
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
@@ -635,6 +632,9 @@
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />
     <ClCompile Include="Src\Thread\EulerThread.cpp" />
+    <ClCompile Include="Src\World\EulerObject.cpp" />
+    <ClCompile Include="Src\World\EulerScene.cpp" />
+    <ClCompile Include="Src\World\EulerSerialize.cpp" />
     <ClCompile Include="Src\gkpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -645,6 +645,9 @@
     </ProjectReference>
     <ProjectReference Include="Vendor\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Vendor\Yaml-cpp\Yaml-cpp.vcxproj">
+      <Project>{685566CF-5422-C1DA-7D3B-AF826967F668}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
