@@ -1,5 +1,5 @@
 #include"EditorLayer.h"
-
+#include"ImGuizmo.h"
 namespace EulerEngine {
     EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_CameraController(PERSPECTIVE)
     {
@@ -209,6 +209,25 @@ namespace EulerEngine {
         m_ViewportSize = { size.x, size.y };
         unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
         ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+
+        //gizmos
+        GameObject selectedObj = m_SceneHierarchyPanel.GetSelectedGameObject();
+        if (selectedObj) {
+            ImGuizmo::SetOrthographic(false);
+            ImGuizmo::SetDrawlist();
+            ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+            auto cameraObj = m_ActiveScene->GetPrimaryCamera();
+            const auto& cameraCom = cameraObj.GetComponent<Camera>();
+            const auto& cameraViewMtx = cameraCom.RendererCamera->GetViewMatrix();
+            const auto& cameraProjMtx = cameraCom.RendererCamera->GetProjectionMatrix();
+
+            auto& tc = selectedObj.GetComponent<Transform>();
+            glm::mat4 transform = tc.GetTransform();
+            ImGuizmo::Manipulate(glm::value_ptr(cameraViewMtx), glm::value_ptr(cameraProjMtx),
+                ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform));
+        }
+
         ImGui::End();
         ImGui::PopStyleVar();
          

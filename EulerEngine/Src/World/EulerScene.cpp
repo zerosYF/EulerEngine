@@ -73,6 +73,16 @@ namespace EulerEngine {
 			}
 		}
 	}
+	GameObject Scene::GetPrimaryCamera() {
+		auto view = m_Registry.view<Camera>();
+		for (auto entity : view) {
+			const auto& camera_com = view.get<Camera>(entity);
+			if (camera_com.isPrimary) {
+				return GameObject{ entity, this };
+			}
+		}
+		return {};
+	}
 
 	template<typename T>
 	void Scene::OnComponentAdded(GameObject obj, T& component) {

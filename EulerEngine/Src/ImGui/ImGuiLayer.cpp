@@ -4,8 +4,9 @@
 #include "backends/imgui_impl_opengl3_loader.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
-#include "../GutKink/Application.h"
+#include "GutKink/Application.h"
 #include <GLFW/glfw3.h>
+#include "ImGuizmo.h"
 EulerEngine::ImGuiLayer::ImGuiLayer():EulerLayer("ImGuiLayer") {
 
 }
@@ -58,6 +59,7 @@ void EulerEngine::ImGuiLayer::Begin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 }
 void EulerEngine::ImGuiLayer::End() {
     ImGuiIO& io = ImGui::GetIO();

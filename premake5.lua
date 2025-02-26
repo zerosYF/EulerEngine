@@ -6,7 +6,6 @@ workspace "EulerEngine"
 		"Dist"
 	}
 	toolset "v143"
-	defines { "YAML_CPP_STATIC_DEFINE" }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -15,6 +14,7 @@ IncludeDir["Glad"] = "EulerEngine/Vendor/Glad/include"
 IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui"
 IncludeDir["Entt"] = "EulerEngine/Vendor/Entt/include"
 IncludeDir["Yaml_cpp"] = "EulerEngine/Vendor/Yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "EulerEngine/Vendor/ImGuizmo"
 include "EulerEngine/Vendor/Glad"
 include "EulerEngine/Vendor/ImGui"
 include "EulerEngine/Vendor/Yaml-cpp"
@@ -29,8 +29,7 @@ project "EulerEngine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "gkpch.h"
-	pchsource "%{prj.name}/Src/gkpch.cpp"
+	defines { "YAML_CPP_STATIC_DEFINE" }
 
 	files{
 		"%{prj.name}/Src/**.h",
@@ -39,6 +38,8 @@ project "EulerEngine"
 		"%{prj.name}/External/include/glm/**.inl",
 		"%{prj.name}/External/include/stb_image/**.cpp",
 		"%{prj.name}/External/include/stb_image/**.h",
+		"%{prj.name}/Vendor/ImGuizmo/ImGuizmo.h",
+		"%{prj.name}/Vendor/ImGuizmo/ImGuizmo.cpp",
 	}
 	includedirs{
 		"%{prj.name}/Src",
@@ -48,6 +49,7 @@ project "EulerEngine"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}",
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
@@ -78,6 +80,11 @@ project "EulerEngine"
 	filter "configurations:Dist"
 		defines "KINK_DIST"
 		symbols "On"
+	--must be at the end of the file
+	pchheader "gkpch.h"
+	pchsource "%{prj.name}/Src/gkpch.cpp"
+	filter "files:%{prj.name}/Vendor/ImGuizmo/**.cpp"
+		flags {"NoPCH"}
 
 project "Sandbox"
 	location "Sandbox"
@@ -88,6 +95,7 @@ project "Sandbox"
 	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
+	defines { "YAML_CPP_STATIC_DEFINE" }
 	files{
 		"%{prj.name}/Src/**.h",
 		"%{prj.name}/Src/**.cpp"
@@ -100,6 +108,7 @@ project "Sandbox"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}",
 	}
 	links{
 		"EulerEngine"
@@ -134,6 +143,7 @@ project "Editor"
 	characterset "Unicode"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-interm/" .. outputdir .. "/%{prj.name}")
+	defines { "YAML_CPP_STATIC_DEFINE" }
 	files{
 		"%{prj.name}/Src/**.h",
 		"%{prj.name}/Src/**.cpp"
@@ -146,6 +156,7 @@ project "Editor"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}",
 	}
 	links{
 		"EulerEngine"

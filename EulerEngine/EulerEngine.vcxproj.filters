@@ -52,9 +52,6 @@
     <Filter Include="Src\GutKink">
       <UniqueIdentifier>{996813D4-051E-8CC9-8E12-86A0FAC682CD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\IO">
-      <UniqueIdentifier>{9435C1D1-80D7-EBA7-6992-FFFB55D372F8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\ImGui">
       <UniqueIdentifier>{F7ED9323-6358-489A-AC96-F93F184026EF}</UniqueIdentifier>
     </Filter>
@@ -103,11 +100,20 @@
     <Filter Include="Src\Thread">
       <UniqueIdentifier>{D44077AF-C0F8-B8FC-2900-925815D753ED}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Utils">
+      <UniqueIdentifier>{2D7A7124-99E4-259B-E222-D7404ECC03F0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\World">
       <UniqueIdentifier>{84139324-F07D-479B-39BC-F840A56525F0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\World\Component">
       <UniqueIdentifier>{E620865C-5282-636A-DBEF-A91C47509A29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor">
+      <UniqueIdentifier>{935FDCD7-7F01-07AE-68BC-1A0254FD8DFE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\ImGuizmo">
+      <UniqueIdentifier>{530792E3-BF92-FFA7-C8A3-829C34AE5BA8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1296,6 +1302,33 @@
     <ClInclude Include="Src\Math\EulerMath.h">
       <Filter>Src\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLContext.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLShader.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLTexture2D.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\Windows\WinInput.h">
+      <Filter>Src\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
+      <Filter>Src\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\Camera\CameraController.h">
       <Filter>Src\Render\Camera</Filter>
     </ClInclude>
@@ -1383,6 +1416,9 @@
     <ClInclude Include="Src\Thread\EulerThread.h">
       <Filter>Src\Thread</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Utils\PlatformUtils.h">
+      <Filter>Src\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="Src\World\Component\Camera.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
@@ -1419,16 +1455,9 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Utils\PlatformUtils.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLShader.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLTexture2D.h" />
-    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
-    <ClInclude Include="Src\Platform\Windows\WinInput.h" />
-    <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
+    <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>Vendor\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1469,6 +1498,36 @@
     </ClCompile>
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
       <Filter>Src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLShader.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp">
+      <Filter>Src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\Windows\WinInput.cpp">
+      <Filter>Src\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp">
+      <Filter>Src\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
+      <Filter>Src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Camera\CameraController.cpp">
       <Filter>Src\Render\Camera</Filter>
@@ -1545,15 +1604,8 @@
     <ClCompile Include="Src\gkpch.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLShader.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp" />
-    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
-    <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
-    <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp" />
-    <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
+    <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Vendor\ImGuizmo</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@ namespace EulerEngine {
 		void DestroyObject(GameObject& obj);
 		void OnUpdate(TimerSystem ts);
 		void OnViewportResize(int width, int height);
+		GameObject GetPrimaryCamera();
 	private:
 		template<typename T>
 		void OnComponentAdded(GameObject obj, T& component);

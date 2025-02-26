@@ -78,7 +78,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -96,7 +96,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -114,7 +114,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

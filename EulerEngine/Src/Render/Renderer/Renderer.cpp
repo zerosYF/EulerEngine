@@ -89,16 +89,16 @@ namespace EulerEngine {
 		}
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
-		model = glm::rotate(model, glm::radians(rotation[0]), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotation[1]), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotation[2]), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, scale);
 
 		for (unsigned int i = 0; i < CUBE_VERTEX_CNT; i++) {
 			unsigned int head_index = CUBE_DATA_SIZE * i;
 			glm::vec4 VerticePosition
 				= glm::vec4(EulerEngine::CubeVertices[head_index], EulerEngine::CubeVertices[head_index + 1], EulerEngine::CubeVertices[head_index + 2], 1.0f);
-			m_SceneData->CubeVertexArrayPtr->Position = model * VerticePosition;
+			m_SceneData->CubeVertexArrayPtr->Position = VerticePosition;
 			m_SceneData->CubeVertexArrayPtr->TexCoord = glm::vec2(EulerEngine::CubeVertices[head_index + 3], EulerEngine::CubeVertices[head_index + 4]);
 			m_SceneData->CubeVertexArrayPtr++;
 		}

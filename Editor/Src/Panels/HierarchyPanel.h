@@ -7,6 +7,7 @@ namespace EulerEngine {
 		HierarchyPanel(const Ref<Scene>& defaultScene);
 		void SetContext(const Ref<Scene>& scene);
 		void OnImGuiRender();
+		GameObject GetSelectedGameObject() const { return m_SelectedGameObject; }
 	private:
 		void DrawGameObjectNode(GameObject gameObject);
 		void DrawComponents(GameObject gameObject);

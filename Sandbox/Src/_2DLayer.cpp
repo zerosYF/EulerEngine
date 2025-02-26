@@ -25,7 +25,7 @@ void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	EulerEngine::RenderCommand::Clear();
 
 	EulerEngine::Renderer2D::BeginScene(m_OrthoCameraController.GetCamera());
-	EulerEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_Color);
+	EulerEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_Color, nullptr);
 	EulerEngine::Renderer2D::EndScene();
 }
 
