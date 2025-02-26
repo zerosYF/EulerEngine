@@ -7,3 +7,6 @@
 [submodule "EulerEngine/Vendor/Yaml-cpp"]
 	path = EulerEngine/Vendor/Yaml-cpp
 	url = https://gitee.com/ets_zeros/yaml-cpp
+[submodule "EulerEngine/Vendor/ImGuizmo"]
+	path = EulerEngine/Vendor/ImGuizmo
+	url = https://gitee.com/ets_zeros/ImGuizmo
