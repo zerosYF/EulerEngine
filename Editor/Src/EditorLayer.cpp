@@ -1,4 +1,5 @@
 #include"EditorLayer.h"
+
 namespace EulerEngine {
     EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_CameraController(PERSPECTIVE)
     {
@@ -25,13 +26,13 @@ namespace EulerEngine {
         material->SetColor(m_Color);
         material->SetTexture(texture2D);
 
-        m_MainCamera = m_ActiveScene->CreateObject("Camera");
-        m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
-        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
-
         auto cube = m_ActiveScene->CreateObject("Cube");
         cube.AddComponent<MeshRenderer>();
         cube.GetComponent<MeshRenderer>().Material = material;
+
+        m_MainCamera = m_ActiveScene->CreateObject("Camera");
+        m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
+        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
 
 
         class CameraController:public EulerBehaviour {
@@ -86,14 +87,14 @@ namespace EulerEngine {
 
         {
             m_ActiveScene->OnUpdate(ts);
-            auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
+           /* auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
             Renderer::BeginScene(m_MainCamera.GetComponent<Camera>().RendererCamera);
             for (int i = 0; i < 10; i++) {
                 float angle = 20.0f * i;
                 auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
                 Renderer::DrawCube(shader, m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), m_Color, texture2D);
             }
-            Renderer::EndScene();
+            Renderer::EndScene();*/
         }
         m_FrameBuffer->Unbind();
     }
@@ -168,13 +169,14 @@ namespace EulerEngine {
             {
                 // Disabling fullscreen would allow the window to be moved to the front of other windows,
                 // which we can't undo at the moment without finer window depth/z control.
-                if (ImGui::MenuItem("Serialize")) {
-                    SceneSerializer serializer(m_ActiveScene);
-                    serializer.Serialize("Assets/scenes/scene.kink");
+                if (ImGui::MenuItem("New")) {
+                    NewScene();
                 }
-                if (ImGui::MenuItem("Deserialize")) {
-                    SceneSerializer serializer(m_ActiveScene);
-                    serializer.Deserialize("Assets/scenes/scene.kink");
+                if (ImGui::MenuItem("Open...")) {
+                    OpenScene();
+                }
+                if (ImGui::MenuItem("Save as...")) {
+                    SaveSceneAs();
                 }
                 ImGui::Separator();
                 if (ImGui::MenuItem("Exit")) {
@@ -217,5 +219,37 @@ namespace EulerEngine {
     void EditorLayer::OnEvent(Event& e)
     {
         m_CameraController.OnEvent(e);
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<KeyPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnKeyPressed));
+    }
+    bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+    {
+        return false;
+    }
+    void EditorLayer::NewScene()
+    {
+        m_ActiveScene = CreateRef<Scene>();
+        m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+    void EditorLayer::OpenScene()
+    {
+        std::string filepath = FileDialogs::OpenFile("Kink Scene (*.kink)\0*.kink\0");
+        if (!filepath.empty()) {
+            m_ActiveScene = CreateRef<Scene>();
+            m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
+            m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+            SceneSerializer serializer(m_ActiveScene);
+            serializer.Deserialize(filepath);
+        }
+    }
+    void EditorLayer::SaveSceneAs()
+    {
+        std::string filepath = FileDialogs::SaveFile("Kink Scene (*.kink)\0*.kink\0");
+        if (!filepath.empty()) {
+            SceneSerializer serializer(m_ActiveScene);
+            serializer.Serialize(filepath);
+        }
     }
 }

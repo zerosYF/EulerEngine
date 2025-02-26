@@ -1290,41 +1290,11 @@
     <ClInclude Include="Src\GutKink\EntryPoint.h">
       <Filter>Src\GutKink</Filter>
     </ClInclude>
-    <ClInclude Include="Src\IO\EulerFile.h">
-      <Filter>Src\IO</Filter>
-    </ClInclude>
     <ClInclude Include="Src\ImGui\ImGuiLayer.h">
       <Filter>Src\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="Src\Math\EulerMath.h">
       <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLContext.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLShader.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLTexture2D.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\Windows\WinInput.h">
-      <Filter>Src\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
-      <Filter>Src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\Camera\CameraController.h">
       <Filter>Src\Render\Camera</Filter>
@@ -1449,6 +1419,16 @@
     <ClInclude Include="Src\gkpch.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Utils\PlatformUtils.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLContext.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLFrameBuffer.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLRendererAPI.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLShader.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLTexture2D.h" />
+    <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
+    <ClInclude Include="Src\Platform\Windows\WinInput.h" />
+    <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1484,41 +1464,11 @@
     <ClCompile Include="Src\GutKink\Application.cpp">
       <Filter>Src\GutKink</Filter>
     </ClCompile>
-    <ClCompile Include="Src\IO\EulerFile.cpp">
-      <Filter>Src\IO</Filter>
-    </ClCompile>
     <ClCompile Include="Src\ImGui\ImGuiBuild.cpp">
       <Filter>Src\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp">
       <Filter>Src\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLShader.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp">
-      <Filter>Src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\Windows\WinInput.cpp">
-      <Filter>Src\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
-      <Filter>Src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Camera\CameraController.cpp">
       <Filter>Src\Render\Camera</Filter>
@@ -1595,5 +1545,15 @@
     <ClCompile Include="Src\gkpch.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLRendererAPI.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLShader.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp" />
+    <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
   </ItemGroup>
 </Project>

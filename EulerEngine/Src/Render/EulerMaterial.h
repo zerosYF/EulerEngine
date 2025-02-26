@@ -19,7 +19,7 @@ namespace EulerEngine {
 		void SetColor(glm::vec4 color);
 		void AddFloatParam(std::string& name, float param);
 
-		Ref<EulerShader> GetShader() const;
+		Ref<EulerShader>& GetShader();
 		glm::vec4& GetColor();
 		Ref<Texture2D>& GetTexture();
 		float GetFloatParam(const std::string& name) const;

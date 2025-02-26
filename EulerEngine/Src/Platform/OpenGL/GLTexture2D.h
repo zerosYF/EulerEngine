@@ -13,6 +13,8 @@ namespace EulerEngine {
 	
 		unsigned int m_Filter_MIN; 
 		unsigned int m_Filter_MAX;
+		
+		std::string m_Path;
 	public:
 		OpenGLTexture2D(unsigned int width, unsigned int height);
 		OpenGLTexture2D(const std::string& path);
@@ -22,5 +24,6 @@ namespace EulerEngine {
 		virtual void SetData(void* data, unsigned int size) override;
 		virtual void Bind(unsigned int slot) const override;
 		virtual bool operator==(const Texture& another) const override;
+		virtual std::string GetPath() const override;
 	};
 }

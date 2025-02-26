@@ -8,6 +8,7 @@ namespace EulerEngine {
 		Scene();
 		~Scene();
 		GameObject CreateObject(const std::string& name="GameObject");
+		GameObject CreateObject(unsigned int UUID, const std::string& name="GameObject");
 		void DestroyObject(GameObject& obj);
 		void OnUpdate(TimerSystem ts);
 		void OnViewportResize(int width, int height);

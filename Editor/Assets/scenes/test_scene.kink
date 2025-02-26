@@ -2,6 +2,17 @@ Scene: Untitled
 GameObjects:
   - GameObject: 12093821903
     Profile:
+      Tag: Cube
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    MeshRenderer:
+      Shader: Shaders/Camera/first_test.glsl
+      Color: [0.2, 0.3, 0.1, 1]
+      TexturePath: Assets/mytextures/container2.png
+  - GameObject: 12093821903
+    Profile:
       Tag: Camera
     Transform:
       Position: [0, 0, 3]
@@ -18,14 +29,3 @@ GameObjects:
       Orthographic_Size: 1
       Orthographic_NearClip: -1
       Orthographic_FarClip: 1
-  - GameObject: 12093821903
-    Profile:
-      Tag: Cube
-    Transform:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshRenderer:
-      Shader: Shaders/Camera/first_test.glsl
-      Color: [0.2, 0.3, 0.1, 1]
-      TexturePath: Assets/mytextures/container2.png

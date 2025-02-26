@@ -533,7 +533,6 @@
     <ClInclude Include="Src\GutKink\Application.h" />
     <ClInclude Include="Src\GutKink\Core.h" />
     <ClInclude Include="Src\GutKink\EntryPoint.h" />
-    <ClInclude Include="Src\IO\EulerFile.h" />
     <ClInclude Include="Src\ImGui\ImGuiLayer.h" />
     <ClInclude Include="Src\Math\EulerMath.h" />
     <ClInclude Include="Src\Platform\OpenGL\GLBuffer.h" />
@@ -574,6 +573,7 @@
     <ClInclude Include="Src\Test\TestFunc.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />
+    <ClInclude Include="Src\Utils\PlatformUtils.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
     <ClInclude Include="Src\World\Component\MeshRenderer.h" />
@@ -599,7 +599,6 @@
     <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
-    <ClCompile Include="Src\IO\EulerFile.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
@@ -610,6 +609,7 @@
     <ClCompile Include="Src\Platform\OpenGL\GLTexture2D.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLVertexArray.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
+    <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
     <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />

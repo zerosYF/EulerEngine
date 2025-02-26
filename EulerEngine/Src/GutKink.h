@@ -29,6 +29,8 @@
 #include"World/EulerBehaviour.h"
 #include"World/EulerSerialize.h"
 
+#include"Utils/PlatformUtils.h"
+
 #include<../ImGui/imgui.h>
 
 #include<glm/gtc/type_ptr.hpp>

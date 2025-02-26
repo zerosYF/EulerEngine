@@ -19,8 +19,13 @@ namespace EulerEngine {
 		go.AddComponent<Profile>(name);
 		return go;
 	}
+	GameObject Scene::CreateObject(unsigned int UUID, const std::string& name)
+	{
+		return GameObject();
+	}
 	void Scene::DestroyObject(GameObject& obj)
 	{
+		KINK_CORE_ERROR("Destroy OBJ:{0}", (unsigned int)obj);
 		m_Registry.destroy(obj);
 	}
 	void Scene::OnUpdate(TimerSystem ts)

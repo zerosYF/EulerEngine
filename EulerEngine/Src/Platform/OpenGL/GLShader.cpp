@@ -29,7 +29,7 @@ namespace EulerEngine {
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 	}
-	OpenGLShader::OpenGLShader(const std::string & path)
+	OpenGLShader::OpenGLShader(const std::string & path):m_Path(path)
 	{
 		std::ifstream ShaderFile;
 
@@ -144,5 +144,9 @@ namespace EulerEngine {
 	}
 	void OpenGLShader::Unbind() const {
 		glUseProgram(0);
+	}
+	std::string OpenGLShader::GetPath() const
+	{
+		return m_Path;
 	}
 }

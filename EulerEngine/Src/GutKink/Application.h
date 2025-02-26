@@ -23,7 +23,7 @@ namespace EulerEngine {
 		void PushOverlay(EulerLayer* overlay);
 
 		inline static Application& Get() { return *s_Instance; }
-		inline EulerWindow& GetWIndow() { return *m_Window; }
+		inline EulerWindow& GetWindow() { return *m_Window; }
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

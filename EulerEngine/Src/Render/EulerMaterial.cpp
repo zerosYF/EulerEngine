@@ -28,7 +28,7 @@ namespace EulerEngine {
 		m_Paramters[name] = param;
 	}
 
-	Ref<EulerShader> EulerMaterial::GetShader() const
+	Ref<EulerShader>& EulerMaterial::GetShader()
 	{
 		return m_Shader;
 	}

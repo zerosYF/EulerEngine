@@ -20,6 +20,7 @@ namespace EulerEngine {
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+		virtual std::string GetPath() const override;
 
 		//uniform;
 		virtual void inline SetBool(const std::string& name, bool value) const override{
@@ -65,5 +66,6 @@ namespace EulerEngine {
 		std::string GetFileName(std::string& path);
 	private:
 		unsigned int m_RendererID;
+		std::string m_Path;
 	};
 }

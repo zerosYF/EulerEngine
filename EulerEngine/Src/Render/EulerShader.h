@@ -11,6 +11,7 @@ namespace EulerEngine {
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
+		virtual std::string GetPath() const = 0;
 
 		static Ref<EulerShader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 		static Ref<EulerShader> Create(const std::string& path);

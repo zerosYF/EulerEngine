@@ -3,6 +3,7 @@
 #include<yaml-cpp/yaml.h>
 #include"EulerObject.h"
 #include"Component/Component.h"
+#include"Resource/ResourceLibrary.h"
 namespace YAML {
 	template<>
 	struct convert<glm::vec3> {
@@ -81,22 +82,30 @@ namespace EulerEngine {
 		if (gameObj.HasComponent<Camera>()) {
 			out << YAML::Key << "Camera";
 			out << YAML::BeginMap;
+			out << YAML::Key << "IsPrimary" << YAML::Value << gameObj.GetComponent<Camera>().isPrimary;
+			out << YAML::Key << "IsFixedAspectRatio" << YAML::Value << gameObj.GetComponent<Camera>().isFixedAspectRatio;
+
 			out << YAML::Key << "CameraType" << YAML::Value << (int)gameObj.GetComponent<Camera>().RendererCamera->GetCameraType();
 			out << YAML::Key << "AspectRatio" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetAspectRatio();
-			out << YAML::Key << "FOV" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetFovAngle();
-			out << YAML::Key << "NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveNearClip();
-			out << YAML::Key << "FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveFarClip(); 
-			out << YAML::Key << "Size" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetZoomLevel();
-			out << YAML::Key << "NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicNearClip();
-			out << YAML::Key << "FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicFarClip();
+			out << YAML::Key << "Perspective_FOV" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetFovAngle();
+			out << YAML::Key << "Perspective_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveNearClip();
+			out << YAML::Key << "Perspective_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveFarClip(); 
+			out << YAML::Key << "Orthographic_Size" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetZoomLevel();
+			out << YAML::Key << "Orthographic_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicNearClip();
+			out << YAML::Key << "Orthographic_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicFarClip();
 			out << YAML::EndMap;
 		}
-		/*if (gameObj.HasComponent<MeshRenderer>()) {
+		if (gameObj.HasComponent<MeshRenderer>()) {
 			out << YAML::Key << "MeshRenderer";
 			out << YAML::BeginMap;
-			out << YAML::Key << "Material" << YAML::Value << gameObj.GetComponent<MeshRenderer>().Material;
+			auto material = gameObj.GetComponent<MeshRenderer>().Material;
+			if (material) {
+				out << YAML::Key << "Shader" << YAML::Value << material->GetShader()->GetPath();
+				out << YAML::Key << "Color" << YAML::Value << material->GetColor();
+				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
+			}
 			out << YAML::EndMap;
-		}*/
+		}
 		out << YAML::EndMap;
 	}
 	void SceneSerializer::Serialize(const std::string& filePath)
@@ -134,34 +143,46 @@ namespace EulerEngine {
 			auto gameObjects = data["GameObjects"];
 			if (gameObjects) {
 				for (auto gameObject : gameObjects) {
-					unsigned int uuid = gameObject["GameObject"].as<unsigned int>();
+					std::string uuid = gameObject["GameObject"].as<std::string>();
 
 					KINK_CORE_INFO("Deserializing GameObject: {0}", uuid);
+					std::string objName;
 					if (gameObject["Profile"]) {
-						std::string tag = gameObject["Profile"]["Tag"].as<std::string>();
-						KINK_CORE_INFO("Deserializing Profile: {0}", tag);
+						objName = gameObject["Profile"]["Tag"].as<std::string>();
+						KINK_CORE_INFO("Deserializing Profile: {0}", objName);
 					}
+					GameObject gameObj = m_Scene->CreateObject(objName);
+
 					if (gameObject["Transform"]) {
-						glm::vec3 position = gameObject["Transform"]["Position"].as<glm::vec3>();
-						glm::vec3 rotation = gameObject["Transform"]["Rotation"].as<glm::vec3>();
-						glm::vec3 scale = gameObject["Transform"]["Scale"].as<glm::vec3>();
-						//KINK_CORE_INFO("Deserializing Transform: {0}, {1}, {2}", position, rotation, scale);
+						auto& transform = gameObj.GetComponent<Transform>();
+						transform.Position = gameObject["Transform"]["Position"].as<glm::vec3>();
+						transform.Rotation = gameObject["Transform"]["Rotation"].as<glm::vec3>();
+						transform.Scale = gameObject["Transform"]["Scale"].as<glm::vec3>();
 					}
 					if (gameObject["Camera"]) {
-						int cameraType = gameObject["Camera"]["CameraType"].as<int>();
-						float aspectRatio = gameObject["Camera"]["AspectRatio"].as<float>();
-						float fov = gameObject["Camera"]["FOV"].as<float>();
-						float nearClip = gameObject["Camera"]["NearClip"].as<float>();
-						float farClip = gameObject["Camera"]["FarClip"].as<float>();
-						float size = gameObject["Camera"]["Size"].as<float>();
-						float orthographicNearClip = gameObject["Camera"]["OrthographicNearClip"].as<float>();
-						float orthographicFarClip = gameObject["Camera"]["OrthographicFarClip"].as<float>();
-						//KINK_CORE_INFO("Deserializing Camera: {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}", cameraType, aspectRatio, fov, nearClip, farClip, size, orthographicNearClip, orthographicFarClip);
+						auto type = (CameraType)gameObject["Camera"]["CameraType"].as<int>();
+						auto& camera = gameObj.AddComponent<Camera>(type);
+						camera.isPrimary = gameObject["Camera"]["IsPrimary"].as<bool>();
+						camera.isFixedAspectRatio = gameObject["Camera"]["IsFixedAspectRatio"].as<bool>();
+
+						camera.RendererCamera->SetCameraType(type);
+						camera.RendererCamera->SetAspectRatio(gameObject["Camera"]["AspectRatio"].as<float>());
+						camera.RendererCamera->SetFovAngle(gameObject["Camera"]["Perspective_FOV"].as<float>());
+						camera.RendererCamera->SetPerspectiveNearClip(gameObject["Camera"]["Perspective_NearClip"].as<float>());
+						camera.RendererCamera->SetPerspectiveFarClip(gameObject["Camera"]["Perspective_FarClip"].as<float>());
+						camera.RendererCamera->SetZoomLevel(gameObject["Camera"]["Orthographic_Size"].as<float>());
+						camera.RendererCamera->SetOrthographicNearClip(gameObject["Camera"]["Orthographic_NearClip"].as<float>());
+						camera.RendererCamera->SetOrthographicFarClip(gameObject["Camera"]["Orthographic_FarClip"].as<float>());
 					}
-					//if (gameObject["MeshRenderer"]) {
-					//	std::string material = gameObject["MeshRenderer"]["Material"].as<std::string>();
-					//	//KINK_CORE_INFO("Deserializing MeshRenderer: {0}", material);
-					//}
+					if (gameObject["MeshRenderer"]) {
+						auto& meshRenderer = gameObj.AddComponent<MeshRenderer>();
+
+						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
+						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("",gameObject["MeshRenderer"]["Shader"].as<std::string>()));
+						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
+						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("",gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
+						meshRenderer.Material = material;
+					}
 				}
 			}
 		}

@@ -8,6 +8,7 @@ namespace EulerEngine {
 	void HierarchyPanel::SetContext(const Ref<Scene>& scene)
 	{
 		m_Context = scene;
+		m_SelectedGameObject = {};
 	}
 	void HierarchyPanel::OnImGuiRender()
 	{

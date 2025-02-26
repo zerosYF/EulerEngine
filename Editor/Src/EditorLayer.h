@@ -12,6 +12,11 @@ namespace EulerEngine {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		CameraController m_CameraController;
 		glm::vec4 m_Color = { 0.2f, 0.3f, 0.1f, 1.0f };
 		glm::vec3 m_CubePositions[10] = {

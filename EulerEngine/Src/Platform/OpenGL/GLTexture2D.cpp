@@ -33,7 +33,8 @@ namespace EulerEngine {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		KINK_CORE_INFO("Texture load success... ID:{0}", m_RendererID);
 	}
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path) {
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path): m_Path(path) {
+
 		m_Wrap_S = GL_REPEAT;
 		m_Wrap_T = GL_REPEAT;
 		m_Filter_MIN = GL_LINEAR;
@@ -91,5 +92,9 @@ namespace EulerEngine {
 	bool OpenGLTexture2D::operator==(const Texture& another) const
 	{
 		return m_RendererID == ((OpenGLTexture2D&)another).m_RendererID;
+	}
+	std::string OpenGLTexture2D::GetPath() const
+	{
+		return m_Path;
 	}
 }
