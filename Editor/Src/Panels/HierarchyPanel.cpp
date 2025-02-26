@@ -134,7 +134,9 @@ namespace EulerEngine {
 
 		DrawComponent<Transform>("Transform", gameObject, [](Transform& com) {
 			DrawVec3Control("Position", com.Position);
-			DrawVec3Control("Rotation", com.Rotation);
+			glm::vec3 rotation = glm::degrees(com.Rotation);
+			DrawVec3Control("Rotation", rotation);
+			com.Rotation = glm::radians(rotation);
 			DrawVec3Control("Scale", com.Scale, 1.0f);
 		});
 		DrawComponent<Camera>("Camera", gameObject, [](Camera& com) {

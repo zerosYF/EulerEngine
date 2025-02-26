@@ -43,7 +43,7 @@ namespace EulerEngine {
             void OnDestroy() {
             }
             void OnUpdate(TimerSystem ts) {
-                auto& transform = GetComponent<Transform>();
+                /*auto& transform = GetComponent<Transform>();
                 if (InputSystem::IsKeyDown(KINK_KEY_W)) {
                     transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
                 }
@@ -55,7 +55,7 @@ namespace EulerEngine {
                 }
                 if (InputSystem::IsKeyDown(KINK_KEY_S)) {
                     transform.Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
-                }
+                }*/
             }
         };
         auto& nsc = m_MainCamera.AddComponent<NativeScript>();
@@ -212,7 +212,7 @@ namespace EulerEngine {
 
         //gizmos
         GameObject selectedObj = m_SceneHierarchyPanel.GetSelectedGameObject();
-        if (selectedObj) {
+        if (selectedObj && m_GizmosType != -1) {
             ImGuizmo::SetOrthographic(false);
             ImGuizmo::SetDrawlist();
             ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
@@ -225,7 +225,15 @@ namespace EulerEngine {
             auto& tc = selectedObj.GetComponent<Transform>();
             glm::mat4 transform = tc.GetTransform();
             ImGuizmo::Manipulate(glm::value_ptr(cameraViewMtx), glm::value_ptr(cameraProjMtx),
-                ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform));
+                (ImGuizmo::OPERATION)m_GizmosType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform));
+            if (ImGuizmo::IsUsing()) {
+                glm::vec3 translation, rotation, scale;
+                Math::DecomposeTransform(transform, translation, rotation, scale);
+                glm::vec3 deltaRotation = rotation - tc.Rotation;
+                tc.Rotation += deltaRotation;
+                tc.Position = translation;
+                tc.Scale = scale;
+            }
         }
 
         ImGui::End();
@@ -243,6 +251,23 @@ namespace EulerEngine {
     }
     bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
     {
+        switch (e.GetKeyCode())
+        {
+        case KINK_KEY_Q:
+            m_GizmosType = -1;
+            break;
+        case KINK_KEY_W:
+            m_GizmosType = ImGuizmo::OPERATION::TRANSLATE;
+            break;
+        case KINK_KEY_E:
+            m_GizmosType = ImGuizmo::OPERATION::ROTATE;
+            break;
+        case KINK_KEY_R:
+            m_GizmosType = ImGuizmo::OPERATION::SCALE;
+            break;
+        default:
+            break;
+        }
         return false;
     }
     void EditorLayer::NewScene()

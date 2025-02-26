@@ -38,6 +38,7 @@ namespace EulerEngine {
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
+		int m_GizmosType = -1;
 
 		HierarchyPanel m_SceneHierarchyPanel;
 	};

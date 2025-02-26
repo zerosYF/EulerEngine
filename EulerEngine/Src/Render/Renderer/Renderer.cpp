@@ -4,6 +4,7 @@
 #include"Platform/OpenGL/GLShader.h"
 #include"Core/Logs/EulerLog.h"
 #include"Resource/ResourceLibrary.h"
+#include <glm\gtx\quaternion.hpp>
 namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
@@ -89,9 +90,7 @@ namespace EulerEngine {
 		}
 
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
-		model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
 
 		for (unsigned int i = 0; i < CUBE_VERTEX_CNT; i++) {

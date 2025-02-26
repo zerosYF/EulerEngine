@@ -4,14 +4,21 @@ namespace EulerEngine {
 	void EulerCamera::UpdateView() {
 		float yaw = m_Rotation.y;
 		float pitch = m_Rotation.x;
+		float roll = m_Rotation.z;
 		m_Front = {
-			glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch)),
+			glm::cos(yaw) * glm::cos(pitch),
 			glm::sin(pitch),
-			glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch))
+			glm::sin(yaw) * glm::cos(pitch)
 		};
 		m_Front = glm::normalize(m_Front);
 		m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
 		m_Up = glm::normalize(cross(m_Right, m_Front));
+		//roll
+		glm::mat3 rotateRoll = glm::rotate(glm::mat4(1.0f), roll, m_Front);
+		m_Right = rotateRoll * m_Right;
+		m_Up = rotateRoll * m_Up;
+		m_Front = glm::cross(m_Up, m_Right);
+
 		m_ViewMatrix = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 	}
 	void EulerCamera::UpdateProjection() {

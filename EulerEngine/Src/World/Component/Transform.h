@@ -1,9 +1,10 @@
 #pragma once
 #include"glm/glm.hpp"
+#include <glm\gtx\quaternion.hpp>
 namespace EulerEngine {
 	struct Transform{
 		glm::vec3 Position{0.0f};
-		glm::vec3 Rotation{0.0f};
+		glm::vec3 Rotation{0.0f}; //radians
 		glm::vec3 Scale{1.0f};
 		Transform() = default;
 		Transform(const Transform& other) = default;
@@ -11,11 +12,9 @@ namespace EulerEngine {
 			:Position(position), Rotation(rotation), Scale(scale) {}
 		glm::mat4 GetTransform() const {
 			glm::mat4 transform = glm::mat4(1.0f);
-			transform = glm::translate(transform, Position);
-			transform = glm::rotate(transform, glm::radians(Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-			transform = glm::rotate(transform, glm::radians(Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-			transform = glm::rotate(transform, glm::radians(Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-			transform = glm::scale(transform, Scale);
+			transform *= glm::translate(glm::mat4(1.0f), Position);
+			transform *= glm::toMat4(glm::quat(Rotation));
+			transform *= glm::scale(glm::mat4(1.0f), Scale);
 			return transform;
 		}
 	}; 

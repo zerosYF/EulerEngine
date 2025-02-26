@@ -600,6 +600,7 @@
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="Src\Math\EulerMath.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLBuffer.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLContext.cpp" />
     <ClCompile Include="Src\Platform\OpenGL\GLFrameBuffer.cpp" />
