@@ -224,8 +224,17 @@ namespace EulerEngine {
 
             auto& tc = selectedObj.GetComponent<Transform>();
             glm::mat4 transform = tc.GetTransform();
+
+            bool snap = InputSystem::IsKeyDown(KINK_KEY_LEFT_CONTROL);
+            float snapValue = 0.5f;
+            if (m_GizmosType == ImGuizmo::OPERATION::ROTATE) {
+                snapValue = 45.0f;
+            }
+            float snapValues[3] = { snapValue, snapValue, snapValue };
+
             ImGuizmo::Manipulate(glm::value_ptr(cameraViewMtx), glm::value_ptr(cameraProjMtx),
-                (ImGuizmo::OPERATION)m_GizmosType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform));
+                (ImGuizmo::OPERATION)m_GizmosType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
+                nullptr, snap? snapValues : nullptr);
             if (ImGuizmo::IsUsing()) {
                 glm::vec3 translation, rotation, scale;
                 Math::DecomposeTransform(transform, translation, rotation, scale);
