@@ -1607,5 +1607,6 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Math\EulerMath.cpp" />
   </ItemGroup>
 </Project>

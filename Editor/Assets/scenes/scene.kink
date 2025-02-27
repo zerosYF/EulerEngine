@@ -11,7 +11,8 @@ GameObjects:
       IsPrimary: true
       IsFixedAspectRatio: false
       CameraType: 0
-      AspectRatio: 1.487912
+      ViewportWidth: 697
+      ViewportHeight: 455
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
       Perspective_FarClip: 100

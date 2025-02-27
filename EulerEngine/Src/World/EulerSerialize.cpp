@@ -86,7 +86,8 @@ namespace EulerEngine {
 			out << YAML::Key << "IsFixedAspectRatio" << YAML::Value << gameObj.GetComponent<Camera>().isFixedAspectRatio;
 
 			out << YAML::Key << "CameraType" << YAML::Value << (int)gameObj.GetComponent<Camera>().RendererCamera->GetCameraType();
-			out << YAML::Key << "AspectRatio" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetAspectRatio();
+			out << YAML::Key << "ViewportWidth" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetViewportSize().first;
+			out << YAML::Key << "ViewportHeight" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetViewportSize().second;
 			out << YAML::Key << "Perspective_FOV" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetFovAngle();
 			out << YAML::Key << "Perspective_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveNearClip();
 			out << YAML::Key << "Perspective_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveFarClip(); 
@@ -166,7 +167,7 @@ namespace EulerEngine {
 						camera.isFixedAspectRatio = gameObject["Camera"]["IsFixedAspectRatio"].as<bool>();
 
 						camera.RendererCamera->SetCameraType(type);
-						camera.RendererCamera->SetAspectRatio(gameObject["Camera"]["AspectRatio"].as<float>());
+						camera.RendererCamera->SetViewportSize(gameObject["Camera"]["ViewportWidth"].as<float>(), gameObject["Camera"]["ViewportHeight"].as<float>());
 						camera.RendererCamera->SetFovAngle(gameObject["Camera"]["Perspective_FOV"].as<float>());
 						camera.RendererCamera->SetPerspectiveNearClip(gameObject["Camera"]["Perspective_NearClip"].as<float>());
 						camera.RendererCamera->SetPerspectiveFarClip(gameObject["Camera"]["Perspective_FarClip"].as<float>());

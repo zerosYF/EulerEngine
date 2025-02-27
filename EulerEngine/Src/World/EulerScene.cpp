@@ -28,7 +28,7 @@ namespace EulerEngine {
 		KINK_CORE_ERROR("Destroy OBJ:{0}", (unsigned int)obj);
 		m_Registry.destroy(obj);
 	}
-	void Scene::OnUpdate(TimerSystem ts)
+	void Scene::OnUpdateRuntime(TimerSystem ts)
 	{
 		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
 			if (nsc.Instance == nullptr) {
@@ -61,6 +61,16 @@ namespace EulerEngine {
 			Renderer::EndScene();
 		}
 	}
+	void Scene::OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera)
+	{
+		Renderer::BeginScene(editorCamera);
+		auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
+		for (auto entity : group) {
+			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
+			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material);
+		}
+		Renderer::EndScene();
+	}
 	void Scene::OnViewportResize(int width, int height)
 	{
 		m_ViewportWidth = width;
@@ -69,7 +79,7 @@ namespace EulerEngine {
 		for (auto entity: view) {
 			auto& camera_com = view.get<Camera>(entity);
 			if (!camera_com.isFixedAspectRatio) {
-				camera_com.RendererCamera->SetAspectRatio(float(m_ViewportWidth) / float(m_ViewportHeight));
+				camera_com.RendererCamera->SetViewportSize(float(m_ViewportWidth), float(m_ViewportHeight));
 			}
 		}
 	}
@@ -83,6 +93,7 @@ namespace EulerEngine {
 		}
 		return {};
 	}
+
 
 	template<typename T>
 	void Scene::OnComponentAdded(GameObject obj, T& component) {
@@ -104,7 +115,7 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<Camera>(GameObject obj, Camera& component) {
 		//KINK_CORE_ERROR("viewport_size:{0}, {1}", m_ViewportWidth, m_ViewportHeight);
-		component.RendererCamera->SetAspectRatio((float)m_ViewportWidth / (float)m_ViewportHeight);
+		component.RendererCamera->SetViewportSize((float)m_ViewportWidth, (float)m_ViewportHeight);
 	}
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {

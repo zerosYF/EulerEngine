@@ -1,6 +1,7 @@
 #pragma once
 #include"entt.hpp"
 #include"Core/EulerTimer.h"
+#include"Render/Camera/EulerCamera.h"
 namespace EulerEngine {
 	class GameObject;
 	class Scene {
@@ -10,7 +11,8 @@ namespace EulerEngine {
 		GameObject CreateObject(const std::string& name="GameObject");
 		GameObject CreateObject(unsigned int UUID, const std::string& name="GameObject");
 		void DestroyObject(GameObject& obj);
-		void OnUpdate(TimerSystem ts);
+		void OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera);
+		void OnUpdateRuntime(TimerSystem ts);
 		void OnViewportResize(int width, int height);
 		GameObject GetPrimaryCamera();
 	private:

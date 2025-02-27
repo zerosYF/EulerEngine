@@ -54,9 +54,14 @@ namespace EulerEngine {
 		const float GetAspectRatio() const {
 			return m_AspectRatio;
 		}
-		const void SetAspectRatio(float aspectRatio) {
-			m_AspectRatio = aspectRatio;
+		const void SetViewportSize(float width, float height) {
+			m_ViewportWidth = width;
+			m_ViewportHeight = height;
+			m_AspectRatio = width / height;
 			UpdateProjection();
+		}
+		const std::pair<float, float> GetViewportSize() const {
+			return std::make_pair(m_ViewportWidth, m_ViewportHeight);
 		}
 
 		//Perspective Camera
@@ -104,10 +109,20 @@ namespace EulerEngine {
 			UpdateProjection();
 		}
 
+		const glm::vec3 GetRight() const {
+			return m_Right;
+		}
+		const glm::vec3 GetUp() const {
+			return m_Up;
+		}
+		const glm::vec3 GetFront() const {
+			return m_Front;
+		}
+
 	protected:
 		void UpdateView();
 		void UpdateProjection();
-	private:
+	protected:
 		CameraType m_ProjectionType = CameraType::PERSPECTIVE;
 
 		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -121,6 +136,8 @@ namespace EulerEngine {
 		glm::mat4 m_ProjectionMatrix;
 		glm::mat4 m_ViewMatrix;
 		float m_AspectRatio = 1.0f;
+		float m_ViewportWidth = 1280.0f;
+		float m_ViewportHeight = 720.0f;
 		struct PerspectiveCameraData {
 			float FovAngle = FOV;
 			float NearClip = 0.1f;

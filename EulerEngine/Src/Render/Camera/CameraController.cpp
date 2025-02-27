@@ -9,33 +9,30 @@ namespace EulerEngine{
 	}
 	void CameraController::OnUpdate(TimerSystem ts)
 	{
-		if (InputSystem::IsKeyDown(KINK_KEY_W)) {
-			Move(glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f));
-		}
-		if (InputSystem::IsKeyDown(KINK_KEY_A)) {
-			Move(glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f));
-		}
-		if (InputSystem::IsKeyDown(KINK_KEY_D)) {
-			Move(glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f));
-		}
-		if (InputSystem::IsKeyDown(KINK_KEY_S)) {
-			Move(glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f));
-		}
-		if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_LEFT)) {
-			m_LeftBtn_Pressed = true;
-		}
-		else {
-			m_LeftBtn_Pressed = false;
+		if (InputSystem::IsKeyDown(KINK_KEY_LEFT_ALT)) {
+			const glm::vec2& mouse{ InputSystem::GetCursorPosition().first, InputSystem::GetCursorPosition().second };
+			glm::vec2 delta = (mouse - m_LastMousePosition) * 0.003f;
+			m_LastMousePosition = mouse;
+
+			if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_MIDDLE)) {
+				Pan(delta);
+				KINK_CORE_INFO("PAN:{0}, {1}, {2}", m_CameraPosition.x, m_CameraPosition.y, m_CameraPosition.z);
+			}
+			else if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_LEFT)) {
+				Rotate(delta);
+			}
+			else if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_RIGHT)) {
+				Zoom(delta.y);
+			}
+
 		}
 		m_Camera->SetPosition(m_CameraPosition);
-		m_Camera->SetRotation(m_CameraRotation);
+		m_Camera->SetRotation(glm::radians(m_CameraRotation));
 	}
 	void CameraController::OnEvent(Event & e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(KINK_BIND_EVENT_FUNC(CameraController::OnMouseScrolled));
-		dispatcher.Dispatch<WindowResizeEvent>(KINK_BIND_EVENT_FUNC(CameraController::OnWindowReized));
-		dispatcher.Dispatch<MouseMovedEvent>(KINK_BIND_EVENT_FUNC(CameraController::OnMouseMoved));
 	}
 	void CameraController::OnResize(float width, float height)
 	{
@@ -45,16 +42,24 @@ namespace EulerEngine{
 		Zoom(e.GetYOffset() * 0.1f);
 		return false;
 	}
-	bool CameraController::OnWindowReized(WindowResizeEvent & e)
+	std::pair<float, float> CameraController::PanSpeed() const
 	{
-		return false;
+		float x = std::min(m_Camera->GetViewportSize().first / 1000.0f, 2.4f);
+		float xFactor = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
+		float y = std::min(m_Camera->GetViewportSize().second / 1000.0f, 2.4f);
+		float yFactor = 0.0366f * (y * y) - 0.1778f * y + 0.3021f;
+		return std::pair<float, float>(xFactor, yFactor);
 	}
-	bool CameraController::OnMouseMoved(MouseMovedEvent & e)
+	float CameraController::RotationSpeed() const
 	{
-		if (!m_LeftBtn_Pressed) {
-			return false;
-		}
-		Rotate(glm::vec2(e.GetXOffset() * 10.0f , e.GetYOffset()) * 0.01f);
-		return false;
+		return 4.0f;
+	}
+	float CameraController::ZoomSpeed() const
+	{
+		float distance = m_Distance * 0.2f;
+		distance = std::max(distance, 0.0f);
+		float speed = distance * distance;
+		speed = std::min(speed, 100.0f);
+		return speed;
 	}
 }

@@ -1,7 +1,7 @@
 #include"EditorLayer.h"
 #include"ImGuizmo.h"
 namespace EulerEngine {
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_CameraController(PERSPECTIVE)
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE)
     {
     }
     void EditorLayer::OnDetach()
@@ -70,14 +70,14 @@ namespace EulerEngine {
         FrameBufferSpecifications spec = m_FrameBuffer->GetSpecifications();
         if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {
             m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
-            m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+            m_EditorCameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
             m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
         }
 
         m_FrameBuffer->Bind();
         {
             if(m_ViewportFocused || m_ViewportHovered)
-                m_CameraController.OnUpdate(ts);
+                m_EditorCameraController.OnUpdate(ts);
         }
         Renderer::ResetStatistic();
         {
@@ -86,15 +86,8 @@ namespace EulerEngine {
         }
 
         {
-            m_ActiveScene->OnUpdate(ts);
-           /* auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
-            Renderer::BeginScene(m_MainCamera.GetComponent<Camera>().RendererCamera);
-            for (int i = 0; i < 10; i++) {
-                float angle = 20.0f * i;
-                auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
-                Renderer::DrawCube(shader, m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), m_Color, texture2D);
-            }
-            Renderer::EndScene();*/
+            //m_ActiveScene->OnUpdateRuntime(ts);
+            m_ActiveScene->OnUpdateEditor(ts, m_EditorCameraController.GetCamera());
         }
         m_FrameBuffer->Unbind();
     }
@@ -217,10 +210,13 @@ namespace EulerEngine {
             ImGuizmo::SetDrawlist();
             ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-            auto cameraObj = m_ActiveScene->GetPrimaryCamera();
+            /*auto cameraObj = m_ActiveScene->GetPrimaryCamera();
             const auto& cameraCom = cameraObj.GetComponent<Camera>();
             const auto& cameraViewMtx = cameraCom.RendererCamera->GetViewMatrix();
-            const auto& cameraProjMtx = cameraCom.RendererCamera->GetProjectionMatrix();
+            const auto& cameraProjMtx = cameraCom.RendererCamera->GetProjectionMatrix();*/
+
+            const auto& cameraViewMtx = m_EditorCameraController.GetCamera()->GetViewMatrix();
+            const auto& cameraProjMtx = m_EditorCameraController.GetCamera()->GetProjectionMatrix();
 
             auto& tc = selectedObj.GetComponent<Transform>();
             glm::mat4 transform = tc.GetTransform();
@@ -254,7 +250,7 @@ namespace EulerEngine {
 
     void EditorLayer::OnEvent(Event& e)
     {
-        m_CameraController.OnEvent(e);
+        m_EditorCameraController.OnEvent(e);
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<KeyPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnKeyPressed));
     }
