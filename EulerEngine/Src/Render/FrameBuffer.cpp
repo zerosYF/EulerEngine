@@ -3,7 +3,7 @@
 #include"Platform/OpenGL/GLFrameBuffer.h"
 #include"Renderer/Renderer.h"
 namespace EulerEngine {
-	Ref<FrameBuffer> FrameBuffer::Create(const FrameBufferSpecifications& specs)
+	Ref<FrameBuffer> FrameBuffer::Create(const FrameBufferSpecification& specs)
 	{
 		switch (Renderer::GetAPI())
 		{

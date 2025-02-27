@@ -22,7 +22,11 @@ in vec2 TexCoord;
 uniform vec4 color;
 uniform int texture_index;
 uniform sampler2D textures[32];
+
+layout(location = 0) out vec4 Color;
+layout(location = 1) out vec4 Color1;
 void main() {
 	
-	FragColor = mix(texture(textures[texture_index], TexCoord), color, 0.2f);
+	Color = mix(texture(textures[texture_index], TexCoord), color, 0.2f);
+	Color1 = mix(texture(textures[texture_index], TexCoord), vec4(1.0f, 1.0f, 0.0f, 0.0f), 0.5f);
 }

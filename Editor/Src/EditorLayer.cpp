@@ -13,9 +13,10 @@ namespace EulerEngine {
     {
         Renderer::Init();
 
-        FrameBufferSpecifications spec;
-        spec.Width = 0;
-        spec.Height = 0;
+        FrameBufferSpecification spec;
+        spec.Width = 1280;
+        spec.Height = 720;
+        spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::Depth };
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
 
@@ -67,7 +68,7 @@ namespace EulerEngine {
     void EditorLayer::OnUpdate(TimerSystem ts)
     {
 
-        FrameBufferSpecifications spec = m_FrameBuffer->GetSpecifications();
+        FrameBufferSpecification spec = m_FrameBuffer->GetSpecifications();
         if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {
             m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
             m_EditorCameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
@@ -200,7 +201,7 @@ namespace EulerEngine {
         Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused && !m_ViewportHovered);
         ImVec2 size = ImGui::GetContentRegionAvail();
         m_ViewportSize = { size.x, size.y };
-        unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+        unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
         ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
         //gizmos

@@ -36,6 +36,7 @@ namespace EulerEngine{
 	}
 	void CameraController::OnResize(float width, float height)
 	{
+		m_Camera->SetViewportSize(width, height);
 	}
 	bool CameraController::OnMouseScrolled(MouseScrolledEvent & e)
 	{

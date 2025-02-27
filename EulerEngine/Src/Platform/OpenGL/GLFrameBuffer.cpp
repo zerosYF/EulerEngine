@@ -3,46 +3,129 @@
 #include"Core/Logs/EulerLog.h"
 #include"glad/glad.h"
 namespace EulerEngine {
-	GLFrameBuffer::GLFrameBuffer(const FrameBufferSpecifications& specifications):m_Specifications(specifications)
+	static const unsigned int s_MaxFramebufferSize = 8192;
+	static GLenum TextureTarget(bool multisampled) {
+		return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
+	}
+	static bool IsDepthFormat(FrameBufferTextureFormat format) {
+		switch (format) {
+		case FrameBufferTextureFormat::DEPTH24STENCIL8:
+			return true;
+		}
+		return false;
+	}
+
+	static void CreateTextures(unsigned int* outTextures, unsigned int count) {
+		glGenTextures(count, outTextures);
+	}
+	static void BindTexture(bool multisampled, unsigned int texture_id) {
+		glBindTexture(TextureTarget(multisampled), texture_id);
+	}
+	static void AttachColorTexture(unsigned int textureAttachmentID, unsigned int samples, GLenum format, int width, int height, unsigned int idx) {
+		bool multisampled = samples > 1;
+		if (multisampled) {
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, format, width, height, GL_FALSE);
+		}
+		else {
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + idx, TextureTarget(multisampled), textureAttachmentID, 0);
+	}
+	static void AttachDepthTexture(unsigned int depthAttachmentID, unsigned int samples, GLenum format, GLenum attachmentType, int width, int height) {
+		bool multiplesampled = samples > 1;
+		if (multiplesampled) {
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, format, width, height, GL_FALSE);
+		}
+		else {
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		}
+		glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, TextureTarget(multiplesampled), depthAttachmentID, 0);
+	}
+	GLFrameBuffer::GLFrameBuffer(const FrameBufferSpecification& specification):m_Specification(specification)
 	{
+		for (auto spec: m_Specification.Attachments.TextureSpecs) {
+			if (IsDepthFormat(spec.Format)) {
+				m_DepthAttachmentSpec = spec;
+			}
+			else {
+				m_ColorAttachmentSpecs.emplace_back(spec);
+			}
+		}
 		Invalidate();
 	}
 	GLFrameBuffer::~GLFrameBuffer()
 	{
 		glDeleteFramebuffers(1, &m_RendererID);
-		glDeleteTextures(1, &m_ColorAttachment);
+		glDeleteTextures(m_ColorAttachments.size(), m_ColorAttachments.data());
 		glDeleteTextures(1, &m_DepthAttachment);
 	}
 	void GLFrameBuffer::Invalidate()
 	{
 		if (m_RendererID) {
 			glDeleteFramebuffers(1, &m_RendererID);
-			glDeleteTextures(1, &m_ColorAttachment);
+			glDeleteTextures(m_ColorAttachments.size(), m_ColorAttachments.data());
 			glDeleteTextures(1, &m_DepthAttachment);
+
+			m_ColorAttachments.clear();
+			m_DepthAttachment = 0;
 		}
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 
-		glGenTextures(1, &m_ColorAttachment);
-		glBindTexture(GL_TEXTURE_2D, m_ColorAttachment);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Specifications.Width, m_Specifications.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_ColorAttachment, 0);
+		bool multisampled = m_Specification.Samples > 1;
+		if (m_ColorAttachmentSpecs.size()) {
+			m_ColorAttachments.resize(m_ColorAttachmentSpecs.size());
+			CreateTextures(m_ColorAttachments.data(), m_ColorAttachments.size());
 
-		glGenTextures(1, &m_DepthAttachment);
-		glBindTexture(GL_TEXTURE_2D, m_DepthAttachment);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_Specifications.Width, m_Specifications.Height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_DepthAttachment, 0);
+			for (unsigned int i = 0; i < m_ColorAttachments.size(); i++) {
+				BindTexture(multisampled, m_ColorAttachments[i]);
+				switch (m_ColorAttachmentSpecs[i].Format) {
+				case FrameBufferTextureFormat::RGBA8:
+					AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, m_Specification.Width, m_Specification.Height, i);
+					break;
+				}
+			}
+		}
 
-		//KINK_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is not complete!");
+		if (m_DepthAttachmentSpec.Format != FrameBufferTextureFormat::None) {
+			KINK_INFO("Depth attachment is supported yet!");
+			CreateTextures(&m_DepthAttachment, 1);
+			BindTexture(multisampled, m_DepthAttachment);
+			switch (m_DepthAttachmentSpec.Format) {
+			case FrameBufferTextureFormat::DEPTH24STENCIL8:
+				KINK_INFO("Depth attachment ID:{0}", m_DepthAttachment);
+				AttachDepthTexture(m_DepthAttachment, m_Specification.Samples, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, m_Specification.Width, m_Specification.Height);
+				break;
+			}
+		}
+
+		if (m_ColorAttachments.size() > 1) {
+			KINK_CORE_ASSERT(m_ColorAttachments.size() <= 4, "Framebuffer can have at most 4 color attachments!");
+			GLenum buffers[4] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3};
+			glDrawBuffers(m_ColorAttachments.size(), buffers);
+		}
+		else if (m_ColorAttachments.empty()) {
+			glDrawBuffer(GL_NONE);
+		}
+
+		KINK_CORE_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is not complete!");
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	void GLFrameBuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
-		glViewport(0, 0, m_Specifications.Width, m_Specifications.Height);
+		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
 	}
 	void GLFrameBuffer::Unbind()
 	{
@@ -50,8 +133,8 @@ namespace EulerEngine {
 	}
 	void GLFrameBuffer::Resize(unsigned int width, unsigned int height)
 	{
-		m_Specifications.Width = width;
-		m_Specifications.Height = height;
+		m_Specification.Width = width;
+		m_Specification.Height = height;
 		KINK_CORE_ASSERT(width > 0 && height > 0, "Framebuffer size cannot be zero!");
 		Invalidate();
 	}
