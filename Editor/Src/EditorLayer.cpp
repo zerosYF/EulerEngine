@@ -287,6 +287,7 @@ namespace EulerEngine {
         m_EditorCameraController.OnEvent(e);
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<KeyPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnKeyPressed));
+        dispatcher.Dispatch<MouseButtonPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnMouseButtonPressed));
     }
     bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
     {
@@ -306,6 +307,14 @@ namespace EulerEngine {
             break;
         default:
             break;
+        }
+        return false;
+    }
+    bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e) {
+        if (e.GetMouseButton() == KINK_MOUSE_BUTTON_LEFT) {
+            if (m_HoveredGameObject && !ImGuizmo::IsOver() && !InputSystem::IsKeyDown(KINK_KEY_LEFT_ALT)) {
+                m_SceneHierarchyPanel.SetSeletedGameObject(m_HoveredGameObject);
+            }
         }
         return false;
     }
