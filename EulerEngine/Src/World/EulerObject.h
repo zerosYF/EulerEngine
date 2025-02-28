@@ -22,7 +22,6 @@ namespace EulerEngine {
 			KINK_CORE_ASSERT(HasComponent<T>(), "Component does not exist on GameObject");
 			return m_Scene->m_Registry.get<T>(m_Entity);
 		}
-
 		template<typename T>
 		bool HasComponent(){
 			return m_Scene->m_Registry.try_get<T>(m_Entity)!= nullptr;

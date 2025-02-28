@@ -17,6 +17,7 @@ namespace EulerEngine {
 		EulerEngine::BufferLayout layout = {
 			{EulerEngine::ShaderDataType::Float3, "aPosition"},
 			{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
+			{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
 		};
 		m_SceneData->Cube_VB->SetLayout(layout);
 		m_SceneData->Cube_VA->AddVertexBuffer(m_SceneData->Cube_VB);
@@ -62,9 +63,9 @@ namespace EulerEngine {
 		material->SetShader(shader);
 		material->SetColor(color);
 		material->SetTexture(texture);
-		DrawCube(position, rotation, scale, material);
+		DrawCube(position, rotation, scale, material, -1);
 	}
-	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material)
+	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID)
 	{
 		auto shader = material->GetShader();
 		int samplers[MAX_TEXTURE_SLOTS];
@@ -97,15 +98,15 @@ namespace EulerEngine {
 			unsigned int head_index = CUBE_DATA_SIZE * i;
 			glm::vec4 VerticePosition
 				= glm::vec4(EulerEngine::CubeVertices[head_index], EulerEngine::CubeVertices[head_index + 1], EulerEngine::CubeVertices[head_index + 2], 1.0f);
-			m_SceneData->CubeVertexArrayPtr->Position = VerticePosition;
+			m_SceneData->CubeVertexArrayPtr->Position = model * VerticePosition;
 			m_SceneData->CubeVertexArrayPtr->TexCoord = glm::vec2(EulerEngine::CubeVertices[head_index + 3], EulerEngine::CubeVertices[head_index + 4]);
+			m_SceneData->CubeVertexArrayPtr->GameObjectID = objID;
 			m_SceneData->CubeVertexArrayPtr++;
 		}
 
 		shader->Bind();
 		shader->SetMat4("view", m_SceneData->ViewMatrix);
 		shader->SetMat4("projection", m_SceneData->ProjectionMatrix);
-		shader->SetMat4("model", model);
 		shader->SetInt("texture_index", textureIndex);
 		shader->SetVec4("color", material->GetColor());
 

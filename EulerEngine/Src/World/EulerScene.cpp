@@ -56,7 +56,7 @@ namespace EulerEngine {
 			auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 			for (auto entity : group) {
 				auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material);
+				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
 			}
 			Renderer::EndScene();
 		}
@@ -65,9 +65,10 @@ namespace EulerEngine {
 	{
 		Renderer::BeginScene(editorCamera);
 		auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
+		//KINK_CORE_INFO("COUNT£º{0}", group.size());
 		for (auto entity : group) {
 			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material);
+			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
 		}
 		Renderer::EndScene();
 	}

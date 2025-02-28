@@ -9,6 +9,9 @@ namespace EulerEngine {
 		virtual void Bind() override;
 		virtual void Unbind() override;
 		virtual void Resize(unsigned int width, unsigned int height) override;
+		virtual int ReadPixel(unsigned int attachmentIndex, int x, int y) override;
+		virtual void ClearAttachment(unsigned int attachmentIndex, int value) override;
+
 		virtual const FrameBufferSpecification& GetSpecifications() const override { return m_Specification; }
 		virtual unsigned int GetColorAttachmentRendererID(unsigned int idx) const override { 
 			KINK_CORE_ASSERT(idx < m_ColorAttachments.size(), "Index out of range");

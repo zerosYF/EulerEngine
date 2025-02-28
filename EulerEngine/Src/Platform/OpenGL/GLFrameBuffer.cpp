@@ -14,6 +14,26 @@ namespace EulerEngine {
 		}
 		return false;
 	}
+	static GLenum KinkFrameBufferTextureFormatToOpenGL(FrameBufferTextureFormat format) {
+		switch (format) {
+		case FrameBufferTextureFormat::RGBA8:
+			return GL_RGBA8;
+		case FrameBufferTextureFormat::RED_INTEGER:
+			return GL_RED_INTEGER;
+		}
+		KINK_CORE_ASSERT(false, "Unknown texture format!");
+		return 0;
+	}
+	static GLenum GLDataTypeFromFrameBufferTextureFormat(FrameBufferTextureFormat format) {
+		switch (format) {
+		case FrameBufferTextureFormat::RGBA8:
+			return GL_UNSIGNED_BYTE;
+		case FrameBufferTextureFormat::RED_INTEGER:
+			return GL_INT;
+		}
+		KINK_CORE_ASSERT(false, "Unknown texture format!");
+		return 0;
+	}
 
 	static void CreateTextures(unsigned int* outTextures, unsigned int count) {
 		glGenTextures(count, outTextures);
@@ -21,13 +41,13 @@ namespace EulerEngine {
 	static void BindTexture(bool multisampled, unsigned int texture_id) {
 		glBindTexture(TextureTarget(multisampled), texture_id);
 	}
-	static void AttachColorTexture(unsigned int textureAttachmentID, unsigned int samples, GLenum format, int width, int height, unsigned int idx) {
+	static void AttachColorTexture(unsigned int textureAttachmentID, unsigned int samples, GLenum internal_format, GLenum format, int width, int height, unsigned int idx) {
 		bool multisampled = samples > 1;
 		if (multisampled) {
 			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, format, width, height, GL_FALSE);
 		}
 		else {
-			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, format, GL_UNSIGNED_BYTE, nullptr);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -91,7 +111,10 @@ namespace EulerEngine {
 				BindTexture(multisampled, m_ColorAttachments[i]);
 				switch (m_ColorAttachmentSpecs[i].Format) {
 				case FrameBufferTextureFormat::RGBA8:
-					AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, m_Specification.Width, m_Specification.Height, i);
+					AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, GL_RGBA, m_Specification.Width, m_Specification.Height, i);
+					break;
+				case FrameBufferTextureFormat::RED_INTEGER:
+					AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_R32I, GL_RED_INTEGER, m_Specification.Width, m_Specification.Height, i);
 					break;
 				}
 			}
@@ -137,6 +160,21 @@ namespace EulerEngine {
 		m_Specification.Height = height;
 		KINK_CORE_ASSERT(width > 0 && height > 0, "Framebuffer size cannot be zero!");
 		Invalidate();
+	}
+	int GLFrameBuffer::ReadPixel(unsigned int attachmentIndex, int x, int y)
+	{
+		KINK_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size(), "Invalid attachment index!");
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);
+		int pixel;
+		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixel);
+		return pixel;
+	}
+	void GLFrameBuffer::ClearAttachment(unsigned int attachmentIndex, int value)
+	{
+		KINK_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size(), "Invalid attachment index!");
+		auto& spec = m_ColorAttachmentSpecs[attachmentIndex];
+		glClearTexImage(m_ColorAttachments[attachmentIndex], 0,
+			KinkFrameBufferTextureFormatToOpenGL(spec.Format), GL_INT, &value);
 	}
 }
 

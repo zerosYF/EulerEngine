@@ -4,6 +4,7 @@ namespace EulerEngine {
 	enum class FrameBufferTextureFormat {
 		None = 0,
 		RGBA8,
+		RED_INTEGER,
 		DEPTH24STENCIL8,
 		Depth = DEPTH24STENCIL8
 	};
@@ -33,6 +34,8 @@ namespace EulerEngine {
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		virtual void Resize(unsigned int width, unsigned int height) = 0;
-		virtual unsigned int GetColorAttachmentRendererID(unsigned int idx) const = 0;
+		virtual int ReadPixel(unsigned int attachmentIndex, int x, int y) = 0;
+		virtual void ClearAttachment(unsigned int attachmentIndex, int value) = 0;
+		virtual unsigned int GetColorAttachmentRendererID(unsigned int idx = 0) const = 0;
 	};
 }

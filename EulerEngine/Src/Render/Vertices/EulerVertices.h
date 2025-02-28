@@ -13,6 +13,7 @@ namespace EulerEngine {
 	extern struct CubeVertex{
 		glm::vec3 Position;
 		glm::vec2 TexCoord;
+		int GameObjectID = 0;
 		//glm::vec3 Normal;
 	};
 	extern struct SquareVertex{

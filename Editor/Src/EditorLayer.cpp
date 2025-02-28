@@ -1,7 +1,7 @@
 #include"EditorLayer.h"
 #include"ImGuizmo.h"
 namespace EulerEngine {
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE)
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE),m_ViewportBounds()
     {
     }
     void EditorLayer::OnDetach()
@@ -16,7 +16,7 @@ namespace EulerEngine {
         FrameBufferSpecification spec;
         spec.Width = 1280;
         spec.Height = 720;
-        spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::Depth };
+        spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::Depth };
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
 
@@ -84,12 +84,34 @@ namespace EulerEngine {
         {
             RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.5f, 1.0f });
             RenderCommand::Clear();
+            m_FrameBuffer->ClearAttachment(1, -1);
         }
 
         {
             //m_ActiveScene->OnUpdateRuntime(ts);
             m_ActiveScene->OnUpdateEditor(ts, m_EditorCameraController.GetCamera());
         }
+
+        auto [mx, my] = ImGui::GetMousePos();
+        mx -= m_ViewportBounds[0].x;
+        my -= m_ViewportBounds[0].y;
+        glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
+        my = viewportSize.y - my;
+        int mouseX = (int)mx;
+        int mouseY = (int)my;
+        //KINK_CORE_TRACE("Mouse Position: {0}, {1}", mouseX, mouseY);
+        if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+        {
+            int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+            KINK_CORE_TRACE("Pixel Data: {0}", pixelData);
+            glm::vec4 color = glm::vec4((pixelData >> 24) & 0xff, (pixelData >> 16) & 0xff, (pixelData >> 8) & 0xff, (pixelData >> 0) & 0xff) / 255.0f;
+            //m_HoveredGameObject = m_ActiveScene->GetObjectByColor(color);
+        }
+        else
+        {
+            //m_HoveredGameObject = nullptr;
+        }
+
         m_FrameBuffer->Unbind();
     }
 
@@ -195,6 +217,8 @@ namespace EulerEngine {
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("Viewport"); 
+        auto viewportOffset = ImGui::GetCursorPos();
+
         m_ViewportFocused = ImGui::IsWindowFocused();
         m_ViewportHovered = ImGui::IsWindowHovered();
         
@@ -203,6 +227,14 @@ namespace EulerEngine {
         m_ViewportSize = { size.x, size.y };
         unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
         ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+
+        auto windowSize = ImGui::GetWindowSize();
+        ImVec2 minBound = ImGui::GetWindowPos();
+        minBound.x += viewportOffset.x;
+        minBound.y += viewportOffset.y;
+        ImVec2 maxBound = { minBound.x + size.x, minBound.y + size.y };
+        m_ViewportBounds[0] = { minBound.x, minBound.y };
+        m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 
         //gizmos
         GameObject selectedObj = m_SceneHierarchyPanel.GetSelectedGameObject();

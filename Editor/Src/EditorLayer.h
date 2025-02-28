@@ -36,10 +36,12 @@ namespace EulerEngine {
 		GameObject m_MainCamera;
 		GameObject m_CanvasCamera;
 		glm::vec2 m_ViewportSize;
+		glm::vec2 m_ViewportBounds[2];
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
 		int m_GizmosType = -1;
 
 		HierarchyPanel m_SceneHierarchyPanel;
+
 	};
 }
