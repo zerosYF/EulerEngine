@@ -42,6 +42,6 @@ namespace EulerEngine {
 		int m_GizmosType = -1;
 
 		HierarchyPanel m_SceneHierarchyPanel;
-
+		GameObject m_HoveredGameObject;
 	};
 }

@@ -14,6 +14,7 @@ namespace EulerEngine {
 		void OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera);
 		void OnUpdateRuntime(TimerSystem ts);
 		void OnViewportResize(int width, int height);
+		GameObject GetGameObject(unsigned int UUID);
 		GameObject GetPrimaryCamera();
 	private:
 		template<typename T>

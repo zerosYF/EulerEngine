@@ -16,7 +16,7 @@ namespace EulerEngine{
 
 			if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_MIDDLE)) {
 				Pan(delta);
-				KINK_CORE_INFO("PAN:{0}, {1}, {2}", m_CameraPosition.x, m_CameraPosition.y, m_CameraPosition.z);
+				//KINK_CORE_INFO("PAN:{0}, {1}, {2}", m_CameraPosition.x, m_CameraPosition.y, m_CameraPosition.z);
 			}
 			else if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_LEFT)) {
 				Rotate(delta);
@@ -26,6 +26,7 @@ namespace EulerEngine{
 			}
 
 		}
+		CalculatePosition();
 		m_Camera->SetPosition(m_CameraPosition);
 		m_Camera->SetRotation(glm::radians(m_CameraRotation));
 	}

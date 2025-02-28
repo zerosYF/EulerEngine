@@ -103,13 +103,13 @@ namespace EulerEngine {
         if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
         {
             int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-            KINK_CORE_TRACE("Pixel Data: {0}", pixelData);
-            glm::vec4 color = glm::vec4((pixelData >> 24) & 0xff, (pixelData >> 16) & 0xff, (pixelData >> 8) & 0xff, (pixelData >> 0) & 0xff) / 255.0f;
-            //m_HoveredGameObject = m_ActiveScene->GetObjectByColor(color);
-        }
-        else
-        {
-            //m_HoveredGameObject = nullptr;
+            //KINK_CORE_TRACE("Pixel Data: {0}", pixelData);
+            if (pixelData != -1) {
+                m_HoveredGameObject = {(entt::entity)pixelData, m_ActiveScene.get()};
+            }
+            else {
+                m_HoveredGameObject = {};
+            }
         }
 
         m_FrameBuffer->Unbind();
@@ -207,7 +207,8 @@ namespace EulerEngine {
 
         m_SceneHierarchyPanel.OnImGuiRender();
 
-        ImGui::Begin("Settings");
+        ImGui::Begin("Statistics");
+        ImGui::Text("Hovered Object: %s", m_HoveredGameObject? m_HoveredGameObject.GetComponent<Profile>().Tag.c_str() : "None");
         ImGui::ColorEdit4("Clear Color", glm::value_ptr(m_Color));
         ImGui::Text("Renderer Info:");
         ImGui::Text("Draw Calls: %d", Renderer::GetStats().DrawCalls);
