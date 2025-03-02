@@ -25,5 +25,6 @@ namespace EulerEngine {
 		virtual void Bind(unsigned int slot) const override;
 		virtual bool operator==(const Texture& another) const override;
 		virtual std::string GetPath() const override;
+		virtual unsigned int GetRendererID() const override { return m_RendererID; }
 	};
 }

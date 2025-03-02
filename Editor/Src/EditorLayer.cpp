@@ -1,6 +1,7 @@
 #include"EditorLayer.h"
 #include"ImGuizmo.h"
 namespace EulerEngine {
+    extern const std::filesystem::path s_AssetsPath;
     EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE),m_ViewportBounds()
     {
     }
@@ -224,6 +225,14 @@ namespace EulerEngine {
         unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
         ImGui::Image(textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
+        if (ImGui::BeginDragDropTarget()) {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
+                const wchar_t* path = (const wchar_t*)payload->Data;
+                OpenScene(std::filesystem::path(s_AssetsPath) / path);
+            }
+            ImGui::EndDragDropTarget();
+        }
+
         auto windowSize = ImGui::GetWindowSize();
         ImVec2 minBound = ImGui::GetWindowPos();
         minBound.x += viewportOffset.x;
@@ -323,13 +332,17 @@ namespace EulerEngine {
     {
         std::string filepath = FileDialogs::OpenFile("Kink Scene (*.kink)\0*.kink\0");
         if (!filepath.empty()) {
-            m_ActiveScene = CreateRef<Scene>();
-            m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
-            m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-
-            SceneSerializer serializer(m_ActiveScene);
-            serializer.Deserialize(filepath);
+            OpenScene(filepath);
         }
+    }
+    void EditorLayer::OpenScene(const std::filesystem::path& path)
+    {
+        m_ActiveScene = CreateRef<Scene>();
+        m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+        SceneSerializer serializer(m_ActiveScene);
+        serializer.Deserialize(path.string());
     }
     void EditorLayer::SaveSceneAs()
     {

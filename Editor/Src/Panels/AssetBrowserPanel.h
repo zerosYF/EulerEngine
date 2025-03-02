@@ -1,5 +1,6 @@
 #pragma once
 #include<filesystem>
+#include"Render/EulerTexture.h"
 namespace EulerEngine {
 	class AssetBrowserPanel {
 	public:
@@ -7,5 +8,7 @@ namespace EulerEngine {
 		void OnImGuiRender();
 	private:
 		std::filesystem::path m_CurrentDirectory;
+		Ref<Texture2D> m_DirectoryIcon;
+		Ref<Texture2D> m_FileIcon;
 	};
 }

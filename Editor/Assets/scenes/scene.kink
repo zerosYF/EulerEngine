@@ -4,15 +4,15 @@ GameObjects:
     Profile:
       Tag: Camera
     Transform:
-      Position: [0, 0, 3]
+      Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Camera:
       IsPrimary: true
       IsFixedAspectRatio: false
       CameraType: 0
-      ViewportWidth: 697
-      ViewportHeight: 455
+      ViewportWidth: 710
+      ViewportHeight: 421
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
       Perspective_FarClip: 100
@@ -28,5 +28,5 @@ GameObjects:
       Scale: [1, 1, 1]
     MeshRenderer:
       Shader: Shaders/Camera/first_test.glsl
-      Color: [0.2, 0.3, 0.1, 1]
+      Color: [1, 1, 1, 1]
       TexturePath: Assets/mytextures/container2.png

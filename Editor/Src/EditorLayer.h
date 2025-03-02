@@ -2,6 +2,7 @@
 #include"GutKink.h"
 #include"Panels/HierarchyPanel.h"
 #include"Panels/AssetBrowserPanel.h"
+#include<filesystem>
 namespace EulerEngine { 
 	class EditorLayer :public EulerLayer {
 	public:
@@ -18,6 +19,7 @@ namespace EulerEngine {
 
 		void NewScene();
 		void OpenScene();
+		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
 	private:
 		CameraController m_EditorCameraController;

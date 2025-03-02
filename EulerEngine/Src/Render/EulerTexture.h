@@ -20,6 +20,7 @@ namespace EulerEngine {
 		virtual void Bind(unsigned int slot=0) const = 0;
 		virtual bool operator==(const Texture& another) const = 0;
 		virtual std::string GetPath() const = 0;
+		virtual unsigned int GetRendererID() const = 0;
 	};
 	class Texture2D :public Texture {
 	public:
