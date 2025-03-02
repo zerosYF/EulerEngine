@@ -22,18 +22,12 @@ namespace EulerEngine {
 
         auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
         auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
-        auto material = EulerMaterial::Create();
-        material->SetShader(shader);
-        material->SetColor(m_Color);
-        material->SetTexture(texture2D);
 
         auto cube = m_ActiveScene->CreateObject("Cube");
         cube.AddComponent<MeshRenderer>();
-        cube.GetComponent<MeshRenderer>().Material = material;
 
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
         m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
-        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 3.0f);
 
 
         class CameraController:public EulerBehaviour {
@@ -82,7 +76,7 @@ namespace EulerEngine {
         }
         Renderer::ResetStatistic();
         {
-            RenderCommand::SetClearColor({ 0.2f, 0.3f, 0.5f, 1.0f });
+            RenderCommand::SetClearColor(m_Color);
             RenderCommand::Clear();
             m_FrameBuffer->ClearAttachment(1, -1);
         }
@@ -206,6 +200,7 @@ namespace EulerEngine {
         
 
         m_SceneHierarchyPanel.OnImGuiRender();
+        m_AssetBrowserPanel.OnImGuiRender();
 
         ImGui::Begin("Statistics");
         ImGui::Text("Hovered Object: %s", m_HoveredGameObject? m_HoveredGameObject.GetComponent<Profile>().Tag.c_str() : "None");

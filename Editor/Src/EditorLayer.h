@@ -1,6 +1,7 @@
 #pragma once
 #include"GutKink.h"
 #include"Panels/HierarchyPanel.h"
+#include"Panels/AssetBrowserPanel.h"
 namespace EulerEngine { 
 	class EditorLayer :public EulerLayer {
 	public:
@@ -44,6 +45,7 @@ namespace EulerEngine {
 		int m_GizmosType = -1;
 
 		HierarchyPanel m_SceneHierarchyPanel;
+		AssetBrowserPanel m_AssetBrowserPanel;
 		GameObject m_HoveredGameObject;
 	};
 }

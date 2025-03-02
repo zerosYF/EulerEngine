@@ -129,11 +129,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Src\EditorLayer.h" />
+    <ClInclude Include="Src\Panels\AssetBrowserPanel.h" />
     <ClInclude Include="Src\Panels\HierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\EditorApp.cpp" />
     <ClCompile Include="Src\EditorLayer.cpp" />
+    <ClCompile Include="Src\Panels\AssetBrowserPanel.cpp" />
     <ClCompile Include="Src\Panels\HierarchyPanel.cpp" />
   </ItemGroup>
   <ItemGroup>

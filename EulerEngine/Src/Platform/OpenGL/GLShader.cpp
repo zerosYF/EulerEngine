@@ -2,7 +2,9 @@
 #include"GLShader.h"
 #include<GLFW/glfw3.h>
 #include<glad/glad.h>
+#include<filesystem>
 #include"Core/Logs/EulerLog.h"
+#include"Core/EulerTimer.h"
 namespace EulerEngine {
 	static GLenum ShaderTypeFromString(std::string& type) {
 		if (type == "vertex") return GL_VERTEX_SHADER;
@@ -10,6 +12,31 @@ namespace EulerEngine {
 		std::cout << "which type of shader?" << std::endl;
 		return 0;
 	}
+	static std::string GetCacheDirectory() {
+		return "assets/cache/shaders/opengl";
+	}
+	static void CreateCacheDirectoryIfNeeded() {
+		std::string cacheDir = GetCacheDirectory();
+		if (!std::filesystem::exists(cacheDir)) {
+			std::filesystem::create_directory(cacheDir);
+		}
+	}
+	static std::string ReadFile(std::string path) {
+		std::ifstream ShaderFile;
+		ShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
+		try {
+			ShaderFile.open(path);
+			std::stringstream ShaderStream;
+			ShaderStream << ShaderFile.rdbuf();
+			std::string shaderSource = ShaderStream.str();
+			return shaderSource;
+		}
+		catch (std::ifstream::failure e) {
+			KINK_CORE_ERROR("read file error: {0}", std::string(e.what()));
+		}
+		return std::string();
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc) {
 
 		unsigned int vertexShader;
@@ -31,43 +58,35 @@ namespace EulerEngine {
 	}
 	OpenGLShader::OpenGLShader(const std::string & path):m_Path(path)
 	{
-		std::ifstream ShaderFile;
+		//CreateCacheDirectoryIfNeeded();
+		std::string shaderSource = ReadFile(path);
+		unsigned int vertexShader;
+		unsigned int fragmentShader;
+		auto shaders = PreProcess(shaderSource);
+		GetFileName(path);
 
-		ShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
-		try {
-			ShaderFile.open(path);
-			std::stringstream ShaderStream;
-			ShaderStream << ShaderFile.rdbuf();
-			std::string shaderSource = ShaderStream.str();
-			unsigned int vertexShader;
-			unsigned int fragmentShader;
-			auto shaders = PreProcess(shaderSource);
-			for (auto& kv : shaders) {
-				GLenum type = kv.first;
-				if (type == GL_VERTEX_SHADER) {
-					CompileShader(kv.second.c_str(), vertexShader, EULER_VERTEX);
-				}
-				else if (type == GL_FRAGMENT_SHADER) {
-					CompileShader(kv.second.c_str(), fragmentShader, EULER_FRAGMENT);
-				}
+		for (auto& kv : shaders) {
+			GLenum type = kv.first;
+			if (type == GL_VERTEX_SHADER) {
+				CompileShader(kv.second.c_str(), vertexShader, EULER_VERTEX);
 			}
-			unsigned int program = glCreateProgram();
-			m_RendererID = program;
-			KINK_CORE_INFO("GL_PROGRAM_ID: {0}", m_RendererID);
-			glAttachShader(program, vertexShader);
-			glAttachShader(program, fragmentShader);
-
-			glLinkProgram(program);
-			CheckError(program, EULER_LINK_PROGRAM);
-			glDetachShader(program, vertexShader);
-			glDetachShader(program, fragmentShader);
-			glDeleteShader(vertexShader);
-			glDeleteShader(fragmentShader);
-
+			else if (type == GL_FRAGMENT_SHADER) {
+				CompileShader(kv.second.c_str(), fragmentShader, EULER_FRAGMENT);
+			}
 		}
-		catch (std::ifstream::failure e) {
-			KINK_CORE_ERROR("error code: {0}", std::string(e.what()));
-		}
+		unsigned int program = glCreateProgram();
+		m_RendererID = program;
+		KINK_CORE_INFO("GL_PROGRAM_ID: {0}", m_RendererID);
+		glAttachShader(program, vertexShader);
+		glAttachShader(program, fragmentShader);
+
+		glLinkProgram(program);
+		CheckError(program, EULER_LINK_PROGRAM);
+		glDetachShader(program, vertexShader);
+		glDetachShader(program, fragmentShader);
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
 	}
 	OpenGLShader::~OpenGLShader() {
 		glDeleteProgram(m_RendererID);
@@ -131,7 +150,7 @@ namespace EulerEngine {
 			}
 		}
 	}
-	std::string OpenGLShader::GetFileName(std::string & path)
+	std::string OpenGLShader::GetFileName(const std::string & path)
 	{
 		auto lastSlash = path.find_last_of("/\\");
 		lastSlash = lastSlash == path.npos ? 0 : lastSlash + 1;

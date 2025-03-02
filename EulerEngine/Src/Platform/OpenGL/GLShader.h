@@ -63,7 +63,7 @@ namespace EulerEngine {
 		std::unordered_map<GLenum, std::string> PreProcess(std::string& source);
 		void CompileShader(const char* Code, unsigned int& shader, CompileShaderType type);
 		void CheckError(unsigned int object, unsigned int type);
-		std::string GetFileName(std::string& path);
+		std::string GetFileName(const std::string& path);
 	private:
 		unsigned int m_RendererID;
 		std::string m_Path;
