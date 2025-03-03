@@ -64,11 +64,17 @@ namespace EulerEngine {
 	void Scene::OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera)
 	{
 		Renderer::BeginScene(editorCamera);
-		auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
-		//KINK_CORE_INFO("COUNT£º{0}", group.size());
+		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 		for (auto entity : group) {
 			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
 			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
+		}*/
+
+		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
+		//KINK_CORE_INFO("SpriteCount:{0}", sprite_group.size());
+		for (auto entity : sprite_group) {
+			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
+			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
 		}
 		Renderer::EndScene();
 	}
@@ -120,6 +126,17 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
+		//temp;
+		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
+		auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
+		auto material = EulerMaterial::Create();
+		material->SetShader(shader);
+		material->SetColor(glm::vec4(1.0f));
+		material->SetTexture(texture2D);
+		component.Material = material;
+	}
+	template<>
+	void Scene::OnComponentAdded<SpriteRenderer>(GameObject obj, SpriteRenderer& component) {
 		//temp;
 		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
 		auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");

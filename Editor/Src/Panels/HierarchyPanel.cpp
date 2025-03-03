@@ -1,7 +1,9 @@
-#include "gkpch.h"
+#include"gkpch.h"
 #include"HierarchyPanel.h"
-#include <imgui_internal.h>
+#include<imgui_internal.h>
+#include<filesystem>
 namespace EulerEngine {
+	extern const std::filesystem::path g_AssetsPath;
 	HierarchyPanel::HierarchyPanel(const Ref<Scene>& defaultScene):m_Context(defaultScene)
 	{
 	}
@@ -186,6 +188,27 @@ namespace EulerEngine {
 		});
 		DrawComponent<MeshRenderer>("MeshRenderer", gameObject, [](MeshRenderer& com) {
 			ImGui::ColorEdit4("Color", &com.Material->GetColor()[0]);
+			ImGui::Button("Texture", ImVec2{ 100, 0 });
+			if(ImGui::BeginDragDropTarget()) {
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
+					const wchar_t* path = (const wchar_t*)payload->Data;
+					std::filesystem::path texturePath = std::filesystem::path(g_AssetsPath) / path;
+					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
+				}
+				ImGui::EndDragDropTarget();
+			}
+		});
+		DrawComponent<SpriteRenderer>("SpriteRenderer", gameObject, [](SpriteRenderer& com) {
+			ImGui::ColorEdit4("Color", &com.Material->GetColor()[0]);
+			ImGui::Button("Texture", ImVec2{ 100, 0 });
+			if (ImGui::BeginDragDropTarget()) {
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
+					const wchar_t* path = (const wchar_t*)payload->Data;
+					std::filesystem::path texturePath = std::filesystem::path(g_AssetsPath) / path;
+					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
+				}
+				ImGui::EndDragDropTarget();
+			}
 		});
 	}
 	void HierarchyPanel::DrawGameObjectNode(GameObject gameObject)

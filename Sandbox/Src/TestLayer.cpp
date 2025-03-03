@@ -19,7 +19,7 @@ void TestLayer::OnAttach()
 	material->SetTexture(texture2D);
 	EulerEngine::Renderer::Init();
 
-    EulerEngine::FrameBufferSpecifications spec;
+    EulerEngine::FrameBufferSpecification spec;
     spec.Width = 1280;
     spec.Height = 720;
     m_FrameBuffer = EulerEngine::FrameBuffer::Create(spec);
@@ -48,7 +48,7 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 			auto material = m_ResourceLib.GetMaterial("first");
 			material->SetColor(m_Color);
 			auto shader = m_ResourceLib.GetShader("common");
-			EulerEngine::Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material);
+			EulerEngine::Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material, -1);
 		}
 		EulerEngine::Renderer::EndScene();
 	}

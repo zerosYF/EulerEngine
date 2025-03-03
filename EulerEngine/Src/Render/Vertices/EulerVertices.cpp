@@ -91,14 +91,14 @@ namespace EulerEngine {
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 
 	};
-	float SquareVertices[SQUARE_VERTEX_CNT * SQUARE_DATA_SIZE] = {
+	float QuadVertices[QUAD_VERTEX_CNT * QUAD_DATA_SIZE] = {
 		//position			texCoord      
 		-0.5f, -0.5f,  0.0f,  0.0f,  0.0f, 
 		 0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 
 		 0.5f,  0.5f,  0.0f,  1.0f,  1.0f, 
 		-0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 	};
-	float SquareVerticesWithoutTexture[SQUARE_VERTEX_CNT * SQUARE_DATA_SIZE] = {
+	float QuadVerticesWithoutTexture[QUAD_VERTEX_CNT * QUAD_DATA_SIZE] = {
 		//position			
 		-0.5f, -0.5f,  0.0f,
 		 0.5f, -0.5f,  0.0f,

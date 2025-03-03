@@ -10,7 +10,6 @@
 #include"Render/Vertices/EulerVertices.h"
 #include"Render/Renderer/RendererAPI.h"
 #include"Render/Renderer/Renderer.h"
-#include"Render/Renderer/Renderer2D.h"
 #include"Render//Renderer/RenderCmd.h"
 #include"Render/EulerBuffer.h"
 #include"Render/EulerShader.h"

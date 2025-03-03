@@ -107,6 +107,17 @@ namespace EulerEngine {
 			}
 			out << YAML::EndMap;
 		}
+		if (gameObj.HasComponent<SpriteRenderer>()) {
+			out << YAML::Key << "SpriteRenderer";
+			out << YAML::BeginMap;
+			auto material = gameObj.GetComponent<SpriteRenderer>().Material;
+			if (material) {
+				out << YAML::Key << "Shader" << YAML::Value << material->GetShader()->GetPath();
+				out << YAML::Key << "Color" << YAML::Value << material->GetColor();
+				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
+			}
+			out << YAML::EndMap;
+		}
 		out << YAML::EndMap;
 	}
 	void SceneSerializer::Serialize(const std::string& filePath)
@@ -183,6 +194,15 @@ namespace EulerEngine {
 						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
 						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("",gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
 						meshRenderer.Material = material;
+					}
+					if (gameObject["SpriteRenderer"]) {
+						auto& spriteRenderer = gameObj.AddComponent<SpriteRenderer>();
+
+						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
+						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("", gameObject["MeshRenderer"]["Shader"].as<std::string>()));
+						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
+						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("", gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
+						spriteRenderer.Material = material;
 					}
 				}
 			}

@@ -9,12 +9,12 @@ _2DLayer::_2DLayer():EulerEngine::EulerLayer("2DLayer"), m_OrthoCameraController
 
 void _2DLayer::OnDetach()
 {
-	EulerEngine::Renderer2D::ShutDown();
+	EulerEngine::Renderer::ShutDown();
 }
 
 void _2DLayer::OnAttach()
 {
-	EulerEngine::Renderer2D::Init();
+	EulerEngine::Renderer::Init();
 }
 
 void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)
@@ -24,9 +24,8 @@ void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	EulerEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
-	EulerEngine::Renderer2D::BeginScene(m_OrthoCameraController.GetCamera());
-	EulerEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_Color, nullptr);
-	EulerEngine::Renderer2D::EndScene();
+	EulerEngine::Renderer::BeginScene(m_OrthoCameraController.GetCamera());
+	EulerEngine::Renderer::EndScene();
 }
 
 void _2DLayer::OnImGuiRender()

@@ -561,7 +561,6 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer\Renderer.h" />
-    <ClInclude Include="Src\Render\Renderer\Renderer2D.h" />
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
@@ -624,7 +623,6 @@
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />
-    <ClCompile Include="Src\Render\Renderer\Renderer2D.cpp" />
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
