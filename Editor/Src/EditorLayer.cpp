@@ -14,6 +14,9 @@ namespace EulerEngine {
     {
         Renderer::Init();
 
+        m_IconPlay = Texture2D::Create("Assets/Editor/Icons/PlayButton.png");
+        m_IconStop = Texture2D::Create("Assets/Editor/Icons/StopButton.png");
+
         FrameBufferSpecification spec;
         spec.Width = 1280;
         spec.Height = 720;
@@ -32,6 +35,9 @@ namespace EulerEngine {
 
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
         m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
+        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.8f, 1.0f, 3.0f);
+        glm::vec3 degrees = glm::vec3(-10.0f, -10.0f, 0.0f);
+        m_MainCamera.GetComponent<Transform>().Rotation = glm::radians(degrees);
 
 
         class CameraController:public EulerBehaviour {
@@ -74,10 +80,6 @@ namespace EulerEngine {
         }
 
         m_FrameBuffer->Bind();
-        {
-            if(m_ViewportFocused || m_ViewportHovered)
-                m_EditorCameraController.OnUpdate(ts);
-        }
         Renderer::ResetStatistic();
         {
             RenderCommand::SetClearColor(m_Color);
@@ -86,8 +88,16 @@ namespace EulerEngine {
         }
 
         {
-            //m_ActiveScene->OnUpdateRuntime(ts);
-            m_ActiveScene->OnUpdateEditor(ts, m_EditorCameraController.GetCamera());
+            switch (m_SceneState) {
+            case SceneState::Edit:
+                if (m_ViewportFocused || m_ViewportHovered)
+                    m_EditorCameraController.OnUpdate(ts);
+                m_ActiveScene->OnUpdateEditor(ts, m_EditorCameraController.GetCamera());
+                break;
+            case SceneState::Play:
+                m_ActiveScene->OnUpdateRuntime(ts);
+                break;
+            }
         }
 
         auto [mx, my] = ImGui::GetMousePos();
@@ -285,6 +295,8 @@ namespace EulerEngine {
 
         ImGui::End();
         ImGui::PopStyleVar();
+
+        UI_Toolbar();
          
         ImGui::End();
 
@@ -355,5 +367,39 @@ namespace EulerEngine {
             SceneSerializer serializer(m_ActiveScene);
             serializer.Serialize(filepath);
         }
+    }
+    void EditorLayer::OnScenePlay()
+    {
+        m_SceneState = SceneState::Play;
+    }
+    void EditorLayer::OnSceneStop()
+    {
+        m_SceneState = SceneState::Edit;
+    }
+    void EditorLayer::UI_Toolbar()
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 2.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0.0f, 0.0f));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.3f, 0.3f, 0.5f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.3f, 0.0f, 0.5f));
+
+        ImGui::Begin("##Toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        Ref<Texture2D> icon = (m_SceneState == SceneState::Edit? m_IconPlay : m_IconStop);
+        float size = ImGui::GetWindowHeight() - 5.0f;
+        ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+        ImGui::PushID(icon->GetRendererID());
+        if (ImGui::ImageButton("",(ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
+            if (m_SceneState == SceneState::Edit) {
+                OnScenePlay();
+            }
+            else if (m_SceneState == SceneState::Play) {
+                OnSceneStop();
+            }
+        }
+        ImGui::PopID();
+        ImGui::End();
+        ImGui::PopStyleVar(2);
+        ImGui::PopStyleColor(3);
     }
 }

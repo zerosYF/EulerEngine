@@ -21,6 +21,10 @@ namespace EulerEngine {
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
+		void OnScenePlay();
+		void OnSceneStop();
+
+		void UI_Toolbar();
 	private:
 		CameraController m_EditorCameraController;
 		glm::vec4 m_Color = { 0.2f, 0.3f, 0.1f, 1.0f };
@@ -49,5 +53,14 @@ namespace EulerEngine {
 		HierarchyPanel m_SceneHierarchyPanel;
 		AssetBrowserPanel m_AssetBrowserPanel;
 		GameObject m_HoveredGameObject;
+
+		enum class SceneState {
+			Edit = 0,
+			Play = 1,
+		};
+		SceneState m_SceneState = SceneState::Edit;
+
+		Ref<Texture2D> m_IconPlay;
+		Ref<Texture2D> m_IconStop;
 	};
 }

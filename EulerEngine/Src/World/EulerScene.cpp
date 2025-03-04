@@ -53,10 +53,15 @@ namespace EulerEngine {
 		}
 		if (mainCamera) {
 			Renderer::BeginScene(mainCamera);
-			auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
+			/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 			for (auto entity : group) {
 				auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
 				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
+			}*/
+			auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
+			for (auto entity : sprite_group) {
+				auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
+				Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
 			}
 			Renderer::EndScene();
 		}
