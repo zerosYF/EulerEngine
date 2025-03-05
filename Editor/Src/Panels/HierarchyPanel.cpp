@@ -122,13 +122,35 @@ namespace EulerEngine {
 			ImGui::OpenPopup("AddComponent");
 		}
 		if (ImGui::BeginPopup("AddComponent")) {
-			if (ImGui::MenuItem("MeshRenderer")) {
-				m_SelectedGameObject.AddComponent<MeshRenderer>();
-				ImGui::CloseCurrentPopup();
+			if (!m_SelectedGameObject.HasComponent<MeshRenderer>()) {
+				if (ImGui::MenuItem("MeshRenderer")) {
+					m_SelectedGameObject.AddComponent<MeshRenderer>();
+					ImGui::CloseCurrentPopup();
+				}
 			}
-			if (ImGui::MenuItem("Camera")) {
-				m_SelectedGameObject.AddComponent<Camera>();
-				ImGui::CloseCurrentPopup();
+			if (!m_SelectedGameObject.HasComponent<Camera>()) {
+				if (ImGui::MenuItem("Camera")) {
+					m_SelectedGameObject.AddComponent<Camera>();
+					ImGui::CloseCurrentPopup();
+				}
+			}
+			if (!m_SelectedGameObject.HasComponent<SpriteRenderer>()) {
+				if (ImGui::MenuItem("SpriteRenderer")) {
+					m_SelectedGameObject.AddComponent<SpriteRenderer>();
+					ImGui::CloseCurrentPopup();
+				}
+			}
+			if (!m_SelectedGameObject.HasComponent<Rigidbody2D>()) {
+				if (ImGui::MenuItem("Rigidbody2D")) {
+					m_SelectedGameObject.AddComponent<Rigidbody2D>();
+					ImGui::CloseCurrentPopup();
+				}
+			}
+			if (!m_SelectedGameObject.HasComponent<BoxCollider2D>()) {
+				if (ImGui::MenuItem("BoxCollider2D")) {
+					m_SelectedGameObject.AddComponent<BoxCollider2D>();
+					ImGui::CloseCurrentPopup();
+				}
 			}
 			ImGui::EndPopup();
 		}
@@ -209,6 +231,36 @@ namespace EulerEngine {
 				}
 				ImGui::EndDragDropTarget();
 			}
+		});
+		DrawComponent<Rigidbody2D>("Rigidbody2D", gameObject, [](Rigidbody2D& com) {
+			const char* type[] = {"Static", "Dynamic", "Kinematic" };
+			const char* currentTypeString = type[(int)com.Type];
+			if (ImGui::BeginCombo("Type", currentTypeString)) {
+				for (int i = 0; i < 2; i++) {
+					bool isSelected = currentTypeString == type[i];
+					if (ImGui::Selectable(type[i], isSelected)) {
+						currentTypeString = type[i];
+						com.Type = (Rigidbody2D::BodyType)i;
+					}
+					if (isSelected) {
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+
+			ImGui::Checkbox("Fixed Rotation", &com.FixedRotation);
+			ImGui::DragFloat("Mass", &com.Mass, 0.1f, 0.0f, 1000.0f);
+			ImGui::DragFloat("Linear Damping", &com.LinearDamping, 0.1f, -1000.0f, 1000.0f);
+			ImGui::DragFloat("Angular Damping", &com.AngularDamping, 0.1f, -1000.0f, 1000.0f);
+		});
+		DrawComponent<BoxCollider2D>("BoxCollider2D", gameObject, [](BoxCollider2D& com) {
+			ImGui::DragFloat2("Size", glm::value_ptr(com.Size));
+			ImGui::DragFloat2("Offset", glm::value_ptr(com.Offset));
+			ImGui::Checkbox("Is Trigger", &com.IsTrigger);
+			ImGui::DragFloat("Density", &com.Density, 0.1f, 0.0f, 1.0f);
+			ImGui::DragFloat("Friction", &com.Friction, 0.1f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &com.Restitution, 0.1f, 0.0f, 1.0f);
 		});
 	}
 	void HierarchyPanel::DrawGameObjectNode(GameObject gameObject)

@@ -5,3 +5,6 @@
 #include"Camera.h"
 #include"NativeScript.h"
 #include"SpriteRenderer.h"
+
+#include"Rigidbody2D.h"
+#include"BoxCollider2D.h"

@@ -75,7 +75,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -97,7 +97,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -120,7 +120,7 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -571,11 +571,13 @@
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />
     <ClInclude Include="Src\Utils\PlatformUtils.h" />
+    <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
     <ClInclude Include="Src\World\Component\MeshRenderer.h" />
     <ClInclude Include="Src\World\Component\NativeScript.h" />
     <ClInclude Include="Src\World\Component\Profile.h" />
+    <ClInclude Include="Src\World\Component\Rigidbody2D.h" />
     <ClInclude Include="Src\World\Component\SpriteRenderer.h" />
     <ClInclude Include="Src\World\Component\Transform.h" />
     <ClInclude Include="Src\World\EulerBehaviour.h" />
@@ -639,6 +641,9 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Vendor\Box2d\Box2d.vcxproj">
+      <Project>{C434E80C-3049-10BE-F9CA-B31D659E0CEF}</Project>
+    </ProjectReference>
     <ProjectReference Include="Vendor\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>

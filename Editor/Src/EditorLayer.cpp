@@ -2,7 +2,7 @@
 #include"ImGuizmo.h"
 namespace EulerEngine {
     extern const std::filesystem::path g_AssetsPath;
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE),m_ViewportBounds()
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(ORTHOGRAPHIC),m_ViewportBounds()
     {
     }
     void EditorLayer::OnDetach()
@@ -27,16 +27,22 @@ namespace EulerEngine {
         auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
         auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
 
-        auto cube = m_ActiveScene->CreateObject("Cube");
-        cube.AddComponent<MeshRenderer>();
+        //auto cube = m_ActiveScene->CreateObject("Cube");
+        //cube.AddComponent<MeshRenderer>();
 
         auto quad = m_ActiveScene->CreateObject("Quad");
         quad.AddComponent<SpriteRenderer>();
+        quad.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
+
+        /*auto quad2 = m_ActiveScene->CreateObject("Quad2");
+        quad2.AddComponent<SpriteRenderer>();
+        quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, 2.0f, 0.0f);
+        quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);*/
 
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
-        m_MainCamera.AddComponent<Camera>(PERSPECTIVE);
-        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.8f, 1.0f, 3.0f);
-        glm::vec3 degrees = glm::vec3(-10.0f, -10.0f, 0.0f);
+        m_MainCamera.AddComponent<Camera>(ORTHOGRAPHIC);
+        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        glm::vec3 degrees = glm::vec3(0.0f, 0.0f, 0.0f);
         m_MainCamera.GetComponent<Transform>().Rotation = glm::radians(degrees);
 
 
@@ -371,10 +377,12 @@ namespace EulerEngine {
     void EditorLayer::OnScenePlay()
     {
         m_SceneState = SceneState::Play;
+        m_ActiveScene->OnRuntimeStart();
     }
     void EditorLayer::OnSceneStop()
     {
         m_SceneState = SceneState::Edit;
+        m_ActiveScene->OnRuntimeStop();
     }
     void EditorLayer::UI_Toolbar()
     {

@@ -5,7 +5,7 @@ workspace "EulerEngine"
 		"Release",
 		"Dist"
 	}
-	toolset "v143"
+	--toolset "v143"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -15,9 +15,12 @@ IncludeDir["ImGui"] = "EulerEngine/Vendor/ImGui"
 IncludeDir["Entt"] = "EulerEngine/Vendor/Entt/include"
 IncludeDir["Yaml_cpp"] = "EulerEngine/Vendor/Yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "EulerEngine/Vendor/ImGuizmo"
+IncludeDir["Box2d"] = "EulerEngine/Vendor/Box2d/include"
+IncludeDir["Box2d_src"] = "EulerEngine/Vendor/Box2d/src"
 include "EulerEngine/Vendor/Glad"
 include "EulerEngine/Vendor/ImGui"
 include "EulerEngine/Vendor/Yaml-cpp"
+include "EulerEngine/Vendor/Box2d"
 
 project "EulerEngine"
 	location "EulerEngine"
@@ -50,16 +53,19 @@ project "EulerEngine"
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Box2d}",
+		"%{IncludeDir.Box2d_src}",
 	}
 	libdirs{
 		"%{prj.name}/External/libs"
 	}
 	links{
 		"glfw3",
+		"Box2d",
 		"Glad",
 		"ImGui",
 		"Yaml-cpp",
-		"opengl32"
+		"opengl32",
 	}
 
 	filter "system:windows"
@@ -109,6 +115,8 @@ project "Sandbox"
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Box2d}",
+		"%{IncludeDir.Box2d_src}",
 	}
 	links{
 		"EulerEngine"
@@ -157,6 +165,8 @@ project "Editor"
 		"%{IncludeDir.Entt}",
 		"%{IncludeDir.Yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Box2d}",
+		"%{IncludeDir.Box2d_src}",
 	}
 	links{
 		"EulerEngine"

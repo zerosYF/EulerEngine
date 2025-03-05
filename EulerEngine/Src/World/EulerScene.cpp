@@ -6,6 +6,21 @@
 #include"EulerBehaviour.h"
 #include"Resource/ResourceLibrary.h"
 namespace EulerEngine {
+	static b2BodyType KinkRigidbody2DTypeToBox2DType(Rigidbody2D::BodyType type)
+	{
+		switch (type)
+		{
+		case Rigidbody2D::BodyType::Static:
+			return b2_staticBody;
+		case Rigidbody2D::BodyType::Dynamic:
+			return b2_dynamicBody;
+		case Rigidbody2D::BodyType::Kinematic:
+			return b2_kinematicBody;
+		default:
+			return b2_staticBody;
+		}
+	}
+
 	Scene::Scene()
 	{
 	}
@@ -28,6 +43,43 @@ namespace EulerEngine {
 		KINK_CORE_ERROR("Destroy OBJ:{0}", (unsigned int)obj);
 		m_Registry.destroy(obj);
 	}
+	void Scene::OnRuntimeStart()
+	{
+		b2Vec2 gravity = b2Vec2({0.0f, -9.81f});
+		b2WorldDef worldDef = b2DefaultWorldDef();
+		worldDef.gravity = gravity;
+		m_PhysicsWorld = b2CreateWorld(&worldDef);
+		auto view = m_Registry.view<Rigidbody2D>();
+		for (auto e: view) {
+			GameObject obj = { e, this };
+			auto& transform = obj.GetComponent<Transform>();
+			auto& rb2d = obj.GetComponent<Rigidbody2D>();
+			b2BodyDef bodyDef = b2DefaultBodyDef();
+			bodyDef.type = KinkRigidbody2DTypeToBox2DType(rb2d.Type);
+			bodyDef.position = b2Vec2({ transform.Position.x, transform.Position.y });
+			bodyDef.rotation = b2MakeRot(transform.Rotation.z);
+			bodyDef.fixedRotation = rb2d.FixedRotation;
+			bodyDef.angularDamping = rb2d.AngularDamping;
+			bodyDef.linearDamping = rb2d.LinearDamping;
+			b2BodyId body = b2CreateBody(m_PhysicsWorld, &bodyDef);
+			rb2d.RuntimeBody = body;
+			if (obj.HasComponent<BoxCollider2D>()) {
+				auto& box2d = obj.GetComponent<BoxCollider2D>();
+				b2Polygon polygon = b2MakeBox(box2d.Size.x * transform.Scale.x, box2d.Size.y * transform.Scale.y);
+				b2ShapeDef shapeDef = b2DefaultShapeDef();
+				b2ShapeId shape = b2CreatePolygonShape(body, &shapeDef, &polygon);
+
+				shapeDef.density = box2d.Density;
+				shapeDef.friction = box2d.Friction;
+				shapeDef.restitution = box2d.Restitution;
+				box2d.ShapeId = shape;
+			}
+		}
+	}
+	void Scene::OnRuntimeStop()
+	{
+		b2DestroyWorld(m_PhysicsWorld);
+	}
 	void Scene::OnUpdateRuntime(TimerSystem ts)
 	{
 		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
@@ -39,6 +91,23 @@ namespace EulerEngine {
 			nsc.Instance->OnUpdate(ts);
 
 		});
+
+		{
+			const int subSteps = 4;
+			b2World_Step(m_PhysicsWorld, ts.GetTime(), subSteps);
+			auto view = m_Registry.view<Rigidbody2D>();
+			for (auto e : view) {
+				GameObject obj = { e, this };
+				auto& transform = obj.GetComponent<Transform>();
+				auto& rb2d = obj.GetComponent<Rigidbody2D>();
+				b2BodyId runtime_body = rb2d.RuntimeBody;
+				const auto& position = b2Body_GetPosition(runtime_body);
+				transform.Position = glm::vec3(position.x, position.y, transform.Position.z);
+				const auto& rotation = b2Body_GetRotation(runtime_body);
+				transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
+				KINK_CORE_INFO("pos:{0}, {1}, {2}", transform.Position.x, transform.Position.y, transform.Position.z);
+			}
+		}
 
 		Ref<EulerCamera> mainCamera = nullptr;
 		auto group = m_Registry.group<Camera>(entt::get<Transform>);
@@ -94,6 +163,10 @@ namespace EulerEngine {
 				camera_com.RendererCamera->SetViewportSize(float(m_ViewportWidth), float(m_ViewportHeight));
 			}
 		}
+	}
+	GameObject Scene::GetGameObject(unsigned int UUID)
+	{
+		return GameObject();
 	}
 	GameObject Scene::GetPrimaryCamera() {
 		auto view = m_Registry.view<Camera>();
@@ -154,5 +227,34 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<NativeScript>(GameObject obj, NativeScript& component) {
 		
+	}
+	template<>
+	void Scene::OnComponentAdded<Rigidbody2D>(GameObject obj, Rigidbody2D& component) {
+		/*Transform transform = obj.GetComponent<Transform>();
+		b2BodyDef bodyDef = b2DefaultBodyDef();
+		bodyDef.type = KinkRigidbody2DTypeToBox2DType(component.Type);
+		bodyDef.position = b2Vec2({ transform.Position.x, transform.Position.y });
+		bodyDef.rotation = b2MakeRot(transform.Rotation.z);
+		bodyDef.fixedRotation = component.FixedRotation;
+		bodyDef.angularDamping = component.AngularDamping;
+		bodyDef.linearDamping = component.LinearDamping;
+		b2BodyId body = b2CreateBody(m_PhysicsWorld, &bodyDef);
+		component.RuntimeBody = body;*/
+	}
+	template<>
+	void Scene::OnComponentAdded<BoxCollider2D>(GameObject obj, BoxCollider2D& component) {
+		/*if (!obj.HasComponent<Rigidbody2D>()) {
+			KINK_CORE_ERROR("BoxCollider2D must have Rigidbody2D");
+			return;
+		}
+		Rigidbody2D rb2d = obj.GetComponent<Rigidbody2D>();
+		Transform transform = obj.GetComponent<Transform>();
+		b2Polygon polygon = b2MakeBox(component.Size.x * transform.Scale.x, component.Size.y * transform.Scale.y);
+		b2ShapeDef shapeDef = b2DefaultShapeDef();
+		shapeDef.density = component.Density;
+		shapeDef.friction = component.Friction;
+		shapeDef.restitution = component.Restitution;
+		b2ShapeId shape = b2CreatePolygonShape(rb2d.RuntimeBody, &shapeDef, &polygon);
+		component.ShapeId = shape;*/
 	}
 }
