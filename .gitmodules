@@ -10,3 +10,6 @@
 [submodule "EulerEngine/Vendor/ImGuizmo"]
 	path = EulerEngine/Vendor/ImGuizmo
 	url = https://gitee.com/ets_zeros/ImGuizmo
+[submodule "EulerEngine/Vendor/Box2d"]
+	path = EulerEngine/Vendor/Box2d
+	url = https://gitee.com/ets_zeros/box2d
