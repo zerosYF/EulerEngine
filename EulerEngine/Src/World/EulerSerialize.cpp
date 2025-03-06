@@ -6,6 +6,23 @@
 #include"Resource/ResourceLibrary.h"
 namespace YAML {
 	template<>
+	struct convert<glm::vec2> {
+		static Node encode(const glm::vec2 vec) {
+			Node node;
+			node.push_back(vec.x);
+			node.push_back(vec.y);
+			return node;
+		}
+		static bool decode(const Node& node, glm::vec2& vec) {
+			if (!node.IsSequence() || node.size() != 2) {
+				return false;
+			}
+			vec.x = node[0].as<float>();
+			vec.y = node[1].as<float>();
+			return true;
+		}
+	};
+	template<>
 	struct convert<glm::vec3> {
 		static Node encode(const glm::vec3 vec) {
 			Node node;
@@ -47,6 +64,11 @@ namespace YAML {
 	};
 }
 namespace EulerEngine {
+	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v) {
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+		return out;
+	}
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v) {
 		out << YAML::Flow;
 		out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
@@ -56,6 +78,33 @@ namespace EulerEngine {
 		out << YAML::Flow;
 		out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
 		return out;
+	}
+
+	static std::string Rigidbody2DTypeToString(Rigidbody2D::BodyType type)
+	{
+		switch (type)
+		{
+		case Rigidbody2D::BodyType::Static:
+			return "Static";
+		case Rigidbody2D::BodyType::Dynamic:
+			return "Dynamic";
+		case Rigidbody2D::BodyType::Kinematic:
+			return "Kinematic";
+		default:
+			return "Unknown";
+		}
+	}
+
+	static Rigidbody2D::BodyType StringToRigidbody2DType(const std::string& type)
+	{
+		if (type == "Static") 
+			return Rigidbody2D::BodyType::Static;
+		else if (type == "Dynamic")
+			return Rigidbody2D::BodyType::Dynamic;
+		else if (type == "Kinematic")
+			return Rigidbody2D::BodyType::Kinematic;
+		else
+			return Rigidbody2D::BodyType::Static;
 	}
 
 	SceneSerializer::SceneSerializer(const Ref<Scene>& scene): m_Scene(scene)
@@ -116,6 +165,27 @@ namespace EulerEngine {
 				out << YAML::Key << "Color" << YAML::Value << material->GetColor();
 				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
 			}
+			out << YAML::EndMap;
+		}
+		if (gameObj.HasComponent<Rigidbody2D>()) {
+			out << YAML::Key << "Rigidbody2D";
+			out << YAML::BeginMap;
+			out << YAML::Key << "Type" << YAML::Value << Rigidbody2DTypeToString(gameObj.GetComponent<Rigidbody2D>().Type);
+			out << YAML::Key << "FixedRotation" << YAML::Value << gameObj.GetComponent<Rigidbody2D>().FixedRotation;
+			out << YAML::Key << "Mass" << YAML::Value << gameObj.GetComponent<Rigidbody2D>().Mass;
+			out << YAML::Key << "LinearDamping" << YAML::Value << gameObj.GetComponent<Rigidbody2D>().LinearDamping;
+			out << YAML::Key << "AngularDamping" << YAML::Value << gameObj.GetComponent<Rigidbody2D>().AngularDamping;
+			out << YAML::EndMap;
+		}
+		if (gameObj.HasComponent<BoxCollider2D>()) {
+			out << YAML::Key << "BoxCollider2D";
+			out << YAML::BeginMap;
+			out << YAML::Key << "Offset" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().Offset;
+			out << YAML::Key << "Size" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().Size;
+			out << YAML::Key << "Density" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().Density;
+			out << YAML::Key << "Friction" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().Friction;
+			out << YAML::Key << "Restitution" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().Restitution;
+			out << YAML::Key << "IsTrigger" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().IsTrigger;
 			out << YAML::EndMap;
 		}
 		out << YAML::EndMap;
@@ -199,10 +269,27 @@ namespace EulerEngine {
 						auto& spriteRenderer = gameObj.AddComponent<SpriteRenderer>();
 
 						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
-						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("", gameObject["MeshRenderer"]["Shader"].as<std::string>()));
-						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
-						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("", gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
+						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("", gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
+						material->SetColor(gameObject["SpriteRenderer"]["Color"].as<glm::vec4>());
+						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("", gameObject["SpriteRenderer"]["TexturePath"].as<std::string>()));
 						spriteRenderer.Material = material;
+					}
+					if (gameObject["Rigidbody2D"]) {
+						auto& rigidbody2D = gameObj.AddComponent<Rigidbody2D>();
+						rigidbody2D.Type = StringToRigidbody2DType(gameObject["Rigidbody2D"]["Type"].as<std::string>());
+						rigidbody2D.FixedRotation = gameObject["Rigidbody2D"]["FixedRotation"].as<bool>();
+						rigidbody2D.Mass = gameObject["Rigidbody2D"]["Mass"].as<float>();
+						rigidbody2D.LinearDamping = gameObject["Rigidbody2D"]["LinearDamping"].as<float>();
+						rigidbody2D.AngularDamping = gameObject["Rigidbody2D"]["AngularDamping"].as<float>();
+					}
+					if (gameObject["BoxCollider2D"]) {
+						auto& boxCollider2D = gameObj.AddComponent<BoxCollider2D>();
+						boxCollider2D.Offset = gameObject["BoxCollider2D"]["Offset"].as<glm::vec2>();
+						boxCollider2D.Size = gameObject["BoxCollider2D"]["Size"].as<glm::vec2>();
+						boxCollider2D.Density = gameObject["BoxCollider2D"]["Density"].as<float>();
+						boxCollider2D.Friction = gameObject["BoxCollider2D"]["Friction"].as<float>();
+						boxCollider2D.Restitution = gameObject["BoxCollider2D"]["Restitution"].as<float>();
+						boxCollider2D.IsTrigger = gameObject["BoxCollider2D"]["IsTrigger"].as<bool>();
 					}
 				}
 			}

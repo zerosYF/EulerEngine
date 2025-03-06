@@ -33,11 +33,12 @@ namespace EulerEngine {
         auto quad = m_ActiveScene->CreateObject("Quad");
         quad.AddComponent<SpriteRenderer>();
         quad.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        quad.GetComponent<Transform>().Scale = glm::vec3(0.4f, 0.4f, 1.0f);
 
-        /*auto quad2 = m_ActiveScene->CreateObject("Quad2");
+        auto quad2 = m_ActiveScene->CreateObject("Quad2");
         quad2.AddComponent<SpriteRenderer>();
-        quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, 2.0f, 0.0f);
-        quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);*/
+        quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, -1.2f, 0.0f);
+        quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);
 
         m_MainCamera = m_ActiveScene->CreateObject("Camera");
         m_MainCamera.AddComponent<Camera>(ORTHOGRAPHIC);

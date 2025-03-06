@@ -94,7 +94,7 @@ namespace EulerEngine {
 
 		{
 			const int subSteps = 4;
-			b2World_Step(m_PhysicsWorld, ts.GetTime(), subSteps);
+			b2World_Step(m_PhysicsWorld, ts.GetDeltaTime(), subSteps);
 			auto view = m_Registry.view<Rigidbody2D>();
 			for (auto e : view) {
 				GameObject obj = { e, this };
@@ -230,31 +230,8 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<Rigidbody2D>(GameObject obj, Rigidbody2D& component) {
-		/*Transform transform = obj.GetComponent<Transform>();
-		b2BodyDef bodyDef = b2DefaultBodyDef();
-		bodyDef.type = KinkRigidbody2DTypeToBox2DType(component.Type);
-		bodyDef.position = b2Vec2({ transform.Position.x, transform.Position.y });
-		bodyDef.rotation = b2MakeRot(transform.Rotation.z);
-		bodyDef.fixedRotation = component.FixedRotation;
-		bodyDef.angularDamping = component.AngularDamping;
-		bodyDef.linearDamping = component.LinearDamping;
-		b2BodyId body = b2CreateBody(m_PhysicsWorld, &bodyDef);
-		component.RuntimeBody = body;*/
 	}
 	template<>
 	void Scene::OnComponentAdded<BoxCollider2D>(GameObject obj, BoxCollider2D& component) {
-		/*if (!obj.HasComponent<Rigidbody2D>()) {
-			KINK_CORE_ERROR("BoxCollider2D must have Rigidbody2D");
-			return;
-		}
-		Rigidbody2D rb2d = obj.GetComponent<Rigidbody2D>();
-		Transform transform = obj.GetComponent<Transform>();
-		b2Polygon polygon = b2MakeBox(component.Size.x * transform.Scale.x, component.Size.y * transform.Scale.y);
-		b2ShapeDef shapeDef = b2DefaultShapeDef();
-		shapeDef.density = component.Density;
-		shapeDef.friction = component.Friction;
-		shapeDef.restitution = component.Restitution;
-		b2ShapeId shape = b2CreatePolygonShape(rb2d.RuntimeBody, &shapeDef, &polygon);
-		component.ShapeId = shape;*/
 	}
 }

@@ -10,9 +10,9 @@ GameObjects:
     Camera:
       IsPrimary: true
       IsFixedAspectRatio: false
-      CameraType: 0
+      CameraType: 1
       ViewportWidth: 710
-      ViewportHeight: 421
+      ViewportHeight: 453
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
       Perspective_FarClip: 100
@@ -21,12 +21,49 @@ GameObjects:
       Orthographic_FarClip: 1
   - GameObject: 12093821903
     Profile:
-      Tag: Cube
+      Tag: Quad2
     Transform:
-      Position: [0, 0, 0]
+      Position: [0, -1.2, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    MeshRenderer:
+      Scale: [4, 1, 1]
+    SpriteRenderer:
       Shader: Shaders/Camera/first_test.glsl
       Color: [1, 1, 1, 1]
       TexturePath: Assets/mytextures/container2.png
+    Rigidbody2D:
+      Type: Static
+      FixedRotation: false
+      Mass: 1
+      LinearDamping: 0
+      AngularDamping: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      IsTrigger: false
+  - GameObject: 12093821903
+    Profile:
+      Tag: Quad
+    Transform:
+      Position: [1.654686e-06, 0, 0]
+      Rotation: [0, 0, -8.602024e-06]
+      Scale: [0.4, 0.4, 1]
+    SpriteRenderer:
+      Shader: Shaders/Camera/first_test.glsl
+      Color: [1, 1, 1, 1]
+      TexturePath: Assets/mytextures/container2.png
+    Rigidbody2D:
+      Type: Dynamic
+      FixedRotation: false
+      Mass: 1
+      LinearDamping: 0
+      AngularDamping: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      IsTrigger: false

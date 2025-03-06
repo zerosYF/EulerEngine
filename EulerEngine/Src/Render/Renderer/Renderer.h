@@ -8,6 +8,7 @@
 #define MAX_TEXTURE_SLOTS 32
 #define MAX_CUBE_COUNT 10000
 #define MAX_QUAD_COUNT 10000
+#define QUAD_INDEX_CNT 6
 namespace EulerEngine {
 	class Renderer {
 	public:
@@ -39,7 +40,8 @@ namespace EulerEngine {
 			glm::mat4 ViewMatrix = glm::mat4(1.0f);
 			glm::mat4 ProjectionMatrix = glm::mat4(1.0f);
 
-			const unsigned int MaxVertices = MAX_CUBE_COUNT * CUBE_VERTEX_CNT + MAX_QUAD_COUNT * QUAD_VERTEX_CNT;
+			const unsigned int MaxVertices =  MAX_QUAD_COUNT * QUAD_VERTEX_CNT;
+			const unsigned int MaxIndices = MAX_QUAD_COUNT * QUAD_INDEX_CNT;
 
 			Ref<VertexArray> Cube_VA;
 			CubeVertex* CubeVertexBase = nullptr;

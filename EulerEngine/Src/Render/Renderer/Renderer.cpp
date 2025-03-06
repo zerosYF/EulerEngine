@@ -23,8 +23,16 @@ namespace EulerEngine {
 		m_SceneData->CubeVertexBase = new EulerEngine::CubeVertex[m_SceneData->MaxVertices];*/
 
 
+		unsigned offset = 0;
+		unsigned int SquareIndices[QUAD_INDEX_CNT] = { 0, 1, 2, 2, 3, 0 };
+		unsigned int* QuadIndices = new unsigned int[m_SceneData->MaxIndices];
+		for (unsigned int i = 0; i < m_SceneData->MaxIndices; i += QUAD_INDEX_CNT) {
+			for (unsigned int j = 0; j < QUAD_INDEX_CNT; j++) {
+				QuadIndices[i + j] = offset + SquareIndices[j];
+			}
+			offset += 4;
+		}
 
-		unsigned int SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		m_SceneData->Quad_VA = EulerEngine::VertexArray::Create();
 		m_SceneData->Quad_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::QuadVertex));
 		EulerEngine::BufferLayout quad_layout = {
@@ -35,7 +43,7 @@ namespace EulerEngine {
 		m_SceneData->Quad_VB->SetLayout(quad_layout);
 		m_SceneData->Quad_VA->AddVertexBuffer(m_SceneData->Quad_VB);
 		EulerEngine::Ref<EulerEngine::IndexBuffer> indexBuffer
-			= EulerEngine::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices) / sizeof(unsigned int));
+			= EulerEngine::IndexBuffer::Create(QuadIndices, m_SceneData->MaxIndices);
 		m_SceneData->Quad_VA->SetIndexBuffer(indexBuffer);
 		m_SceneData->QuadVertexBase = new EulerEngine::QuadVertex[m_SceneData->MaxVertices];
 
@@ -145,7 +153,6 @@ namespace EulerEngine {
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, rotation, scale, material, objID);
 	}
-
 	void Renderer::DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID)
 	{
 		auto shader = material->GetShader();
