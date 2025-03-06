@@ -42,8 +42,12 @@ namespace EulerEngine {
 		};
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
+
+		Ref<Scene> m_EditorScene;
+
 		GameObject m_MainCamera;
 		GameObject m_CanvasCamera;
+
 		glm::vec2 m_ViewportSize;
 		glm::vec2 m_ViewportBounds[2];
 		bool m_ViewportFocused = false;

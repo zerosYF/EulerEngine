@@ -1,6 +1,6 @@
 Scene: Untitled
 GameObjects:
-  - GameObject: 12093821903
+  - GameObject: 5054809166822472135
     Profile:
       Tag: Camera
     Transform:
@@ -19,7 +19,7 @@ GameObjects:
       Orthographic_Size: 1
       Orthographic_NearClip: -1
       Orthographic_FarClip: 1
-  - GameObject: 12093821903
+  - GameObject: 9159311403609833608
     Profile:
       Tag: Cube
     Transform:

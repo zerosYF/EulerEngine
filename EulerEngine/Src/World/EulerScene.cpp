@@ -27,16 +27,56 @@ namespace EulerEngine {
 	Scene::~Scene()
 	{
 	}
+
+	template<typename Component>
+	static void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<EulerUUID, entt::entity> entityMap) {
+		auto view = src.view<Component>();
+		for (auto e : view) {
+			EulerUUID id = src.get<IDCom>(e).ID;
+			KINK_CORE_INFO("Copying Component");
+			entt::entity dstEntity = entityMap.at(id);
+			auto& component = src.get<Component>(e);
+			dst.emplace_or_replace<Component>(dstEntity, component);
+		}
+	}
+	Ref<Scene> Scene::Copy(Ref<Scene> scene)
+	{
+		Ref<Scene> newScene = CreateRef<Scene>();
+		newScene->m_ViewportWidth = scene->m_ViewportWidth;
+		newScene->m_ViewportHeight = scene->m_ViewportHeight;
+		
+		std::unordered_map<EulerUUID, entt::entity> entityMap;
+
+		auto& srcregistry = scene->m_Registry;
+		auto& dstRegistry = newScene->m_Registry;
+		auto idView = srcregistry.view<IDCom>();
+		for (auto e : idView) {
+			EulerUUID id = srcregistry.get<IDCom>(e).ID;
+			const auto& name = srcregistry.get<Profile>(e).Tag;
+			//KINK_CORE_INFO("Copying Entity:{0}", name);
+			GameObject obj = newScene ->CreateObject(id, name);
+			entityMap[id] = (entt::entity)obj;
+		}
+		CopyComponent<Transform>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<BoxCollider2D>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<Rigidbody2D>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<SpriteRenderer>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<MeshRenderer>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<NativeScript>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
+		return newScene;
+	}
 	GameObject Scene::CreateObject(const std::string& name)
 	{
+		return CreateObject(EulerUUID(), name);
+	}
+	GameObject Scene::CreateObject(EulerUUID uuid, const std::string& name)
+	{
 		GameObject go = { m_Registry.create(), this };
+		go.AddComponent<IDCom>(uuid);
 		go.AddComponent<Transform>();
 		go.AddComponent<Profile>(name);
 		return go;
-	}
-	GameObject Scene::CreateObject(unsigned int UUID, const std::string& name)
-	{
-		return GameObject();
 	}
 	void Scene::DestroyObject(GameObject& obj)
 	{
@@ -190,6 +230,9 @@ namespace EulerEngine {
 	/// </summary>
 	/// <param name="obj"></param>
 	/// <param name="component"></param>
+	template<>
+	void Scene::OnComponentAdded<IDCom>(GameObject obj, IDCom& component) {
+	}
 	template<>
 	void Scene::OnComponentAdded<Profile>(GameObject obj, Profile& component) {
 	}

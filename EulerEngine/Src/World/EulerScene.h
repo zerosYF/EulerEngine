@@ -1,6 +1,7 @@
 #pragma once
 #include"entt.hpp"
 #include"Core/EulerTimer.h"
+#include"Core/EulerUUID.h"
 #include"Render/Camera/EulerCamera.h"
 #include"world.h"
 #include"body.h"
@@ -13,8 +14,10 @@ namespace EulerEngine {
 	public:
 		Scene();
 		~Scene();
+		static Ref<Scene> Copy(Ref<Scene> scene);
+
 		GameObject CreateObject(const std::string& name="GameObject");
-		GameObject CreateObject(unsigned int UUID, const std::string& name="GameObject");
+		GameObject CreateObject(EulerUUID uuid, const std::string& name="GameObject");
 		void DestroyObject(GameObject& obj);
 
 		void OnRuntimeStart();

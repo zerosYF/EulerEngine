@@ -1457,6 +1457,8 @@
     </ClInclude>
     <ClInclude Include="Src\World\Component\Rigidbody2D.h" />
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
+    <ClInclude Include="Src\Core\EulerUUID.h" />
+    <ClInclude Include="Src\World\Component\IDCom.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1606,5 +1608,6 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\EulerUUID.cpp" />
   </ItemGroup>
 </Project>

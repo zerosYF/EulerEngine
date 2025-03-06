@@ -3,6 +3,7 @@
 #include"entt.hpp"
 #include"GutKink/Core.h"
 #include"EulerScene.h"
+#include"Core/EulerUUID.h"
 namespace EulerEngine {
 	class GameObject{
 	public:
@@ -35,6 +36,8 @@ namespace EulerEngine {
 		operator unsigned int() const { return (unsigned int)m_Entity; }
 		operator entt::entity() const { return m_Entity; }
 		bool operator ==(const GameObject& other) const { return m_Entity == other.m_Entity && m_Scene == other.m_Scene; }
+		EulerUUID GetUUID() { return GetComponent<IDCom>().ID; }
+
 	private:
 		entt::entity m_Entity{entt::null};
 		Scene* m_Scene = nullptr;

@@ -511,6 +511,7 @@
     <ClInclude Include="Src\Core\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
     <ClInclude Include="Src\Core\EulerTimer.h" />
+    <ClInclude Include="Src\Core\EulerUUID.h" />
     <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
     <ClInclude Include="Src\Core\Events\Event.h" />
@@ -574,6 +575,7 @@
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
+    <ClInclude Include="Src\World\Component\IDCom.h" />
     <ClInclude Include="Src\World\Component\MeshRenderer.h" />
     <ClInclude Include="Src\World\Component\NativeScript.h" />
     <ClInclude Include="Src\World\Component\Profile.h" />
@@ -591,6 +593,7 @@
     <ClCompile Include="External\include\stb_image\stb_image.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
+    <ClCompile Include="Src\Core\EulerUUID.cpp" />
     <ClCompile Include="Src\Core\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayer.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp" />

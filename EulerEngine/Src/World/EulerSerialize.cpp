@@ -112,8 +112,9 @@ namespace EulerEngine {
 	}
 	static void SerializeGameObject(GameObject gameObj, YAML::Emitter& out)
 	{
+		KINK_CORE_ASSERT(gameObj.HasComponent<IDCom>(), "GameObject must have IDComponent");
 		out << YAML::BeginMap;
-		out << YAML::Key << "GameObject" << YAML::Value << "12093821903";
+		out << YAML::Key << "GameObject" << YAML::Value << gameObj.GetUUID();
 		if (gameObj.HasComponent<Profile>()) {
 			out << YAML::Key << "Profile";
 			out << YAML::BeginMap;
@@ -225,15 +226,14 @@ namespace EulerEngine {
 			auto gameObjects = data["GameObjects"];
 			if (gameObjects) {
 				for (auto gameObject : gameObjects) {
-					std::string uuid = gameObject["GameObject"].as<std::string>();
+					uint64_t uuid = gameObject["GameObject"].as<uint64_t>();
 
 					KINK_CORE_INFO("Deserializing GameObject: {0}", uuid);
 					std::string objName;
 					if (gameObject["Profile"]) {
 						objName = gameObject["Profile"]["Tag"].as<std::string>();
-						KINK_CORE_INFO("Deserializing Profile: {0}", objName);
 					}
-					GameObject gameObj = m_Scene->CreateObject(objName);
+					GameObject gameObj = m_Scene->CreateObject(uuid, objName);
 
 					if (gameObject["Transform"]) {
 						auto& transform = gameObj.GetComponent<Transform>();
@@ -294,7 +294,7 @@ namespace EulerEngine {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	bool SceneSerializer::DeserializeRuntime(const std::string& filePath)
 	{

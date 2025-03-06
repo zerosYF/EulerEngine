@@ -15,7 +15,7 @@ namespace EulerEngine {
 	void HierarchyPanel::OnImGuiRender()
 	{
 		ImGui::Begin("Hierarchy");
-		m_Context->m_Registry.view<Profile>().each([&](auto entity, auto& tc) {
+		m_Context->m_Registry.view<IDCom>().each([&](auto entity, auto& id_com) {
 			GameObject gameObject{ entity, m_Context.get() };
 			DrawGameObjectNode(gameObject);
 		});

@@ -23,55 +23,53 @@ namespace EulerEngine {
         spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::Depth };
         m_FrameBuffer = FrameBuffer::Create(spec);
         m_ActiveScene = CreateRef<Scene>();
+        m_EditorScene = m_ActiveScene;
 
         auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
         auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
 
-        //auto cube = m_ActiveScene->CreateObject("Cube");
-        //cube.AddComponent<MeshRenderer>();
+        //auto quad = m_ActiveScene->CreateObject("Quad");
+        //quad.AddComponent<SpriteRenderer>();
+        //quad.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        //quad.GetComponent<Transform>().Scale = glm::vec3(0.4f, 0.4f, 1.0f);
 
-        auto quad = m_ActiveScene->CreateObject("Quad");
-        quad.AddComponent<SpriteRenderer>();
-        quad.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        quad.GetComponent<Transform>().Scale = glm::vec3(0.4f, 0.4f, 1.0f);
+        //auto quad2 = m_ActiveScene->CreateObject("Quad2");
+        //quad2.AddComponent<SpriteRenderer>();
+        //quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, -1.2f, 0.0f);
+        //quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);
 
-        auto quad2 = m_ActiveScene->CreateObject("Quad2");
-        quad2.AddComponent<SpriteRenderer>();
-        quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, -1.2f, 0.0f);
-        quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);
-
-        m_MainCamera = m_ActiveScene->CreateObject("Camera");
-        m_MainCamera.AddComponent<Camera>(ORTHOGRAPHIC);
-        m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 degrees = glm::vec3(0.0f, 0.0f, 0.0f);
-        m_MainCamera.GetComponent<Transform>().Rotation = glm::radians(degrees);
+        //m_MainCamera = m_ActiveScene->CreateObject("Camera");
+        //m_MainCamera.AddComponent<Camera>(ORTHOGRAPHIC);
+        //m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
+        //glm::vec3 degrees = glm::vec3(0.0f, 0.0f, 0.0f);
+        //m_MainCamera.GetComponent<Transform>().Rotation = glm::radians(degrees);
 
 
-        class CameraController:public EulerBehaviour {
+        //class CameraController:public EulerBehaviour {
 
-        public:
-            void OnCreate() {
-            }
-            void OnDestroy() {
-            }
-            void OnUpdate(TimerSystem ts) {
-                /*auto& transform = GetComponent<Transform>();
-                if (InputSystem::IsKeyDown(KINK_KEY_W)) {
-                    transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
-                }
-                if (InputSystem::IsKeyDown(KINK_KEY_A)) {
-                    transform.Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-                }
-                if (InputSystem::IsKeyDown(KINK_KEY_D)) {
-                    transform.Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-                }
-                if (InputSystem::IsKeyDown(KINK_KEY_S)) {
-                    transform.Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
-                }*/
-            }
-        };
-        auto& nsc = m_MainCamera.AddComponent<NativeScript>();
-        nsc.Bind<CameraController>();
+        //public:
+        //    void OnCreate() {
+        //    }
+        //    void OnDestroy() {
+        //    }
+        //    void OnUpdate(TimerSystem ts) {
+        //        /*auto& transform = GetComponent<Transform>();
+        //        if (InputSystem::IsKeyDown(KINK_KEY_W)) {
+        //            transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
+        //        }
+        //        if (InputSystem::IsKeyDown(KINK_KEY_A)) {
+        //            transform.Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+        //        }
+        //        if (InputSystem::IsKeyDown(KINK_KEY_D)) {
+        //            transform.Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
+        //        }
+        //        if (InputSystem::IsKeyDown(KINK_KEY_S)) {
+        //            transform.Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
+        //        }*/
+        //    }
+        //};
+        //auto& nsc = m_MainCamera.AddComponent<NativeScript>();
+        //nsc.Bind<CameraController>();
 
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
@@ -360,12 +358,22 @@ namespace EulerEngine {
     }
     void EditorLayer::OpenScene(const std::filesystem::path& path)
     {
-        m_ActiveScene = CreateRef<Scene>();
-        m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
-        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+        if (m_SceneState != SceneState::Edit) {
+            OnSceneStop();
+        }
+        if (path.extension() != ".kink") {
+            KINK_CORE_WARN("Could not open file. File extension is not .kink");
+            return;
+        }
+        Ref<Scene> scene = CreateRef<Scene>();
+        SceneSerializer serializer(scene);
+        if (serializer.Deserialize(path.string())) {
+            m_EditorScene = scene;
+            m_EditorScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
+            m_ActiveScene = m_EditorScene;
+            m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+        }
 
-        SceneSerializer serializer(m_ActiveScene);
-        serializer.Deserialize(path.string());
     }
     void EditorLayer::SaveSceneAs()
     {
@@ -378,12 +386,14 @@ namespace EulerEngine {
     void EditorLayer::OnScenePlay()
     {
         m_SceneState = SceneState::Play;
+        m_ActiveScene = Scene::Copy(m_EditorScene);
         m_ActiveScene->OnRuntimeStart();
     }
     void EditorLayer::OnSceneStop()
     {
         m_SceneState = SceneState::Edit;
         m_ActiveScene->OnRuntimeStop();
+        m_ActiveScene = m_EditorScene;
     }
     void EditorLayer::UI_Toolbar()
     {
