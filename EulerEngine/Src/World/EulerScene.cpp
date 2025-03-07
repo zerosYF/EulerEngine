@@ -39,6 +39,14 @@ namespace EulerEngine {
 			dst.emplace_or_replace<Component>(dstEntity, component);
 		}
 	}
+	template<typename Component>
+	static void CopyComponent(GameObject dst, GameObject src) {
+		if (src.HasComponent<Component>()) {
+			dst.AddOrReplaceComponent<Component>(src.GetComponent<Component>());
+		}
+	}
+
+
 	Ref<Scene> Scene::Copy(Ref<Scene> scene)
 	{
 		Ref<Scene> newScene = CreateRef<Scene>();
@@ -53,7 +61,7 @@ namespace EulerEngine {
 		for (auto e : idView) {
 			EulerUUID id = srcregistry.get<IDCom>(e).ID;
 			const auto& name = srcregistry.get<Profile>(e).Tag;
-			//KINK_CORE_INFO("Copying Entity:{0}", name);
+			KINK_CORE_INFO("Copying Entity:{0}", name);
 			GameObject obj = newScene ->CreateObject(id, name);
 			entityMap[id] = (entt::entity)obj;
 		}
@@ -77,6 +85,18 @@ namespace EulerEngine {
 		go.AddComponent<Transform>();
 		go.AddComponent<Profile>(name);
 		return go;
+	}
+	void Scene::DuplicateObject(GameObject obj)
+	{
+		std::string name = obj.GetName() + "_copy";
+		GameObject newObj = CreateObject(name);
+		CopyComponent<Transform>(newObj, obj);
+		CopyComponent<BoxCollider2D>(newObj, obj);
+		CopyComponent<Rigidbody2D>(newObj, obj);
+		CopyComponent<SpriteRenderer>(newObj, obj);
+		CopyComponent<MeshRenderer>(newObj, obj);
+		CopyComponent<NativeScript>(newObj, obj);
+		CopyComponent<Camera>(newObj, obj);
 	}
 	void Scene::DestroyObject(GameObject& obj)
 	{

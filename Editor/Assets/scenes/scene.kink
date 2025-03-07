@@ -1,48 +1,5 @@
 Scene: Untitled
 GameObjects:
-  - GameObject: 754205806372244288
-    Profile:
-      Tag: Camera
-    Transform:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Camera:
-      IsPrimary: true
-      IsFixedAspectRatio: false
-      CameraType: 1
-      ViewportWidth: 710
-      ViewportHeight: 453
-      Perspective_FOV: 45
-      Perspective_NearClip: 0.1
-      Perspective_FarClip: 100
-      Orthographic_Size: 1
-      Orthographic_NearClip: -1
-      Orthographic_FarClip: 1
-  - GameObject: 12430789715363197097
-    Profile:
-      Tag: Quad2
-    Transform:
-      Position: [0, -1.2, 0]
-      Rotation: [0, 0, 0]
-      Scale: [4, 1, 1]
-    SpriteRenderer:
-      Shader: Shaders/Camera/first_test.glsl
-      Color: [1, 1, 1, 1]
-      TexturePath: Assets/mytextures/container2.png
-    Rigidbody2D:
-      Type: Static
-      FixedRotation: false
-      Mass: 1
-      LinearDamping: 0
-      AngularDamping: 0
-    BoxCollider2D:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      IsTrigger: false
   - GameObject: 8428189108062492581
     Profile:
       Tag: Quad
@@ -67,3 +24,46 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
+  - GameObject: 12430789715363197097
+    Profile:
+      Tag: Quad2
+    Transform:
+      Position: [0, -1.2, 0]
+      Rotation: [0, 0, 0.21118484]
+      Scale: [4, 1, 1]
+    SpriteRenderer:
+      Shader: Shaders/Camera/first_test.glsl
+      Color: [1, 1, 1, 1]
+      TexturePath: Assets/mytextures/container2.png
+    Rigidbody2D:
+      Type: Static
+      FixedRotation: false
+      Mass: 1
+      LinearDamping: 0
+      AngularDamping: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      IsTrigger: false
+  - GameObject: 754205806372244288
+    Profile:
+      Tag: Camera
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      IsPrimary: true
+      IsFixedAspectRatio: false
+      CameraType: 1
+      ViewportWidth: 710
+      ViewportHeight: 453
+      Perspective_FOV: 45
+      Perspective_NearClip: 0.1
+      Perspective_FarClip: 100
+      Orthographic_Size: 1
+      Orthographic_NearClip: -1
+      Orthographic_FarClip: 1

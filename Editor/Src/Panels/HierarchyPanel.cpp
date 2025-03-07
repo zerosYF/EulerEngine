@@ -15,23 +15,26 @@ namespace EulerEngine {
 	void HierarchyPanel::OnImGuiRender()
 	{
 		ImGui::Begin("Hierarchy");
-		m_Context->m_Registry.view<IDCom>().each([&](auto entity, auto& id_com) {
-			GameObject gameObject{ entity, m_Context.get() };
-			DrawGameObjectNode(gameObject);
-		});
-		if (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
-			m_SelectedGameObject = {};
-		}
-		// right-click on empty space to create new object
-		ImGuiPopupFlags flags = ImGuiPopupFlags_NoOpenOverExistingPopup | ImGuiPopupFlags_MouseButtonRight;
-		if (ImGui::BeginPopupContextWindow(0, flags)) {
-			if (ImGui::MenuItem("Create EmptyObject")) {
-				m_Context->CreateObject("GameObject");
+		if (m_Context) {
+			auto view = m_Context->m_Registry.view<IDCom>();
+			for (auto entity : view) {
+				auto& id_com = view.get<IDCom>(entity);
+				GameObject gameObject{ entity, m_Context.get() };
+				DrawGameObjectNode(gameObject);
 			}
-			ImGui::EndPopup();
+			if (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered()) {
+				m_SelectedGameObject = {};
+			}
+			// right-click on empty space to create new object
+			ImGuiPopupFlags flags = ImGuiPopupFlags_NoOpenOverExistingPopup | ImGuiPopupFlags_MouseButtonRight;
+			if (ImGui::BeginPopupContextWindow(0, flags)) {
+				if (ImGui::MenuItem("Create EmptyObject")) {
+					m_Context->CreateObject("GameObject");
+				}
+				ImGui::EndPopup();
+			}
 		}
 		ImGui::End();
-
 		ImGui::Begin("Properties");
 		if (m_SelectedGameObject) {
 			DrawComponents(m_SelectedGameObject);

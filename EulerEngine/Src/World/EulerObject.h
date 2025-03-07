@@ -18,6 +18,12 @@ namespace EulerEngine {
 			m_Scene->OnComponentAdded<T>(*this, component);
 			return component;
 		}
+		template<typename T, typename... Args>
+		T& AddOrReplaceComponent(Args&&... args) {
+			T& component = m_Scene->m_Registry.emplace_or_replace<T>(m_Entity, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
+		}
 		template<typename T>
 		T& GetComponent() {
 			KINK_CORE_ASSERT(HasComponent<T>(), "Component does not exist on GameObject");
@@ -37,6 +43,7 @@ namespace EulerEngine {
 		operator entt::entity() const { return m_Entity; }
 		bool operator ==(const GameObject& other) const { return m_Entity == other.m_Entity && m_Scene == other.m_Scene; }
 		EulerUUID GetUUID() { return GetComponent<IDCom>().ID; }
+		std::string GetName() { return GetComponent<Profile>().Tag; }
 
 	private:
 		entt::entity m_Entity{entt::null};

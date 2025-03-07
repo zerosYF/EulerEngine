@@ -22,8 +22,9 @@ namespace EulerEngine {
         spec.Height = 720;
         spec.Attachments = { FrameBufferTextureFormat::RGBA8, FrameBufferTextureFormat::RED_INTEGER, FrameBufferTextureFormat::Depth };
         m_FrameBuffer = FrameBuffer::Create(spec);
-        m_ActiveScene = CreateRef<Scene>();
-        m_EditorScene = m_ActiveScene;
+
+        m_EditorScene = CreateRef<Scene>();
+        m_ActiveScene = m_EditorScene;
 
         auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
         auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
@@ -70,13 +71,10 @@ namespace EulerEngine {
         //};
         //auto& nsc = m_MainCamera.AddComponent<NativeScript>();
         //nsc.Bind<CameraController>();
-
-        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
     {
-
         FrameBufferSpecification spec = m_FrameBuffer->GetSpecifications();
         if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {
             m_FrameBuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
@@ -260,41 +258,38 @@ namespace EulerEngine {
         m_ViewportBounds[0] = { minBound.x, minBound.y };
         m_ViewportBounds[1] = { maxBound.x, maxBound.y };
 
-        //gizmos
-        GameObject selectedObj = m_SceneHierarchyPanel.GetSelectedGameObject();
-        if (selectedObj && m_GizmosType != -1) {
-            ImGuizmo::SetOrthographic(false);
-            ImGuizmo::SetDrawlist();
-            ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+        if (m_SceneState == SceneState::Edit) {
+            //gizmos
+            GameObject selectedObj = m_SceneHierarchyPanel.GetSelectedGameObject();
+            if (selectedObj && m_GizmosType != -1) {
+                ImGuizmo::SetOrthographic(true);
+                ImGuizmo::SetDrawlist();
+                ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-            /*auto cameraObj = m_ActiveScene->GetPrimaryCamera();
-            const auto& cameraCom = cameraObj.GetComponent<Camera>();
-            const auto& cameraViewMtx = cameraCom.RendererCamera->GetViewMatrix();
-            const auto& cameraProjMtx = cameraCom.RendererCamera->GetProjectionMatrix();*/
+                const auto& cameraViewMtx = m_EditorCameraController.GetCamera()->GetViewMatrix();
+                const auto& cameraProjMtx = m_EditorCameraController.GetCamera()->GetProjectionMatrix();
 
-            const auto& cameraViewMtx = m_EditorCameraController.GetCamera()->GetViewMatrix();
-            const auto& cameraProjMtx = m_EditorCameraController.GetCamera()->GetProjectionMatrix();
+                auto& tc = selectedObj.GetComponent<Transform>();
+                glm::mat4 transform = tc.GetTransform();
 
-            auto& tc = selectedObj.GetComponent<Transform>();
-            glm::mat4 transform = tc.GetTransform();
+                bool snap = InputSystem::IsKeyDown(KINK_KEY_LEFT_CONTROL);
+                float snapValue = 0.5f;
+                if (m_GizmosType == ImGuizmo::OPERATION::ROTATE) {
+                    snapValue = 45.0f;
+                }
+                float snapValues[3] = { snapValue, snapValue, snapValue };
 
-            bool snap = InputSystem::IsKeyDown(KINK_KEY_LEFT_CONTROL);
-            float snapValue = 0.5f;
-            if (m_GizmosType == ImGuizmo::OPERATION::ROTATE) {
-                snapValue = 45.0f;
-            }
-            float snapValues[3] = { snapValue, snapValue, snapValue };
-
-            ImGuizmo::Manipulate(glm::value_ptr(cameraViewMtx), glm::value_ptr(cameraProjMtx),
-                (ImGuizmo::OPERATION)m_GizmosType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
-                nullptr, snap? snapValues : nullptr);
-            if (ImGuizmo::IsUsing()) {
-                glm::vec3 translation, rotation, scale;
-                Math::DecomposeTransform(transform, translation, rotation, scale);
-                glm::vec3 deltaRotation = rotation - tc.Rotation;
-                tc.Rotation += deltaRotation;
-                tc.Position = translation;
-                tc.Scale = scale;
+                ImGuizmo::Manipulate(glm::value_ptr(cameraViewMtx), glm::value_ptr(cameraProjMtx),
+                    (ImGuizmo::OPERATION)m_GizmosType, ImGuizmo::MODE::LOCAL, glm::value_ptr(transform),
+                    nullptr, snap ? snapValues : nullptr);
+                if (ImGuizmo::IsUsing()) {
+                    glm::vec3 translation, rotation, scale;
+                    Math::DecomposeTransform(transform, translation, rotation, scale);
+                    glm::vec3 deltaRotation = rotation - tc.Rotation;
+                    tc.Rotation += deltaRotation;
+                    tc.Position = translation;
+                    tc.Scale = scale;
+                }
             }
         }
 
@@ -309,13 +304,38 @@ namespace EulerEngine {
 
     void EditorLayer::OnEvent(Event& e)
     {
-        m_EditorCameraController.OnEvent(e);
+        if (m_SceneState == SceneState::Edit) {
+            m_EditorCameraController.OnEvent(e);
+        }
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<KeyPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnKeyPressed));
         dispatcher.Dispatch<MouseButtonPressedEvent>(KINK_BIND_EVENT_FUNC(EditorLayer::OnMouseButtonPressed));
     }
     bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
     {
+        bool control = InputSystem::IsKeyDown(KINK_KEY_LEFT_CONTROL) || InputSystem::IsKeyDown(KINK_KEY_RIGHT_CONTROL);
+        bool shift = InputSystem::IsKeyDown(KINK_KEY_LEFT_SHIFT) || InputSystem::IsKeyDown(KINK_KEY_RIGHT_SHIFT);
+        bool alt = InputSystem::IsKeyDown(KINK_KEY_LEFT_ALT) || InputSystem::IsKeyDown(KINK_KEY_RIGHT_ALT);
+        if (e.GetKeyCode() == KINK_KEY_N && control) {
+            NewScene();
+        }
+        if (e.GetKeyCode() == KINK_KEY_O && control) {
+            OpenScene();
+        }
+        if (e.GetKeyCode() == KINK_KEY_S && control) {
+            SaveScene();
+        }
+        if (e.GetKeyCode() == KINK_KEY_D && control) {
+            OnDuplicateGameObject();
+        }
+        if (e.GetKeyCode() == KINK_KEY_P && control) {
+            if (m_SceneState != SceneState::Edit) {
+                OnSceneStop();
+            }
+            else {
+                OnScenePlay();
+            }
+        }
         switch (e.GetKeyCode())
         {
         case KINK_KEY_Q:
@@ -348,6 +368,7 @@ namespace EulerEngine {
         m_ActiveScene = CreateRef<Scene>();
         m_ActiveScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+        m_EditingScenePath = std::filesystem::path();
     }
     void EditorLayer::OpenScene()
     {
@@ -372,8 +393,18 @@ namespace EulerEngine {
             m_EditorScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
             m_ActiveScene = m_EditorScene;
             m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+            m_EditingScenePath = path;
         }
-
+    }
+    void EditorLayer::SaveScene()
+    {
+        if (m_EditingScenePath.empty()) {
+            SaveSceneAs();
+        }
+        else {
+            SceneSerializer serializer(m_ActiveScene);
+            serializer.Serialize(m_EditingScenePath.string());
+        }
     }
     void EditorLayer::SaveSceneAs()
     {
@@ -381,6 +412,7 @@ namespace EulerEngine {
         if (!filepath.empty()) {
             SceneSerializer serializer(m_ActiveScene);
             serializer.Serialize(filepath);
+            m_EditingScenePath = filepath;
         }
     }
     void EditorLayer::OnScenePlay()
@@ -388,12 +420,24 @@ namespace EulerEngine {
         m_SceneState = SceneState::Play;
         m_ActiveScene = Scene::Copy(m_EditorScene);
         m_ActiveScene->OnRuntimeStart();
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
     void EditorLayer::OnSceneStop()
     {
         m_SceneState = SceneState::Edit;
         m_ActiveScene->OnRuntimeStop();
         m_ActiveScene = m_EditorScene;
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+    void EditorLayer::OnDuplicateGameObject()
+    {
+        if (m_SceneState != SceneState::Edit) {
+            return;
+        }
+        GameObject selectd = m_SceneHierarchyPanel.GetSelectedGameObject();
+        if (selectd) {
+            m_EditorScene->DuplicateObject(selectd);
+        }
     }
     void EditorLayer::UI_Toolbar()
     {

@@ -20,9 +20,11 @@ namespace EulerEngine {
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
+		void SaveScene();
 		void SaveSceneAs();
 		void OnScenePlay();
 		void OnSceneStop();
+		void OnDuplicateGameObject();
 
 		void UI_Toolbar();
 	private:
@@ -42,8 +44,8 @@ namespace EulerEngine {
 		};
 		Ref<FrameBuffer> m_FrameBuffer;
 		Ref<Scene> m_ActiveScene;
-
 		Ref<Scene> m_EditorScene;
+		std::filesystem ::path m_EditingScenePath;
 
 		GameObject m_MainCamera;
 		GameObject m_CanvasCamera;

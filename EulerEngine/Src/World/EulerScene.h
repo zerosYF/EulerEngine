@@ -18,6 +18,7 @@ namespace EulerEngine {
 
 		GameObject CreateObject(const std::string& name="GameObject");
 		GameObject CreateObject(EulerUUID uuid, const std::string& name="GameObject");
+		void DuplicateObject(GameObject obj);
 		void DestroyObject(GameObject& obj);
 
 		void OnRuntimeStart();
