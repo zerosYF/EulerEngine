@@ -8,7 +8,10 @@
 #define MAX_TEXTURE_SLOTS 32
 #define MAX_CUBE_COUNT 10000
 #define MAX_QUAD_COUNT 10000
+#define QUAD_VERTEX_CNT 4
+#define CUBE_VERTEX_CNT 8
 #define QUAD_INDEX_CNT 6
+#define CUBE_INDEX_CNT 36
 namespace EulerEngine {
 	class Renderer {
 	public:
@@ -25,13 +28,17 @@ namespace EulerEngine {
 
 		static void DrawQuad(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID);
 		static void DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID);
+
+		static void DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
+		static void DrawCircle(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
 	public:
 		struct Statistics {
 			unsigned int DrawCalls = 0;
 			unsigned int CubeCount = 0;
 			unsigned int QuadCount = 0;
-			unsigned int GetTotalVertexCount() { return CubeCount * CUBE_VERTEX_CNT + QuadCount * QUAD_VERTEX_CNT; }
-			unsigned int GetTotalIndicesCount() { return CubeCount * 8; }
+			unsigned int CircleCount = 0;
+			unsigned int GetTotalVertexCount() { return CubeCount * CUBE_VERTEX_CNT + QuadCount * QUAD_VERTEX_CNT + CircleCount * QUAD_VERTEX_CNT; }
+			unsigned int GetTotalIndicesCount() { return CubeCount * CUBE_INDEX_CNT + QuadCount * QUAD_INDEX_CNT + CircleCount * QUAD_INDEX_CNT; }
 		};
 		static void ResetStatistic();
 		static Statistics GetStats();
@@ -40,18 +47,34 @@ namespace EulerEngine {
 			glm::mat4 ViewMatrix = glm::mat4(1.0f);
 			glm::mat4 ProjectionMatrix = glm::mat4(1.0f);
 
-			const unsigned int MaxVertices =  MAX_QUAD_COUNT * QUAD_VERTEX_CNT;
+			const unsigned int MaxVertices =  MAX_QUAD_COUNT * QUAD_VERTICE_CNT;
 			const unsigned int MaxIndices = MAX_QUAD_COUNT * QUAD_INDEX_CNT;
 
 			Ref<VertexArray> Cube_VA;
+			unsigned int CubeIndicesCount = 0;
 			CubeVertex* CubeVertexBase = nullptr;
 			CubeVertex* CubeVertexArrayPtr = nullptr;
 			Ref<VertexBuffer> Cube_VB;
 
 			Ref<VertexArray> Quad_VA;
+			unsigned int QuadIndicesCount = 0;
 			QuadVertex* QuadVertexBase = nullptr;
 			QuadVertex* QuadVertexArrayPtr = nullptr;
 			Ref<VertexBuffer> Quad_VB;
+			Ref<EulerShader> QuadShader;
+
+			Ref<VertexArray> Circle_VA;
+			unsigned int CircleIndicesCount = 0;
+			CircleVertex* CircleVertexBase = nullptr;
+			CircleVertex* CircleVertexArrayPtr = nullptr;
+			Ref<VertexBuffer> Circle_VB;
+			Ref<EulerShader> CircleShader;
+
+			Ref<VertexArray> Line_VA;
+			unsigned int LineIndicesCount = 0;
+			LineVertex* LineVertexBase = nullptr;
+			LineVertex* LineVertexArrayPtr = nullptr;
+			Ref<VertexBuffer> Line_VB;
 
 			std::array<Ref<Texture2D>, MAX_TEXTURE_SLOTS> TextureSlots;
 			unsigned int TextureSlotIndex = 0;

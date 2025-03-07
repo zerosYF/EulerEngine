@@ -20,12 +20,13 @@ namespace EulerEngine {
 	}
 	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt)
 	{
-		if (vertexArray->GetIndexBuffer() == nullptr) {
-			//KINK_CORE_INFO("NO INDEX BUFFER,USE DRAW ARRAY...");
-			glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
-			return;
-		}
-		//KINK_CORE_INFO("INDEX BUFFER,USE DRAW ARRAY...{0}", vertexArray->GetIndexBuffer()->GetCount());
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		vertexArray->Bind();
+		glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
+	}
+	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_cnt)
+	{
+		unsigned int count = index_cnt ? index_cnt : vertexArray->GetIndexBuffer()->GetCount();
+		vertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
 }

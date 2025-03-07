@@ -1459,6 +1459,7 @@
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
     <ClInclude Include="Src\Core\EulerUUID.h" />
     <ClInclude Include="Src\World\Component\IDCom.h" />
+    <ClInclude Include="Src\World\Component\CircleRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">

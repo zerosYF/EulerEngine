@@ -1,11 +1,13 @@
 #pragma once
-#include"MeshRenderer.h"
+#include"IDCom.h"
 #include"Transform.h"
 #include"Profile.h"
 #include"Camera.h"
 #include"NativeScript.h"
+
+#include"MeshRenderer.h"
 #include"SpriteRenderer.h"
-#include"IDCom.h"
+#include"CircleRenderer.h"
 
 #include"Rigidbody2D.h"
 #include"BoxCollider2D.h"

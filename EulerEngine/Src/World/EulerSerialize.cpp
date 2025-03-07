@@ -189,6 +189,13 @@ namespace EulerEngine {
 			out << YAML::Key << "IsTrigger" << YAML::Value << gameObj.GetComponent<BoxCollider2D>().IsTrigger;
 			out << YAML::EndMap;
 		}
+		if (gameObj.HasComponent<CircleRenderer>()) {
+			out << YAML::Key << "CircleRenderer";
+			out << YAML::BeginMap;
+			out << YAML::Key << "Color" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Color;
+			out << YAML::Key << "Thickness" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Thickness;
+			out << YAML::Key << "Fade" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Fade;
+		}
 		out << YAML::EndMap;
 	}
 	void SceneSerializer::Serialize(const std::string& filePath)
@@ -290,6 +297,12 @@ namespace EulerEngine {
 						boxCollider2D.Friction = gameObject["BoxCollider2D"]["Friction"].as<float>();
 						boxCollider2D.Restitution = gameObject["BoxCollider2D"]["Restitution"].as<float>();
 						boxCollider2D.IsTrigger = gameObject["BoxCollider2D"]["IsTrigger"].as<bool>();
+					}
+					if (gameObject["CircleRenderer"]) {
+						auto& circleRenderer = gameObj.AddComponent<CircleRenderer>();
+						circleRenderer.Color = gameObject["CircleRenderer"]["Color"].as<glm::vec4>();
+						circleRenderer.Thickness = gameObject["CircleRenderer"]["Thickness"].as<float>();
+						circleRenderer.Fade = gameObject["CircleRenderer"]["Fade"].as<float>();
 					}
 				}
 			}

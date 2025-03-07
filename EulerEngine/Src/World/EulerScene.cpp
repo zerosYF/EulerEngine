@@ -72,6 +72,7 @@ namespace EulerEngine {
 		CopyComponent<MeshRenderer>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<NativeScript>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<CircleRenderer>(dstRegistry, srcregistry, entityMap);
 		return newScene;
 	}
 	GameObject Scene::CreateObject(const std::string& name)
@@ -97,6 +98,7 @@ namespace EulerEngine {
 		CopyComponent<MeshRenderer>(newObj, obj);
 		CopyComponent<NativeScript>(newObj, obj);
 		CopyComponent<Camera>(newObj, obj);
+		CopyComponent<CircleRenderer>(newObj, obj);
 	}
 	void Scene::DestroyObject(GameObject& obj)
 	{
@@ -192,6 +194,12 @@ namespace EulerEngine {
 				auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
 				Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
 			}
+			auto view = m_Registry.view<Transform, CircleRenderer>();
+			for (auto entity : view) {
+				auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
+				Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
+			}
+
 			Renderer::EndScene();
 		}
 	}
@@ -205,11 +213,17 @@ namespace EulerEngine {
 		}*/
 
 		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
-		//KINK_CORE_INFO("SpriteCount:{0}", sprite_group.size());
 		for (auto entity : sprite_group) {
 			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
 			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
 		}
+
+		auto view = m_Registry.view<Transform, CircleRenderer>();
+		for (auto entity : view) {
+			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
+			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
+		}
+
 		Renderer::EndScene();
 	}
 	void Scene::OnViewportResize(int width, int height)
@@ -296,5 +310,9 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<BoxCollider2D>(GameObject obj, BoxCollider2D& component) {
+	}
+	template<>
+	void Scene::OnComponentAdded<CircleRenderer>(GameObject obj, CircleRenderer& component) {
+	
 	}
 }

@@ -22,11 +22,8 @@ namespace EulerEngine {
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 		virtual unsigned int GetCount() const override { return m_Count; }
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
-		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
 	private:
 		unsigned int m_RendererID;
 		unsigned int m_Count;
-		BufferLayout m_Layout;
 	};
 }

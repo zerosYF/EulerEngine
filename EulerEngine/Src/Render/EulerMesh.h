@@ -33,10 +33,11 @@ namespace EulerEngine {
 		}
 		void Draw() {
 			m_VertexArray->Bind();
-			RenderCommand::Draw(m_VertexArray);
+			RenderCommand::Draw(m_VertexArray, indexCount);
 			m_VertexArray->Unbind();
 		}
 	private:
 		Ref<VertexArray> m_VertexArray;
+		unsigned int indexCount;
 	};
 }

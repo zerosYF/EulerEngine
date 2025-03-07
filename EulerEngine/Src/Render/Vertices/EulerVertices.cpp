@@ -1,7 +1,7 @@
 #include"gkpch.h"
 #include"EulerVertices.h"
 namespace EulerEngine {
-	float CubeVertices[CUBE_VERTEX_CNT*CUBE_DATA_SIZE] = {
+	float CubeVertices[CUBE_VERTICE_CNT *CUBE_DATA_SIZE] = {
 		//Pos                 TexCoord    Normal
 		// Back face
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 0.0f,0.0f,-1.0f,// Bottom-left
@@ -46,7 +46,7 @@ namespace EulerEngine {
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,1.0f,0.0f,// top-left
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 0.0f,1.0f,0.0f // bottom-left
 	};
-	float CubeVerticesWithoutNormal[CUBE_VERTEX_CNT*CUBE_DATA_SIZE] = {
+	float CubeVerticesWithoutNormal[CUBE_VERTICE_CNT *CUBE_DATA_SIZE] = {
 		//Pos                 TexCoord    
 		// Back face
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 
@@ -91,14 +91,14 @@ namespace EulerEngine {
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 
 	};
-	float QuadVertices[QUAD_VERTEX_CNT * QUAD_DATA_SIZE] = {
+	float QuadVertices[QUAD_VERTICE_CNT * QUAD_DATA_SIZE] = {
 		//position			texCoord      
 		-0.5f, -0.5f,  0.0f,  0.0f,  0.0f, 
 		 0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 
 		 0.5f,  0.5f,  0.0f,  1.0f,  1.0f, 
 		-0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 	};
-	float QuadVerticesWithoutTexture[QUAD_VERTEX_CNT * QUAD_DATA_SIZE] = {
+	float QuadVerticesWithoutTexture[QUAD_VERTICE_CNT * QUAD_DATA_SIZE] = {
 		//position			
 		-0.5f, -0.5f,  0.0f,
 		 0.5f, -0.5f,  0.0f,

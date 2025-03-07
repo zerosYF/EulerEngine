@@ -11,6 +11,7 @@ namespace EulerEngine {
 	{
 		RenderCommand::Init();
 
+		m_SceneData->CircleShader = EulerShader::Create("Shaders/Camera/circle.glsl");
 		/*m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();
 		m_SceneData->Cube_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::CubeVertex));
 		EulerEngine::BufferLayout cube_layout = {
@@ -23,29 +24,50 @@ namespace EulerEngine {
 		m_SceneData->CubeVertexBase = new EulerEngine::CubeVertex[m_SceneData->MaxVertices];*/
 
 
-		unsigned offset = 0;
+		unsigned int offset = 0;
 		unsigned int SquareIndices[QUAD_INDEX_CNT] = { 0, 1, 2, 2, 3, 0 };
 		unsigned int* QuadIndices = new unsigned int[m_SceneData->MaxIndices];
 		for (unsigned int i = 0; i < m_SceneData->MaxIndices; i += QUAD_INDEX_CNT) {
 			for (unsigned int j = 0; j < QUAD_INDEX_CNT; j++) {
 				QuadIndices[i + j] = offset + SquareIndices[j];
 			}
-			offset += 4;
+			offset += QUAD_VERTEX_CNT;
 		}
-
-		m_SceneData->Quad_VA = EulerEngine::VertexArray::Create();
-		m_SceneData->Quad_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::QuadVertex));
-		EulerEngine::BufferLayout quad_layout = {
-			{EulerEngine::ShaderDataType::Float3, "aPosition"},
-			{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
-			{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
-		};
-		m_SceneData->Quad_VB->SetLayout(quad_layout);
-		m_SceneData->Quad_VA->AddVertexBuffer(m_SceneData->Quad_VB);
 		EulerEngine::Ref<EulerEngine::IndexBuffer> indexBuffer
 			= EulerEngine::IndexBuffer::Create(QuadIndices, m_SceneData->MaxIndices);
-		m_SceneData->Quad_VA->SetIndexBuffer(indexBuffer);
-		m_SceneData->QuadVertexBase = new EulerEngine::QuadVertex[m_SceneData->MaxVertices];
+		delete[] QuadIndices;
+
+		{
+			m_SceneData->Quad_VA = EulerEngine::VertexArray::Create();
+			m_SceneData->Quad_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::QuadVertex));
+			EulerEngine::BufferLayout quad_layout = {
+				{EulerEngine::ShaderDataType::Float3, "aPosition"},
+				{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
+				{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
+			};
+			m_SceneData->Quad_VB->SetLayout(quad_layout);
+			m_SceneData->Quad_VA->AddVertexBuffer(m_SceneData->Quad_VB);
+			m_SceneData->Quad_VA->SetIndexBuffer(indexBuffer);
+			m_SceneData->QuadVertexBase = new EulerEngine::QuadVertex[m_SceneData->MaxVertices];
+		}
+
+		
+		{
+			m_SceneData->Circle_VA = EulerEngine::VertexArray::Create();
+			m_SceneData->Circle_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::CircleVertex));
+			EulerEngine::BufferLayout circle_layout = {
+				{EulerEngine::ShaderDataType::Float3, "aPosition"},
+				{EulerEngine::ShaderDataType::Float3, "aLocalPosition"},
+				{EulerEngine::ShaderDataType::Float4, "aColor"},
+				{EulerEngine::ShaderDataType::Float, "aThickness"},
+				{EulerEngine::ShaderDataType::Float,"aFade"},
+				{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
+			};
+			m_SceneData->Circle_VB->SetLayout(circle_layout);
+			m_SceneData->Circle_VA->AddVertexBuffer(m_SceneData->Circle_VB);
+			m_SceneData->Circle_VA->SetIndexBuffer(indexBuffer);
+			m_SceneData->CircleVertexBase = new EulerEngine::CircleVertex[m_SceneData->MaxVertices];
+		}
 
 
 		for (unsigned int i = 0; i < m_SceneData->TextureSlots.size(); i++) {
@@ -61,10 +83,17 @@ namespace EulerEngine {
 	{
 		m_SceneData->ViewMatrix = camera->GetViewMatrix();
 		m_SceneData->ProjectionMatrix = camera->GetProjectionMatrix();
-
-		m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;
-
+		//m_SceneData->CubeIndicesCount = 0;
+		//m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;
+		
+		m_SceneData->QuadIndicesCount = 0;
 		m_SceneData->QuadVertexArrayPtr = m_SceneData->QuadVertexBase;
+
+		m_SceneData->CircleIndicesCount = 0;
+		m_SceneData->CircleVertexArrayPtr = m_SceneData->CircleVertexBase;
+
+		//m_SceneData->LineIndicesCount = 0;
+		//m_SceneData->LineVertexArrayPtr = m_SceneData->LineVertexBase;
 
 		m_SceneData->TextureSlotIndex = 0;
 	}
@@ -73,24 +102,39 @@ namespace EulerEngine {
 		Flush();
 	}
 	void Renderer::Flush() {
-		/*unsigned int size = m_SceneData->CubeVertexArrayPtr - m_SceneData->CubeVertexBase;
-		m_SceneData->Cube_VB->SetData(m_SceneData->CubeVertexBase, size * sizeof(EulerEngine::CubeVertex));
+		if (m_SceneData->CubeIndicesCount > 0) {
+			unsigned int byte_offset = (unsigned int)((uint8_t*)m_SceneData->CubeVertexArrayPtr - (uint8_t*)m_SceneData->CubeVertexBase);
+			m_SceneData->Cube_VB->SetData(m_SceneData->CubeVertexBase, byte_offset);
 
-		for (unsigned int i = 0; i < m_SceneData->TextureSlotIndex; i++) {
-			m_SceneData->TextureSlots[i]->Bind(i);
+			for (unsigned int i = 0; i < m_SceneData->TextureSlotIndex; i++) {
+				m_SceneData->TextureSlots[i]->Bind(i);
+			}
+
+			RenderCommand::Draw(m_SceneData->Cube_VA, byte_offset / sizeof(EulerEngine::CubeVertex));
+			m_SceneData->stats.DrawCalls++;
 		}
+		if (m_SceneData->QuadIndicesCount > 0) {
+			unsigned int byte_offset = (unsigned int)((uint8_t*)m_SceneData->QuadVertexArrayPtr - (uint8_t*)m_SceneData->QuadVertexBase);
+			m_SceneData->Quad_VB->SetData(m_SceneData->QuadVertexBase, byte_offset);
 
-		RenderCommand::Draw(m_SceneData->Cube_VA, size); */
-
-		unsigned int size = m_SceneData->QuadVertexArrayPtr - m_SceneData->QuadVertexBase;
-		m_SceneData->Quad_VB->SetData(m_SceneData->QuadVertexBase, size * sizeof(EulerEngine::QuadVertex));
-
-		for (unsigned int i = 0; i < m_SceneData->TextureSlotIndex; i++) {
-			m_SceneData->TextureSlots[i]->Bind(i);
+			for (unsigned int i = 0; i < m_SceneData->TextureSlotIndex; i++) {
+				m_SceneData->TextureSlots[i]->Bind(i);
+			}
+			m_SceneData->QuadShader->Bind();
+			RenderCommand::DrawIndexed(m_SceneData->Quad_VA, m_SceneData->QuadIndicesCount);
+			m_SceneData->stats.DrawCalls++;
 		}
+		if (m_SceneData->CircleIndicesCount > 0) {
+			unsigned int byte_offset = (unsigned int)((uint8_t*)m_SceneData->CircleVertexArrayPtr - (uint8_t*)m_SceneData->CircleVertexBase);
+			m_SceneData->Circle_VB->SetData(m_SceneData->CircleVertexBase, byte_offset);
 
-		RenderCommand::Draw(m_SceneData->Quad_VA, size);
-		m_SceneData->stats.DrawCalls++;
+			m_SceneData->CircleShader->Bind();
+			RenderCommand::DrawIndexed(m_SceneData->Circle_VA, m_SceneData->CircleIndicesCount);
+			m_SceneData->stats.DrawCalls++;
+		}
+		if (m_SceneData->LineIndicesCount > 0) {
+		
+		}
 	}
 
 	void Renderer::DrawCube(const Ref<EulerShader> shader, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, const Ref<Texture2D>& texture, int objID)
@@ -130,7 +174,7 @@ namespace EulerEngine {
 		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
 
-		for (unsigned int i = 0; i < CUBE_VERTEX_CNT; i++) {
+		for (unsigned int i = 0; i < CUBE_VERTICE_CNT; i++) {
 			unsigned int head_index = CUBE_DATA_SIZE * i;
 			glm::vec4 VerticePosition
 				= glm::vec4(EulerEngine::CubeVertices[head_index], EulerEngine::CubeVertices[head_index + 1], EulerEngine::CubeVertices[head_index + 2], 1.0f);
@@ -146,6 +190,7 @@ namespace EulerEngine {
 		shader->SetInt("texture_index", textureIndex);
 		shader->SetVec4("color", material->GetColor());
 
+		m_SceneData->CubeIndicesCount += CUBE_INDEX_CNT;
 		m_SceneData->stats.CubeCount++;
 	}
 
@@ -156,6 +201,8 @@ namespace EulerEngine {
 	void Renderer::DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID)
 	{
 		auto shader = material->GetShader();
+		m_SceneData->QuadShader = shader;
+		shader->Bind();
 		int samplers[MAX_TEXTURE_SLOTS];
 		for (unsigned int i = 0; i < MAX_TEXTURE_SLOTS; i++) {
 			samplers[i] = i;
@@ -185,7 +232,7 @@ namespace EulerEngine {
 		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
 
-		for (unsigned int i = 0; i < QUAD_VERTEX_CNT; i++) {
+		for (unsigned int i = 0; i < QUAD_VERTICE_CNT; i++) {
 			unsigned int head_index = QUAD_DATA_SIZE * i;
 			glm::vec4 VerticePosition
 				= glm::vec4(EulerEngine::QuadVertices[head_index], EulerEngine::QuadVertices[head_index + 1], EulerEngine::QuadVertices[head_index + 2], 1.0f);
@@ -195,13 +242,44 @@ namespace EulerEngine {
 			m_SceneData->QuadVertexArrayPtr++;
 		}
 
-		shader->Bind();
 		shader->SetMat4("view", m_SceneData->ViewMatrix);
 		shader->SetMat4("projection", m_SceneData->ProjectionMatrix);
 		shader->SetInt("texture_index", textureIndex);
 		shader->SetVec4("color", material->GetColor());
 
+		m_SceneData->QuadIndicesCount += QUAD_INDEX_CNT;
 		m_SceneData->stats.QuadCount++;
+	}
+
+	void Renderer::DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID)
+	{
+		DrawCircle({ position.x, position.y, 0.0f }, rotation, scale, color, thickness, fade, objID);
+	}
+	void Renderer::DrawCircle(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID)
+	{
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+		model *= glm::toMat4(glm::quat(rotation));
+		model = glm::scale(model, scale);
+
+		for (unsigned int i = 0; i < QUAD_VERTICE_CNT; i++) {
+			unsigned int head_index = QUAD_DATA_SIZE * i;
+			glm::vec4 VerticePosition
+				= glm::vec4(EulerEngine::QuadVertices[head_index], EulerEngine::QuadVertices[head_index + 1], EulerEngine::QuadVertices[head_index + 2], 1.0f);
+			m_SceneData->CircleVertexArrayPtr->Position = model * VerticePosition;
+			m_SceneData->CircleVertexArrayPtr->LocalPosition = VerticePosition * 2.0f;
+			m_SceneData->CircleVertexArrayPtr->Color = color;
+			m_SceneData->CircleVertexArrayPtr->Thickness = thickness;
+			m_SceneData->CircleVertexArrayPtr->Fade = fade;
+			m_SceneData->CircleVertexArrayPtr->GameObjectID = objID;
+			m_SceneData->CircleVertexArrayPtr++;
+		}
+
+		m_SceneData->CircleShader->Bind();
+		m_SceneData->CircleShader->SetMat4("view", m_SceneData->ViewMatrix);
+		m_SceneData->CircleShader->SetMat4("projection", m_SceneData->ProjectionMatrix);
+
+		m_SceneData->CircleIndicesCount += QUAD_INDEX_CNT;
+		m_SceneData->stats.CircleCount++;
 	}
 
 	void Renderer::ResetStatistic()
@@ -216,7 +294,7 @@ namespace EulerEngine {
 
 
 	void Renderer::Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, glm::vec4 color, Ref<Texture2D> texture,
-		const glm::mat4& model=glm::mat4(1.0f), const unsigned int vertex_cnt = 0)
+		const glm::mat4& model, const unsigned int vertex_cnt)
 	{
 		shader->Bind();
 		shader->SetMat4("view", m_SceneData->ViewMatrix);
