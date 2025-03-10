@@ -11,3 +11,4 @@
 
 #include"Rigidbody2D.h"
 #include"BoxCollider2D.h"
+#include"CircleCollider2D.h"

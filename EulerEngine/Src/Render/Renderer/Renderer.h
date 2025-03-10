@@ -31,12 +31,18 @@ namespace EulerEngine {
 
 		static void DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
 		static void DrawCircle(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
+	
+		static void DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID = -1);
+		static void DrawRect(const glm::vec2 position, const glm::vec3 size, const glm::vec4 color, int objID = -1);
+		static void DrawRect(const glm::vec3 position, const glm::vec3 size, const glm::vec4 color, int objID = -1);
+		static void DrawRect(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, int objID = -1);
 	public:
 		struct Statistics {
 			unsigned int DrawCalls = 0;
 			unsigned int CubeCount = 0;
 			unsigned int QuadCount = 0;
 			unsigned int CircleCount = 0;
+			unsigned int LineCount = 0;
 			unsigned int GetTotalVertexCount() { return CubeCount * CUBE_VERTEX_CNT + QuadCount * QUAD_VERTEX_CNT + CircleCount * QUAD_VERTEX_CNT; }
 			unsigned int GetTotalIndicesCount() { return CubeCount * CUBE_INDEX_CNT + QuadCount * QUAD_INDEX_CNT + CircleCount * QUAD_INDEX_CNT; }
 		};
@@ -51,7 +57,7 @@ namespace EulerEngine {
 			const unsigned int MaxIndices = MAX_QUAD_COUNT * QUAD_INDEX_CNT;
 
 			Ref<VertexArray> Cube_VA;
-			unsigned int CubeIndicesCount = 0;
+			unsigned int CubeVertexCount = 0;
 			CubeVertex* CubeVertexBase = nullptr;
 			CubeVertex* CubeVertexArrayPtr = nullptr;
 			Ref<VertexBuffer> Cube_VB;
@@ -71,10 +77,12 @@ namespace EulerEngine {
 			Ref<EulerShader> CircleShader;
 
 			Ref<VertexArray> Line_VA;
-			unsigned int LineIndicesCount = 0;
+			unsigned int LineVertexCount = 0;
 			LineVertex* LineVertexBase = nullptr;
 			LineVertex* LineVertexArrayPtr = nullptr;
 			Ref<VertexBuffer> Line_VB;
+			Ref<EulerShader> LineShader;
+			float LineWidth = 10.0f;
 
 			std::array<Ref<Texture2D>, MAX_TEXTURE_SLOTS> TextureSlots;
 			unsigned int TextureSlotIndex = 0;

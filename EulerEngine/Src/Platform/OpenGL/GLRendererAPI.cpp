@@ -9,6 +9,7 @@ namespace EulerEngine {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_LINE_SMOOTH);
 	}
 	void GLRendererAPI::SetClearColor(const glm::vec4& color)
 	{
@@ -23,6 +24,17 @@ namespace EulerEngine {
 		vertexArray->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
 	}
+	void GLRendererAPI::DrawLines(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt)
+	{
+		vertexArray->Bind();
+		glDrawArrays(GL_LINES, 0, vertex_cnt);
+	}
+
+	void GLRendererAPI::SetLineWidth(float width)
+	{
+		glLineWidth(width);
+	}
+
 	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_cnt)
 	{
 		unsigned int count = index_cnt ? index_cnt : vertexArray->GetIndexBuffer()->GetCount();

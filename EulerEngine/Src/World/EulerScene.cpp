@@ -73,6 +73,7 @@ namespace EulerEngine {
 		CopyComponent<NativeScript>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<CircleRenderer>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<CircleCollider2D>(dstRegistry, srcregistry, entityMap);
 		return newScene;
 	}
 	GameObject Scene::CreateObject(const std::string& name)
@@ -99,6 +100,7 @@ namespace EulerEngine {
 		CopyComponent<NativeScript>(newObj, obj);
 		CopyComponent<Camera>(newObj, obj);
 		CopyComponent<CircleRenderer>(newObj, obj);
+		CopyComponent<CircleCollider2D>(newObj, obj);
 	}
 	void Scene::DestroyObject(GameObject& obj)
 	{
@@ -134,7 +136,17 @@ namespace EulerEngine {
 				shapeDef.density = box2d.Density;
 				shapeDef.friction = box2d.Friction;
 				shapeDef.restitution = box2d.Restitution;
-				box2d.ShapeId = shape;
+			}
+			if (obj.HasComponent<CircleCollider2D>()) {
+				auto& circle2d = obj.GetComponent<CircleCollider2D>();
+				b2Circle circle = { {circle2d.Offset.x, circle2d.Offset.y},  circle2d.Radius };
+				
+				b2ShapeDef shapeDef = b2DefaultShapeDef();
+				b2ShapeId shape = b2CreateCircleShape(body, &shapeDef, &circle);
+
+				shapeDef.density = circle2d.Density;
+				shapeDef.friction = circle2d.Friction;
+				shapeDef.restitution = circle2d.Restitution;
 			}
 		}
 	}
@@ -216,6 +228,7 @@ namespace EulerEngine {
 		for (auto entity : sprite_group) {
 			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
 			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
+			Renderer::DrawRect(transform.Position, transform.Rotation, transform.Scale, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
 		auto view = m_Registry.view<Transform, CircleRenderer>();
@@ -223,7 +236,6 @@ namespace EulerEngine {
 			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
 			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
 		}
-
 		Renderer::EndScene();
 	}
 	void Scene::OnViewportResize(int width, int height)
@@ -314,5 +326,8 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<CircleRenderer>(GameObject obj, CircleRenderer& component) {
 	
+	}
+	template<>
+	void Scene::OnComponentAdded<CircleCollider2D>(GameObject obj, CircleCollider2D& component) {
 	}
 }

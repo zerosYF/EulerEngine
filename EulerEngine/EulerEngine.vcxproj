@@ -574,6 +574,7 @@
     <ClInclude Include="Src\Utils\PlatformUtils.h" />
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
+    <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
     <ClInclude Include="Src\World\Component\CircleRenderer.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
     <ClInclude Include="Src\World\Component\IDCom.h" />

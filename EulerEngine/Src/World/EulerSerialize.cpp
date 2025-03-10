@@ -196,6 +196,17 @@ namespace EulerEngine {
 			out << YAML::Key << "Thickness" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Thickness;
 			out << YAML::Key << "Fade" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Fade;
 		}
+		if (gameObj.HasComponent<CircleCollider2D>()) {
+			out << YAML::Key << "CircleCollider2D";
+			out << YAML::BeginMap;
+			out << YAML::Key << "Offset" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().Offset;
+			out << YAML::Key << "Radius" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().Radius;
+			out << YAML::Key << "Density" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().Density;
+			out << YAML::Key << "Friction" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().Friction;
+			out << YAML::Key << "Restitution" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().Restitution;
+			out << YAML::Key << "IsTrigger" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().IsTrigger;
+			out << YAML::EndMap;
+		}
 		out << YAML::EndMap;
 	}
 	void SceneSerializer::Serialize(const std::string& filePath)
@@ -303,6 +314,15 @@ namespace EulerEngine {
 						circleRenderer.Color = gameObject["CircleRenderer"]["Color"].as<glm::vec4>();
 						circleRenderer.Thickness = gameObject["CircleRenderer"]["Thickness"].as<float>();
 						circleRenderer.Fade = gameObject["CircleRenderer"]["Fade"].as<float>();
+					}
+					if (gameObject["CircleCollider2D"]) {
+						auto& circleCollider2D = gameObj.AddComponent<CircleCollider2D>();
+						circleCollider2D.Offset = gameObject["CircleCollider2D"]["Offset"].as<glm::vec2>();
+						circleCollider2D.Radius = gameObject["CircleCollider2D"]["Radius"].as<float>();
+						circleCollider2D.Density = gameObject["CircleCollider2D"]["Density"].as<float>();
+						circleCollider2D.Friction = gameObject["CircleCollider2D"]["Friction"].as<float>();
+						circleCollider2D.Restitution = gameObject["CircleCollider2D"]["Restitution"].as<float>();
+						circleCollider2D.IsTrigger = gameObject["CircleCollider2D"]["IsTrigger"].as<bool>();
 					}
 				}
 			}

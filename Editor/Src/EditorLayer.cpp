@@ -2,7 +2,7 @@
 #include"ImGuizmo.h"
 namespace EulerEngine {
     extern const std::filesystem::path g_AssetsPath;
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(ORTHOGRAPHIC),m_ViewportBounds()
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE),m_ViewportBounds()
     {
     }
     void EditorLayer::OnDetach()

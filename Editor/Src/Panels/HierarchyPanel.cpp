@@ -161,6 +161,12 @@ namespace EulerEngine {
 					ImGui::CloseCurrentPopup();
 				}
 			}
+			if (!m_SelectedGameObject.HasComponent<CircleCollider2D>()) {
+				if (ImGui::MenuItem("CircleCollider2D")) {
+					m_SelectedGameObject.AddComponent<CircleCollider2D>();
+					ImGui::CloseCurrentPopup();
+				}
+			}
 			ImGui::EndPopup();
 		}
 		ImGui::PopItemWidth();
@@ -275,6 +281,14 @@ namespace EulerEngine {
 			ImGui::ColorEdit4("Color", &com.Color[0]);
 			ImGui::DragFloat("Thickness", &com.Thickness, 0.1f, 0.0f, 1000.0f);
 			ImGui::DragFloat("Fade", &com.Fade, 0.0025f, 0.0f, 1.0f);
+		});
+		DrawComponent<CircleCollider2D>("CircleCollider2D", gameObject, [](CircleCollider2D& com) {
+			ImGui::DragFloat2("Offset", glm::value_ptr(com.Offset));
+			ImGui::DragFloat("Radius", &com.Radius, 0.1f, 0.0f, 1000.0f);
+			ImGui::Checkbox("Is Trigger", &com.IsTrigger);
+			ImGui::DragFloat("Density", &com.Density, 0.1f, 0.0f, 1.0f);
+			ImGui::DragFloat("Friction", &com.Friction, 0.1f, 0.0f, 1.0f);
+			ImGui::DragFloat("Restitution", &com.Restitution, 0.1f, 0.0f, 1.0f);
 		});
 	}
 	void HierarchyPanel::DrawGameObjectNode(GameObject gameObject)

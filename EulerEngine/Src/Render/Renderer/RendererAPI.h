@@ -15,6 +15,8 @@ namespace EulerEngine {
 		virtual void SetClearColor(const glm::vec4& color) = 0;
 		virtual void Clear() = 0;
 		virtual void Draw(const std::shared_ptr<VertexArray>& vertexArray, unsigned int vertex_cnt) = 0;
+		virtual void DrawLines(const std::shared_ptr<VertexArray>& vertexArray, unsigned int vertex_cnt) = 0;
+		virtual void SetLineWidth(float width) = 0;
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, unsigned int index_cnt) = 0;
 		inline static API getAPI() { return s_API; }
 		static Scope<RendererAPI> Create();

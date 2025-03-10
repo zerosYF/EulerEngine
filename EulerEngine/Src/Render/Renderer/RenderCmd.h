@@ -15,6 +15,12 @@ namespace EulerEngine {
 		inline static void Draw(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt) {
 			m_RendererAPI->Draw(vertexArray, vertex_cnt);
 		}
+		inline static void DrawLines(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt) {
+			m_RendererAPI->DrawLines(vertexArray, vertex_cnt);
+		}
+		inline static void SetLineWidth(float width) {
+			m_RendererAPI->SetLineWidth(width);
+		}
 		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_count) {
 			m_RendererAPI->DrawIndexed(vertexArray, index_count);
 		}

@@ -43,7 +43,7 @@ namespace EulerEngine {
 		glm::vec3 m_CameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 m_CameraRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec2 m_LastMousePosition = glm::vec2(0.0f, 0.0f);
-		float m_Distance = 0.0f;
+		float m_Distance = 5.0f;
 		glm::vec3 m_FocalPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 	};
 }

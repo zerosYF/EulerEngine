@@ -12,17 +12,20 @@ namespace EulerEngine {
 		RenderCommand::Init();
 
 		m_SceneData->CircleShader = EulerShader::Create("Shaders/Camera/circle.glsl");
-		/*m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();
-		m_SceneData->Cube_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::CubeVertex));
-		EulerEngine::BufferLayout cube_layout = {
-			{EulerEngine::ShaderDataType::Float3, "aPosition"},
-			{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
-			{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
-		};
-		m_SceneData->Cube_VB->SetLayout(cube_layout);
-		m_SceneData->Cube_VA->AddVertexBuffer(m_SceneData->Cube_VB);
-		m_SceneData->CubeVertexBase = new EulerEngine::CubeVertex[m_SceneData->MaxVertices];*/
+		m_SceneData->LineShader = EulerShader::Create("Shaders/Camera/line.glsl");
 
+		if (false){
+			m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();
+			m_SceneData->Cube_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::CubeVertex));
+			EulerEngine::BufferLayout cube_layout = {
+				{EulerEngine::ShaderDataType::Float3, "aPosition"},
+				{EulerEngine::ShaderDataType::Float2, "aTexCoord"},
+				{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
+			};
+			m_SceneData->Cube_VB->SetLayout(cube_layout);
+			m_SceneData->Cube_VA->AddVertexBuffer(m_SceneData->Cube_VB);
+			m_SceneData->CubeVertexBase = new EulerEngine::CubeVertex[m_SceneData->MaxVertices];
+		}
 
 		unsigned int offset = 0;
 		unsigned int SquareIndices[QUAD_INDEX_CNT] = { 0, 1, 2, 2, 3, 0 };
@@ -69,6 +72,19 @@ namespace EulerEngine {
 			m_SceneData->CircleVertexBase = new EulerEngine::CircleVertex[m_SceneData->MaxVertices];
 		}
 
+		{
+			m_SceneData->Line_VA = EulerEngine::VertexArray::Create();
+			m_SceneData->Line_VB = EulerEngine::VertexBuffer::Create(m_SceneData->MaxVertices * sizeof(EulerEngine::LineVertex));
+			EulerEngine::BufferLayout line_layout = {
+				{EulerEngine::ShaderDataType::Float3, "aPosition"},
+				{EulerEngine::ShaderDataType::Float4, "aColor"},
+				{EulerEngine::ShaderDataType::Int, "aGameObjectID"},
+			};
+			m_SceneData->Line_VB->SetLayout(line_layout);
+			m_SceneData->Line_VA->AddVertexBuffer(m_SceneData->Line_VB);
+			m_SceneData->LineVertexBase = new EulerEngine::LineVertex[m_SceneData->MaxVertices];
+		}
+
 
 		for (unsigned int i = 0; i < m_SceneData->TextureSlots.size(); i++) {
 			m_SceneData->TextureSlots[i] = 0;
@@ -83,8 +99,9 @@ namespace EulerEngine {
 	{
 		m_SceneData->ViewMatrix = camera->GetViewMatrix();
 		m_SceneData->ProjectionMatrix = camera->GetProjectionMatrix();
-		//m_SceneData->CubeIndicesCount = 0;
-		//m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;
+
+		m_SceneData->CubeVertexCount = 0;
+		m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;
 		
 		m_SceneData->QuadIndicesCount = 0;
 		m_SceneData->QuadVertexArrayPtr = m_SceneData->QuadVertexBase;
@@ -92,8 +109,8 @@ namespace EulerEngine {
 		m_SceneData->CircleIndicesCount = 0;
 		m_SceneData->CircleVertexArrayPtr = m_SceneData->CircleVertexBase;
 
-		//m_SceneData->LineIndicesCount = 0;
-		//m_SceneData->LineVertexArrayPtr = m_SceneData->LineVertexBase;
+		m_SceneData->LineVertexCount = 0;
+		m_SceneData->LineVertexArrayPtr = m_SceneData->LineVertexBase;
 
 		m_SceneData->TextureSlotIndex = 0;
 	}
@@ -102,7 +119,7 @@ namespace EulerEngine {
 		Flush();
 	}
 	void Renderer::Flush() {
-		if (m_SceneData->CubeIndicesCount > 0) {
+		if (m_SceneData->CubeVertexCount > 0) {
 			unsigned int byte_offset = (unsigned int)((uint8_t*)m_SceneData->CubeVertexArrayPtr - (uint8_t*)m_SceneData->CubeVertexBase);
 			m_SceneData->Cube_VB->SetData(m_SceneData->CubeVertexBase, byte_offset);
 
@@ -110,7 +127,7 @@ namespace EulerEngine {
 				m_SceneData->TextureSlots[i]->Bind(i);
 			}
 
-			RenderCommand::Draw(m_SceneData->Cube_VA, byte_offset / sizeof(EulerEngine::CubeVertex));
+			RenderCommand::Draw(m_SceneData->Cube_VA, m_SceneData->CubeVertexCount);
 			m_SceneData->stats.DrawCalls++;
 		}
 		if (m_SceneData->QuadIndicesCount > 0) {
@@ -132,8 +149,14 @@ namespace EulerEngine {
 			RenderCommand::DrawIndexed(m_SceneData->Circle_VA, m_SceneData->CircleIndicesCount);
 			m_SceneData->stats.DrawCalls++;
 		}
-		if (m_SceneData->LineIndicesCount > 0) {
-		
+		if (m_SceneData->LineVertexCount > 0) {
+			unsigned int byte_offset = (unsigned int)((uint8_t*)m_SceneData->LineVertexArrayPtr - (uint8_t*)m_SceneData->LineVertexBase);
+			m_SceneData->Line_VB->SetData(m_SceneData->LineVertexBase, byte_offset);
+
+			m_SceneData->LineShader->Bind();
+			RenderCommand::SetLineWidth(m_SceneData->LineWidth);
+			RenderCommand::DrawLines(m_SceneData->Line_VA, m_SceneData->LineVertexCount);
+			m_SceneData->stats.DrawCalls++;
 		}
 	}
 
@@ -190,7 +213,7 @@ namespace EulerEngine {
 		shader->SetInt("texture_index", textureIndex);
 		shader->SetVec4("color", material->GetColor());
 
-		m_SceneData->CubeIndicesCount += CUBE_INDEX_CNT;
+		m_SceneData->CubeVertexCount += CUBE_VERTICE_CNT;
 		m_SceneData->stats.CubeCount++;
 	}
 
@@ -281,6 +304,68 @@ namespace EulerEngine {
 		m_SceneData->CircleIndicesCount += QUAD_INDEX_CNT;
 		m_SceneData->stats.CircleCount++;
 	}
+
+	void Renderer::DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID)
+	{
+		m_SceneData->LineVertexArrayPtr->Position = start;
+		m_SceneData->LineVertexArrayPtr->Color = color;
+		m_SceneData->LineVertexArrayPtr->GameObjectID = objID;
+		m_SceneData->LineVertexArrayPtr++;
+
+		m_SceneData->LineVertexArrayPtr->Position = end;
+		m_SceneData->LineVertexArrayPtr->Color = color;
+		m_SceneData->LineVertexArrayPtr->GameObjectID = objID;
+		m_SceneData->LineVertexArrayPtr++;
+
+		m_SceneData->LineShader->Bind();
+		m_SceneData->LineShader->SetMat4("view", m_SceneData->ViewMatrix);
+		m_SceneData->LineShader->SetMat4("projection", m_SceneData->ProjectionMatrix);
+
+		m_SceneData->LineVertexCount += 2;
+		m_SceneData->stats.LineCount++;
+	}
+
+	void Renderer::DrawRect(const glm::vec2 position, const glm::vec3 size, const glm::vec4 color, int objID)
+	{
+		DrawRect({ position.x, position.y, 0.0f }, size, color, objID);
+	}
+
+	void Renderer::DrawRect(const glm::vec3 position, const glm::vec3 size, const glm::vec4 color, int objID)
+	{
+		glm::vec3 p0 = glm::vec3(position.x - size.x / 2.0f, position.y - size.y / 2.0f, position.z);
+		glm::vec3 p1 = glm::vec3(position.x + size.x / 2.0f, position.y - size.y / 2.0f, position.z);
+		glm::vec3 p2 = glm::vec3(position.x + size.x / 2.0f, position.y + size.y / 2.0f, position.z);
+		glm::vec3 p3 = glm::vec3(position.x - size.x / 2.0f, position.y + size.y / 2.0f, position.z);
+
+		DrawLine(p0, p1, color, objID);
+		DrawLine(p1, p2, color, objID);
+		DrawLine(p2, p3, color, objID);
+		DrawLine(p3, p0, color, objID);
+	}
+
+	void Renderer::DrawRect(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, int objID)
+	{
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+		model *= glm::toMat4(glm::quat(rotation));
+		model = glm::scale(model, scale);
+		glm::vec3 LineVertices[QUAD_VERTICE_CNT];
+		glm::vec4 QuadVertices[QUAD_VERTICE_CNT];
+		for (unsigned int i = 0; i < QUAD_VERTICE_CNT; i++) {
+			unsigned int head_index = QUAD_DATA_SIZE * i;
+			glm::vec4 VerticePosition
+				= glm::vec4(EulerEngine::QuadVertices[head_index], EulerEngine::QuadVertices[head_index + 1], EulerEngine::QuadVertices[head_index + 2], 1.0f);
+			QuadVertices[i] = VerticePosition;
+		}
+
+		for (unsigned int i = 0; i < QUAD_VERTICE_CNT; i++) {
+			LineVertices[i] = model * QuadVertices[i];
+		}
+		DrawLine(LineVertices[0], LineVertices[1], color);
+		DrawLine(LineVertices[1], LineVertices[2], color);
+		DrawLine(LineVertices[2], LineVertices[3], color);
+		DrawLine(LineVertices[3], LineVertices[0], color);
+	}
+
 
 	void Renderer::ResetStatistic()
 	{
