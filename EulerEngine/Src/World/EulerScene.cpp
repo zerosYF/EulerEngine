@@ -109,50 +109,19 @@ namespace EulerEngine {
 	}
 	void Scene::OnRuntimeStart()
 	{
-		b2Vec2 gravity = b2Vec2({0.0f, -9.81f});
-		b2WorldDef worldDef = b2DefaultWorldDef();
-		worldDef.gravity = gravity;
-		m_PhysicsWorld = b2CreateWorld(&worldDef);
-		auto view = m_Registry.view<Rigidbody2D>();
-		for (auto e: view) {
-			GameObject obj = { e, this };
-			auto& transform = obj.GetComponent<Transform>();
-			auto& rb2d = obj.GetComponent<Rigidbody2D>();
-			b2BodyDef bodyDef = b2DefaultBodyDef();
-			bodyDef.type = KinkRigidbody2DTypeToBox2DType(rb2d.Type);
-			bodyDef.position = b2Vec2({ transform.Position.x, transform.Position.y });
-			bodyDef.rotation = b2MakeRot(transform.Rotation.z);
-			bodyDef.fixedRotation = rb2d.FixedRotation;
-			bodyDef.angularDamping = rb2d.AngularDamping;
-			bodyDef.linearDamping = rb2d.LinearDamping;
-			b2BodyId body = b2CreateBody(m_PhysicsWorld, &bodyDef);
-			rb2d.RuntimeBody = body;
-			if (obj.HasComponent<BoxCollider2D>()) {
-				auto& box2d = obj.GetComponent<BoxCollider2D>();
-				b2Polygon polygon = b2MakeBox(box2d.Size.x * transform.Scale.x, box2d.Size.y * transform.Scale.y);
-				b2ShapeDef shapeDef = b2DefaultShapeDef();
-				b2ShapeId shape = b2CreatePolygonShape(body, &shapeDef, &polygon);
-
-				shapeDef.density = box2d.Density;
-				shapeDef.friction = box2d.Friction;
-				shapeDef.restitution = box2d.Restitution;
-			}
-			if (obj.HasComponent<CircleCollider2D>()) {
-				auto& circle2d = obj.GetComponent<CircleCollider2D>();
-				b2Circle circle = { {circle2d.Offset.x, circle2d.Offset.y},  circle2d.Radius };
-				
-				b2ShapeDef shapeDef = b2DefaultShapeDef();
-				b2ShapeId shape = b2CreateCircleShape(body, &shapeDef, &circle);
-
-				shapeDef.density = circle2d.Density;
-				shapeDef.friction = circle2d.Friction;
-				shapeDef.restitution = circle2d.Restitution;
-			}
-		}
+		OnPhysics2DStart();
 	}
 	void Scene::OnRuntimeStop()
 	{
-		b2DestroyWorld(m_PhysicsWorld);
+		OnPhysics2DStop();
+	}
+	void Scene::OnSimulationStart()
+	{
+		OnPhysics2DStart();
+	}
+	void Scene::OnSimulationStop()
+	{
+		OnPhysics2DStop();
 	}
 	void Scene::OnUpdateRuntime(TimerSystem ts)
 	{
@@ -165,22 +134,7 @@ namespace EulerEngine {
 			nsc.Instance->OnUpdate(ts);
 
 		});
-
-		{
-			const int subSteps = 4;
-			b2World_Step(m_PhysicsWorld, ts.GetDeltaTime(), subSteps);
-			auto view = m_Registry.view<Rigidbody2D>();
-			for (auto e : view) {
-				GameObject obj = { e, this };
-				auto& transform = obj.GetComponent<Transform>();
-				auto& rb2d = obj.GetComponent<Rigidbody2D>();
-				b2BodyId runtime_body = rb2d.RuntimeBody;
-				const auto& position = b2Body_GetPosition(runtime_body);
-				transform.Position = glm::vec3(position.x, position.y, transform.Position.z);
-				const auto& rotation = b2Body_GetRotation(runtime_body);
-				transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
-			}
-		}
+		OnPhysics2DUpdate(ts);
 
 		EulerCamera* mainCamera = nullptr;
 		auto group = m_Registry.group<Camera>(entt::get<Transform>);
@@ -194,48 +148,17 @@ namespace EulerEngine {
 			}
 		}
 		if (mainCamera) {
-			Renderer::BeginScene(*mainCamera);
-			/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
-			for (auto entity : group) {
-				auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
-			}*/
-			
-			auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
-			for (auto entity : sprite_group) {
-				auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
-				Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
-			}
-			auto view = m_Registry.view<Transform, CircleRenderer>();
-			for (auto entity : view) {
-				auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
-				Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
-			}
-
-			Renderer::EndScene();
+			OnRenderScene(*mainCamera);
 		}
+	}
+	void Scene::OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera)
+	{
+		OnPhysics2DUpdate(ts);
+		OnRenderScene(editorCamera);
 	}
 	void Scene::OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera)
 	{
-		Renderer::BeginScene(editorCamera);
-		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
-		for (auto entity : group) {
-			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
-		}*/
-
-		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
-		for (auto entity : sprite_group) {
-			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
-			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
-		}
-
-		auto view = m_Registry.view<Transform, CircleRenderer>();
-		for (auto entity : view) {
-			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
-			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
-		}
-		Renderer::EndScene();
+		OnRenderScene(editorCamera);
 	}
 	void Scene::OnViewportResize(int width, int height)
 	{
@@ -264,17 +187,106 @@ namespace EulerEngine {
 		return {};
 	}
 
+	void Scene::OnPhysics2DStart()
+	{
+		b2Vec2 gravity = b2Vec2({ 0.0f, -9.81f });
+		b2WorldDef worldDef = b2DefaultWorldDef();
+		worldDef.gravity = gravity;
+		m_PhysicsWorld = b2CreateWorld(&worldDef);
+		auto view = m_Registry.view<Rigidbody2D>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			auto& transform = obj.GetComponent<Transform>();
+			auto& rb2d = obj.GetComponent<Rigidbody2D>();
+			b2BodyDef bodyDef = b2DefaultBodyDef();
+			bodyDef.type = KinkRigidbody2DTypeToBox2DType(rb2d.Type);
+			bodyDef.position = b2Vec2({ transform.Position.x, transform.Position.y });
+			bodyDef.rotation = b2MakeRot(transform.Rotation.z);
+			bodyDef.fixedRotation = rb2d.FixedRotation;
+			bodyDef.angularDamping = rb2d.AngularDamping;
+			bodyDef.linearDamping = rb2d.LinearDamping;
+			b2BodyId body = b2CreateBody(m_PhysicsWorld, &bodyDef);
+			rb2d.RuntimeBody = body;
+			if (obj.HasComponent<BoxCollider2D>()) {
+				auto& box2d = obj.GetComponent<BoxCollider2D>();
+				b2Polygon polygon = b2MakeBox(box2d.Size.x * transform.Scale.x, box2d.Size.y * transform.Scale.y);
+				b2ShapeDef shapeDef = b2DefaultShapeDef();
+				b2ShapeId shape = b2CreatePolygonShape(body, &shapeDef, &polygon);
 
-	template<typename T>
-	void Scene::OnComponentAdded(GameObject obj, T& component) {
-		static_assert(false);
+				shapeDef.density = box2d.Density;
+				shapeDef.friction = box2d.Friction;
+				shapeDef.restitution = box2d.Restitution;
+			}
+			if (obj.HasComponent<CircleCollider2D>()) {
+				auto& circle2d = obj.GetComponent<CircleCollider2D>();
+				b2Circle circle = { {circle2d.Offset.x, circle2d.Offset.y},  circle2d.Radius };
+
+				b2ShapeDef shapeDef = b2DefaultShapeDef();
+				b2ShapeId shape = b2CreateCircleShape(body, &shapeDef, &circle);
+
+				shapeDef.density = circle2d.Density;
+				shapeDef.friction = circle2d.Friction;
+				shapeDef.restitution = circle2d.Restitution;
+			}
+		}
 	}
+
+	void Scene::OnPhysics2DStop()
+	{
+		b2DestroyWorld(m_PhysicsWorld);
+		m_PhysicsWorld = b2_nullWorldId;
+	}
+
+	void Scene::OnRenderScene(EulerCamera& camera)
+	{
+		Renderer::BeginScene(camera);
+		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
+		for (auto entity : group) {
+			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
+			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
+		}*/
+
+		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
+		for (auto entity : sprite_group) {
+			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
+			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
+		}
+
+		auto view = m_Registry.view<Transform, CircleRenderer>();
+		for (auto entity : view) {
+			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
+			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
+		}
+		Renderer::EndScene();
+	}
+
+	void Scene::OnPhysics2DUpdate(TimerSystem ts)
+	{
+		const int subSteps = 4;
+		b2World_Step(m_PhysicsWorld, ts.GetDeltaTime(), subSteps);
+		auto view = m_Registry.view<Rigidbody2D>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			auto& transform = obj.GetComponent<Transform>();
+			auto& rb2d = obj.GetComponent<Rigidbody2D>();
+			b2BodyId runtime_body = rb2d.RuntimeBody;
+			const auto& position = b2Body_GetPosition(runtime_body);
+			transform.Position = glm::vec3(position.x, position.y, transform.Position.z);
+			const auto& rotation = b2Body_GetRotation(runtime_body);
+			transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
+		}
+	}
+
 
 	/// <summary>
 	/// template specialization for Components
 	/// </summary>
 	/// <param name="obj"></param>
 	/// <param name="component"></param>
+	template<typename T>
+	void Scene::OnComponentAdded(GameObject obj, T& component) {
+		static_assert(false);
+	}
 	template<>
 	void Scene::OnComponentAdded<IDCom>(GameObject obj, IDCom& component) {
 	}
@@ -287,7 +299,6 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<Camera>(GameObject obj, Camera& component) {
-		//KINK_CORE_ERROR("viewport_size:{0}, {1}", m_ViewportWidth, m_ViewportHeight);
 		component.RendererCamera.SetViewportSize((float)m_ViewportWidth, (float)m_ViewportHeight);
 	}
 	template<>

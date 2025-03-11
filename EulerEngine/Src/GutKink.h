@@ -15,7 +15,8 @@
 #include"Render/EulerShader.h"
 #include"Render/VertexArray.h"
 #include"Render/EulerMaterial.h"
-#include"Render/EulerTexture.h"
+#include"Render/Texture/EulerTexture.h"
+#include"Render/Texture/SubTexture2D.h"
 #include"Render/FrameBuffer.h"
 #include"Resource/ResourceLibrary.h"
 

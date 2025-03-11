@@ -1350,7 +1350,7 @@
     <ClInclude Include="Src\Render\EulerShader.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\EulerTexture.h">
+    <ClInclude Include="Src\Render\Texture\EulerTexture.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\FrameBuffer.h">
@@ -1461,6 +1461,7 @@
     <ClInclude Include="Src\World\Component\IDCom.h" />
     <ClInclude Include="Src\World\Component\CircleRenderer.h" />
     <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
+    <ClInclude Include="Src\Render\Texture\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
@@ -1556,7 +1557,7 @@
     <ClCompile Include="Src\Render\EulerShader.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\EulerTexture.cpp">
+    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\FrameBuffer.cpp">
@@ -1611,5 +1612,6 @@
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerUUID.cpp" />
+    <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

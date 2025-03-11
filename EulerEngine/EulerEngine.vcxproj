@@ -550,7 +550,7 @@
     <ClInclude Include="Src\Render\EulerMaterial.h" />
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
-    <ClInclude Include="Src\Render\EulerTexture.h" />
+    <ClInclude Include="Src\Render\Texture\EulerTexture.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
@@ -563,6 +563,7 @@
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer\Renderer.h" />
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h" />
+    <ClInclude Include="Src\Render\Texture\SubTexture2D.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
@@ -624,13 +625,14 @@
     <ClCompile Include="Src\Render\EulerMaterial.cpp" />
     <ClCompile Include="Src\Render\EulerMesh.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
-    <ClCompile Include="Src\Render\EulerTexture.cpp" />
+    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />

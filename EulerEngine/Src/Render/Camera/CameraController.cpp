@@ -50,7 +50,7 @@ namespace EulerEngine{
 	}
 	float CameraController::RotationSpeed() const
 	{
-		return 4.0f;
+		return 10.0f;
 	}
 	float CameraController::ZoomSpeed() const
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include<GLFW/glfw3.h>
 #include"Render/EulerShader.h"
-#include"Render/EulerTexture.h"
+#include"Render/Texture/EulerTexture.h"
 #include"Render/EulerMaterial.h"
 #include "stb_image/stb_image.h"
 namespace EulerEngine {

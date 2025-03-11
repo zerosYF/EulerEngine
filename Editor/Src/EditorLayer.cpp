@@ -16,6 +16,7 @@ namespace EulerEngine {
 
         m_IconPlay = Texture2D::Create("Assets/Editor/Icons/PlayButton.png");
         m_IconStop = Texture2D::Create("Assets/Editor/Icons/StopButton.png");
+        m_IconSimulate = Texture2D::Create("Assets/Editor/Icons/SimulateButton.png");
 
         FrameBufferSpecification spec;
         spec.Width = 1280;
@@ -100,6 +101,9 @@ namespace EulerEngine {
             case SceneState::Play:
                 m_ActiveScene->OnUpdateRuntime(ts);
                 break;
+            case SceneState::Simulate:
+                m_ActiveScene->OnUpdateSimulation(ts, m_EditorCameraController.GetCamera());
+                break;
             }
         }
 
@@ -156,16 +160,9 @@ namespace EulerEngine {
             dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
         }
 
-        // When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
-        // and handle the pass-thru hole, so we ask Begin() to not render a background.
         if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
             window_flags |= ImGuiWindowFlags_NoBackground;
 
-        // Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-        // This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-        // all active windows docked into it will lose their parent and become undocked.
-        // We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-        // any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
         if (!opt_padding)
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
@@ -228,6 +225,11 @@ namespace EulerEngine {
         ImGui::Text("Cubes: %d", Renderer::GetStats().CubeCount);
         ImGui::Text("Quads: %d", Renderer::GetStats().QuadCount);
         ImGui::Text("Vertices: %d", Renderer::GetStats().GetTotalVertexCount());
+        ImGui::End();
+
+        ImGui::Begin("Gizmos");
+        ImGui::Checkbox("Show Physics Colliders", &m_ShowPhysicsColliders);
+        ImGui::ColorEdit4("Physics Visible Color", glm::value_ptr(m_PhysicsVisibleColor));
         ImGui::End();
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -366,12 +368,34 @@ namespace EulerEngine {
     }
     void EditorLayer::OnOverlayRender()
     {
-        auto view = m_ActiveScene->GetAllEntitiesWith<Transform, CircleCollider2D>();
-        Renderer::BeginScene(m_EditorCameraController.GetCamera());
-        for (auto& entity : view) {
-            auto[transform, collider] = view.get<Transform, CircleCollider2D>(entity);
-            glm::vec3 pos = transform.Position + glm::vec3(0.0f, 0.0f, 0.05f);
-            Renderer::DrawCircle(pos, transform.Rotation, transform.Scale, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+        if (m_SceneState == SceneState::Play) {
+            GameObject cameraObj = m_ActiveScene->GetPrimaryCamera();
+            if (!cameraObj) {
+                return;
+            }
+            Renderer::BeginScene(cameraObj.GetComponent<Camera>().RendererCamera);
+        }
+        else {
+            Renderer::BeginScene(m_EditorCameraController.GetCamera());
+        }
+        if (m_ShowPhysicsColliders) {
+            {
+                auto view = m_ActiveScene->GetAllEntitiesWith<Transform, BoxCollider2D>();
+                for (auto& entity : view) {
+                    auto [transform, collider] = view.get<Transform, BoxCollider2D>(entity);
+                    glm::vec3 pos = transform.Position + glm::vec3(collider.Offset, 0.001f);
+                    glm::vec3 size = glm::vec3(transform.Scale.x * collider.Size.x, transform.Scale.y * collider.Size.y, 1.0f);
+                    Renderer::DrawRect(pos, transform.Rotation, size * 2.0f, m_PhysicsVisibleColor);
+                }
+            }
+            {
+                auto view = m_ActiveScene->GetAllEntitiesWith<Transform, CircleCollider2D>();
+                for (auto& entity : view) {
+                    auto [transform, collider] = view.get<Transform, CircleCollider2D>(entity);
+                    glm::vec3 pos = transform.Position + glm::vec3(collider.Offset, 0.001f);
+                    Renderer::DrawCircle(pos, transform.Rotation, transform.Scale * collider.Radius * 2.0f, m_PhysicsVisibleColor);
+                }
+            }
         }
         Renderer::EndScene();
     }
@@ -427,20 +451,55 @@ namespace EulerEngine {
             m_EditingScenePath = filepath;
         }
     }
-    void EditorLayer::OnScenePlay()
+    
+    void EditorLayer::OnSimulationPlay()
     {
-        m_SceneState = SceneState::Play;
+        m_SceneState = SceneState::Simulate;
         m_ActiveScene = Scene::Copy(m_EditorScene);
         m_ActiveScene->OnRuntimeStart();
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
-    void EditorLayer::OnSceneStop()
+    void EditorLayer::OnSimulationStop()
     {
         m_SceneState = SceneState::Edit;
         m_ActiveScene->OnRuntimeStop();
         m_ActiveScene = m_EditorScene;
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
+
+    void EditorLayer::OnScenePlay()
+    {
+        if (m_SceneState == SceneState::Simulate) {
+            OnSimulationStop();
+        }
+        m_SceneState = SceneState::Play;
+        m_ActiveScene = Scene::Copy(m_EditorScene);
+        m_ActiveScene->OnRuntimeStart();
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+    void EditorLayer::OnSceneSimulate()
+    {
+        if (m_SceneState == SceneState::Play) {
+            OnSimulationStop();
+        }
+        m_SceneState = SceneState::Simulate;
+        m_ActiveScene = Scene::Copy(m_EditorScene);
+        m_ActiveScene->OnSimulationStart();
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+    void EditorLayer::OnSceneStop()
+    {
+        if (m_SceneState == SceneState::Play) {
+            m_ActiveScene->OnRuntimeStop();
+        }
+        else if (m_SceneState == SceneState::Simulate) {
+            m_ActiveScene->OnSimulationStop();
+        }
+        m_SceneState = SceneState::Edit;
+        m_ActiveScene = m_EditorScene;
+        m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+    }
+
     void EditorLayer::OnDuplicateGameObject()
     {
         if (m_SceneState != SceneState::Edit) {
@@ -460,19 +519,37 @@ namespace EulerEngine {
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.3f, 0.0f, 0.5f));
 
         ImGui::Begin("##Toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
-        Ref<Texture2D> icon = (m_SceneState == SceneState::Edit? m_IconPlay : m_IconStop);
-        float size = ImGui::GetWindowHeight() - 5.0f;
-        ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
-        ImGui::PushID(icon->GetRendererID());
-        if (ImGui::ImageButton("",(ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
-            if (m_SceneState == SceneState::Edit) {
-                OnScenePlay();
+        {
+            Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) ? m_IconPlay : m_IconStop;
+            float size = ImGui::GetWindowHeight() - 5.0f;
+            ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * 0.5f));
+            ImGui::PushID(icon->GetRendererID());
+            if (ImGui::ImageButton("", (ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
+                if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) {
+                    OnScenePlay();
+                }
+                else if (m_SceneState == SceneState::Play) {
+                    OnSceneStop();
+                }
             }
-            else if (m_SceneState == SceneState::Play) {
-                OnSceneStop();
-            }
+            ImGui::PopID();
         }
-        ImGui::PopID();
+        ImGui::SameLine();
+        {
+            Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
+            float size = ImGui::GetWindowHeight() - 5.0f;
+            ImGui::PushID(icon->GetRendererID());
+            if (ImGui::ImageButton("", (ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
+                if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) {
+                    OnSceneSimulate();
+                }
+                else if (m_SceneState == SceneState::Simulate) {
+                    OnSceneStop();
+                }
+            }
+            ImGui::PopID();
+        }
+
         ImGui::End();
         ImGui::PopStyleVar(2);
         ImGui::PopStyleColor(3);

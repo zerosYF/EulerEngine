@@ -1,6 +1,6 @@
 #include"gkpch.h"
 #include"EulerTexture.h"
-#include"Renderer/Renderer.h"
+#include"Render/Renderer/Renderer.h"
 #include"Platform/OpenGL/GLTexture2D.h"
 namespace EulerEngine {
 	Ref<Texture2D> Texture2D::Create(const std::string& path) {

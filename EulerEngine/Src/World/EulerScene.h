@@ -23,8 +23,13 @@ namespace EulerEngine {
 
 		void OnRuntimeStart();
 		void OnRuntimeStop();
+		void OnSimulationStart();
+		void OnSimulationStop();
+
 		void OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera);
 		void OnUpdateRuntime(TimerSystem ts);
+		void OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera);
+
 		void OnViewportResize(int width, int height);
 		GameObject GetGameObject(unsigned int UUID);
 		GameObject GetPrimaryCamera();
@@ -37,6 +42,10 @@ namespace EulerEngine {
 	private:
 		template<typename T>
 		void OnComponentAdded(GameObject obj, T& component);
+		void OnPhysics2DStart(); 
+		void OnPhysics2DStop();
+		void OnRenderScene(EulerCamera& camera);
+		void OnPhysics2DUpdate(TimerSystem ts);
 	private:
 		entt::registry m_Registry;
 		unsigned int m_ViewportWidth = 1200;

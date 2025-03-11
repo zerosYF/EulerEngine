@@ -24,14 +24,19 @@ namespace EulerEngine {
 		void OpenScene(const std::filesystem::path& path);
 		void SaveScene();
 		void SaveSceneAs();
-		void OnScenePlay();
-		void OnSceneStop();
-		void OnDuplicateGameObject();
 
+		void OnSimulationPlay();
+		void OnSimulationStop();
+		void OnScenePlay();
+		void OnSceneSimulate();
+		void OnSceneStop();
+
+		void OnDuplicateGameObject();
 		void UI_Toolbar();
 	private:
 		CameraController m_EditorCameraController;
-		glm::vec4 m_Color = { 0.2f, 0.3f, 0.1f, 1.0f };
+		glm::vec4 m_Color = { 0.3f, 0.3f, 0.4f, 1.0f };
+		glm::vec4 m_PhysicsVisibleColor = { 1.0f, 0.647f, 0.0f, 1.0f };
 		glm::vec3 m_CubePositions[10] = {
 			glm::vec3(0.0f,  0.0f,  0.0f),
 			glm::vec3(2.0f,  5.0f, -15.0f),
@@ -65,10 +70,14 @@ namespace EulerEngine {
 		enum class SceneState {
 			Edit = 0,
 			Play = 1,
+			Simulate = 2,
 		};
 		SceneState m_SceneState = SceneState::Edit;
 
 		Ref<Texture2D> m_IconPlay;
 		Ref<Texture2D> m_IconStop;
+		Ref<Texture2D> m_IconSimulate;
+
+		bool m_ShowPhysicsColliders = false;
 	};
 }

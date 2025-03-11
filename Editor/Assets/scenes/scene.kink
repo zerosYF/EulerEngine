@@ -38,12 +38,12 @@ GameObjects:
       LinearDamping: 0
       AngularDamping: 0
     CircleRenderer:
-      Color: [1, 1, 1, 1]
+      Color: [0, 0, 0, 1]
       Thickness: 0.1
       Fade: 0
     CircleCollider2D:
       Offset: [0, 0]
-      Radius: 1
+      Radius: 0.5
       Density: 1
       Friction: 0.5
       Restitution: 0

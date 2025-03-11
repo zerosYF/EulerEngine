@@ -1,5 +1,5 @@
 #pragma once
-#include"EulerTexture.h"
+#include"Texture/EulerTexture.h"
 #include"EulerShader.h"
 #include<array>
 namespace EulerEngine {

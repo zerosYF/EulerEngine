@@ -4,7 +4,7 @@
 #include"Platform/OpenGL/GLShader.h"
 #include"Core/Logs/EulerLog.h"
 #include"Resource/ResourceLibrary.h"
-#include <glm\gtx\quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()
@@ -223,6 +223,7 @@ namespace EulerEngine {
 	}
 	void Renderer::DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID)
 	{
+
 		auto shader = material->GetShader();
 		m_SceneData->QuadShader = shader;
 		shader->Bind();
