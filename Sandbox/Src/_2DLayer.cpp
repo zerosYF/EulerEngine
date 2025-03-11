@@ -2,7 +2,7 @@
 #include"_2DLayer.h"
 #include<../ImGui/imgui.h>
 
-_2DLayer::_2DLayer():EulerEngine::EulerLayer("2DLayer"), m_OrthoCameraController(EulerEngine::ORTHOGRAPHIC)
+_2DLayer::_2DLayer():EulerEngine::EulerLayer("2DLayer"), m_OrthoCameraController()
 {
 
 }

@@ -14,6 +14,11 @@ namespace EulerEngine {
 	};
 	class EulerCamera {
 	public:
+		EulerCamera() {
+			m_ProjectionType = CameraType::PERSPECTIVE;
+			UpdateView();
+			UpdateProjection();
+		}
 		EulerCamera(CameraType type)
 			:m_ProjectionType(type) {
 			UpdateView();
@@ -27,11 +32,10 @@ namespace EulerEngine {
 			UpdateProjection();
 		}
 
-		glm::mat4 GetProjectionMatrix() {
-			UpdateProjection();
+		glm::mat4 GetProjectionMatrix() const{
 			return m_ProjectionMatrix;
 		}
-		glm::mat4 GetViewMatrix() {
+		glm::mat4 GetViewMatrix() const{
 			return m_ViewMatrix;
 		}
 
@@ -125,7 +129,7 @@ namespace EulerEngine {
 	protected:
 		CameraType m_ProjectionType = CameraType::PERSPECTIVE;
 
-		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 3.0f);
 		glm::vec3 m_Rotation = glm::vec3(0.0f, glm::radians(- 90.0f), 0.0f);
 
 		glm::vec3 m_Front = glm::vec3(0.0f, 0.0f, -1.0f);

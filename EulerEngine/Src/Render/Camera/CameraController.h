@@ -7,12 +7,12 @@
 namespace EulerEngine {
 	class CameraController {
 	public:
-		CameraController(CameraType type);
+		CameraController() = default;
 		void OnUpdate(TimerSystem ts);
 		void OnEvent(Event& e);
 		void OnResize(float width, float height);
-		Ref<EulerCamera>& GetCamera() { return m_Camera; }
-		const Ref<EulerCamera>& GetCamera() const { return m_Camera; }
+		EulerCamera& GetCamera() { return m_Camera; }
+		const EulerCamera& GetCamera() const { return m_Camera; }
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);
 		std::pair<float, float> PanSpeed() const;
@@ -20,26 +20,26 @@ namespace EulerEngine {
 		float ZoomSpeed() const;
 		inline void Pan(glm::vec2 delta) {
 			auto [xSpeed, ySpeed] = PanSpeed();
-			m_FocalPoint += -m_Camera->GetRight() * delta.x * xSpeed * m_Distance;
-			m_FocalPoint += m_Camera->GetUp() * delta.y * ySpeed * m_Distance;
+			m_FocalPoint += -m_Camera.GetRight() * delta.x * xSpeed * m_Distance;
+			m_FocalPoint += m_Camera.GetUp() * delta.y * ySpeed * m_Distance;
 		}
 		inline void Zoom(float delta) {
 			m_Distance -= delta * ZoomSpeed();
 			if (m_Distance < 1.0f) {
-				m_FocalPoint += m_Camera->GetFront();
+				m_FocalPoint += m_Camera.GetFront();
 				m_Distance = 1.0f;
 			}
 		}
 		inline void Rotate(glm::vec2 delta) {
-			float yawSign = m_Camera->GetUp().y < 0? -1.0f : 1.0f;
+			float yawSign = m_Camera.GetUp().y < 0? -1.0f : 1.0f;
 			m_CameraRotation.y += delta.x * RotationSpeed();
 			m_CameraRotation.x -= delta.y * RotationSpeed() * yawSign;
 		}
 		inline void CalculatePosition() {
-			m_CameraPosition = m_FocalPoint - m_Camera->GetFront() * m_Distance;
+			m_CameraPosition = m_FocalPoint - m_Camera.GetFront() * m_Distance;
 		}
 	private:
-		Ref<EulerCamera> m_Camera;
+		EulerCamera m_Camera;
 		glm::vec3 m_CameraPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec3 m_CameraRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 		glm::vec2 m_LastMousePosition = glm::vec2(0.0f, 0.0f);

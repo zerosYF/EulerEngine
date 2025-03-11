@@ -135,15 +135,15 @@ namespace EulerEngine {
 			out << YAML::Key << "IsPrimary" << YAML::Value << gameObj.GetComponent<Camera>().isPrimary;
 			out << YAML::Key << "IsFixedAspectRatio" << YAML::Value << gameObj.GetComponent<Camera>().isFixedAspectRatio;
 
-			out << YAML::Key << "CameraType" << YAML::Value << (int)gameObj.GetComponent<Camera>().RendererCamera->GetCameraType();
-			out << YAML::Key << "ViewportWidth" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetViewportSize().first;
-			out << YAML::Key << "ViewportHeight" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetViewportSize().second;
-			out << YAML::Key << "Perspective_FOV" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetFovAngle();
-			out << YAML::Key << "Perspective_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveNearClip();
-			out << YAML::Key << "Perspective_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetPerspectiveFarClip(); 
-			out << YAML::Key << "Orthographic_Size" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetZoomLevel();
-			out << YAML::Key << "Orthographic_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicNearClip();
-			out << YAML::Key << "Orthographic_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera->GetOrthographicFarClip();
+			out << YAML::Key << "CameraType" << YAML::Value << (int)gameObj.GetComponent<Camera>().RendererCamera.GetCameraType();
+			out << YAML::Key << "ViewportWidth" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetViewportSize().first;
+			out << YAML::Key << "ViewportHeight" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetViewportSize().second;
+			out << YAML::Key << "Perspective_FOV" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetFovAngle();
+			out << YAML::Key << "Perspective_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetPerspectiveNearClip();
+			out << YAML::Key << "Perspective_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetPerspectiveFarClip(); 
+			out << YAML::Key << "Orthographic_Size" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetZoomLevel();
+			out << YAML::Key << "Orthographic_NearClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetOrthographicNearClip();
+			out << YAML::Key << "Orthographic_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetOrthographicFarClip();
 			out << YAML::EndMap;
 		}
 		if (gameObj.HasComponent<MeshRenderer>()) {
@@ -195,6 +195,7 @@ namespace EulerEngine {
 			out << YAML::Key << "Color" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Color;
 			out << YAML::Key << "Thickness" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Thickness;
 			out << YAML::Key << "Fade" << YAML::Value << gameObj.GetComponent<CircleRenderer>().Fade;
+			out << YAML::EndMap;
 		}
 		if (gameObj.HasComponent<CircleCollider2D>()) {
 			out << YAML::Key << "CircleCollider2D";
@@ -265,14 +266,14 @@ namespace EulerEngine {
 						camera.isPrimary = gameObject["Camera"]["IsPrimary"].as<bool>();
 						camera.isFixedAspectRatio = gameObject["Camera"]["IsFixedAspectRatio"].as<bool>();
 
-						camera.RendererCamera->SetCameraType(type);
-						camera.RendererCamera->SetViewportSize(gameObject["Camera"]["ViewportWidth"].as<float>(), gameObject["Camera"]["ViewportHeight"].as<float>());
-						camera.RendererCamera->SetFovAngle(gameObject["Camera"]["Perspective_FOV"].as<float>());
-						camera.RendererCamera->SetPerspectiveNearClip(gameObject["Camera"]["Perspective_NearClip"].as<float>());
-						camera.RendererCamera->SetPerspectiveFarClip(gameObject["Camera"]["Perspective_FarClip"].as<float>());
-						camera.RendererCamera->SetZoomLevel(gameObject["Camera"]["Orthographic_Size"].as<float>());
-						camera.RendererCamera->SetOrthographicNearClip(gameObject["Camera"]["Orthographic_NearClip"].as<float>());
-						camera.RendererCamera->SetOrthographicFarClip(gameObject["Camera"]["Orthographic_FarClip"].as<float>());
+						camera.RendererCamera.SetCameraType(type);
+						camera.RendererCamera.SetViewportSize(gameObject["Camera"]["ViewportWidth"].as<float>(), gameObject["Camera"]["ViewportHeight"].as<float>());
+						camera.RendererCamera.SetFovAngle(gameObject["Camera"]["Perspective_FOV"].as<float>());
+						camera.RendererCamera.SetPerspectiveNearClip(gameObject["Camera"]["Perspective_NearClip"].as<float>());
+						camera.RendererCamera.SetPerspectiveFarClip(gameObject["Camera"]["Perspective_FarClip"].as<float>());
+						camera.RendererCamera.SetZoomLevel(gameObject["Camera"]["Orthographic_Size"].as<float>());
+						camera.RendererCamera.SetOrthographicNearClip(gameObject["Camera"]["Orthographic_NearClip"].as<float>());
+						camera.RendererCamera.SetOrthographicFarClip(gameObject["Camera"]["Orthographic_FarClip"].as<float>());
 					}
 					if (gameObject["MeshRenderer"]) {
 						auto& meshRenderer = gameObj.AddComponent<MeshRenderer>();

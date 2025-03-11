@@ -3,7 +3,7 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<chrono>
-TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_CameraController(EulerEngine::PERSPECTIVE)
+TestLayer::TestLayer():EulerEngine::EulerLayer("TestLayer"), m_CameraController()
 {
 }
 void TestLayer::OnDetach()

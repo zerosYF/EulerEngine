@@ -2,7 +2,7 @@
 #include"ImGuizmo.h"
 namespace EulerEngine {
     extern const std::filesystem::path g_AssetsPath;
-    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(PERSPECTIVE),m_ViewportBounds()
+    EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(),m_ViewportBounds()
     {
     }
     void EditorLayer::OnDetach()
@@ -122,6 +122,7 @@ namespace EulerEngine {
                 m_HoveredGameObject = {};
             }
         }
+        OnOverlayRender();
 
         m_FrameBuffer->Unbind();
     }
@@ -266,8 +267,8 @@ namespace EulerEngine {
                 ImGuizmo::SetDrawlist();
                 ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
 
-                const auto& cameraViewMtx = m_EditorCameraController.GetCamera()->GetViewMatrix();
-                const auto& cameraProjMtx = m_EditorCameraController.GetCamera()->GetProjectionMatrix();
+                const auto& cameraViewMtx = m_EditorCameraController.GetCamera().GetViewMatrix();
+                const auto& cameraProjMtx = m_EditorCameraController.GetCamera().GetProjectionMatrix();
 
                 auto& tc = selectedObj.GetComponent<Transform>();
                 glm::mat4 transform = tc.GetTransform();
@@ -362,6 +363,17 @@ namespace EulerEngine {
             }
         }
         return false;
+    }
+    void EditorLayer::OnOverlayRender()
+    {
+        auto view = m_ActiveScene->GetAllEntitiesWith<Transform, CircleCollider2D>();
+        Renderer::BeginScene(m_EditorCameraController.GetCamera());
+        for (auto& entity : view) {
+            auto[transform, collider] = view.get<Transform, CircleCollider2D>(entity);
+            glm::vec3 pos = transform.Position + glm::vec3(0.0f, 0.0f, 0.05f);
+            Renderer::DrawCircle(pos, transform.Rotation, transform.Scale, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+        }
+        Renderer::EndScene();
     }
     void EditorLayer::NewScene()
     {

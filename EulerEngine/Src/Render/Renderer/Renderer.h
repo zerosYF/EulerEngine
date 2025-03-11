@@ -17,7 +17,7 @@ namespace EulerEngine {
 	public:
 		static void Init();
 		static void ShutDown();
-		static void BeginScene(Ref<EulerCamera> camera);
+		static void BeginScene(const EulerCamera& camera);
 		static void EndScene();
 		static void Flush();
 		static void Submit(Ref<VertexArray>& vertexArray, Ref<EulerShader>& shader, glm::vec4 color, Ref<Texture2D> texture, const glm::mat4& model,const unsigned int vertex_cnt);
@@ -29,8 +29,8 @@ namespace EulerEngine {
 		static void DrawQuad(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID);
 		static void DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID);
 
-		static void DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
-		static void DrawCircle(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness, float fade, int objID);
+		static void DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness = 0.02f, float fade = 0.005f, int objID = -1);
+		static void DrawCircle(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, float thickness = 0.02f, float fade = 0.005f, int objID = -1);
 	
 		static void DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID = -1);
 		static void DrawRect(const glm::vec2 position, const glm::vec3 size, const glm::vec4 color, int objID = -1);

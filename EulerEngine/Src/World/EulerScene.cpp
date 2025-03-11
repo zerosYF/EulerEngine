@@ -179,28 +179,28 @@ namespace EulerEngine {
 				transform.Position = glm::vec3(position.x, position.y, transform.Position.z);
 				const auto& rotation = b2Body_GetRotation(runtime_body);
 				transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
-				KINK_CORE_INFO("pos:{0}, {1}, {2}", transform.Position.x, transform.Position.y, transform.Position.z);
 			}
 		}
 
-		Ref<EulerCamera> mainCamera = nullptr;
+		EulerCamera* mainCamera = nullptr;
 		auto group = m_Registry.group<Camera>(entt::get<Transform>);
 		for (auto entity : group) {
 			auto& [transform, camera] = group.get<Transform, Camera>(entity);
 			if (camera.isPrimary) {
-				mainCamera = camera.RendererCamera;
+				mainCamera = &camera.RendererCamera;
 				mainCamera->SetPosition(transform.Position);
 				mainCamera->SetRotation(transform.Rotation);
 				break;
 			}
 		}
 		if (mainCamera) {
-			Renderer::BeginScene(mainCamera);
+			Renderer::BeginScene(*mainCamera);
 			/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 			for (auto entity : group) {
 				auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
 				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
 			}*/
+			
 			auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
 			for (auto entity : sprite_group) {
 				auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
@@ -215,7 +215,7 @@ namespace EulerEngine {
 			Renderer::EndScene();
 		}
 	}
-	void Scene::OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera)
+	void Scene::OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera)
 	{
 		Renderer::BeginScene(editorCamera);
 		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
@@ -228,7 +228,6 @@ namespace EulerEngine {
 		for (auto entity : sprite_group) {
 			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
 			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
-			Renderer::DrawRect(transform.Position, transform.Rotation, transform.Scale, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 		}
 
 		auto view = m_Registry.view<Transform, CircleRenderer>();
@@ -246,7 +245,7 @@ namespace EulerEngine {
 		for (auto entity: view) {
 			auto& camera_com = view.get<Camera>(entity);
 			if (!camera_com.isFixedAspectRatio) {
-				camera_com.RendererCamera->SetViewportSize(float(m_ViewportWidth), float(m_ViewportHeight));
+				camera_com.RendererCamera.SetViewportSize(float(m_ViewportWidth), float(m_ViewportHeight));
 			}
 		}
 	}
@@ -289,7 +288,7 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<Camera>(GameObject obj, Camera& component) {
 		//KINK_CORE_ERROR("viewport_size:{0}, {1}", m_ViewportWidth, m_ViewportHeight);
-		component.RendererCamera->SetViewportSize((float)m_ViewportWidth, (float)m_ViewportHeight);
+		component.RendererCamera.SetViewportSize((float)m_ViewportWidth, (float)m_ViewportHeight);
 	}
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {

@@ -3,10 +3,6 @@
 #include"Core/Input/EulerInput.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine{
-	CameraController::CameraController(CameraType type)
-	{
-		m_Camera = CreateRef<EulerCamera>(type);
-	}
 	void CameraController::OnUpdate(TimerSystem ts)
 	{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT_ALT)) {
@@ -27,8 +23,8 @@ namespace EulerEngine{
 
 		}
 		CalculatePosition();
-		m_Camera->SetPosition(m_CameraPosition);
-		m_Camera->SetRotation(glm::radians(m_CameraRotation));
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(glm::radians(m_CameraRotation));
 	}
 	void CameraController::OnEvent(Event & e)
 	{
@@ -37,7 +33,7 @@ namespace EulerEngine{
 	}
 	void CameraController::OnResize(float width, float height)
 	{
-		m_Camera->SetViewportSize(width, height);
+		m_Camera.SetViewportSize(width, height);
 	}
 	bool CameraController::OnMouseScrolled(MouseScrolledEvent & e)
 	{
@@ -46,9 +42,9 @@ namespace EulerEngine{
 	}
 	std::pair<float, float> CameraController::PanSpeed() const
 	{
-		float x = std::min(m_Camera->GetViewportSize().first / 1000.0f, 2.4f);
+		float x = std::min(m_Camera.GetViewportSize().first / 1000.0f, 2.4f);
 		float xFactor = 0.0366f * (x * x) - 0.1778f * x + 0.3021f;
-		float y = std::min(m_Camera->GetViewportSize().second / 1000.0f, 2.4f);
+		float y = std::min(m_Camera.GetViewportSize().second / 1000.0f, 2.4f);
 		float yFactor = 0.0366f * (y * y) - 0.1778f * y + 0.3021f;
 		return std::pair<float, float>(xFactor, yFactor);
 	}

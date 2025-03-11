@@ -23,11 +23,17 @@ namespace EulerEngine {
 
 		void OnRuntimeStart();
 		void OnRuntimeStop();
-		void OnUpdateEditor(TimerSystem ts, Ref<EulerCamera> editorCamera);
+		void OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera);
 		void OnUpdateRuntime(TimerSystem ts);
 		void OnViewportResize(int width, int height);
 		GameObject GetGameObject(unsigned int UUID);
 		GameObject GetPrimaryCamera();
+
+		template<typename... Components>
+		auto GetAllEntitiesWith() {
+			return m_Registry.view<Components...>();
+		}
+
 	private:
 		template<typename T>
 		void OnComponentAdded(GameObject obj, T& component);

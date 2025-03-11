@@ -180,13 +180,13 @@ namespace EulerEngine {
 		});
 		DrawComponent<Camera>("Camera", gameObject, [](Camera& com) {
 			const char* projectionTypeStrings[] = { "Perspective", "Orthographic" };
-			const char* currentProjectionTypeString = projectionTypeStrings[(int)com.RendererCamera->GetCameraType()];
+			const char* currentProjectionTypeString = projectionTypeStrings[(int)com.RendererCamera.GetCameraType()];
 			if (ImGui::BeginCombo("CameraType", currentProjectionTypeString)) {
 				for (int i = 0; i < 2; i++) {
 					bool isSelected = currentProjectionTypeString == projectionTypeStrings[i];
 					if (ImGui::Selectable(projectionTypeStrings[i], isSelected)) {
 						currentProjectionTypeString = projectionTypeStrings[i];
-						com.RendererCamera->SetCameraType((CameraType)i);
+						com.RendererCamera.SetCameraType((CameraType)i);
 					}
 					if (isSelected) {
 						ImGui::SetItemDefaultFocus();
@@ -194,32 +194,32 @@ namespace EulerEngine {
 				}
 				ImGui::EndCombo();
 			}
-			if (com.RendererCamera->GetCameraType() == CameraType::PERSPECTIVE) {
-				float fov = com.RendererCamera->GetFovAngle();
+			if (com.RendererCamera.GetCameraType() == CameraType::PERSPECTIVE) {
+				float fov = com.RendererCamera.GetFovAngle();
 				if (ImGui::DragFloat("FOV", &fov, 0.1f, 1.0f, 179.0f)) {
-					com.RendererCamera->SetFovAngle(fov);
+					com.RendererCamera.SetFovAngle(fov);
 				}
-				float nearClip = com.RendererCamera->GetPerspectiveNearClip();
-				if (ImGui::DragFloat("Near Clip", &nearClip, 0.1f, 0.0f, com.RendererCamera->GetPerspectiveFarClip())) {
-					com.RendererCamera->SetPerspectiveNearClip(nearClip);
+				float nearClip = com.RendererCamera.GetPerspectiveNearClip();
+				if (ImGui::DragFloat("Near Clip", &nearClip, 0.1f, 0.0f, com.RendererCamera.GetPerspectiveFarClip())) {
+					com.RendererCamera.SetPerspectiveNearClip(nearClip);
 				}
-				float farClip = com.RendererCamera->GetPerspectiveFarClip();
+				float farClip = com.RendererCamera.GetPerspectiveFarClip();
 				if (ImGui::DragFloat("Far Clip", &farClip, 0.1f, nearClip, 10000.0f)) {
-					com.RendererCamera->SetPerspectiveFarClip(farClip);
+					com.RendererCamera.SetPerspectiveFarClip(farClip);
 				}
 			}
-			else if (com.RendererCamera->GetCameraType() == CameraType::ORTHOGRAPHIC) {
-				float level = com.RendererCamera->GetZoomLevel();
+			else if (com.RendererCamera.GetCameraType() == CameraType::ORTHOGRAPHIC) {
+				float level = com.RendererCamera.GetZoomLevel();
 				if (ImGui::DragFloat("Level", &level, 0.1f, 0.0f, 1000.0f)) {
-					com.RendererCamera->SetZoomLevel(level);
+					com.RendererCamera.SetZoomLevel(level);
 				}
-				float nearClip = com.RendererCamera->GetOrthographicNearClip();
-				if (ImGui::DragFloat("Near Clip", &nearClip, 0.1f, 0.0f, com.RendererCamera->GetOrthographicFarClip())) {
-					com.RendererCamera->SetOrthographicNearClip(nearClip);
+				float nearClip = com.RendererCamera.GetOrthographicNearClip();
+				if (ImGui::DragFloat("Near Clip", &nearClip, 0.1f, 0.0f, com.RendererCamera.GetOrthographicFarClip())) {
+					com.RendererCamera.SetOrthographicNearClip(nearClip);
 				}
-				float farClip = com.RendererCamera->GetOrthographicFarClip();
+				float farClip = com.RendererCamera.GetOrthographicFarClip();
 				if (ImGui::DragFloat("Far Clip", &farClip, 0.1f, nearClip, 10000.0f)) {
-					com.RendererCamera->SetOrthographicFarClip(farClip);
+					com.RendererCamera.SetOrthographicFarClip(farClip);
 				}
 			}
 		});

@@ -21,7 +21,7 @@ namespace EulerEngine {
 
 		m_ViewMatrix = glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 	}
-	void EulerCamera::UpdateProjection() {
+	void EulerCamera::UpdateProjection(){
 		if (m_ProjectionType == CameraType::PERSPECTIVE) {
 			m_ProjectionMatrix = glm::perspective(glm::radians(m_PerspectiveCameraData.FovAngle), m_AspectRatio, m_PerspectiveCameraData.NearClip, m_PerspectiveCameraData.FarClip);
 		}

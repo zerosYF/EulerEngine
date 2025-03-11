@@ -95,10 +95,10 @@ namespace EulerEngine {
 		delete[] m_SceneData->CubeVertexBase;
 		delete[] m_SceneData->QuadVertexBase;
 	}
-	void Renderer::BeginScene(Ref<EulerCamera> camera)
+	void Renderer::BeginScene(const EulerCamera& camera)
 	{
-		m_SceneData->ViewMatrix = camera->GetViewMatrix();
-		m_SceneData->ProjectionMatrix = camera->GetProjectionMatrix();
+		m_SceneData->ViewMatrix = camera.GetViewMatrix();
+		m_SceneData->ProjectionMatrix = camera.GetProjectionMatrix();
 
 		m_SceneData->CubeVertexCount = 0;
 		m_SceneData->CubeVertexArrayPtr = m_SceneData->CubeVertexBase;

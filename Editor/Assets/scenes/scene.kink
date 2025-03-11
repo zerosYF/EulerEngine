@@ -1,36 +1,12 @@
 Scene: Untitled
 GameObjects:
-  - GameObject: 8428189108062492581
+  - GameObject: 842875295528184206
     Profile:
       Tag: Quad
     Transform:
-      Position: [1.654686e-06, 0, 0]
-      Rotation: [0, 0, -8.602024e-06]
-      Scale: [0.4, 0.4, 1]
-    SpriteRenderer:
-      Shader: Shaders/Camera/first_test.glsl
-      Color: [1, 1, 1, 1]
-      TexturePath: Assets/mytextures/container2.png
-    Rigidbody2D:
-      Type: Dynamic
-      FixedRotation: false
-      Mass: 1
-      LinearDamping: 0
-      AngularDamping: 0
-    BoxCollider2D:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      IsTrigger: false
-  - GameObject: 12430789715363197097
-    Profile:
-      Tag: Quad2
-    Transform:
       Position: [0, -1.2, 0]
-      Rotation: [0, 0, 0.21118484]
-      Scale: [4, 1, 1]
+      Rotation: [0, 0, 0.15009832]
+      Scale: [5.3, 0.4, 1]
     SpriteRenderer:
       Shader: Shaders/Camera/first_test.glsl
       Color: [1, 1, 1, 1]
@@ -48,17 +24,41 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
-  - GameObject: 754205806372244288
+  - GameObject: 10566830585299912585
+    Profile:
+      Tag: Circle
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2D:
+      Type: Dynamic
+      FixedRotation: false
+      Mass: 1
+      LinearDamping: 0
+      AngularDamping: 0
+    CircleRenderer:
+      Color: [1, 1, 1, 1]
+      Thickness: 0.1
+      Fade: 0
+    CircleCollider2D:
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      IsTrigger: false
+  - GameObject: 7771634696297774513
     Profile:
       Tag: Camera
     Transform:
-      Position: [0, 0, 0]
+      Position: [0, 0, 4]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Camera:
       IsPrimary: true
       IsFixedAspectRatio: false
-      CameraType: 1
+      CameraType: 0
       ViewportWidth: 710
       ViewportHeight: 453
       Perspective_FOV: 45
