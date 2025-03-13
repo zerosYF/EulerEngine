@@ -1,6 +1,3 @@
-[submodule "EulerEngine/Vendor/spdlog"]
-	path = EulerEngine/Vendor/spdlog
-	url = https://gitee.com/ets_zeros/spdlog
 [submodule "EulerEngine/Vendor/ImGui"]
 	path = EulerEngine/Vendor/ImGui
 	url = https://gitee.com/ets_zeros/imgui
