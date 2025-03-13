@@ -12,7 +12,7 @@ namespace EulerEngine {
 
     void EditorLayer::OnAttach()
     {
-        Renderer::Init();
+        Renderer::Init();  //此方法应该放在application中
 
         m_IconPlay = Texture2D::Create("Assets/Editor/Icons/PlayButton.png");
         m_IconStop = Texture2D::Create("Assets/Editor/Icons/StopButton.png");
@@ -224,6 +224,8 @@ namespace EulerEngine {
         ImGui::Text("Draw Calls: %d", Renderer::GetStats().DrawCalls);
         ImGui::Text("Cubes: %d", Renderer::GetStats().CubeCount);
         ImGui::Text("Quads: %d", Renderer::GetStats().QuadCount);
+        ImGui::Text("Circles: %d", Renderer::GetStats().CircleCount);
+        ImGui::Text("Lines: %d", Renderer::GetStats().LineCount);
         ImGui::Text("Vertices: %d", Renderer::GetStats().GetTotalVertexCount());
         ImGui::End();
 

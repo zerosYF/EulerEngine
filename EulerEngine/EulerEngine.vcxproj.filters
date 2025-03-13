@@ -7,6 +7,18 @@
     <Filter Include="External\include">
       <UniqueIdentifier>{7B4C767C-6745-95CE-9077-7A537CCF74DA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External\include\entt">
+      <UniqueIdentifier>{A516BC20-1183-771B-DA76-0F7946A29983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\include\glad">
+      <UniqueIdentifier>{6224BD20-CE90-781B-9784-107903B09A83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\include\glad\KHR">
+      <UniqueIdentifier>{D693B7C9-4256-EB53-8B06-7AE0F707C431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\include\glad\glad">
+      <UniqueIdentifier>{A904BA00-9514-66D1-FECD-CAEFEAFC546A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="External\include\glm">
       <UniqueIdentifier>{4A9C892F-362B-13F9-DF49-27F4CBB7239F}</UniqueIdentifier>
     </Filter>
@@ -85,11 +97,17 @@
     <Filter Include="Src\Render\Renderer">
       <UniqueIdentifier>{026C3260-6ECD-0F6E-F73A-5620639B462D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Render\Texture">
+      <UniqueIdentifier>{3CB27D21-2896-3E77-91F6-38CA7DF928F9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Render\Vertices">
       <UniqueIdentifier>{D0DBB11B-3C3D-8F29-C5AA-D5DB310BC6E8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Resource">
       <UniqueIdentifier>{C4C3EDAD-B026-7D52-59AC-B50845EE48D5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Script">
+      <UniqueIdentifier>{B1B0C7AC-9D68-09FA-0670-E255F246A4EA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Test">
       <UniqueIdentifier>{9C5FEB46-882C-4652-B145-34FA9D717BE0}</UniqueIdentifier>
@@ -117,6 +135,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="External\include\entt\entt.hpp">
+      <Filter>External\include\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="External\include\glad\KHR\khrplatform.h">
+      <Filter>External\include\glad\KHR</Filter>
+    </ClInclude>
+    <ClInclude Include="External\include\glad\glad\glad.h">
+      <Filter>External\include\glad\glad</Filter>
+    </ClInclude>
     <ClInclude Include="External\include\glm\common.hpp">
       <Filter>External\include\glm</Filter>
     </ClInclude>
@@ -1236,6 +1263,9 @@
     <ClInclude Include="Src\Core\EulerTimer.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\EulerUUID.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\EulerWindow.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
@@ -1350,9 +1380,6 @@
     <ClInclude Include="Src\Render\EulerShader.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Texture\EulerTexture.h">
-      <Filter>Src\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\FrameBuffer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
@@ -1389,6 +1416,12 @@
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h">
       <Filter>Src\Render\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\Texture\EulerTexture.h">
+      <Filter>Src\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Texture\SubTexture2D.h">
+      <Filter>Src\Render\Texture</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\VertexArray.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
@@ -1397,6 +1430,9 @@
     </ClInclude>
     <ClInclude Include="Src\Resource\ResourceLibrary.h">
       <Filter>Src\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Script\ScriptEngine.h">
+      <Filter>Src\Script</Filter>
     </ClInclude>
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
       <Filter>Src\Test\ModelTest</Filter>
@@ -1416,10 +1452,22 @@
     <ClInclude Include="Src\Utils\PlatformUtils.h">
       <Filter>Src\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Src\World\Component\BoxCollider2D.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
     <ClInclude Include="Src\World\Component\Camera.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Src\World\Component\CircleCollider2D.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\World\Component\CircleRenderer.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
     <ClInclude Include="Src\World\Component\Component.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\World\Component\IDCom.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\MeshRenderer.h">
@@ -1429,6 +1477,9 @@
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\Profile.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\World\Component\Rigidbody2D.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\SpriteRenderer.h">
@@ -1455,15 +1506,11 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\World\Component\Rigidbody2D.h" />
-    <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
-    <ClInclude Include="Src\Core\EulerUUID.h" />
-    <ClInclude Include="Src\World\Component\IDCom.h" />
-    <ClInclude Include="Src\World\Component\CircleRenderer.h" />
-    <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
-    <ClInclude Include="Src\Render\Texture\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="External\include\glad\glad.c">
+      <Filter>External\include\glad</Filter>
+    </ClCompile>
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
       <Filter>External\include\stb_image</Filter>
     </ClCompile>
@@ -1471,6 +1518,9 @@
       <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\EulerTimer.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\EulerUUID.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Input\EulerInput.cpp">
@@ -1557,9 +1607,6 @@
     <ClCompile Include="Src\Render\EulerShader.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp">
-      <Filter>Src\Render</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Render\FrameBuffer.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
@@ -1578,6 +1625,12 @@
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp">
       <Filter>Src\Render\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp">
+      <Filter>Src\Render\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp">
+      <Filter>Src\Render\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Render\VertexArray.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
@@ -1586,6 +1639,9 @@
     </ClCompile>
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp">
       <Filter>Src\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Script\ScriptEngine.cpp">
+      <Filter>Src\Script</Filter>
     </ClCompile>
     <ClCompile Include="Src\Test\TestFunc.cpp">
       <Filter>Src\Test</Filter>
@@ -1611,7 +1667,5 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerUUID.cpp" />
-    <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

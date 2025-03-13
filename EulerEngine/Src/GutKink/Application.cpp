@@ -1,11 +1,12 @@
-#include "gkpch.h"
-#include "Application.h"
-#include "Core/Logs/EulerLog.h"
-#include "Core/Events/Event.h"
-#include "Core/Input/EulerInput.h"
-#include <GLFW/glfw3.h>
-#include <backends/imgui_impl_opengl3_loader.h>
-#include "Render/Renderer/Renderer.h"
+#include"gkpch.h"
+#include"Application.h"
+#include"Core/Logs/EulerLog.h"
+#include"Core/Events/Event.h"
+#include"Core/Input/EulerInput.h"
+#include<GLFW/glfw3.h>
+#include<backends/imgui_impl_opengl3_loader.h>
+#include"Render/Renderer/Renderer.h"
+#include"Script/ScriptEngine.h"
 namespace EulerEngine {
 	Application* Application::s_Instance = nullptr;
 	Application::Application()
@@ -13,6 +14,10 @@ namespace EulerEngine {
 		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>(EulerWindow::Create());
 		m_Window->SetEventCallback(KINK_BIND_EVENT_FUNC(Application::OnEvent));
+
+		//Renderer::Init();
+		ScriptEngine::Init();
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 

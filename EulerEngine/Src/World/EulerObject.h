@@ -1,6 +1,6 @@
 #pragma once
 #include"Component/Component.h"
-#include"entt.hpp"
+#include"entt/entt.hpp"
 #include"GutKink/Core.h"
 #include"EulerScene.h"
 #include"Core/EulerUUID.h"

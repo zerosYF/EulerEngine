@@ -78,10 +78,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -96,10 +96,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -114,10 +114,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Vendor\spdlog\include;..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\Vendor\Glad\include;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Entt\include;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>

@@ -75,10 +75,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;External\include;External\include\glad;Vendor\ImGui;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -88,7 +88,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Debug\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -97,10 +97,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;External\include;External\include\glad;Vendor\ImGui;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -110,7 +110,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Release\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -120,10 +120,10 @@
       <PrecompiledHeaderFile>gkpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_BUILD_DLL;_WINDLL;KINK_ENABLE_ASSERTS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Src;Vendor\spdlog\include;External\include;Vendor\Glad\include;Vendor\ImGui;Vendor\Entt\include;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Src;External\include;External\include\glad;Vendor\ImGui;Vendor\Yaml-cpp\include;Vendor\ImGuizmo;Vendor\Box2d\include;Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -133,11 +133,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Dist\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="External\include\entt\entt.hpp" />
+    <ClInclude Include="External\include\glad\KHR\khrplatform.h" />
+    <ClInclude Include="External\include\glad\glad\glad.h" />
     <ClInclude Include="External\include\glm\common.hpp" />
     <ClInclude Include="External\include\glm\detail\_features.hpp" />
     <ClInclude Include="External\include\glm\detail\_fixes.hpp" />
@@ -550,7 +553,6 @@
     <ClInclude Include="Src\Render\EulerMaterial.h" />
     <ClInclude Include="Src\Render\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
-    <ClInclude Include="Src\Render\Texture\EulerTexture.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\GLObjects\GLCube.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
@@ -563,10 +565,12 @@
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer\Renderer.h" />
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h" />
+    <ClInclude Include="Src\Render\Texture\EulerTexture.h" />
     <ClInclude Include="Src\Render\Texture\SubTexture2D.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
+    <ClInclude Include="Src\Script\ScriptEngine.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h" />
     <ClInclude Include="Src\Test\TestFunc.h" />
@@ -593,6 +597,7 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="External\include\glad\glad.c" />
     <ClCompile Include="External\include\stb_image\stb_image.cpp" />
     <ClCompile Include="Src\Core\EulerImage.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
@@ -625,34 +630,30 @@
     <ClCompile Include="Src\Render\EulerMaterial.cpp" />
     <ClCompile Include="Src\Render\EulerMesh.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
-    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
+    <ClCompile Include="Src\Script\ScriptEngine.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />
     <ClCompile Include="Src\Thread\EulerThread.cpp" />
     <ClCompile Include="Src\World\EulerObject.cpp" />
     <ClCompile Include="Src\World\EulerScene.cpp" />
     <ClCompile Include="Src\World\EulerSerialize.cpp" />
-    <ClCompile Include="Src\gkpch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="Src\gkpch.cpp" />
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Vendor\Box2d\Box2d.vcxproj">
       <Project>{C434E80C-3049-10BE-F9CA-B31D659E0CEF}</Project>
-    </ProjectReference>
-    <ProjectReference Include="Vendor\Glad\Glad.vcxproj">
-      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>
     <ProjectReference Include="Vendor\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
