@@ -59,7 +59,7 @@ namespace EulerEngine {
 			mono_metadata_decode_row(typeDefinationTable, i, cols, MONO_TYPEDEF_SIZE);
 			const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
 			const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-			KINK_CORE_INFO("Type: {0}.{1}", nameSpace, name);
+			KINK_CORE_TRACE("Type: {0}.{1}", nameSpace, name);
 		}
 	}
 
@@ -72,6 +72,7 @@ namespace EulerEngine {
 	}
 	void ScriptEngine::ShutDown()
 	{
+		ShutDownMono();
 		delete s_Data;
 		s_Data = nullptr;
 	}
@@ -86,11 +87,25 @@ namespace EulerEngine {
 
 		s_Data->CoreAssembly = LoadCSharpAssembly("Scripts/EulerScript.dll");
 		PrintAssemblyTypes(s_Data->CoreAssembly);
+
+		MonoImage* img = mono_assembly_get_image(s_Data->CoreAssembly);
+		MonoClass* cls = mono_class_from_name(img, "EulerEngine", "Main");
+		MonoObject* obj = mono_object_new(s_Data->AppDomain, cls);
+		mono_runtime_object_init(obj);
+		MonoMethod* method_0 = mono_class_get_method_from_name(cls, "PrintMessage", 0);
+		mono_runtime_invoke(method_0, obj, nullptr, nullptr);
+		MonoMethod* method_1 = mono_class_get_method_from_name(cls, "PrintMessage", 1);
+		MonoString* str = mono_string_new(s_Data->AppDomain, "Hello from C++!");
+		void* param = str;
+		mono_runtime_invoke(method_1, obj, &param, nullptr);
 	}
 	void ScriptEngine::ShutDownMono()
 	{
-		mono_jit_cleanup(s_Data->RootDomain);
+		mono_domain_set(mono_get_root_domain(), false);
 		mono_domain_unload(s_Data->AppDomain);
+		s_Data->AppDomain = nullptr;
+		mono_jit_cleanup(s_Data->RootDomain);
+		s_Data->RootDomain = nullptr;
 	}
 
 }

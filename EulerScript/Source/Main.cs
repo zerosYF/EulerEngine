@@ -6,5 +6,11 @@ namespace EulerEngine {
         {
             Console.WriteLine("Hello, world!");
         }
+        public void PrintMessage() {
+            Console.WriteLine("This is a function!");
+        }
+        public void PrintMessage(string s) {
+            Console.WriteLine(s);
+        }
     }
 }

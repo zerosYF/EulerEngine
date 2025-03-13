@@ -26,7 +26,7 @@ namespace EulerEngine {
 
 	Application::~Application()
 	{
-		
+		ScriptEngine::ShutDown();
 	}
 	void Application :: Run() {
 		while (m_Running) {
