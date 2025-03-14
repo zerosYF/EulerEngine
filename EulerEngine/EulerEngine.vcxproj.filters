@@ -1506,6 +1506,8 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Script\ScriptGlue.h" />
+    <ClInclude Include="Src\Script\ScriptClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1667,5 +1669,7 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Script\ScriptGlue.cpp" />
+    <ClCompile Include="Src\Script\ScriptClass.cpp" />
   </ItemGroup>
 </Project>

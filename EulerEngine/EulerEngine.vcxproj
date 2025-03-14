@@ -570,7 +570,9 @@
     <ClInclude Include="Src\Render\VertexArray.h" />
     <ClInclude Include="Src\Render\Vertices\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
+    <ClInclude Include="Src\Script\ScriptClass.h" />
     <ClInclude Include="Src\Script\ScriptEngine.h" />
+    <ClInclude Include="Src\Script\ScriptGlue.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h" />
     <ClInclude Include="Src\Test\TestFunc.h" />
@@ -641,7 +643,9 @@
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
+    <ClCompile Include="Src\Script\ScriptClass.cpp" />
     <ClCompile Include="Src\Script\ScriptEngine.cpp" />
+    <ClCompile Include="Src\Script\ScriptGlue.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />
     <ClCompile Include="Src\Thread\EulerThread.cpp" />

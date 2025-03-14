@@ -1,17 +1,10 @@
 #include"gkpch.h"
+#include"ScriptGlue.h"
 #include"ScriptEngine.h"
-#include"mono/jit/jit.h"
-#include"mono/metadata/assembly.h"
 #include"GutKink/Core.h"
 namespace EulerEngine {
-	struct ScriptEngineData {
-		MonoDomain* RootDomain = nullptr;
-		MonoDomain* AppDomain = nullptr;
-
-		MonoAssembly* CoreAssembly = nullptr;
-	};
-	static ScriptEngineData* s_Data;
-
+	extern ScriptEngineData* s_Data = nullptr;
+	// TODO:be a filesystem method
 	char* ReadBytes(const std::string& filepath, unsigned int* out_size) {
 		std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
 		if (!stream) {
@@ -29,9 +22,9 @@ namespace EulerEngine {
 		return buffer;
 	}
 
-	MonoAssembly* LoadCSharpAssembly(const std::string& filepath) {
+	MonoAssembly* LoadMonoAssembly(const std::filesystem::path& filepath) {
 		unsigned int file_size = 0;
-		char* file_data = ReadBytes(filepath, &file_size);
+		char* file_data = ReadBytes(filepath.string(), &file_size);
 		if (file_data == nullptr) {
 			return nullptr;
 		}
@@ -42,7 +35,7 @@ namespace EulerEngine {
 			KINK_CORE_ERROR("Could not load assembly: {0}", mono_image_strerror(status));
 			return nullptr;
 		}
-		MonoAssembly* assembly = mono_assembly_load_from_full(image, filepath.c_str(), &status, false);
+		MonoAssembly* assembly = mono_assembly_load_from_full(image, filepath.string().c_str(), &status, false);
 		if (assembly == nullptr) {
 			return nullptr;
 		}
@@ -63,12 +56,21 @@ namespace EulerEngine {
 		}
 	}
 
-
-
 	void ScriptEngine::Init()
 	{
 		s_Data = new ScriptEngineData();
 		InitMono();
+		LoadAssembly("Scripts/EulerScript.dll");
+		ScriptGlue::RegisterFunctions();
+
+		s_Data->GameObjectClass = ScriptClass("EulerEngine", "Main");
+		MonoObject* instance = s_Data->GameObjectClass.Instantiate();
+		MonoMethod* method_0 = s_Data->GameObjectClass.GetMethod("PrintMsg", 0);
+		s_Data->GameObjectClass.InvokeMethod(instance, method_0, nullptr);
+		MonoMethod* method_1 = s_Data->GameObjectClass.GetMethod("PrintString", 1);
+		MonoString* str = mono_string_new(s_Data->AppDomain, "Hello from C++!");
+		void* param = str;
+		s_Data->GameObjectClass.InvokeMethod(instance, method_1, &param);
 	}
 	void ScriptEngine::ShutDown()
 	{
@@ -76,28 +78,29 @@ namespace EulerEngine {
 		delete s_Data;
 		s_Data = nullptr;
 	}
+	void ScriptEngine::LoadAssembly(const std::filesystem::path& path)
+	{
+		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
+		mono_domain_set(s_Data->AppDomain, true);
+		s_Data->CoreAssembly = LoadMonoAssembly(path);
+		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
+	}
+	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
+	{
+		MonoObject* obj = mono_object_new(s_Data->AppDomain, monoClass);
+		mono_runtime_object_init(obj);
+		return obj;
+	}
+	ScriptEngineData* ScriptEngine::GetData()
+	{
+		return s_Data;
+	}
 	void ScriptEngine::InitMono()
 	{
 		mono_set_assemblies_path("Mono/lib");
 		MonoDomain* root_domain = mono_jit_init("KinkJitRuntime");
 		KINK_CORE_ASSERT(root_domain != nullptr, "Could not initialize mono runtime");
 		s_Data->RootDomain = root_domain;
-		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
-
-		s_Data->CoreAssembly = LoadCSharpAssembly("Scripts/EulerScript.dll");
-		PrintAssemblyTypes(s_Data->CoreAssembly);
-
-		MonoImage* img = mono_assembly_get_image(s_Data->CoreAssembly);
-		MonoClass* cls = mono_class_from_name(img, "EulerEngine", "Main");
-		MonoObject* obj = mono_object_new(s_Data->AppDomain, cls);
-		mono_runtime_object_init(obj);
-		MonoMethod* method_0 = mono_class_get_method_from_name(cls, "PrintMessage", 0);
-		mono_runtime_invoke(method_0, obj, nullptr, nullptr);
-		MonoMethod* method_1 = mono_class_get_method_from_name(cls, "PrintMessage", 1);
-		MonoString* str = mono_string_new(s_Data->AppDomain, "Hello from C++!");
-		void* param = str;
-		mono_runtime_invoke(method_1, obj, &param, nullptr);
 	}
 	void ScriptEngine::ShutDownMono()
 	{
