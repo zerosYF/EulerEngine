@@ -31,6 +31,8 @@
 
 #include"Utils/PlatformUtils.h"
 
+#include"Script/ScriptEngine.h"
+
 #include<../ImGui/imgui.h>
 
 #include<glm/gtc/type_ptr.hpp>

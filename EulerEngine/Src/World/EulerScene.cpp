@@ -340,4 +340,7 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<CircleCollider2D>(GameObject obj, CircleCollider2D& component) {
 	}
+	template<>
+	void Scene::OnComponentAdded<CSharpScript>(GameObject obj, CSharpScript& component) {
+	}
 }

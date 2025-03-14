@@ -107,7 +107,15 @@ namespace EulerEngine {
 			gameObject.RemoveComponent<T>();
 		}
 	}
-
+	template<typename T>
+	void HierarchyPanel::DisplayAddComponentPopup(std::string name) {
+		if (!m_SelectedGameObject.HasComponent<T>()) {
+			if (ImGui::MenuItem(name.c_str())) {
+				m_SelectedGameObject.AddComponent<T>();
+				ImGui::CloseCurrentPopup();
+			}
+		}
+	}
 	void HierarchyPanel::DrawComponents(GameObject gameObject)
 	{
 		if (gameObject.HasComponent<Profile>()) {
@@ -125,48 +133,14 @@ namespace EulerEngine {
 			ImGui::OpenPopup("AddComponent");
 		}
 		if (ImGui::BeginPopup("AddComponent")) {
-			if (!m_SelectedGameObject.HasComponent<MeshRenderer>()) {
-				if (ImGui::MenuItem("MeshRenderer")) {
-					m_SelectedGameObject.AddComponent<MeshRenderer>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<Camera>()) {
-				if (ImGui::MenuItem("Camera")) {
-					m_SelectedGameObject.AddComponent<Camera>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<SpriteRenderer>()) {
-				if (ImGui::MenuItem("SpriteRenderer")) {
-					m_SelectedGameObject.AddComponent<SpriteRenderer>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<Rigidbody2D>()) {
-				if (ImGui::MenuItem("Rigidbody2D")) {
-					m_SelectedGameObject.AddComponent<Rigidbody2D>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<BoxCollider2D>()) {
-				if (ImGui::MenuItem("BoxCollider2D")) {
-					m_SelectedGameObject.AddComponent<BoxCollider2D>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<CircleRenderer>()) {
-				if (ImGui::MenuItem("CircleRenderer")) {
-					m_SelectedGameObject.AddComponent<CircleRenderer>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
-			if (!m_SelectedGameObject.HasComponent<CircleCollider2D>()) {
-				if (ImGui::MenuItem("CircleCollider2D")) {
-					m_SelectedGameObject.AddComponent<CircleCollider2D>();
-					ImGui::CloseCurrentPopup();
-				}
-			}
+			DisplayAddComponentPopup<MeshRenderer>("MeshRenderer");
+			DisplayAddComponentPopup<Camera>("Camera");
+			DisplayAddComponentPopup<SpriteRenderer>("SpriteRenderer");
+			DisplayAddComponentPopup<Rigidbody2D>("Rigidbody2D");
+			DisplayAddComponentPopup<BoxCollider2D>("BoxCollider2D");
+			DisplayAddComponentPopup<CircleRenderer>("CirlceRenderer");
+			DisplayAddComponentPopup<CircleCollider2D>("CircleCollider2D");
+			DisplayAddComponentPopup<CSharpScript>("CSharpScript");
 			ImGui::EndPopup();
 		}
 		ImGui::PopItemWidth();
@@ -289,6 +263,24 @@ namespace EulerEngine {
 			ImGui::DragFloat("Density", &com.Density, 0.1f, 0.0f, 1.0f);
 			ImGui::DragFloat("Friction", &com.Friction, 0.1f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &com.Restitution, 0.1f, 0.0f, 1.0f);
+		});
+		DrawComponent<CSharpScript>("CSharpScript", gameObject, [](CSharpScript& com) {
+			const auto& clses = ScriptEngine::GetGameObjectClasses();
+			bool isExists = false;
+			if (clses.find(com.Name) != clses.end()) {
+				isExists = true;
+			}
+			static char buffer[256];
+			strcpy(buffer, com.Name.c_str());
+			if (!isExists) {
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));
+			}
+			if (ImGui::InputText("Class", buffer, sizeof(buffer))) {
+				com.Name = std::string(buffer);
+			}
+			if (!isExists) {
+				ImGui::PopStyleColor();
+			}
 		});
 	}
 	void HierarchyPanel::DrawGameObjectNode(GameObject gameObject)

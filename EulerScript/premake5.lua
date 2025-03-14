@@ -4,7 +4,7 @@ project "EulerScript"
 	dotnetframework "4.8"
 
 	targetdir ("%{wks.location}/Editor/Scripts")
-	objdir ("%{wks.location}/Editor/Scripts/Indermediates")
+	objdir ("%{wks.location}/Editor/Scripts/Intermediates")
 
 	files{
 		"Source/**.cs",

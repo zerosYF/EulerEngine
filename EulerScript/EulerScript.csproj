@@ -19,10 +19,9 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <OutputPath>..\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Scripts\Indermediates\Debug\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -32,10 +31,9 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
     <OutputPath>..\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Scripts\Indermediates\Release\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,10 +43,9 @@
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <OutputPath>..\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Scripts\Indermediates\Dist\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -59,8 +56,8 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Main.cs" />
     <Compile Include="Source\Behaviour.cs" />
+    <Compile Include="Source\Main.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

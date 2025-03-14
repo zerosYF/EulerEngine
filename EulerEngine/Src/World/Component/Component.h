@@ -3,7 +3,9 @@
 #include"Transform.h"
 #include"Profile.h"
 #include"Camera.h"
+
 #include"NativeScript.h"
+#include"CSharpScript.h"
 
 #include"MeshRenderer.h"
 #include"SpriteRenderer.h"

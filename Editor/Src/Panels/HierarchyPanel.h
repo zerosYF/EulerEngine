@@ -12,6 +12,8 @@ namespace EulerEngine {
 	private:
 		void DrawGameObjectNode(GameObject gameObject);
 		void DrawComponents(GameObject gameObject);
+		template<typename T>
+		void DisplayAddComponentPopup(std::string name);
 	private:
 		Ref<Scene> m_Context;
 		GameObject m_SelectedGameObject;

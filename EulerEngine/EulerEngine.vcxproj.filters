@@ -1431,7 +1431,16 @@
     <ClInclude Include="Src\Resource\ResourceLibrary.h">
       <Filter>Src\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Script\ScriptClass.h">
+      <Filter>Src\Script</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Script\ScriptEngine.h">
+      <Filter>Src\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Script\ScriptGlue.h">
+      <Filter>Src\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Script\ScriptInstance.h">
       <Filter>Src\Script</Filter>
     </ClInclude>
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h">
@@ -1453,6 +1462,9 @@
       <Filter>Src\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\BoxCollider2D.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\World\Component\CSharpScript.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\Camera.h">
@@ -1506,8 +1518,6 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Script\ScriptGlue.h" />
-    <ClInclude Include="Src\Script\ScriptClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1642,7 +1652,16 @@
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp">
       <Filter>Src\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Script\ScriptClass.cpp">
+      <Filter>Src\Script</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Script\ScriptEngine.cpp">
+      <Filter>Src\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Script\ScriptGlue.cpp">
+      <Filter>Src\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Script\ScriptInstance.cpp">
       <Filter>Src\Script</Filter>
     </ClCompile>
     <ClCompile Include="Src\Test\TestFunc.cpp">
@@ -1669,7 +1688,5 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Script\ScriptGlue.cpp" />
-    <ClCompile Include="Src\Script\ScriptClass.cpp" />
   </ItemGroup>
 </Project>

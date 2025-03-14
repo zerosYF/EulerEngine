@@ -573,6 +573,7 @@
     <ClInclude Include="Src\Script\ScriptClass.h" />
     <ClInclude Include="Src\Script\ScriptEngine.h" />
     <ClInclude Include="Src\Script\ScriptGlue.h" />
+    <ClInclude Include="Src\Script\ScriptInstance.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Delegate.h" />
     <ClInclude Include="Src\Test\ModelTest\Test_Reflect.h" />
     <ClInclude Include="Src\Test\TestFunc.h" />
@@ -580,6 +581,7 @@
     <ClInclude Include="Src\Thread\EulerThread.h" />
     <ClInclude Include="Src\Utils\PlatformUtils.h" />
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
+    <ClInclude Include="Src\World\Component\CSharpScript.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
     <ClInclude Include="Src\World\Component\CircleRenderer.h" />
@@ -646,6 +648,7 @@
     <ClCompile Include="Src\Script\ScriptClass.cpp" />
     <ClCompile Include="Src\Script\ScriptEngine.cpp" />
     <ClCompile Include="Src\Script\ScriptGlue.cpp" />
+    <ClCompile Include="Src\Script\ScriptInstance.cpp" />
     <ClCompile Include="Src\Test\TestFunc.cpp" />
     <ClCompile Include="Src\Thread\EulerSynchronize.cpp" />
     <ClCompile Include="Src\Thread\EulerThread.cpp" />
