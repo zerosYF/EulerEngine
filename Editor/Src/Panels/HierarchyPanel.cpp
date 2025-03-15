@@ -266,10 +266,7 @@ namespace EulerEngine {
 		});
 		DrawComponent<CSharpScript>("CSharpScript", gameObject, [](CSharpScript& com) {
 			const auto& clses = ScriptEngine::GetGameObjectClasses();
-			bool isExists = false;
-			if (clses.find(com.Name) != clses.end()) {
-				isExists = true;
-			}
+			bool isExists = ScriptEngine::IsClassExists(com.Name);
 			static char buffer[256];
 			strcpy(buffer, com.Name.c_str());
 			if (!isExists) {

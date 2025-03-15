@@ -48,6 +48,8 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
+    CSharpScript:
+      ClassName: Sandbox.Test
   - GameObject: 7771634696297774513
     Profile:
       Tag: Camera
@@ -59,8 +61,8 @@ GameObjects:
       IsPrimary: true
       IsFixedAspectRatio: false
       CameraType: 0
-      ViewportWidth: 710
-      ViewportHeight: 453
+      ViewportWidth: 660
+      ViewportHeight: 415
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
       Perspective_FarClip: 100

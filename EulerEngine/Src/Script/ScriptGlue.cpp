@@ -3,6 +3,7 @@
 #include"mono/jit/jit.h"
 #include"mono/metadata/assembly.h"
 #include"glm/glm.hpp"
+#include"GutKink/Core.h"
 #define KINK_ADD_INTERNAL_CALL(Name) mono_add_internal_call("EulerEngine.InternalCalls::"#Name, Name) 
 namespace EulerEngine {
     static void NativeLog(MonoString* text, int param) {
@@ -19,6 +20,7 @@ namespace EulerEngine {
     }
     void ScriptGlue::RegisterFunctions()
     {
+        KINK_CORE_TRACE("Registering internal calls");
         KINK_ADD_INTERNAL_CALL(NativeLog);
         KINK_ADD_INTERNAL_CALL(NativeLog_Vec3);
         KINK_ADD_INTERNAL_CALL(NativeLog_Vec3Dot);

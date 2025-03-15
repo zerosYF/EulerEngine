@@ -3,7 +3,10 @@
 #include"mono/jit/jit.h"
 #include"mono/metadata/assembly.h"
 #include"ScriptClass.h"
+#include"ScriptInstance.h"
 #include"GutKink/Core.h"
+#include"World/EulerScene.h"
+#include"World/EulerObject.h"
 extern "C" {
 	typedef struct _MonoAssembly MonoAssembly;
 	typedef struct _MonoImage MonoImage;
@@ -21,17 +24,27 @@ namespace EulerEngine {
 		MonoImage* CoreImage = nullptr;
 		ScriptClass GameObjectClass;
 		std::unordered_map<std::string, Ref<ScriptClass>> GameObjectClasses;
+		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
+
+		Scene* SceneContext;
 	};
 	class ScriptEngine {
 	public:
 		static void Init();
 		static void ShutDown();
-		static void LoadAssembly(const std::filesystem::path& path);
 		static std::unordered_map<std::string, Ref<ScriptClass>> GetGameObjectClasses();
+		static void OnRuntimeStart(Scene* scene);
+		static void OnRuntimeStop();
+		static bool IsClassExists(const std::string& fullName);
+
+		static void OnCreateGameObject(GameObject obj);
+		static void OnUpdateGameObject(GameObject obj, float ts);
+		static void OnDestroyGameObject(GameObject obj);
 	private:
 		static void InitMono();
 		static void ShutDownMono();
 		static MonoObject* InstantiateClass(MonoClass* monoClass);
+		static void LoadAssembly(const std::filesystem::path& path);
 		static void LoadAssemblyClasses(MonoAssembly* assembly);
 		static ScriptEngineData* GetData();
 		friend class ScriptClass;

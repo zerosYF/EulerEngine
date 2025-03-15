@@ -21,7 +21,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -33,7 +34,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,7 +47,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -56,8 +59,8 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Behaviour.cs" />
-    <Compile Include="Source\Main.cs" />
+    <Compile Include="Source\Test.cs" />
+    <Compile Include="Source\EulerBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

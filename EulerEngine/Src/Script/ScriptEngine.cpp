@@ -58,15 +58,24 @@ namespace EulerEngine {
 			KINK_CORE_TRACE("Type: {0}.{1}", nameSpace, name);
 		}
 	}
+	
+	void ScriptEngine::LoadAssembly(const std::filesystem::path& path)
+	{
+		KINK_CORE_TRACE("Loading assembly: {0}", path.string());
+		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
+		mono_domain_set(s_Data->AppDomain, true);
+		s_Data->CoreAssembly = LoadMonoAssembly(path);
+		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
+	}
 
 	void ScriptEngine::LoadAssemblyClasses(MonoAssembly* assembly) {
+		KINK_CORE_TRACE("Loading assembly classes");
 		s_Data->GameObjectClasses.clear();
-
 		MonoImage* image = mono_assembly_get_image(assembly);
 		const MonoTableInfo* typeDefinationTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
 		unsigned int num_types = mono_table_info_get_rows(typeDefinationTable);
 
-		MonoClass* super_cls = mono_class_from_name(image, "EulerEngine", "Main");
+		MonoClass* super_cls = mono_class_from_name(image, "EulerEngine", "EulerBehaviour");
 		for (unsigned int i = 0; i < num_types; i++) {
 			unsigned int cols[MONO_TYPEDEF_SIZE];
 			mono_metadata_decode_row(typeDefinationTable, i, cols, MONO_TYPEDEF_SIZE);
@@ -94,7 +103,7 @@ namespace EulerEngine {
 		LoadAssembly("Scripts/EulerScript.dll");
 		LoadAssemblyClasses(s_Data->CoreAssembly);
 		ScriptGlue::RegisterFunctions();
-		PrintAssemblyTypes(s_Data->CoreAssembly);
+		//PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 	void ScriptEngine::ShutDown()
 	{
@@ -102,16 +111,42 @@ namespace EulerEngine {
 		delete s_Data;
 		s_Data = nullptr;
 	}
-	void ScriptEngine::LoadAssembly(const std::filesystem::path& path)
-	{
-		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
-		s_Data->CoreAssembly = LoadMonoAssembly(path);
-		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
-	}
 	std::unordered_map<std::string, Ref<ScriptClass>> ScriptEngine::GetGameObjectClasses()
 	{
 		return s_Data->GameObjectClasses;
+	}
+	void ScriptEngine::OnRuntimeStart(Scene* scene)
+	{
+		s_Data->SceneContext = scene;
+	}
+	void ScriptEngine::OnRuntimeStop()
+	{
+		s_Data->SceneContext = nullptr;
+	}
+	bool ScriptEngine::IsClassExists(const std::string& fullName)
+	{
+		return s_Data->GameObjectClasses.find(fullName) != s_Data->GameObjectClasses.end();
+	}
+	void ScriptEngine::OnCreateGameObject(GameObject obj)
+	{
+		const auto& com = obj.GetComponent<CSharpScript>();
+		if (IsClassExists(com.Name)) {
+			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->GameObjectClasses[com.Name]);
+			s_Data->GameObjectInstances[obj.GetUUID()] = instance;
+			instance->InvokeOnCreate();
+		}
+	}
+	void ScriptEngine::OnUpdateGameObject(GameObject obj, float ts)
+	{
+		KINK_CORE_ASSERT(s_Data->GameObjectInstances.find(obj.GetUUID()) != s_Data->GameObjectInstances.end(), "GameObject instance not found");
+		Ref<ScriptInstance> instance = s_Data->GameObjectInstances[obj.GetUUID()];
+		instance->InvokeOnUpdate(ts);
+	}
+	void ScriptEngine::OnDestroyGameObject(GameObject obj)
+	{
+		KINK_CORE_ASSERT(s_Data->GameObjectInstances.find(obj.GetUUID()) != s_Data->GameObjectInstances.end(), "GameObject instance not found");
+		Ref<ScriptInstance> instance = s_Data->GameObjectInstances[obj.GetUUID()];
+		instance->InvokeOnDestroy();
 	}
 	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
 	{

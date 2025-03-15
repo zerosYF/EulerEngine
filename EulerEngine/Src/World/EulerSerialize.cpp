@@ -208,6 +208,12 @@ namespace EulerEngine {
 			out << YAML::Key << "IsTrigger" << YAML::Value << gameObj.GetComponent<CircleCollider2D>().IsTrigger;
 			out << YAML::EndMap;
 		}
+		if (gameObj.HasComponent<CSharpScript>()) {
+			out << YAML::Key << "CSharpScript";
+			out << YAML::BeginMap;
+			out << YAML::Key << "ClassName" << YAML::Value << gameObj.GetComponent<CSharpScript>().Name;
+			out << YAML::EndMap;
+		}
 		out << YAML::EndMap;
 	}
 	void SceneSerializer::Serialize(const std::string& filePath)
@@ -324,6 +330,10 @@ namespace EulerEngine {
 						circleCollider2D.Friction = gameObject["CircleCollider2D"]["Friction"].as<float>();
 						circleCollider2D.Restitution = gameObject["CircleCollider2D"]["Restitution"].as<float>();
 						circleCollider2D.IsTrigger = gameObject["CircleCollider2D"]["IsTrigger"].as<bool>();
+					}
+					if (gameObject["CSharpScript"]) {
+						auto& cSharpScript = gameObj.AddComponent<CSharpScript>();
+						cSharpScript.Name = gameObject["CSharpScript"]["ClassName"].as<std::string>();
 					}
 				}
 			}

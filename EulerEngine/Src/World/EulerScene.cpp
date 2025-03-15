@@ -5,6 +5,7 @@
 #include"EulerObject.h"
 #include"EulerBehaviour.h"
 #include"Resource/ResourceLibrary.h"
+#include"Script/ScriptEngine.h"
 namespace EulerEngine {
 	static b2BodyType KinkRigidbody2DTypeToBox2DType(Rigidbody2D::BodyType type)
 	{
@@ -61,7 +62,6 @@ namespace EulerEngine {
 		for (auto e : idView) {
 			EulerUUID id = srcregistry.get<IDCom>(e).ID;
 			const auto& name = srcregistry.get<Profile>(e).Tag;
-			KINK_CORE_INFO("Copying Entity:{0}", name);
 			GameObject obj = newScene ->CreateObject(id, name);
 			entityMap[id] = (entt::entity)obj;
 		}
@@ -74,6 +74,7 @@ namespace EulerEngine {
 		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<CircleRenderer>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<CircleCollider2D>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<CSharpScript>(dstRegistry, srcregistry, entityMap);
 		return newScene;
 	}
 	GameObject Scene::CreateObject(const std::string& name)
@@ -101,6 +102,7 @@ namespace EulerEngine {
 		CopyComponent<Camera>(newObj, obj);
 		CopyComponent<CircleRenderer>(newObj, obj);
 		CopyComponent<CircleCollider2D>(newObj, obj);
+		CopyComponent<CSharpScript>(newObj, obj);
 	}
 	void Scene::DestroyObject(GameObject& obj)
 	{
@@ -110,10 +112,22 @@ namespace EulerEngine {
 	void Scene::OnRuntimeStart()
 	{
 		OnPhysics2DStart();
+		ScriptEngine::OnRuntimeStart(this);
+		auto view = m_Registry.view<CSharpScript>();
+		for (auto e : view) {
+			GameObject obj = {e, this};
+			ScriptEngine::OnCreateGameObject(obj);
+		}
 	}
 	void Scene::OnRuntimeStop()
 	{
 		OnPhysics2DStop();
+		auto view = m_Registry.view<CSharpScript>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			ScriptEngine::OnDestroyGameObject(obj);
+		}
+		ScriptEngine::OnRuntimeStop();
 	}
 	void Scene::OnSimulationStart()
 	{
@@ -125,15 +139,24 @@ namespace EulerEngine {
 	}
 	void Scene::OnUpdateRuntime(TimerSystem ts)
 	{
-		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
-			if (nsc.Instance == nullptr) {
-				nsc.Instance = nsc.InstantiateScript();
-				nsc.Instance->m_gameObject = GameObject{entity, this};
-				nsc.Instance->OnCreate();
+		{
+			auto view = m_Registry.view<CSharpScript>();
+			for (auto e : view) {
+				GameObject obj = { e, this };
+				ScriptEngine::OnUpdateGameObject(obj, ts.GetDeltaTime());
 			}
-			nsc.Instance->OnUpdate(ts);
+		}
+		{
+			m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
+				if (nsc.Instance == nullptr) {
+					nsc.Instance = nsc.InstantiateScript();
+					nsc.Instance->m_gameObject = GameObject{ entity, this };
+					nsc.Instance->OnCreate();
+				}
+				nsc.Instance->OnUpdate(ts);
 
-		});
+			});
+		}
 		OnPhysics2DUpdate(ts);
 
 		EulerCamera* mainCamera = nullptr;
