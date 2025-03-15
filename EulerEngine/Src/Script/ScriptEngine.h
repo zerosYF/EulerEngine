@@ -22,7 +22,7 @@ namespace EulerEngine {
 
 		MonoAssembly* CoreAssembly = nullptr;
 		MonoImage* CoreImage = nullptr;
-		ScriptClass GameObjectClass;
+		ScriptClass SuperClass;
 		std::unordered_map<std::string, Ref<ScriptClass>> GameObjectClasses;
 		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
 
@@ -36,6 +36,8 @@ namespace EulerEngine {
 		static void OnRuntimeStart(Scene* scene);
 		static void OnRuntimeStop();
 		static bool IsClassExists(const std::string& fullName);
+		static Scene* GetContext() { return GetData()->SceneContext; }
+		static ScriptClass GetSuperClass() { return GetData()->SuperClass; }
 
 		static void OnCreateGameObject(GameObject obj);
 		static void OnUpdateGameObject(GameObject obj, float ts);

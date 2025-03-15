@@ -19,7 +19,7 @@ namespace EulerEngine {
 		GameObject CreateObject(const std::string& name="GameObject");
 		GameObject CreateObject(EulerUUID uuid, const std::string& name="GameObject");
 		void DuplicateObject(GameObject obj);
-		void DestroyObject(GameObject& obj);
+		void DestroyObject(GameObject obj);
 
 		void OnRuntimeStart();
 		void OnRuntimeStop();
@@ -31,7 +31,7 @@ namespace EulerEngine {
 		void OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera);
 
 		void OnViewportResize(int width, int height);
-		GameObject GetGameObject(unsigned int UUID);
+		GameObject GetGameObject(uint64_t UUID);
 		GameObject GetPrimaryCamera();
 
 		template<typename... Components>
@@ -52,6 +52,7 @@ namespace EulerEngine {
 		unsigned int m_ViewportHeight = 720;
 
 		b2WorldId m_PhysicsWorld;
+		std::unordered_map<EulerUUID, entt::entity> m_EntityMap;
 
 		friend class GameObject;
 		friend class SceneSerializer;

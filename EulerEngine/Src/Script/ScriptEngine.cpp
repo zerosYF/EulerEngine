@@ -103,6 +103,7 @@ namespace EulerEngine {
 		LoadAssembly("Scripts/EulerScript.dll");
 		LoadAssemblyClasses(s_Data->CoreAssembly);
 		ScriptGlue::RegisterFunctions();
+		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour");
 		//PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 	void ScriptEngine::ShutDown()
@@ -131,7 +132,7 @@ namespace EulerEngine {
 	{
 		const auto& com = obj.GetComponent<CSharpScript>();
 		if (IsClassExists(com.Name)) {
-			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->GameObjectClasses[com.Name]);
+			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->GameObjectClasses[com.Name], obj);
 			s_Data->GameObjectInstances[obj.GetUUID()] = instance;
 			instance->InvokeOnCreate();
 		}

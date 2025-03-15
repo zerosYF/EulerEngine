@@ -87,6 +87,7 @@ namespace EulerEngine {
 		go.AddComponent<IDCom>(uuid);
 		go.AddComponent<Transform>();
 		go.AddComponent<Profile>(name);
+		m_EntityMap[uuid] = go;
 		return go;
 	}
 	void Scene::DuplicateObject(GameObject obj)
@@ -104,10 +105,11 @@ namespace EulerEngine {
 		CopyComponent<CircleCollider2D>(newObj, obj);
 		CopyComponent<CSharpScript>(newObj, obj);
 	}
-	void Scene::DestroyObject(GameObject& obj)
+	void Scene::DestroyObject(GameObject obj)
 	{
 		KINK_CORE_ERROR("Destroy OBJ:{0}", (unsigned int)obj);
 		m_Registry.destroy(obj);
+		m_EntityMap.erase(obj.GetUUID());
 	}
 	void Scene::OnRuntimeStart()
 	{
@@ -195,9 +197,12 @@ namespace EulerEngine {
 			}
 		}
 	}
-	GameObject Scene::GetGameObject(unsigned int UUID)
+	GameObject Scene::GetGameObject(uint64_t UUID)
 	{
-		return GameObject();
+		if (m_EntityMap.find(UUID) != m_EntityMap.end()) {
+			return GameObject{ m_EntityMap[UUID], this };
+		}
+		return {};
 	}
 	GameObject Scene::GetPrimaryCamera() {
 		auto view = m_Registry.view<Camera>();

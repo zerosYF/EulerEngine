@@ -1,5 +1,18 @@
 Scene: Untitled
 GameObjects:
+  - GameObject: 7121792597823830792
+    Profile:
+      Tag: MoveQuad
+    Transform:
+      Position: [-1.9, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRenderer:
+      Shader: Shaders/Camera/first_test.glsl
+      Color: [1, 1, 1, 1]
+      TexturePath: Assets/mytextures/container2.png
+    CSharpScript:
+      ClassName: Sandbox.Test
   - GameObject: 842875295528184206
     Profile:
       Tag: Quad
@@ -24,6 +37,8 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
+    CSharpScript:
+      ClassName: Sandbox.Test
   - GameObject: 10566830585299912585
     Profile:
       Tag: Circle
