@@ -59,10 +59,13 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Input.cs" />
-    <Compile Include="Source\KeyCode.cs" />
+    <Compile Include="Source\EulerImpl\Components.cs" />
+    <Compile Include="Source\EulerImpl\EulerInput.cs" />
+    <Compile Include="Source\EulerImpl\EulerData.cs" />
+    <Compile Include="Source\EulerImpl\GameObject.cs" />
+    <Compile Include="Source\EulerImpl\InternalCalls.cs" />
     <Compile Include="Source\Test.cs" />
-    <Compile Include="Source\EulerBehaviour.cs" />
+    <Compile Include="Source\EulerImpl\EulerBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

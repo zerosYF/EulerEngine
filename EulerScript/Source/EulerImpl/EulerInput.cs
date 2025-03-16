@@ -1,0 +1,147 @@
+using System.Runtime.CompilerServices;
+
+namespace EulerEngine {
+    public enum KeyCode
+    {
+        KINK_KEY_SPACE = 32,
+        KINK_KEY_APOSTROPHE = 39, /* ' */
+        KINK_KEY_COMMA = 44, /* , */
+        KINK_KEY_MINUS = 45, /* - */
+        KINK_KEY_PERIOD = 46, /* . */
+        KINK_KEY_SLASH = 47, /* / */
+        KINK_KEY_0 = 48,
+        KINK_KEY_1 = 49,
+        KINK_KEY_2 = 50,
+        KINK_KEY_3 = 51,
+        KINK_KEY_4 = 52,
+        KINK_KEY_5 = 53,
+        KINK_KEY_6 = 54,
+        KINK_KEY_7 = 55,
+        KINK_KEY_8 = 56,
+        KINK_KEY_9 = 57,
+        KINK_KEY_SEMICOLON = 59, /* ; */
+        KINK_KEY_EQUAL = 61, /* = */
+        KINK_KEY_A = 65,
+        KINK_KEY_B = 66,
+        KINK_KEY_C = 67,
+        KINK_KEY_D = 68,
+        KINK_KEY_E = 69,
+        KINK_KEY_F = 70,
+        KINK_KEY_G = 71,
+        KINK_KEY_H = 72,
+        KINK_KEY_I = 73,
+        KINK_KEY_J = 74,
+        KINK_KEY_K = 75,
+        KINK_KEY_L = 76,
+        KINK_KEY_M = 77,
+        KINK_KEY_N = 78,
+        KINK_KEY_O = 79,
+        KINK_KEY_P = 80,
+        KINK_KEY_Q = 81,
+        KINK_KEY_R = 82,
+        KINK_KEY_S = 83,
+        KINK_KEY_T = 84,
+        KINK_KEY_U = 85,
+        KINK_KEY_V = 86,
+        KINK_KEY_W = 87,
+        KINK_KEY_X = 88,
+        KINK_KEY_Y = 89,
+        KINK_KEY_Z = 90,
+        KINK_KEY_LEFT_BRACKET = 91, /* [ */
+        KINK_KEY_BACKSLASH = 92, /* \ */
+        KINK_KEY_RIGHT_BRACKET = 93, /* ] */
+        KINK_KEY_GRAVE_ACCENT = 96, /* ` */
+        KINK_KEY_WORLD_1 = 161, /* non-US #1 */
+        KINK_KEY_WORLD_2 = 162, /* non-US #2 */
+
+        /* Function keys */
+        KINK_KEY_ESCAPE = 256,
+        KINK_KEY_ENTER = 257,
+        KINK_KEY_TAB = 258,
+        KINK_KEY_BACKSPACE = 259,
+        KINK_KEY_INSERT = 260,
+        KINK_KEY_DELETE = 261,
+        KINK_KEY_RIGHT = 262,
+        KINK_KEY_LEFT = 263,
+        KINK_KEY_DOWN = 264,
+        KINK_KEY_UP = 265,
+        KINK_KEY_PAGE_UP = 266,
+        KINK_KEY_PAGE_DOWN = 267,
+        KINK_KEY_HOME = 268,
+        KINK_KEY_END = 269,
+        KINK_KEY_CAPS_LOCK = 280,
+        KINK_KEY_SCROLL_LOCK = 281,
+        KINK_KEY_NUM_LOCK = 282,
+        KINK_KEY_PRINT_SCREEN = 283,
+        KINK_KEY_PAUSE = 284,
+        KINK_KEY_F1 = 290,
+        KINK_KEY_F2 = 291,
+        KINK_KEY_F3 = 292,
+        KINK_KEY_F4 = 293,
+        KINK_KEY_F5 = 294,
+        KINK_KEY_F6 = 295,
+        KINK_KEY_F7 = 296,
+        KINK_KEY_F8 = 297,
+        KINK_KEY_F9 = 298,
+        KINK_KEY_F10 = 299,
+        KINK_KEY_F11 = 300,
+        KINK_KEY_F12 = 301,
+        KINK_KEY_F13 = 302,
+        KINK_KEY_F14 = 303,
+        KINK_KEY_F15 = 304,
+        KINK_KEY_F16 = 305,
+        KINK_KEY_F17 = 306,
+        KINK_KEY_F18 = 307,
+        KINK_KEY_F19 = 308,
+        KINK_KEY_F20 = 309,
+        KINK_KEY_F21 = 310,
+        KINK_KEY_F22 = 311,
+        KINK_KEY_F23 = 312,
+        KINK_KEY_F24 = 313,
+        KINK_KEY_F25 = 314,
+        KINK_KEY_KP_0 = 320,
+        KINK_KEY_KP_1 = 321,
+        KINK_KEY_KP_2 = 322,
+        KINK_KEY_KP_3 = 323,
+        KINK_KEY_KP_4 = 324,
+        KINK_KEY_KP_5 = 325,
+        KINK_KEY_KP_6 = 326,
+        KINK_KEY_KP_7 = 327,
+        KINK_KEY_KP_8 = 328,
+        KINK_KEY_KP_9 = 329,
+        KINK_KEY_KP_DECIMAL = 330,
+        KINK_KEY_KP_DIVIDE = 331,
+        KINK_KEY_KP_MULTIPLY = 332,
+        KINK_KEY_KP_SUBTRACT = 333,
+        KINK_KEY_KP_ADD = 334,
+        KINK_KEY_KP_ENTER = 335,
+        KINK_KEY_KP_EQUAL = 336,
+        KINK_KEY_LEFT_SHIFT = 340,
+        KINK_KEY_LEFT_CONTROL = 341,
+        KINK_KEY_LEFT_ALT = 342,
+        KINK_KEY_LEFT_SUPER = 343,
+        KINK_KEY_RIGHT_SHIFT = 344,
+        KINK_KEY_RIGHT_CONTROL = 345,
+        KINK_KEY_RIGHT_ALT = 346,
+        KINK_KEY_RIGHT_SUPER = 347,
+        KINK_KEY_MENU = 348,
+
+        KINK_MOUSE_BUTTON_1 = 0,
+        KINK_MOUSE_BUTTON_2 = 1,
+        KINK_MOUSE_BUTTON_3 = 2,
+        KINK_MOUSE_BUTTON_4 = 3,
+        KINK_MOUSE_BUTTON_5 = 4,
+        KINK_MOUSE_BUTTON_6 = 5,
+        KINK_MOUSE_BUTTON_7 = 6,
+        KINK_MOUSE_BUTTON_8 = 7,
+        KINK_MOUSE_BUTTON_LAST = KINK_MOUSE_BUTTON_8,
+        KINK_MOUSE_BUTTON_LEFT = KINK_MOUSE_BUTTON_1,
+        KINK_MOUSE_BUTTON_RIGHT = KINK_MOUSE_BUTTON_2,
+        KINK_MOUSE_BUTTON_MIDDLE = KINK_MOUSE_BUTTON_3,
+    }
+    public static class Input {
+        public static bool IsKeyDown(KeyCode code) {
+            return InternalCalls.IsKeyDown(code);
+        }
+    }
+}

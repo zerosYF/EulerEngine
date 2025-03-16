@@ -3,12 +3,12 @@ using EulerEngine;
 namespace Sandbox {
     public class Test:EulerBehaviour {
         void OnCreate() { 
-            Console.WriteLine("OnCreate called:" + this.uuid);
+            Console.WriteLine("OnCreate called:" + this.gameObject.uuid);
         }
         void OnUpdate(float ts) {
             Console.WriteLine("OnUpdate called with ts = " + ts);
             float speed = 1.0f;
-            Vector3 pos = position;
+            Vector3 pos = transform.position;
             pos.x += speed * ts;
             if (Input.IsKeyDown(KeyCode.KINK_KEY_W))
             {
@@ -18,7 +18,7 @@ namespace Sandbox {
             {
                 pos.y -= speed * ts;
             }
-            position = pos;
+            transform.position = pos;
         }
         void OnDestroy() { 
             Console.WriteLine("OnDestroy called");

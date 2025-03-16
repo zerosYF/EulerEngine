@@ -38,6 +38,7 @@ namespace EulerEngine {
 		static bool IsClassExists(const std::string& fullName);
 		static Scene* GetContext() { return GetData()->SceneContext; }
 		static ScriptClass GetSuperClass() { return GetData()->SuperClass; }
+		static MonoImage* GetCoreImage() { return GetData()->CoreImage; }
 
 		static void OnCreateGameObject(GameObject obj);
 		static void OnUpdateGameObject(GameObject obj, float ts);

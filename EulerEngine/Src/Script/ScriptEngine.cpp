@@ -103,6 +103,7 @@ namespace EulerEngine {
 		LoadAssembly("Scripts/EulerScript.dll");
 		LoadAssemblyClasses(s_Data->CoreAssembly);
 		ScriptGlue::RegisterFunctions();
+		ScriptGlue::RegisterComponents();
 		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour");
 		//PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
