@@ -11,6 +11,19 @@ GameObjects:
       Shader: Shaders/Camera/first_test.glsl
       Color: [1, 1, 1, 1]
       TexturePath: Assets/mytextures/container2.png
+    Rigidbody2D:
+      Type: Dynamic
+      FixedRotation: false
+      Mass: 1
+      LinearDamping: 0
+      AngularDamping: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      IsTrigger: false
     CSharpScript:
       ClassName: Sandbox.Test
   - GameObject: 842875295528184206
@@ -37,8 +50,6 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
-    CSharpScript:
-      ClassName: Sandbox.Test
   - GameObject: 10566830585299912585
     Profile:
       Tag: Circle
@@ -63,8 +74,6 @@ GameObjects:
       Friction: 0.5
       Restitution: 0
       IsTrigger: false
-    CSharpScript:
-      ClassName: Sandbox.Test
   - GameObject: 7771634696297774513
     Profile:
       Tag: Camera

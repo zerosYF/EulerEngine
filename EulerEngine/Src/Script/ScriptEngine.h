@@ -22,6 +22,10 @@ namespace EulerEngine {
 
 		MonoAssembly* CoreAssembly = nullptr;
 		MonoImage* CoreImage = nullptr;
+
+		MonoAssembly* AppAssembly = nullptr;
+		MonoImage* AppImage = nullptr;
+
 		ScriptClass SuperClass;
 		std::unordered_map<std::string, Ref<ScriptClass>> GameObjectClasses;
 		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
@@ -48,7 +52,8 @@ namespace EulerEngine {
 		static void ShutDownMono();
 		static MonoObject* InstantiateClass(MonoClass* monoClass);
 		static void LoadAssembly(const std::filesystem::path& path);
-		static void LoadAssemblyClasses(MonoAssembly* assembly);
+		static void LoadAppAssembly(const std::filesystem::path& path);
+		static void LoadAssemblyClasses();
 		static ScriptEngineData* GetData();
 		friend class ScriptClass;
 	};

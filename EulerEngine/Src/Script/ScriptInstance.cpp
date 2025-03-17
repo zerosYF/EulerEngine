@@ -17,15 +17,24 @@ namespace EulerEngine {
 	}
 	void ScriptInstance::InvokeOnCreate()
 	{
+		if (m_OnCreate == nullptr) {
+			return;
+		}
 		m_Cls->InvokeMethod(m_Instance, m_OnCreate, nullptr);
 	}
 	void ScriptInstance::InvokeOnUpdate(float ts)
 	{
+		if (m_OnUpdate == nullptr) {
+			return;
+		}
 		void* param = &ts;
 		m_Cls->InvokeMethod(m_Instance, m_OnUpdate, &param);
 	}
 	void ScriptInstance::InvokeOnDestroy()
 	{
+		if (m_OnDestroy == nullptr) {
+			return;
+		}
 		m_Cls->InvokeMethod(m_Instance, m_OnDestroy, nullptr);
 	}
 }

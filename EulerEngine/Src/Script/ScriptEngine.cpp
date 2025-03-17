@@ -68,24 +68,30 @@ namespace EulerEngine {
 		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
 	}
 
-	void ScriptEngine::LoadAssemblyClasses(MonoAssembly* assembly) {
+	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& path)
+	{
+		KINK_CORE_TRACE("Loading app assembly: {0}", path.string());
+		s_Data->AppAssembly = LoadMonoAssembly(path);
+		s_Data->AppImage = mono_assembly_get_image(s_Data->AppAssembly);
+	}
+
+	void ScriptEngine::LoadAssemblyClasses() {
 		KINK_CORE_TRACE("Loading assembly classes");
 		s_Data->GameObjectClasses.clear();
-		MonoImage* image = mono_assembly_get_image(assembly);
-		const MonoTableInfo* typeDefinationTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+		const MonoTableInfo* typeDefinationTable = mono_image_get_table_info(s_Data->AppImage, MONO_TABLE_TYPEDEF);
 		unsigned int num_types = mono_table_info_get_rows(typeDefinationTable);
 
-		MonoClass* super_cls = mono_class_from_name(image, "EulerEngine", "EulerBehaviour");
+		MonoClass* super_cls = s_Data->SuperClass.GetMonoClass();
 		for (unsigned int i = 0; i < num_types; i++) {
 			unsigned int cols[MONO_TYPEDEF_SIZE];
 			mono_metadata_decode_row(typeDefinationTable, i, cols, MONO_TYPEDEF_SIZE);
-			const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
-			const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+			const char* nameSpace = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAMESPACE]);
+			const char* name = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAME]);
 			std::string final_name = std::string(name);
 			if (strlen(nameSpace) != 0) {
 				final_name = std::string(nameSpace) + "." + std::string(name);
 			}
-			MonoClass* cls = mono_class_from_name(image, nameSpace, name);
+			MonoClass* cls = mono_class_from_name(s_Data->AppImage, nameSpace, name);
 			if (cls == super_cls) {
 				continue;
 			}
@@ -101,11 +107,11 @@ namespace EulerEngine {
 		s_Data = new ScriptEngineData();
 		InitMono();
 		LoadAssembly("Scripts/EulerScript.dll");
-		LoadAssemblyClasses(s_Data->CoreAssembly);
+		LoadAppAssembly("Project/Resource/Scripts/Binaries/Sandbox.dll");
+		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour", true);
+		LoadAssemblyClasses();
 		ScriptGlue::RegisterFunctions();
 		ScriptGlue::RegisterComponents();
-		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour");
-		//PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 	void ScriptEngine::ShutDown()
 	{

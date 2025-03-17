@@ -13,4 +13,12 @@ namespace EulerEngine {
             } 
         }
     }
+    public class Rigidbody2D : Component { 
+        public void ApplyLinearImpulse(Vector2 impulse) {
+            InternalCalls.Rigidbody2D_ApplyLinearImpulse(gameObject.uuid, ref impulse);
+        }
+        public void ApplyAngularImpulse(float impulse) {
+            InternalCalls.Rigidbody2D_ApplyAngularImpulse(gameObject.uuid, ref impulse);
+        }
+    }
 }

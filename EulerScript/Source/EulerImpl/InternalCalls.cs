@@ -9,6 +9,10 @@ namespace EulerEngine {
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal extern static void Transform_SetPosition(ulong uuid, ref Vector3 pos);
         [MethodImpl(MethodImplOptions.InternalCall)]
+        internal extern static void Rigidbody2D_ApplyLinearImpulse(ulong uuid, ref Vector2 force);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal extern static void Rigidbody2D_ApplyAngularImpulse(ulong uuid, ref float impulse);
+        [MethodImpl(MethodImplOptions.InternalCall)]
         internal extern static bool GameObject_HasComponent(ulong uuid, Type componentType);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal extern static bool IsKeyDown(KeyCode key);

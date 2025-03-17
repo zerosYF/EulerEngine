@@ -9,6 +9,7 @@ namespace EulerEngine {
         internal EulerBehaviour(ulong uuid) {
             gameObject = new GameObject(uuid);
         }
+
         public GameObject gameObject;
         public Transform transform
         {

@@ -14,3 +14,17 @@
 #include"Rigidbody2D.h"
 #include"BoxCollider2D.h"
 #include"CircleCollider2D.h"
+namespace EulerEngine {
+	template<typename... Component>
+	struct ComponentGroup {
+
+	};
+	using AllComponents = ComponentGroup<
+		IDCom, Transform, Profile,
+		Camera, NativeScript,
+		CSharpScript, MeshRenderer,
+		SpriteRenderer, CircleRenderer,
+		Rigidbody2D, BoxCollider2D,
+		CircleCollider2D
+		>;
+}

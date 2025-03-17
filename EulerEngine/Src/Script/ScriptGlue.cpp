@@ -28,6 +28,19 @@ namespace EulerEngine {
         GameObject obj = context->GetGameObject(uuid);
         obj.GetComponent<Transform>().Position = *position;
     }
+    static void Rigidbody2D_ApplyLinearImpulse(uint64_t uuid, glm::vec2* force) {
+        Scene* context = ScriptEngine::GetContext();
+        GameObject obj = context->GetGameObject(uuid);
+        b2BodyId body = obj.GetComponent<Rigidbody2D>().RuntimeBody;
+        auto transform = obj.GetComponent<Transform>();
+        b2Body_ApplyLinearImpulse(body, { force->x, force->y }, {transform.Position.x, transform.Position.y}, true);
+    }
+    static void Rigidbody2D_ApplyAngularImpulse(uint64_t uuid, float impulse) {
+        Scene* context = ScriptEngine::GetContext();
+        GameObject obj = context->GetGameObject(uuid);
+        b2BodyId body = obj.GetComponent<Rigidbody2D>().RuntimeBody;
+        b2Body_ApplyAngularImpulse(body, impulse, true);
+    }
     static bool IsKeyDown(int key) {
         return InputSystem::IsKeyDown(key);
     }
@@ -37,19 +50,27 @@ namespace EulerEngine {
         KINK_ADD_INTERNAL_CALL(GameObject_HasComponent);
         KINK_ADD_INTERNAL_CALL(Transform_GetPosition);
         KINK_ADD_INTERNAL_CALL(Transform_SetPosition);
+        KINK_ADD_INTERNAL_CALL(Rigidbody2D_ApplyLinearImpulse);
+        KINK_ADD_INTERNAL_CALL(Rigidbody2D_ApplyAngularImpulse);
         KINK_ADD_INTERNAL_CALL(IsKeyDown);
     }
-    template <typename Component>
+    template <typename ... Component>
     static void RegisterComponent() {
-        std::string name = typeid(Component).name();
-        size_t pos = name.find_last_of(':');
-        std::string struct_name = name.substr(pos + 1);
-        std::string managed_name = fmt::format("EulerEngine.{}", struct_name);
-        MonoType* type = mono_reflection_type_from_name(managed_name.data(), ScriptEngine::GetCoreImage());
-        s_HasComponentFuncs[type] = [](GameObject obj) { return obj.HasComponent<Component>(); };
+        ([]() {
+            std::string name = typeid(Component).name();
+            size_t pos = name.find_last_of(':');
+            std::string struct_name = name.substr(pos + 1);
+            std::string managed_name = fmt::format("EulerEngine.{}", struct_name);
+            MonoType* type = mono_reflection_type_from_name(managed_name.data(), ScriptEngine::GetCoreImage());
+            s_HasComponentFuncs[type] = [](GameObject obj) { return obj.HasComponent<Component>(); };
+        }(), ...);
+    }
+    template <typename ... Component>
+    static void RegisterComponent(ComponentGroup<Component...>) {
+        RegisterComponent<Component...>();
     }
     void ScriptGlue::RegisterComponents()
     {
-        RegisterComponent<Transform>();
+        RegisterComponent(AllComponents{});
     }
 }
