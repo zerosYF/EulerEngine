@@ -3,13 +3,14 @@ using EulerEngine;
 namespace Sandbox {
     public class Test:EulerBehaviour {
         private Rigidbody2D rb;
+        public float speed;
         void OnCreate() { 
             Console.WriteLine("OnCreate called:" + this.gameObject.uuid);
             rb = gameObject.GetComponent<Rigidbody2D>();
+            speed = 100.0f;
         }
         void OnUpdate(float ts) {
-            Console.WriteLine("OnUpdate called with ts = " + ts);
-            float speed = 8.5f;
+            //Console.WriteLine("OnUpdate called with ts = " + ts);
             if (rb == null) {
                 return;
             }
@@ -17,11 +18,13 @@ namespace Sandbox {
             {
                 Vector2 vec = new Vector2(0.0f, 1.0f);
                 rb.ApplyLinearImpulse(vec * speed);
+                Console.WriteLine("Applying impulse: " + vec * speed);
             }
             else if (Input.IsKeyDown(KeyCode.KINK_KEY_S))
             {
                 Vector2 vec = new Vector2(0.0f, -1.0f);
                 rb.ApplyLinearImpulse(vec * speed);
+                Console.WriteLine("Applying impulse: " + vec * speed);
             }
         }
         void OnDestroy() { 

@@ -2,6 +2,7 @@
 #include<filesystem>
 #include"mono/jit/jit.h"
 #include"mono/metadata/assembly.h"
+#include"mono/metadata/attrdefs.h"
 #include"ScriptClass.h"
 #include"ScriptInstance.h"
 #include"GutKink/Core.h"
@@ -13,6 +14,7 @@ extern "C" {
 	typedef struct _MonoClass MonoClass;
 	typedef struct _MonoObject MonoObject;
 	typedef struct _MonoMethod MonoMethod;
+	typedef struct _MonoClassField MonoClassField;
 }
 
 namespace EulerEngine {
@@ -47,6 +49,7 @@ namespace EulerEngine {
 		static void OnCreateGameObject(GameObject obj);
 		static void OnUpdateGameObject(GameObject obj, float ts);
 		static void OnDestroyGameObject(GameObject obj);
+		static Ref<ScriptInstance> GetScriptFromGameObject(EulerUUID uuid);
 	private:
 		static void InitMono();
 		static void ShutDownMono();

@@ -85,19 +85,32 @@ namespace EulerEngine {
 		for (unsigned int i = 0; i < num_types; i++) {
 			unsigned int cols[MONO_TYPEDEF_SIZE];
 			mono_metadata_decode_row(typeDefinationTable, i, cols, MONO_TYPEDEF_SIZE);
-			const char* nameSpace = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAMESPACE]);
-			const char* name = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAME]);
-			std::string final_name = std::string(name);
-			if (strlen(nameSpace) != 0) {
-				final_name = std::string(nameSpace) + "." + std::string(name);
+			const char* name_space = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAMESPACE]);
+			const char* class_name = mono_metadata_string_heap(s_Data->AppImage, cols[MONO_TYPEDEF_NAME]);
+			std::string final_name = std::string(class_name);
+			if (strlen(name_space) != 0) {
+				final_name = std::string(name_space) + "." + std::string(class_name);
 			}
-			MonoClass* cls = mono_class_from_name(s_Data->AppImage, nameSpace, name);
+			MonoClass* cls = mono_class_from_name(s_Data->AppImage, name_space, class_name);
 			if (cls == super_cls) {
 				continue;
 			}
 			bool isSubCls = mono_class_is_subclass_of(cls, super_cls, false);
 			if (isSubCls) {
-				s_Data->GameObjectClasses[final_name] = CreateRef<ScriptClass>(nameSpace, name);
+				Ref<ScriptClass> script_cls = CreateRef<ScriptClass>(name_space, class_name);
+
+				s_Data->GameObjectClasses[final_name] = script_cls;
+				int cnt = mono_class_num_fields(cls);
+				void* iter = nullptr;
+				while (MonoClassField* field = mono_class_get_fields(cls, &iter)){
+					const char* field_name = mono_field_get_name(field);
+					unsigned int flags = mono_field_get_flags(field);
+					if (flags & MONO_FIELD_ATTR_PUBLIC) {
+						MonoType* type = mono_field_get_type(field);
+						ScriptFieldType field_type = ScriptClass::MonoTypeToScriptFieldType(type);
+						script_cls->m_Fields[field_name] = { field_name, field_type, field };
+					}
+				}
 			}
 		}
 	}
@@ -155,6 +168,14 @@ namespace EulerEngine {
 		KINK_CORE_ASSERT(s_Data->GameObjectInstances.find(obj.GetUUID()) != s_Data->GameObjectInstances.end(), "GameObject instance not found");
 		Ref<ScriptInstance> instance = s_Data->GameObjectInstances[obj.GetUUID()];
 		instance->InvokeOnDestroy();
+	}
+	Ref<ScriptInstance> ScriptEngine::GetScriptFromGameObject(EulerUUID uuid)
+	{
+		auto iter = s_Data->GameObjectInstances.find(uuid);
+		if (iter != s_Data->GameObjectInstances.end()) {
+			return iter->second;
+		}
+		return nullptr;
 	}
 	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
 	{

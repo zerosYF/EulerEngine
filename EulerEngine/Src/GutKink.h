@@ -32,6 +32,8 @@
 #include"Utils/PlatformUtils.h"
 
 #include"Script/ScriptEngine.h"
+#include"Script/ScriptClass.h"
+#include"Script/ScriptInstance.h"
 
 #include<../ImGui/imgui.h>
 

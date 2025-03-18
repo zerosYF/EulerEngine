@@ -264,7 +264,7 @@ namespace EulerEngine {
 			ImGui::DragFloat("Friction", &com.Friction, 0.1f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &com.Restitution, 0.1f, 0.0f, 1.0f);
 		});
-		DrawComponent<CSharpScript>("CSharpScript", gameObject, [](CSharpScript& com) {
+		DrawComponent<CSharpScript>("CSharpScript", gameObject, [&](CSharpScript& com) mutable {
 			const auto& clses = ScriptEngine::GetGameObjectClasses();
 			bool isExists = ScriptEngine::IsClassExists(com.Name);
 			static char buffer[256];
@@ -274,6 +274,18 @@ namespace EulerEngine {
 			}
 			if (ImGui::InputText("Class", buffer, sizeof(buffer))) {
 				com.Name = std::string(buffer);
+			}
+			Ref<ScriptInstance> script_instance = ScriptEngine::GetScriptFromGameObject(gameObject.GetUUID());
+			if (script_instance) {
+				const auto& fields = script_instance->GetClass()->GetFields();
+				for (const auto& [field_name, field] : fields) {
+					if (field.Type == ScriptFieldType::Float) {
+						auto data = script_instance->GetFieldValue<float>(field_name);
+						if (ImGui::DragFloat(field_name.c_str(), &data)) {
+							script_instance->SetFieldValue<float>(field_name, data);
+						}
+					}
+				}
 			}
 			if (!isExists) {
 				ImGui::PopStyleColor();
