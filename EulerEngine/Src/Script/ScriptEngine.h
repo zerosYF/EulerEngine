@@ -18,6 +18,7 @@ extern "C" {
 }
 
 namespace EulerEngine {
+	using ScriptFieldMap = std::unordered_map<std::string, ScriptFieldInstance>;
 	struct ScriptEngineData {
 		MonoDomain* RootDomain = nullptr;
 		MonoDomain* AppDomain = nullptr;
@@ -31,6 +32,7 @@ namespace EulerEngine {
 		ScriptClass SuperClass;
 		std::unordered_map<std::string, Ref<ScriptClass>> GameObjectClasses;
 		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
+		std::unordered_map<EulerUUID, ScriptFieldMap> GameObjectScriptFields;
 
 		Scene* SceneContext;
 	};
@@ -38,7 +40,9 @@ namespace EulerEngine {
 	public:
 		static void Init();
 		static void ShutDown();
+		static Ref<ScriptClass> GetGameObjectClass(std::string name);
 		static std::unordered_map<std::string, Ref<ScriptClass>> GetGameObjectClasses();
+		static ScriptFieldMap& GetScriptFieldMap(GameObject obj);
 		static void OnRuntimeStart(Scene* scene);
 		static void OnRuntimeStop();
 		static bool IsClassExists(const std::string& fullName);

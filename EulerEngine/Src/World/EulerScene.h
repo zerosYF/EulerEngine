@@ -54,6 +54,7 @@ namespace EulerEngine {
 		b2WorldId m_PhysicsWorld;
 		std::unordered_map<EulerUUID, entt::entity> m_EntityMap;
 
+		bool m_IsRunning = false;
 		friend class GameObject;
 		friend class SceneSerializer;
 		friend class HierarchyPanel;

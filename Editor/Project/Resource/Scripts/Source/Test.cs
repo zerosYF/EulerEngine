@@ -3,7 +3,8 @@ using EulerEngine;
 namespace Sandbox {
     public class Test:EulerBehaviour {
         private Rigidbody2D rb;
-        public float speed;
+        public float speed = 1.0f;
+        public float val = 2.0f;
         void OnCreate() { 
             Console.WriteLine("OnCreate called:" + this.gameObject.uuid);
             rb = gameObject.GetComponent<Rigidbody2D>();

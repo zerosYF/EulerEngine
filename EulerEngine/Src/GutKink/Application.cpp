@@ -9,11 +9,15 @@
 #include"Script/ScriptEngine.h"
 namespace EulerEngine {
 	Application* Application::s_Instance = nullptr;
-	Application::Application()
+	Application::Application(const ApplicationSpecification& spec):m_Specification(spec)
 	{
 		s_Instance = this;
 		m_Window = std::unique_ptr<EulerWindow>(EulerWindow::Create());
 		m_Window->SetEventCallback(KINK_BIND_EVENT_FUNC(Application::OnEvent));
+
+		if (!m_Specification.WorkingDir.empty()) {
+			std::filesystem::current_path(m_Specification.WorkingDir);
+		}
 
 		//Renderer::Init();
 		ScriptEngine::Init();

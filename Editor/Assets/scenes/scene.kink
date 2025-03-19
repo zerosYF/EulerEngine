@@ -26,6 +26,10 @@ GameObjects:
       IsTrigger: false
     CSharpScript:
       ClassName: Sandbox.Test
+      ScriptFields:
+        - Name: speed
+          Type: Float
+          Data: 12
   - GameObject: 842875295528184206
     Profile:
       Tag: Quad
@@ -86,7 +90,7 @@ GameObjects:
       IsFixedAspectRatio: false
       CameraType: 0
       ViewportWidth: 660
-      ViewportHeight: 415
+      ViewportHeight: 406
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
       Perspective_FarClip: 100

@@ -275,14 +275,46 @@ namespace EulerEngine {
 			if (ImGui::InputText("Class", buffer, sizeof(buffer))) {
 				com.Name = std::string(buffer);
 			}
-			Ref<ScriptInstance> script_instance = ScriptEngine::GetScriptFromGameObject(gameObject.GetUUID());
-			if (script_instance) {
-				const auto& fields = script_instance->GetClass()->GetFields();
-				for (const auto& [field_name, field] : fields) {
-					if (field.Type == ScriptFieldType::Float) {
-						auto data = script_instance->GetFieldValue<float>(field_name);
-						if (ImGui::DragFloat(field_name.c_str(), &data)) {
-							script_instance->SetFieldValue<float>(field_name, data);
+			bool runtime = m_Context->m_IsRunning;
+			if(runtime){
+				Ref<ScriptInstance> script_instance = ScriptEngine::GetScriptFromGameObject(gameObject.GetUUID());
+				if (script_instance) {
+					Ref<ScriptClass> obj_class = ScriptEngine::GetGameObjectClass(com.Name);
+					const auto& fields = obj_class->GetFields();
+					for (const auto& [field_name, field] : fields) {
+						if (field.Type == ScriptFieldType::Float) {
+							auto data = script_instance->GetFieldValue<float>(field_name);
+							if (ImGui::DragFloat(field_name.c_str(), &data)) {
+								script_instance->SetFieldValue<float>(field_name, data);
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (isExists) {
+					Ref<ScriptClass> obj_class = ScriptEngine::GetGameObjectClass(com.Name);
+					const auto& fields = obj_class->GetFields();
+					auto& obj_fields = ScriptEngine::GetScriptFieldMap(gameObject);
+					for (const auto& [field_name, field] : fields) {
+						if (obj_fields.find(field_name) != obj_fields.end()) {
+							ScriptFieldInstance& field_instance = obj_fields[field_name];
+							if (field.Type == ScriptFieldType::Float) {
+								float data = field_instance.GetData<float>();
+								if (ImGui::DragFloat(field_name.c_str(), &data)) {
+									field_instance.SetData<float>(data);
+								}
+							}
+						}
+						else {
+							if (field.Type == ScriptFieldType::Float) {
+								float data = 0.0f;
+								if (ImGui::DragFloat(field_name.c_str(), &data)) {
+									ScriptFieldInstance& field_instance = obj_fields[field_name];
+									field_instance.Field = field;
+									field_instance.SetData<float>(data);
+								}
+							}
 						}
 					}
 				}

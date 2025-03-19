@@ -132,9 +132,20 @@ namespace EulerEngine {
 		delete s_Data;
 		s_Data = nullptr;
 	}
+	Ref<ScriptClass> ScriptEngine::GetGameObjectClass(std::string name)
+	{
+		if (s_Data->GameObjectClasses.find(name) != s_Data->GameObjectClasses.end()) {
+			return s_Data->GameObjectClasses[name];
+		}
+		return nullptr;
+	}
 	std::unordered_map<std::string, Ref<ScriptClass>> ScriptEngine::GetGameObjectClasses()
 	{
 		return s_Data->GameObjectClasses;
+	}
+	ScriptFieldMap& ScriptEngine::GetScriptFieldMap(GameObject obj)
+	{
+		return s_Data->GameObjectScriptFields[obj.GetUUID()];
 	}
 	void ScriptEngine::OnRuntimeStart(Scene* scene)
 	{
@@ -152,8 +163,13 @@ namespace EulerEngine {
 	{
 		const auto& com = obj.GetComponent<CSharpScript>();
 		if (IsClassExists(com.Name)) {
+			EulerUUID uuid = obj.GetUUID();
 			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->GameObjectClasses[com.Name], obj);
-			s_Data->GameObjectInstances[obj.GetUUID()] = instance;
+			s_Data->GameObjectInstances[uuid] = instance;
+			ScriptFieldMap map = s_Data->GameObjectScriptFields[uuid];
+			for (const auto &[name, field_instance]:map) {
+				instance->SetFieldValue(name, field_instance.GetRawData());
+			}
 			instance->InvokeOnCreate();
 		}
 	}

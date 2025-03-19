@@ -4,6 +4,7 @@
 #include"EulerObject.h"
 #include"Component/Component.h"
 #include"Resource/ResourceLibrary.h"
+#include"Script/ScriptEngine.h"
 namespace YAML {
 	template<>
 	struct convert<glm::vec2> {
@@ -211,7 +212,48 @@ namespace EulerEngine {
 		if (gameObj.HasComponent<CSharpScript>()) {
 			out << YAML::Key << "CSharpScript";
 			out << YAML::BeginMap;
-			out << YAML::Key << "ClassName" << YAML::Value << gameObj.GetComponent<CSharpScript>().Name;
+			std::string ScriptClassName = gameObj.GetComponent<CSharpScript>().Name;
+			out << YAML::Key << "ClassName" << YAML::Value << ScriptClassName;
+			Ref<ScriptClass> obj_cls = ScriptEngine::GetGameObjectClass(ScriptClassName);
+			const auto& cls_fields = obj_cls->GetFields();
+			if (cls_fields.size() > 0) {
+				out << YAML::Key << "ScriptFields" << YAML::Value;
+				auto& obj_fields = ScriptEngine::GetScriptFieldMap(gameObj);
+				out << YAML::BeginSeq;
+				for (const auto& [name, field] : cls_fields) {
+					if (obj_fields.find(name) == obj_fields.end()) {
+						continue;
+					}
+					out << YAML::BeginMap;
+					out << YAML::Key << "Name" << YAML::Value << name;
+					out << YAML::Key << "Type" << YAML::Value << ScriptClass::ScriptFieldTypeToString(field.Type);
+					out << YAML::Key << "Data" << YAML::Value;
+#define FIELD_TYPE(FieldType, Type) case FieldType: out << obj_fields[name].GetData<Type>(); break;
+
+					switch (field.Type)
+					{
+						FIELD_TYPE(ScriptFieldType::Int, int32_t)
+						FIELD_TYPE(ScriptFieldType::UInt, uint32_t)
+						FIELD_TYPE(ScriptFieldType::Long, int64_t)
+						FIELD_TYPE(ScriptFieldType::ULong, uint64_t)
+						FIELD_TYPE(ScriptFieldType::Short, int16_t)
+						FIELD_TYPE(ScriptFieldType::UShort, uint16_t)
+						FIELD_TYPE(ScriptFieldType::Byte, int8_t)
+						FIELD_TYPE(ScriptFieldType::UByte, uint8_t)
+						FIELD_TYPE(ScriptFieldType::Float, float)
+						FIELD_TYPE(ScriptFieldType::Double, double)
+						FIELD_TYPE(ScriptFieldType::Bool, bool)
+						FIELD_TYPE(ScriptFieldType::Char, char)
+						FIELD_TYPE(ScriptFieldType::String, std::string)
+						FIELD_TYPE(ScriptFieldType::Vector2, glm::vec2)
+						FIELD_TYPE(ScriptFieldType::Vector3, glm::vec3)
+						FIELD_TYPE(ScriptFieldType::Vector4, glm::vec4)
+						FIELD_TYPE(ScriptFieldType::GameObject, uint64_t)
+					}
+					out << YAML::EndMap;
+				}
+				out << YAML::EndSeq;
+			}
 			out << YAML::EndMap;
 		}
 		out << YAML::EndMap;
@@ -334,6 +376,44 @@ namespace EulerEngine {
 					if (gameObject["CSharpScript"]) {
 						auto& cSharpScript = gameObj.AddComponent<CSharpScript>();
 						cSharpScript.Name = gameObject["CSharpScript"]["ClassName"].as<std::string>();
+						auto script_fields = gameObject["CSharpScript"]["ScriptFields"];
+						if (script_fields) {
+							Ref<ScriptClass> obj_cls = ScriptEngine::GetGameObjectClass(cSharpScript.Name);
+							if (obj_cls) {
+								const auto& cls_fields = obj_cls->GetFields();
+								auto& obj_fields = ScriptEngine::GetScriptFieldMap(gameObj);
+								for (auto script_field : script_fields) {
+									std::string name = script_field["Name"].as<std::string>();
+									ScriptFieldType type = ScriptClass::StringToScriptFieldType(script_field["Type"].as<std::string>());
+
+									ScriptFieldInstance& field_instance = obj_fields[name];
+									if (cls_fields.find(name) == cls_fields.end()) {
+										continue;
+									}
+									field_instance.Field = cls_fields.at(name);
+#define FIELD_TYPE_RE(FieldType, Type) case FieldType: field_instance.SetData<Type>(script_field["Data"].as<Type>()); break;
+									switch (type) {
+										FIELD_TYPE_RE(ScriptFieldType::Int, int32_t)
+										FIELD_TYPE_RE(ScriptFieldType::UInt, uint32_t)
+										FIELD_TYPE_RE(ScriptFieldType::Long, int64_t)
+										FIELD_TYPE_RE(ScriptFieldType::ULong, uint64_t)
+										FIELD_TYPE_RE(ScriptFieldType::Short, int16_t)
+										FIELD_TYPE_RE(ScriptFieldType::UShort, uint16_t)
+										FIELD_TYPE_RE(ScriptFieldType::Byte, int8_t)
+										FIELD_TYPE_RE(ScriptFieldType::UByte, uint8_t)
+										FIELD_TYPE_RE(ScriptFieldType::Float, float)
+										FIELD_TYPE_RE(ScriptFieldType::Double, double)
+										FIELD_TYPE_RE(ScriptFieldType::Bool, bool)
+										FIELD_TYPE_RE(ScriptFieldType::Char, char)
+										FIELD_TYPE_RE(ScriptFieldType::String, std::string)
+										FIELD_TYPE_RE(ScriptFieldType::Vector2, glm::vec2)
+										FIELD_TYPE_RE(ScriptFieldType::Vector3, glm::vec3)
+										FIELD_TYPE_RE(ScriptFieldType::Vector4, glm::vec4)
+										FIELD_TYPE_RE(ScriptFieldType::GameObject, uint64_t)
+									}
+								}
+							}
+						}
 					}
 				}
 			}

@@ -8,8 +8,9 @@ namespace EulerEngine {
 		{"System.String", ScriptFieldType::String},
 		{"System.Boolean", ScriptFieldType::Bool},
 		{"System.Char", ScriptFieldType::Char},
-		{"System.Byte", ScriptFieldType::Byte},
 
+		{"System.Byte", ScriptFieldType::Byte},
+		{"System.UByte", ScriptFieldType::UByte},
 		{"System.Int32", ScriptFieldType::Int},
 		{"System.UInt32", ScriptFieldType::UInt},
 		{"System.Int64", ScriptFieldType::Long},
@@ -32,12 +33,11 @@ namespace EulerEngine {
 		return s_ScriptFieldTypeMap[type_name];
 	}
 
-	std::string ScriptClass::FieldTypeToString(ScriptFieldType fieldType)
+	std::string ScriptClass::ScriptFieldTypeToString(ScriptFieldType fieldType)
 	{
 		switch (fieldType) {
 		case ScriptFieldType::Float: return "Float";
 		case ScriptFieldType::Double: return "Double";
-		case ScriptFieldType::Byte: return "Byte";
 		case ScriptFieldType::Char: return "Char";
 		case ScriptFieldType::String: return "String";
 		case ScriptFieldType::Bool: return "Bool";
@@ -47,12 +47,36 @@ namespace EulerEngine {
 		case ScriptFieldType::UShort: return "UShort";
 		case ScriptFieldType::Long: return "Long";
 		case ScriptFieldType::ULong: return "ULong";
+		case ScriptFieldType::Byte: return "Byte";
+		case ScriptFieldType::UByte: return "UByte";
 		case ScriptFieldType::Vector2: return "Vector2";
 		case ScriptFieldType::Vector3: return "Vector3";
 		case ScriptFieldType::Vector4: return "Vector4";
 		case ScriptFieldType::GameObject: return "GameObject";
 		default: return "Unknown";
 		}
+	}
+
+	ScriptFieldType ScriptClass::StringToScriptFieldType(const std::string& fieldType)
+	{
+		if (fieldType == "Float") return ScriptFieldType::Float;
+		if (fieldType == "Double") return ScriptFieldType::Double;
+		if (fieldType == "Char") return ScriptFieldType::Char;
+		if (fieldType == "String") return ScriptFieldType::String;
+		if (fieldType == "Bool") return ScriptFieldType::Bool;
+		if (fieldType == "Int") return ScriptFieldType::Int;
+		if (fieldType == "UInt") return ScriptFieldType::UInt;
+		if (fieldType == "Short") return ScriptFieldType::Short;
+		if (fieldType == "UShort") return ScriptFieldType::UShort;
+		if (fieldType == "Long") return ScriptFieldType::Long;
+		if (fieldType == "ULong") return ScriptFieldType::ULong;
+		if (fieldType == "Byte") return ScriptFieldType::Byte;
+		if (fieldType == "UByte") return ScriptFieldType::UByte;
+		if (fieldType == "Vector2") return ScriptFieldType::Vector2;
+		if (fieldType == "Vector3") return ScriptFieldType::Vector3;
+		if (fieldType == "Vector4") return ScriptFieldType::Vector4;
+		if (fieldType == "GameObject") return ScriptFieldType::GameObject;
+		return ScriptFieldType::Unknown;
 	}
 
 	ScriptClass::ScriptClass(const std::string& namespaceName, const std::string& className, bool isCore)

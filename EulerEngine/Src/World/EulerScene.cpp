@@ -113,6 +113,7 @@ namespace EulerEngine {
 	}
 	void Scene::OnRuntimeStart()
 	{
+		m_IsRunning = true;
 		OnPhysics2DStart();
 		ScriptEngine::OnRuntimeStart(this);
 		auto view = m_Registry.view<CSharpScript>();
@@ -130,6 +131,7 @@ namespace EulerEngine {
 			ScriptEngine::OnDestroyGameObject(obj);
 		}
 		ScriptEngine::OnRuntimeStop();
+		m_IsRunning = false;
 	}
 	void Scene::OnSimulationStart()
 	{

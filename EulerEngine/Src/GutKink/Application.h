@@ -10,10 +10,22 @@
 #include"Render/VertexArray.h"
 #include"Core/EulerTimer.h"
 namespace EulerEngine {
+	struct ApplicationCommandLineArgs {
+		int Count = 0;
+		char** args = nullptr;
+		const char* operator[](int index) const{
+			return args[index];
+		}
+	};
+	struct ApplicationSpecification {
+		std::string Name;
+		std::string WorkingDir;
+		ApplicationCommandLineArgs CmdArgs;
+	};
 	class KINK_API Application
 	{
 	public:
-		Application();
+		Application(const ApplicationSpecification& spec);
 		virtual ~Application();
 		void Run();
 		void Close();
@@ -25,8 +37,11 @@ namespace EulerEngine {
 		inline static Application& Get() { return *s_Instance; }
 		inline EulerWindow& GetWindow() { return *m_Window; }
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+		const ApplicationSpecification& GetSpecification() const { return m_Specification; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+	private:
+		ApplicationSpecification m_Specification;
 		std::unique_ptr<EulerWindow> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
@@ -34,6 +49,6 @@ namespace EulerEngine {
 		static Application* s_Instance;
 		TimerSystem m_Timer;
 	};
-	Application* CreateApplication();
+	Application* CreateApplication(ApplicationCommandLineArgs args);
 }
 

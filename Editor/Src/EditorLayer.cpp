@@ -30,48 +30,11 @@ namespace EulerEngine {
         auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
         auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
 
-        //auto quad = m_ActiveScene->CreateObject("Quad");
-        //quad.AddComponent<SpriteRenderer>();
-        //quad.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        //quad.GetComponent<Transform>().Scale = glm::vec3(0.4f, 0.4f, 1.0f);
-
-        //auto quad2 = m_ActiveScene->CreateObject("Quad2");
-        //quad2.AddComponent<SpriteRenderer>();
-        //quad2.GetComponent<Transform>().Position = glm::vec3(0.0f, -1.2f, 0.0f);
-        //quad2.GetComponent<Transform>().Scale = glm::vec3(4.0f, 1.0f, 1.0f);
-
-        //m_MainCamera = m_ActiveScene->CreateObject("Camera");
-        //m_MainCamera.AddComponent<Camera>(ORTHOGRAPHIC);
-        //m_MainCamera.GetComponent<Transform>().Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        //glm::vec3 degrees = glm::vec3(0.0f, 0.0f, 0.0f);
-        //m_MainCamera.GetComponent<Transform>().Rotation = glm::radians(degrees);
-
-
-        //class CameraController:public EulerBehaviour {
-
-        //public:
-        //    void OnCreate() {
-        //    }
-        //    void OnDestroy() {
-        //    }
-        //    void OnUpdate(TimerSystem ts) {
-        //        /*auto& transform = GetComponent<Transform>();
-        //        if (InputSystem::IsKeyDown(KINK_KEY_W)) {
-        //            transform.Position += glm::vec3(0.0f, 1.0f * ts.GetDeltaTime(), 0.0f);
-        //        }
-        //        if (InputSystem::IsKeyDown(KINK_KEY_A)) {
-        //            transform.Position += glm::vec3(-1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-        //        }
-        //        if (InputSystem::IsKeyDown(KINK_KEY_D)) {
-        //            transform.Position += glm::vec3(1.0f * ts.GetDeltaTime(), 0.0f, 0.0f);
-        //        }
-        //        if (InputSystem::IsKeyDown(KINK_KEY_S)) {
-        //            transform.Position += glm::vec3(0.0f, -1.0f * ts.GetDeltaTime(), 0.0f);
-        //        }*/
-        //    }
-        //};
-        //auto& nsc = m_MainCamera.AddComponent<NativeScript>();
-        //nsc.Bind<CameraController>();
+        auto commandArgs = Application::Get().GetSpecification().CmdArgs;
+        if (commandArgs.Count > 1) {
+            auto sceneFilePath = commandArgs[1];
+            OpenScene(sceneFilePath);
+        }
     }
 
     void EditorLayer::OnUpdate(TimerSystem ts)
@@ -241,7 +204,7 @@ namespace EulerEngine {
         m_ViewportFocused = ImGui::IsWindowFocused();
         m_ViewportHovered = ImGui::IsWindowHovered();
         
-        Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused && !m_ViewportHovered);
+        Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportHovered);
         ImVec2 size = ImGui::GetContentRegionAvail();
         m_ViewportSize = { size.x, size.y };
         unsigned int textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
@@ -428,7 +391,7 @@ namespace EulerEngine {
         SceneSerializer serializer(scene);
         if (serializer.Deserialize(path.string())) {
             m_EditorScene = scene;
-            m_EditorScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
+            //m_EditorScene->OnViewportResize(m_ViewportSize.x, m_ViewportSize.y);
             m_ActiveScene = m_EditorScene;
             m_SceneHierarchyPanel.SetContext(m_ActiveScene);
             m_EditingScenePath = path;
