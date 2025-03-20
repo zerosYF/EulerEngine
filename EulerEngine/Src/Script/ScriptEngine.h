@@ -31,10 +31,11 @@ namespace EulerEngine {
 
 		ScriptClass SuperClass;
 		std::unordered_map<std::string, Ref<ScriptClass>> GameObjectClasses;
+		
 		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
 		std::unordered_map<EulerUUID, ScriptFieldMap> GameObjectScriptFields;
 
-		Scene* SceneContext;
+		Scene* SceneContext = nullptr;
 	};
 	class ScriptEngine {
 	public:

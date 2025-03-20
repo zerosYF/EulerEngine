@@ -34,7 +34,6 @@ namespace EulerEngine {
 		auto view = src.view<Component>();
 		for (auto e : view) {
 			EulerUUID id = src.get<IDCom>(e).ID;
-			KINK_CORE_INFO("Copying Component");
 			entt::entity dstEntity = entityMap.at(id);
 			auto& component = src.get<Component>(e);
 			dst.emplace_or_replace<Component>(dstEntity, component);
@@ -203,6 +202,17 @@ namespace EulerEngine {
 	{
 		if (m_EntityMap.find(UUID) != m_EntityMap.end()) {
 			return GameObject{ m_EntityMap[UUID], this };
+		}
+		return {};
+	}
+	GameObject Scene::GetGameObjectByName(std::string name)
+	{
+		auto view = m_Registry.view<Profile>();
+		for (auto e : view) {
+			const auto& profile = view.get<Profile>(e);
+			if (profile.Tag == name) {
+				return GameObject{ e, this };
+			}
 		}
 		return {};
 	}

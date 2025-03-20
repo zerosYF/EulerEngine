@@ -37,4 +37,26 @@ namespace EulerEngine {
 		}
 		m_Cls->InvokeMethod(m_Instance, m_OnDestroy, nullptr);
 	}
+	bool ScriptInstance::GetRawFieldValue(const std::string& fieldName, void* buffer)
+	{
+		const auto& fields = m_Cls->GetFields();
+		auto it = fields.find(fieldName);
+		if (it == fields.end()) {
+			return false;
+		}
+		const ScriptField& field = it->second;
+		mono_field_get_value(m_Instance, field.ClassField, buffer);
+		return true;
+	}
+	bool ScriptInstance::SetRawFieldValue(const std::string& fieldName, const void* buffer)
+	{
+		const auto& fields = m_Cls->GetFields();
+		auto it = fields.find(fieldName);
+		if (it == fields.end()) {
+			return false;
+		}
+		const ScriptField& field = it->second;
+		mono_field_set_value(m_Instance, field.ClassField, (void*)buffer);
+		return true;
+	}
 }

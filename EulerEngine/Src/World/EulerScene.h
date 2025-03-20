@@ -32,6 +32,7 @@ namespace EulerEngine {
 
 		void OnViewportResize(int width, int height);
 		GameObject GetGameObject(uint64_t UUID);
+		GameObject GetGameObjectByName(std::string name);
 		GameObject GetPrimaryCamera();
 
 		template<typename... Components>

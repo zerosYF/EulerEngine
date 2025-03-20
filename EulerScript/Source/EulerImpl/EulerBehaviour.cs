@@ -4,13 +4,12 @@ namespace EulerEngine {
     public class EulerBehaviour
     {
         protected EulerBehaviour() {
-            gameObject = new GameObject(1);
+            gameObject = new GameObject(0);
         }
         internal EulerBehaviour(ulong uuid) {
             gameObject = new GameObject(uuid);
         }
-
-        public GameObject gameObject;
+        public readonly GameObject gameObject;
         public Transform transform
         {
             get {

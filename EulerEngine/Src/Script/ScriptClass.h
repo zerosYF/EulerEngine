@@ -8,7 +8,7 @@ namespace EulerEngine {
 		Char, Bool, Double, String,
 		Float, Vector2, Vector3, Vector4,
 		Int, UInt, Short, UShort,
-		Long, ULong, Byte, UByte,GameObject,
+		Long, ULong, Byte, UByte, GameObject,
 	};
 	struct ScriptField {
 		std::string Name;

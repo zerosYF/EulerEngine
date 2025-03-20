@@ -15,24 +15,19 @@ namespace EulerEngine {
 		Ref<ScriptClass> GetClass() { return m_Cls; }
 		template<typename T>
 		T GetFieldValue(const std::string& fieldName) {
-			const auto& fields = m_Cls->GetFields();
-			if (fields.find(fieldName) == fields.end()) {
+			char buffer[16];
+			bool suc = GetRawFieldValue(fieldName, &buffer);
+			if (!suc) {
 				return T();
 			}
-			static char buffer[8];
-			ScriptField field = fields.at(fieldName);
-			mono_field_get_value(m_Instance, field.ClassField, buffer);
 			return *(T*)buffer;
 		}
 		template<typename T>
 		void SetFieldValue(const std::string& fieldName, T value) {
-			const auto& fields = m_Cls->GetFields();
-			if (fields.find(fieldName) == fields.end()) {
-				return;
-			}
-			ScriptField field = fields.at(fieldName);
-			mono_field_set_value(m_Instance, field.ClassField, &value);
+			SetRawFieldValue(fieldName, &value);
 		}
+		bool GetRawFieldValue(const std::string& fieldName, void* buffer);
+		bool SetRawFieldValue(const std::string& fieldName, const void* buffer);
 	private:
 		Ref<ScriptClass> m_Cls;
 		MonoObject* m_Instance;

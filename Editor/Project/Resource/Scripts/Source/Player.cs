@@ -1,17 +1,16 @@
 using System;
 using EulerEngine;
 namespace Sandbox {
-    public class Test:EulerBehaviour {
+    public class Player:EulerBehaviour {
         private Rigidbody2D rb;
         public float speed = 1.0f;
         public float val = 2.0f;
         void OnCreate() { 
-            Console.WriteLine("OnCreate called:" + this.gameObject.uuid);
+            Console.WriteLine("Player OnCreate called:" + this.gameObject.uuid);
             rb = gameObject.GetComponent<Rigidbody2D>();
             speed = 100.0f;
         }
         void OnUpdate(float ts) {
-            //Console.WriteLine("OnUpdate called with ts = " + ts);
             if (rb == null) {
                 return;
             }
@@ -29,7 +28,7 @@ namespace Sandbox {
             }
         }
         void OnDestroy() { 
-            Console.WriteLine("OnDestroy called");
+            Console.WriteLine("OnDestroy called" + this.gameObject.uuid);
         }
     }
 }

@@ -11,6 +11,12 @@ namespace EulerEngine {
             this.y = y;
             this.z = z;
         }
+        public Vector3(Vector2 xy, float z)
+        {
+            this.x = xy.x;
+            this.y = xy.y;
+            this.z = z;
+        }
         public static Vector3 operator +(Vector3 a, Vector3 b)
         {
             return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -47,6 +53,10 @@ namespace EulerEngine {
         {
             float length = Length();
             return new Vector3(x / length, y / length, z / length);
+        }
+        public Vector2 XY { 
+            get => new Vector2(x, y);
+            set { x = value.x; y = value.y; }
         }
         public override string ToString()
         {

@@ -1,3 +1,4 @@
+using System;
 namespace EulerEngine {
     public abstract class Component {
         public GameObject gameObject { get; internal set; }
@@ -11,6 +12,17 @@ namespace EulerEngine {
             set { 
                 InternalCalls.Transform_SetPosition(gameObject.uuid, ref value);
             } 
+        }
+        public void SetPosition(Vector2 position)
+        {
+            this.position = new Vector3(position.x, position.y, this.position.z);
+        }
+        public void SetPosition(Vector3 position)
+        {
+            this.position = position;
+        }
+        public void SetPosition(Vector2 position, float z) {
+            this.position = new Vector3(position.x, position.y, z);
         }
     }
     public class Rigidbody2D : Component { 

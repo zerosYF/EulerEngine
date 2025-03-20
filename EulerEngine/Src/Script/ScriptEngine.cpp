@@ -42,22 +42,6 @@ namespace EulerEngine {
 		mono_image_close(image);
 		return assembly;
 	}
-
-	void PrintAssemblyTypes(MonoAssembly* assembly) {
-		MonoImage* image = mono_assembly_get_image(assembly);
-		const MonoTableInfo* typeDefinationTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
-		unsigned int num_types = mono_table_info_get_rows(typeDefinationTable);
-		for (unsigned int i = 0; i < num_types; i++) {
-			unsigned int cols[MONO_TYPEDEF_SIZE];
-			mono_metadata_decode_row(typeDefinationTable, i, cols, MONO_TYPEDEF_SIZE);
-			const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
-			const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-			MonoClass* cls = mono_class_from_name(image, nameSpace, name);
-			MonoClass* obj_cls = mono_class_from_name(image, "EulerEngine", "Main");
-			bool isSubCls = mono_class_is_subclass_of(cls, obj_cls, false);
-			KINK_CORE_TRACE("Type: {0}.{1}", nameSpace, name);
-		}
-	}
 	
 	void ScriptEngine::LoadAssembly(const std::filesystem::path& path)
 	{
@@ -166,9 +150,11 @@ namespace EulerEngine {
 			EulerUUID uuid = obj.GetUUID();
 			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->GameObjectClasses[com.Name], obj);
 			s_Data->GameObjectInstances[uuid] = instance;
-			ScriptFieldMap map = s_Data->GameObjectScriptFields[uuid];
-			for (const auto &[name, field_instance]:map) {
-				instance->SetFieldValue(name, field_instance.GetRawData());
+			if (s_Data->GameObjectScriptFields.find(uuid) != s_Data->GameObjectScriptFields.end()) {
+				const ScriptFieldMap& map = s_Data->GameObjectScriptFields[uuid];
+				for (const auto& [name, field_instance] : map) {
+					instance->SetRawFieldValue(name, field_instance.GetRawData());
+				}
 			}
 			instance->InvokeOnCreate();
 		}

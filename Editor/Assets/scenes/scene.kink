@@ -4,8 +4,8 @@ GameObjects:
     Profile:
       Tag: MoveQuad
     Transform:
-      Position: [-1.9, 0, 0]
-      Rotation: [0, 0, 0]
+      Position: [-2.1490157, -0.8203829, 0]
+      Rotation: [0, 0, 0.15168393]
       Scale: [1, 1, 1]
     SpriteRenderer:
       Shader: Shaders/Camera/first_test.glsl
@@ -25,17 +25,20 @@ GameObjects:
       Restitution: 0
       IsTrigger: false
     CSharpScript:
-      ClassName: Sandbox.Test
+      ClassName: Sandbox.Player
       ScriptFields:
         - Name: speed
           Type: Float
-          Data: 12
+          Data: 15
+        - Name: val
+          Type: Float
+          Data: 11
   - GameObject: 842875295528184206
     Profile:
       Tag: Quad
     Transform:
       Position: [0, -1.2, 0]
-      Rotation: [0, 0, 0.15009832]
+      Rotation: [0, 0, 0.15165329]
       Scale: [5.3, 0.4, 1]
     SpriteRenderer:
       Shader: Shaders/Camera/first_test.glsl
@@ -58,8 +61,8 @@ GameObjects:
     Profile:
       Tag: Circle
     Transform:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
+      Position: [-1.1605407, -0.6692958, 0]
+      Rotation: [0, 0, 2.3126316]
       Scale: [1, 1, 1]
     Rigidbody2D:
       Type: Dynamic
@@ -82,14 +85,14 @@ GameObjects:
     Profile:
       Tag: Camera
     Transform:
-      Position: [0, 0, 4]
+      Position: [0, 0, 5]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Camera:
       IsPrimary: true
       IsFixedAspectRatio: false
       CameraType: 0
-      ViewportWidth: 660
+      ViewportWidth: 679
       ViewportHeight: 406
       Perspective_FOV: 45
       Perspective_NearClip: 0.1
@@ -97,3 +100,9 @@ GameObjects:
       Orthographic_Size: 1
       Orthographic_NearClip: -1
       Orthographic_FarClip: 1
+    CSharpScript:
+      ClassName: Sandbox.CameraController
+      ScriptFields:
+        - Name: DistanceFromPlayer
+          Type: Float
+          Data: 32
