@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="External\include\entt\entt.hpp" />
+    <ClInclude Include="External\include\filewatch\filewatch.h" />
     <ClInclude Include="External\include\glad\KHR\khrplatform.h" />
     <ClInclude Include="External\include\glad\glad\glad.h" />
     <ClInclude Include="External\include\glm\common.hpp" />

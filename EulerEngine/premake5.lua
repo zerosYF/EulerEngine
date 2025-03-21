@@ -19,6 +19,7 @@ project "EulerEngine"
 		"External/include/glad/glad/**.h",
 		"External/include/glad/KHR/**.h",
 		"External/include/entt/**.hpp",
+		"External/include/filewatch/**.h",
 		"Vendor/ImGuizmo/ImGuizmo.h",
 		"Vendor/ImGuizmo/ImGuizmo.cpp",
 	}

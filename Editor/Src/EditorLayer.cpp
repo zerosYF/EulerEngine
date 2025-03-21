@@ -17,6 +17,8 @@ namespace EulerEngine {
         m_IconPlay = Texture2D::Create("Assets/Editor/Icons/PlayButton.png");
         m_IconStop = Texture2D::Create("Assets/Editor/Icons/StopButton.png");
         m_IconSimulate = Texture2D::Create("Assets/Editor/Icons/SimulateButton.png");
+        m_IconPause = Texture2D::Create("Assets/Editor/Icons/PauseButton.png");
+        m_IconStep = Texture2D::Create("Assets/Editor/Icons/StepButton.png");
 
         FrameBufferSpecification spec;
         spec.Width = 1280;
@@ -169,6 +171,12 @@ namespace EulerEngine {
                 ImGui::Separator();
                 if (ImGui::MenuItem("Exit")) {
                     Application::Get().Close();
+                }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Script")) {
+                if (ImGui::MenuItem("Reload")) {
+                    ScriptEngine::ReloadAssembly();
                 }
                 ImGui::EndMenu();
             }
@@ -465,6 +473,14 @@ namespace EulerEngine {
         m_SceneHierarchyPanel.SetContext(m_ActiveScene);
     }
 
+    void EditorLayer::OnScenePause()
+    {
+        if (m_SceneState == SceneState::Edit) {
+            return;
+        }
+        m_ActiveScene->Pause(true);
+    }
+
     void EditorLayer::OnDuplicateGameObject()
     {
         if (m_SceneState != SceneState::Edit) {
@@ -513,6 +529,31 @@ namespace EulerEngine {
                 }
             }
             ImGui::PopID();
+        }
+        if (m_SceneState != SceneState::Edit) {
+            bool isPaused = m_ActiveScene->IsPaused();
+            ImGui::SameLine();
+            {
+                Ref<Texture2D> icon = m_IconPause;
+                float size = ImGui::GetWindowHeight() - 5.0f;
+                ImGui::PushID(icon->GetRendererID());
+                if (ImGui::ImageButton("", (ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
+                    m_ActiveScene->Pause(!isPaused);
+                }
+                ImGui::PopID();
+            }
+            if (isPaused) {
+                ImGui::SameLine();
+                {
+                    Ref<Texture2D> icon = m_IconStep;
+                    float size = ImGui::GetWindowHeight() - 5.0f;
+                    ImGui::PushID(icon->GetRendererID());
+                    if (ImGui::ImageButton("", (ImTextureID)icon->GetRendererID(), ImVec2(size, size * 0.85f), ImVec2(0, 0), ImVec2(1, 1))) {
+                        m_ActiveScene->Step(1);
+                    }
+                    ImGui::PopID();
+                }
+            }
         }
 
         ImGui::End();

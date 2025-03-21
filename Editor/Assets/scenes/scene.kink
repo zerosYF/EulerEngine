@@ -4,8 +4,8 @@ GameObjects:
     Profile:
       Tag: MoveQuad
     Transform:
-      Position: [-2.1490157, -0.8203829, 0]
-      Rotation: [0, 0, 0.15168393]
+      Position: [-2.049, 0.38, 0]
+      Rotation: [0, 0, 0.0015882496]
       Scale: [1, 1, 1]
     SpriteRenderer:
       Shader: Shaders/Camera/first_test.glsl
@@ -61,7 +61,7 @@ GameObjects:
     Profile:
       Tag: Circle
     Transform:
-      Position: [-1.1605407, -0.6692958, 0]
+      Position: [-0.161, 0.631, 0]
       Rotation: [0, 0, 2.3126316]
       Scale: [1, 1, 1]
     Rigidbody2D:
@@ -105,4 +105,4 @@ GameObjects:
       ScriptFields:
         - Name: DistanceFromPlayer
           Type: Float
-          Data: 32
+          Data: 6

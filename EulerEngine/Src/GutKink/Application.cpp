@@ -35,6 +35,7 @@ namespace EulerEngine {
 	void Application :: Run() {
 		while (m_Running) {
 			m_Timer.Tick();
+			ExecuteMainthreadQueue();   
 			for (EulerLayer* layer : m_LayerStack) {
 				layer->OnUpdate(m_Timer);
 			}
@@ -61,9 +62,22 @@ namespace EulerEngine {
 			if (e.IsHandled()) break;
 		}
 	}
+	void Application::SubmitToMainThread(const std::function<void()>& func)
+	{
+		std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+		m_MainThreadQueue.emplace_back(func);
+	}
 	bool Application::OnWindowClose(WindowCloseEvent& e) {
 		m_Running = false;
 		return true;
+	}
+	void Application::ExecuteMainthreadQueue()
+	{
+		std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+		for (auto& func : m_MainThreadQueue) {
+			func();
+		}
+		m_MainThreadQueue.clear();
 	}
 	void Application::PushLayer(EulerLayer* layer) {
 		m_LayerStack.PushLayer(layer);

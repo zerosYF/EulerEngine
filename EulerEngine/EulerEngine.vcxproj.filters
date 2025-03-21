@@ -10,6 +10,9 @@
     <Filter Include="External\include\entt">
       <UniqueIdentifier>{A516BC20-1183-771B-DA76-0F7946A29983}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External\include\filewatch">
+      <UniqueIdentifier>{4196A11D-2DA6-4DEE-965F-B20C828E3C87}</UniqueIdentifier>
+    </Filter>
     <Filter Include="External\include\glad">
       <UniqueIdentifier>{6224BD20-CE90-781B-9784-107903B09A83}</UniqueIdentifier>
     </Filter>
@@ -137,6 +140,9 @@
   <ItemGroup>
     <ClInclude Include="External\include\entt\entt.hpp">
       <Filter>External\include\entt</Filter>
+    </ClInclude>
+    <ClInclude Include="External\include\filewatch\filewatch.h">
+      <Filter>External\include\filewatch</Filter>
     </ClInclude>
     <ClInclude Include="External\include\glad\KHR\khrplatform.h">
       <Filter>External\include\glad\KHR</Filter>

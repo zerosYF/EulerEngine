@@ -26,6 +26,7 @@ namespace Sandbox {
                 rb.ApplyLinearImpulse(vec * speed);
                 Console.WriteLine("Applying impulse: " + vec * speed);
             }
+            Console.WriteLine("Player OnUpdate called:" + this.gameObject.uuid);
         }
         void OnDestroy() { 
             Console.WriteLine("OnDestroy called" + this.gameObject.uuid);

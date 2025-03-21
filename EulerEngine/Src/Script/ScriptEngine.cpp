@@ -2,6 +2,7 @@
 #include"ScriptGlue.h"
 #include"ScriptEngine.h"
 #include"GutKink/Core.h"
+#include"GutKink/Application.h"
 namespace EulerEngine {
 	extern ScriptEngineData* s_Data = nullptr;
 	// TODO:be a filesystem method
@@ -48,15 +49,30 @@ namespace EulerEngine {
 		KINK_CORE_TRACE("Loading assembly: {0}", path.string());
 		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
 		mono_domain_set(s_Data->AppDomain, true);
+		s_Data->CoreAssemblyPath = path;
 		s_Data->CoreAssembly = LoadMonoAssembly(path);
 		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
+	}
+
+	static void OnAppAssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type) {
+		if (!s_Data->AssemblyReloadPendding && change_type == filewatch::Event::modified) {
+			s_Data->AssemblyReloadPendding = true;
+			Application::Get().SubmitToMainThread([](){
+				s_Data->AppAssemblyWatcher.reset();
+				ScriptEngine::ReloadAssembly(); 
+			});
+		}
 	}
 
 	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& path)
 	{
 		KINK_CORE_TRACE("Loading app assembly: {0}", path.string());
+		s_Data->AppAssemblyPath = path;
 		s_Data->AppAssembly = LoadMonoAssembly(path);
 		s_Data->AppImage = mono_assembly_get_image(s_Data->AppAssembly);
+
+		s_Data->AppAssemblyWatcher = CreateScope<filewatch::FileWatch<std::string>>(path.string(), OnAppAssemblyFileSystemEvent);
+		s_Data->AssemblyReloadPendding = false;
 	}
 
 	void ScriptEngine::LoadAssemblyClasses() {
@@ -103,12 +119,13 @@ namespace EulerEngine {
 	{
 		s_Data = new ScriptEngineData();
 		InitMono();
+		ScriptGlue::RegisterFunctions();
 		LoadAssembly("Scripts/EulerScript.dll");
 		LoadAppAssembly("Project/Resource/Scripts/Binaries/Sandbox.dll");
 		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour", true);
 		LoadAssemblyClasses();
-		ScriptGlue::RegisterFunctions();
 		ScriptGlue::RegisterComponents();
+
 	}
 	void ScriptEngine::ShutDown()
 	{
@@ -179,6 +196,25 @@ namespace EulerEngine {
 		}
 		return nullptr;
 	}
+	MonoObject* ScriptEngine::GetManagedInstance(uint64_t uuid)
+	{
+		if (s_Data->GameObjectInstances.find(uuid) != s_Data->GameObjectInstances.end()) {
+			Ref<ScriptInstance> instance = s_Data->GameObjectInstances[uuid];
+			return instance->GetMonoObject();
+		}
+		return nullptr;
+	}
+	void ScriptEngine::ReloadAssembly()
+	{
+		mono_domain_set(mono_get_root_domain(), false);
+		mono_domain_unload(s_Data->AppDomain);
+
+		LoadAssembly(s_Data->CoreAssemblyPath);
+		LoadAppAssembly(s_Data->AppAssemblyPath);
+		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour", true);
+		LoadAssemblyClasses();
+		ScriptGlue::RegisterComponents();
+	}
 	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
 	{
 		MonoObject* obj = mono_object_new(s_Data->AppDomain, monoClass);
@@ -195,6 +231,14 @@ namespace EulerEngine {
 		MonoDomain* root_domain = mono_jit_init("KinkJitRuntime");
 		KINK_CORE_ASSERT(root_domain != nullptr, "Could not initialize mono runtime");
 		s_Data->RootDomain = root_domain;
+		if (s_Data->EnableDebug) {
+			char* argv[2] = {
+				"--debugger-agent=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:56000,loglevel=3,logfile=Logs/KinkDebug.log",
+				"--soft-breakpoints"
+			};
+			mono_jit_parse_options(2, argv);
+			mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+		}
 	}
 	void ScriptEngine::ShutDownMono()
 	{

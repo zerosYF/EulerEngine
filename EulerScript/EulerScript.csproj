@@ -18,11 +18,10 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <OutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\Editor\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,11 +30,10 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\Editor\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -44,11 +42,10 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Editor\Project\Resource\Scripts\Editor\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
+    <OutputPath>..\Editor\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -59,12 +56,12 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\EulerImpl\Components.cs" />
-    <Compile Include="Source\EulerImpl\EulerBehaviour.cs" />
-    <Compile Include="Source\EulerImpl\EulerData.cs" />
-    <Compile Include="Source\EulerImpl\EulerInput.cs" />
-    <Compile Include="Source\EulerImpl\GameObject.cs" />
-    <Compile Include="Source\EulerImpl\InternalCalls.cs" />
+    <Compile Include="Source\EulerEngine\Components.cs" />
+    <Compile Include="Source\EulerEngine\EulerBehaviour.cs" />
+    <Compile Include="Source\EulerEngine\EulerData.cs" />
+    <Compile Include="Source\EulerEngine\EulerInput.cs" />
+    <Compile Include="Source\EulerEngine\GameObject.cs" />
+    <Compile Include="Source\EulerEngine\InternalCalls.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

@@ -28,6 +28,8 @@ namespace EulerEngine {
 		}
 		bool GetRawFieldValue(const std::string& fieldName, void* buffer);
 		bool SetRawFieldValue(const std::string& fieldName, const void* buffer);
+
+		MonoObject* GetMonoObject() { return m_Instance; }
 	private:
 		Ref<ScriptClass> m_Cls;
 		MonoObject* m_Instance;

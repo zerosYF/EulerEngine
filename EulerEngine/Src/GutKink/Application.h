@@ -9,6 +9,7 @@
 #include"Render/EulerBuffer.h"
 #include"Render/VertexArray.h"
 #include"Core/EulerTimer.h"
+#include<mutex>
 namespace EulerEngine {
 	struct ApplicationCommandLineArgs {
 		int Count = 0;
@@ -38,8 +39,10 @@ namespace EulerEngine {
 		inline EulerWindow& GetWindow() { return *m_Window; }
 		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 		const ApplicationSpecification& GetSpecification() const { return m_Specification; }
+		void SubmitToMainThread(const std::function<void()>& func);
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		void ExecuteMainthreadQueue();
 	private:
 		ApplicationSpecification m_Specification;
 		std::unique_ptr<EulerWindow> m_Window;
@@ -48,6 +51,8 @@ namespace EulerEngine {
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;
 		TimerSystem m_Timer;
+		std::vector<std::function<void()>> m_MainThreadQueue;
+		std::mutex m_MainThreadQueueMutex;
 	};
 	Application* CreateApplication(ApplicationCommandLineArgs args);
 }

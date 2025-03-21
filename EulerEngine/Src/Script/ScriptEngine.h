@@ -3,11 +3,13 @@
 #include"mono/jit/jit.h"
 #include"mono/metadata/assembly.h"
 #include"mono/metadata/attrdefs.h"
+#include"mono/metadata/mono-debug.h"
 #include"ScriptClass.h"
 #include"ScriptInstance.h"
 #include"GutKink/Core.h"
 #include"World/EulerScene.h"
 #include"World/EulerObject.h"
+#include"filewatch/filewatch.h"
 extern "C" {
 	typedef struct _MonoAssembly MonoAssembly;
 	typedef struct _MonoImage MonoImage;
@@ -35,7 +37,14 @@ namespace EulerEngine {
 		std::unordered_map<EulerUUID, Ref<ScriptInstance>> GameObjectInstances;
 		std::unordered_map<EulerUUID, ScriptFieldMap> GameObjectScriptFields;
 
+		std::filesystem::path CoreAssemblyPath;
+		std::filesystem::path AppAssemblyPath;
+
 		Scene* SceneContext = nullptr;
+
+		Scope<filewatch::FileWatch<std::string>> AppAssemblyWatcher;
+		bool AssemblyReloadPendding = false;
+		bool EnableDebug = true;
 	};
 	class ScriptEngine {
 	public:
@@ -55,6 +64,9 @@ namespace EulerEngine {
 		static void OnUpdateGameObject(GameObject obj, float ts);
 		static void OnDestroyGameObject(GameObject obj);
 		static Ref<ScriptInstance> GetScriptFromGameObject(EulerUUID uuid);
+		static MonoObject* GetManagedInstance(uint64_t uuid);
+
+		static void ReloadAssembly();
 	private:
 		static void InitMono();
 		static void ShutDownMono();

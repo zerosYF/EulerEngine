@@ -35,6 +35,11 @@ namespace EulerEngine {
 		GameObject GetGameObjectByName(std::string name);
 		GameObject GetPrimaryCamera();
 
+		bool IsRunning() const { return m_IsRunning; }
+		bool IsPaused() const { return m_IsPaused; }
+		void Pause(bool pause) { m_IsPaused = pause; }
+		void Step(int frame = 1);
+
 		template<typename... Components>
 		auto GetAllEntitiesWith() {
 			return m_Registry.view<Components...>();
@@ -56,6 +61,8 @@ namespace EulerEngine {
 		std::unordered_map<EulerUUID, entt::entity> m_EntityMap;
 
 		bool m_IsRunning = false;
+		bool m_IsPaused = false;
+		int m_StepFrame = 0;
 		friend class GameObject;
 		friend class SceneSerializer;
 		friend class HierarchyPanel;

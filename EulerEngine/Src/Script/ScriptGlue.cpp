@@ -18,16 +18,18 @@ namespace EulerEngine {
         MonoType* type = mono_reflection_type_get_type(componentName);
         return s_HasComponentFuncs[type](obj);
     }
-    static EulerUUID GameObject_FindGameObjectByName(MonoString* name) {
+    static uint64_t GameObject_FindGameObjectByName(MonoString* name) {
         char* cStr = mono_string_to_utf8(name);
-        std::string str(cStr);
-        mono_free(cStr);
         Scene* context = ScriptEngine::GetContext();
-        GameObject obj = context->GetGameObjectByName(str);
+        GameObject obj = context->GetGameObjectByName(cStr);
+        mono_free(cStr);
         if (!obj) {
-            return obj.GetUUID();
+            return 0;
         }
-        return 0;
+        return obj.GetUUID();
+    }
+    static MonoObject* GameObject_GetScriptInstance(uint64_t uuid) {
+        return ScriptEngine::GetManagedInstance(uuid);     
     }
 
     static void Transform_GetPosition(uint64_t uuid, glm::vec3* position) {
@@ -61,6 +63,7 @@ namespace EulerEngine {
         KINK_CORE_TRACE("Registering internal calls");
         KINK_ADD_INTERNAL_CALL(GameObject_HasComponent);
         KINK_ADD_INTERNAL_CALL(GameObject_FindGameObjectByName);
+        KINK_ADD_INTERNAL_CALL(GameObject_GetScriptInstance);
         KINK_ADD_INTERNAL_CALL(Transform_GetPosition);
         KINK_ADD_INTERNAL_CALL(Transform_SetPosition);
         KINK_ADD_INTERNAL_CALL(Rigidbody2D_ApplyLinearImpulse);
@@ -84,6 +87,7 @@ namespace EulerEngine {
     }
     void ScriptGlue::RegisterComponents()
     {
+        s_HasComponentFuncs.clear();
         RegisterComponent(AllComponents{});
     }
 }

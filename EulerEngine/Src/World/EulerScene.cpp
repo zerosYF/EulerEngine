@@ -142,25 +142,27 @@ namespace EulerEngine {
 	}
 	void Scene::OnUpdateRuntime(TimerSystem ts)
 	{
-		{
-			auto view = m_Registry.view<CSharpScript>();
-			for (auto e : view) {
-				GameObject obj = { e, this };
-				ScriptEngine::OnUpdateGameObject(obj, ts.GetDeltaTime());
-			}
-		}
-		{
-			m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
-				if (nsc.Instance == nullptr) {
-					nsc.Instance = nsc.InstantiateScript();
-					nsc.Instance->m_gameObject = GameObject{ entity, this };
-					nsc.Instance->OnCreate();
+		if (!m_IsPaused || m_StepFrame-- > 0) {
+			{
+				auto view = m_Registry.view<CSharpScript>();
+				for (auto e : view) {
+					GameObject obj = { e, this };
+					ScriptEngine::OnUpdateGameObject(obj, ts.GetDeltaTime());
 				}
-				nsc.Instance->OnUpdate(ts);
+			}
+			{
+				m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
+					if (nsc.Instance == nullptr) {
+						nsc.Instance = nsc.InstantiateScript();
+						nsc.Instance->m_gameObject = GameObject{ entity, this };
+						nsc.Instance->OnCreate();
+					}
+					nsc.Instance->OnUpdate(ts);
 
-			});
+				});
+			}
+			OnPhysics2DUpdate(ts);
 		}
-		OnPhysics2DUpdate(ts);
 
 		EulerCamera* mainCamera = nullptr;
 		auto group = m_Registry.group<Camera>(entt::get<Transform>);
@@ -179,7 +181,9 @@ namespace EulerEngine {
 	}
 	void Scene::OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera)
 	{
-		OnPhysics2DUpdate(ts);
+		if (!m_IsPaused || m_StepFrame-- > 0) {
+			OnPhysics2DUpdate(ts);
+		}
 		OnRenderScene(editorCamera);
 	}
 	void Scene::OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera)
@@ -225,6 +229,11 @@ namespace EulerEngine {
 			}
 		}
 		return {};
+	}
+
+	void Scene::Step(int frame)
+	{
+		m_StepFrame = frame;
 	}
 
 	void Scene::OnPhysics2DStart()

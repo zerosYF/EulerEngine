@@ -30,6 +30,7 @@ namespace EulerEngine {
 		void OnScenePlay();
 		void OnSceneSimulate();
 		void OnSceneStop();
+		void OnScenePause();
 
 		void OnDuplicateGameObject();
 		void UI_Toolbar();
@@ -77,6 +78,8 @@ namespace EulerEngine {
 		Ref<Texture2D> m_IconPlay;
 		Ref<Texture2D> m_IconStop;
 		Ref<Texture2D> m_IconSimulate;
+		Ref<Texture2D> m_IconPause;
+		Ref<Texture2D> m_IconStep;
 
 		bool m_ShowPhysicsColliders = false;
 	};

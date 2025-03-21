@@ -3,8 +3,8 @@ project "EulerScript"
 	language "C#"
 	dotnetframework "4.8"
 
-	targetdir ("%{wks.location}/Editor/Scripts")
-	objdir ("%{wks.location}/Editor/Scripts/Intermediates")
+	targetdir ("../Editor/Scripts")
+	objdir ("../Editor/Scripts/Intermediates")
 
 	files{
 		"Source/**.cs",
