@@ -35,6 +35,8 @@
 #include"Script/ScriptClass.h"
 #include"Script/ScriptInstance.h"
 
+#include"Project/EulerProject.h"
+
 #include<../ImGui/imgui.h>
 
 #include<glm/gtc/type_ptr.hpp>

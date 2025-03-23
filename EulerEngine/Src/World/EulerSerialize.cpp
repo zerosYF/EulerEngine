@@ -5,6 +5,7 @@
 #include"Component/Component.h"
 #include"Resource/ResourceLibrary.h"
 #include"Script/ScriptEngine.h"
+#include"Project/EulerProject.h"
 namespace YAML {
 	template<>
 	struct convert<glm::vec2> {
@@ -327,18 +328,18 @@ namespace EulerEngine {
 						auto& meshRenderer = gameObj.AddComponent<MeshRenderer>();
 
 						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
-						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("",gameObject["MeshRenderer"]["Shader"].as<std::string>()));
+						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["MeshRenderer"]["Shader"].as<std::string>()));
 						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
-						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("",gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
+						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
 						meshRenderer.Material = material;
 					}
 					if (gameObject["SpriteRenderer"]) {
 						auto& spriteRenderer = gameObj.AddComponent<SpriteRenderer>();
 
 						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
-						material->SetShader(ResourceLibrary::GetResourceLibrary()->LoadShader("", gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
+						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
 						material->SetColor(gameObject["SpriteRenderer"]["Color"].as<glm::vec4>());
-						material->SetTexture(ResourceLibrary::GetResourceLibrary()->LoadTexture2D("", gameObject["SpriteRenderer"]["TexturePath"].as<std::string>()));
+						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["SpriteRenderer"]["TexturePath"].as<std::string>()));
 						spriteRenderer.Material = material;
 					}
 					if (gameObject["Rigidbody2D"]) {

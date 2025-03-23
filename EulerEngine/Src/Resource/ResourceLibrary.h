@@ -3,31 +3,13 @@
 #include"Render/EulerShader.h"
 #include"Render/Texture/EulerTexture.h"
 #include"Render/EulerMaterial.h"
-#include "stb_image/stb_image.h"
+#include"stb_image/stb_image.h"
+#include"Project/EulerProject.h"
+#include<filesystem>
 namespace EulerEngine {
 	class ResourceLibrary {
-	private:
-		std::unordered_map<std::string, Ref<EulerShader>> m_Shaders;
-		std::unordered_map<std::string, Ref<Texture2D>> m_Texture2Ds;
-		std::unordered_map<std::string, Ref<EulerMaterial>> m_Materials;
-		static ResourceLibrary* s_Instance;
 	public:
-		void AddShader(const std::string& name, const Ref<EulerShader>& shader);
-		Ref<EulerShader> LoadShader(const std::string& name, const std::string& path);
-		Ref<EulerShader> GetShader(const std::string& name);
-		bool IsShaderExists(const std::string& name);
-
-		void AddTexture2D(const std::string& name, const Ref<Texture2D>& texture);
-		Ref<Texture2D> LoadTexture2D(const std::string& name, const std::string& path);
-		Ref<Texture2D> GetTexture2D(const std::string& name);
-		bool IsTexture2DExists(const std::string& name);
-
-		void AddMaterial(const std::string& name, const Ref<EulerMaterial>& material);
-		Ref<EulerMaterial> LoadMaterial(const std::string& name);
-		Ref<EulerMaterial> GetMaterial(const std::string& name);
-		bool IsMaterialExists(const std::string& name);
-
-		static ResourceLibrary* GetResourceLibrary();
-
+		static Ref<EulerShader> LoadShaderInner(const std::string& path);
+		static Ref<Texture2D> LoadTexture2D(const std::string& path);
 	};
 }

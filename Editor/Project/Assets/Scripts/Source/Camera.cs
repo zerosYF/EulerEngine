@@ -12,7 +12,6 @@ namespace Sandbox {
         }
         void OnUpdate(float ts)
         {
-            if (another == null) return;
             Console.WriteLine("Camera OnUpdate called:" + this.gameObject.uuid);
             transform.position = new Vector3(another.transform.position.XY, DistanceFromPlayer + 10.0f);
         }

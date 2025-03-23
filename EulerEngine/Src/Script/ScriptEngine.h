@@ -4,6 +4,7 @@
 #include"mono/metadata/assembly.h"
 #include"mono/metadata/attrdefs.h"
 #include"mono/metadata/mono-debug.h"
+#include"mono/metadata/threads.h"
 #include"ScriptClass.h"
 #include"ScriptInstance.h"
 #include"GutKink/Core.h"
@@ -44,7 +45,7 @@ namespace EulerEngine {
 
 		Scope<filewatch::FileWatch<std::string>> AppAssemblyWatcher;
 		bool AssemblyReloadPendding = false;
-		bool EnableDebug = true;
+		bool EnableDebug = false;
 	};
 	class ScriptEngine {
 	public:

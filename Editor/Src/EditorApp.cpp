@@ -1,6 +1,7 @@
 #include<GutKink.h>
 #include<GutKink/EntryPoint.h>
 #include"EditorLayer.h"
+#include"Project/EulerProject.h"
 namespace EulerEngine {
 	class EulerEditor : public EulerEngine::Application {
 	public:
@@ -14,6 +15,7 @@ namespace EulerEngine {
 		ApplicationSpecification spec;
 		spec.Name = "Euler Editor";
 		spec.CmdArgs = args;
+
 		return new EulerEditor(spec);
 	}
 }

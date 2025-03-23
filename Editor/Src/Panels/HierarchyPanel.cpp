@@ -3,7 +3,6 @@
 #include<imgui_internal.h>
 #include<filesystem>
 namespace EulerEngine {
-	extern const std::filesystem::path g_AssetsPath;
 	HierarchyPanel::HierarchyPanel(const Ref<Scene>& defaultScene):m_Context(defaultScene)
 	{
 	}
@@ -203,7 +202,7 @@ namespace EulerEngine {
 			if(ImGui::BeginDragDropTarget()) {
 				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
 					const wchar_t* path = (const wchar_t*)payload->Data;
-					std::filesystem::path texturePath = std::filesystem::path(g_AssetsPath) / path;
+					std::filesystem::path texturePath(path);
 					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
 				}
 				ImGui::EndDragDropTarget();
@@ -215,7 +214,7 @@ namespace EulerEngine {
 			if (ImGui::BeginDragDropTarget()) {
 				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
 					const wchar_t* path = (const wchar_t*)payload->Data;
-					std::filesystem::path texturePath = std::filesystem::path(g_AssetsPath) / path;
+					std::filesystem::path texturePath(path);
 					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
 				}
 				ImGui::EndDragDropTarget();

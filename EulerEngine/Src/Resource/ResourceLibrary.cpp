@@ -2,81 +2,18 @@
 #include"ResourceLibrary.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
-	ResourceLibrary* ResourceLibrary::s_Instance = nullptr;
-	void ResourceLibrary::AddShader(const std::string & name, const Ref<EulerShader>& shader)
+	Ref<EulerShader> ResourceLibrary::LoadShaderInner(const std::string & path)
 	{
-		m_Shaders[name] = shader;
-	}
-	Ref<EulerShader> ResourceLibrary::LoadShader(const std::string& name, const std::string & path)
-	{
-		auto shader = EulerShader::Create(path);
-		this->AddShader(name, shader);
+		auto shader = EulerShader::Create("Assets/Shaders/" + path);
+		KINK_CORE_INFO("Create shader success...");
 		return shader;
 	}
-	Ref<EulerShader> ResourceLibrary::GetShader(const std::string & name)
+	Ref<Texture2D> ResourceLibrary::LoadTexture2D(const std::string & path)
 	{
-		auto iter = m_Shaders.find(name);
-		return iter != m_Shaders.end() ? iter->second : nullptr;
-	}
-	bool ResourceLibrary::IsShaderExists(const std::string & name)
-	{
-		return m_Shaders.find(name) != m_Shaders.end();
-	}
-
-
-
-
-	void ResourceLibrary::AddTexture2D(const std::string & name, const Ref<Texture2D>& texture)
-	{
-		m_Texture2Ds[name] = texture;
-	}
-	Ref<Texture2D> ResourceLibrary::LoadTexture2D(const std::string& name, const std::string & path)
-	{
-		auto texture = Texture2D::Create(path);
+		std::string path_ = "Resource/" + path;
+		std::filesystem::path texture_path = Project::GetAssetFileSystemPath(path_);
+		auto texture = Texture2D::Create(texture_path.string());
 		KINK_CORE_INFO("Create texture success...");
-		this->AddTexture2D(name, texture);
-		KINK_CORE_INFO("Add texture success...");
 		return texture;
-	}
-	Ref<Texture2D> ResourceLibrary::GetTexture2D(const std::string & name)
-	{
-		auto iter = m_Texture2Ds.find(name);
-		return iter != m_Texture2Ds.end() ? iter->second : nullptr;
-	}
-	bool ResourceLibrary::IsTexture2DExists(const std::string & name)
-	{
-		return m_Texture2Ds.find(name) != m_Texture2Ds.end();
-	}
-
-
-
-
-
-	void ResourceLibrary::AddMaterial(const std::string& name, const Ref<EulerMaterial>& material)
-	{
-		m_Materials[name] = material;
-	}
-	Ref<EulerMaterial> ResourceLibrary::LoadMaterial(const std::string & name)
-	{
-		auto material = EulerMaterial::Create();
-		this->AddMaterial(name, material);
-		return material;
-	}
-	Ref<EulerMaterial> ResourceLibrary::GetMaterial(const std::string & name)
-	{
-		auto iter = m_Materials.find(name);
-		return iter != m_Materials.end() ? iter->second : nullptr;
-	}
-	bool ResourceLibrary::IsMaterialExists(const std::string & name)
-	{
-		return m_Materials.find(name) != m_Materials.end();
-	}
-	ResourceLibrary* ResourceLibrary::GetResourceLibrary()
-	{
-		if (s_Instance == nullptr)
-		{
-			s_Instance = new ResourceLibrary();
-		}
-		return s_Instance;
 	}
 }

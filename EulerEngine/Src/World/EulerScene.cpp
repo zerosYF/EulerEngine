@@ -353,24 +353,24 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
 		//temp;
-		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
-		auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
-		auto material = EulerMaterial::Create();
-		material->SetShader(shader);
-		material->SetColor(glm::vec4(1.0f));
-		material->SetTexture(texture2D);
-		component.Material = material;
+		//auto shader = ResourceLibrary::LoadShaderInner("common");
+		//auto texture2D = ResourceLibrary::LoadTexture2D("cube_texture");
+		//auto material = EulerMaterial::Create();
+		//material->SetShader(shader);
+		//material->SetColor(glm::vec4(1.0f));
+		//material->SetTexture(texture2D);
+		//component.Material = material;
 	}
 	template<>
 	void Scene::OnComponentAdded<SpriteRenderer>(GameObject obj, SpriteRenderer& component) {
 		//temp;
-		auto shader = ResourceLibrary::GetResourceLibrary()->GetShader("common");
-		auto texture2D = ResourceLibrary::GetResourceLibrary()->GetTexture2D("cube_texture");
-		auto material = EulerMaterial::Create();
-		material->SetShader(shader);
-		material->SetColor(glm::vec4(1.0f));
-		material->SetTexture(texture2D);
-		component.Material = material;
+		//auto shader = ResourceLibrary::LoadShaderInner("common");
+		//auto texture2D = ResourceLibrary::LoadTexture2D("cube_texture");
+		//auto material = EulerMaterial::Create();
+		//material->SetShader(shader);
+		//material->SetColor(glm::vec4(1.0f));
+		//material->SetTexture(texture2D);
+		//component.Material = material;
 	}
 	template<>
 	void Scene::OnComponentAdded<NativeScript>(GameObject obj, NativeScript& component) {

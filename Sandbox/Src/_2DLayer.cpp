@@ -15,12 +15,6 @@ void _2DLayer::OnDetach()
 void _2DLayer::OnAttach()
 {
 	EulerEngine::Renderer::Init();
-	m_SpriteSheet = EulerEngine::Texture2D::Create("Assets/mytextures/grass.png");
-	m_Shader = EulerEngine::EulerShader::Create("Shaders/Camera/first_test.glsl");
-	m_Material = EulerEngine::EulerMaterial::Create();
-	m_Material->SetShader(m_Shader);
-	m_Material->SetColor(m_Color);
-	m_Material->SetTexture(m_SpriteSheet);
 }
 
 void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)

@@ -511,6 +511,7 @@
     <ClInclude Include="External\include\glm\vec4.hpp" />
     <ClInclude Include="External\include\glm\vector_relational.hpp" />
     <ClInclude Include="External\include\stb_image\stb_image.h" />
+    <ClInclude Include="Src\Core\EulerBuffer.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
     <ClInclude Include="Src\Core\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
@@ -520,6 +521,7 @@
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
     <ClInclude Include="Src\Core\Events\Event.h" />
     <ClInclude Include="Src\Core\Events\InputEvent.h" />
+    <ClInclude Include="Src\Core\FileSystem.h" />
     <ClInclude Include="Src\Core\Input\EulerInput.h" />
     <ClInclude Include="Src\Core\Input\InputCodes.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayer.h" />
@@ -547,6 +549,8 @@
     <ClInclude Include="Src\Platform\OpenGL\GLVertexArray.h" />
     <ClInclude Include="Src\Platform\Windows\WinInput.h" />
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
+    <ClInclude Include="Src\Project\EulerProject.h" />
+    <ClInclude Include="Src\Project\ProjectSerializer.h" />
     <ClInclude Include="Src\Render\Camera\CameraController.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
@@ -580,6 +584,7 @@
     <ClInclude Include="Src\Test\TestFunc.h" />
     <ClInclude Include="Src\Thread\EulerSynchronize.h" />
     <ClInclude Include="Src\Thread\EulerThread.h" />
+    <ClInclude Include="Src\UI\EulerUI.h" />
     <ClInclude Include="Src\Utils\PlatformUtils.h" />
     <ClInclude Include="Src\World\Component\BoxCollider2D.h" />
     <ClInclude Include="Src\World\Component\CSharpScript.h" />
@@ -607,6 +612,7 @@
     <ClCompile Include="Src\Core\EulerImage.cpp" />
     <ClCompile Include="Src\Core\EulerTimer.cpp" />
     <ClCompile Include="Src\Core\EulerUUID.cpp" />
+    <ClCompile Include="Src\Core\FileSystem.cpp" />
     <ClCompile Include="Src\Core\Input\EulerInput.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayer.cpp" />
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp" />
@@ -628,6 +634,8 @@
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp" />
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
+    <ClCompile Include="Src\Project\EulerProject.cpp" />
+    <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
     <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
     <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
     <ClCompile Include="Src\Render\Context\EulerContext.cpp" />

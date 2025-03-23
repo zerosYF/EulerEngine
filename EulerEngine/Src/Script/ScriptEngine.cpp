@@ -3,35 +3,15 @@
 #include"ScriptEngine.h"
 #include"GutKink/Core.h"
 #include"GutKink/Application.h"
+#include"Core/EulerBuffer.h"
+#include"Core/FileSystem.h"
 namespace EulerEngine {
 	extern ScriptEngineData* s_Data = nullptr;
-	// TODO:be a filesystem method
-	char* ReadBytes(const std::string& filepath, unsigned int* out_size) {
-		std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
-		if (!stream) {
-			return nullptr;
-		}
-		std::streampos end = stream.tellg();
-		stream.seekg(0, std::ios::beg);
-		unsigned int size = end - stream.tellg();
-		if (size == 0) {
-			return nullptr;
-		}
-		char* buffer = new char[size];
-		stream.read((char*)buffer, size);
-		*out_size = size;
-		return buffer;
-	}
 
-	MonoAssembly* LoadMonoAssembly(const std::filesystem::path& filepath) {
-		unsigned int file_size = 0;
-		char* file_data = ReadBytes(filepath.string(), &file_size);
-		if (file_data == nullptr) {
-			return nullptr;
-		}
+	MonoAssembly* LoadMonoAssembly(const std::filesystem::path& filepath, bool load_pdb = false) {
+		ScopedBuffer file_data = FileSystem::ReadFileBinary(filepath.string());
 		MonoImageOpenStatus status;
-		MonoImage* image = mono_image_open_from_data_full(file_data, file_size, true, &status, false);
-		delete[] file_data;
+		MonoImage* image = mono_image_open_from_data_full(file_data.As<char>(), file_data.Size(), true, &status, false);
 		if (status != MONO_IMAGE_OK) {
 			KINK_CORE_ERROR("Could not load assembly: {0}", mono_image_strerror(status));
 			return nullptr;
@@ -41,6 +21,15 @@ namespace EulerEngine {
 			return nullptr;
 		}
 		mono_image_close(image);
+		if (load_pdb) {
+			std::filesystem::path pdb_path = filepath;
+			pdb_path.replace_extension(".pdb");
+			KINK_CORE_INFO("Loading PDB: {0}", pdb_path.string());
+			if (std::filesystem::exists(pdb_path)) {
+				ScopedBuffer pdb_data = FileSystem::ReadFileBinary(pdb_path.string());
+				mono_debug_open_image_from_memory(image, pdb_data.As<const mono_byte>(), pdb_data.Size());
+			}
+		}
 		return assembly;
 	}
 	
@@ -50,7 +39,7 @@ namespace EulerEngine {
 		s_Data->AppDomain = mono_domain_create_appdomain("KinkScriptRuntime", nullptr);
 		mono_domain_set(s_Data->AppDomain, true);
 		s_Data->CoreAssemblyPath = path;
-		s_Data->CoreAssembly = LoadMonoAssembly(path);
+		s_Data->CoreAssembly = LoadMonoAssembly(path, s_Data->EnableDebug);
 		s_Data->CoreImage = mono_assembly_get_image(s_Data->CoreAssembly);
 	}
 
@@ -68,7 +57,7 @@ namespace EulerEngine {
 	{
 		KINK_CORE_TRACE("Loading app assembly: {0}", path.string());
 		s_Data->AppAssemblyPath = path;
-		s_Data->AppAssembly = LoadMonoAssembly(path);
+		s_Data->AppAssembly = LoadMonoAssembly(path, s_Data->EnableDebug);
 		s_Data->AppImage = mono_assembly_get_image(s_Data->AppAssembly);
 
 		s_Data->AppAssemblyWatcher = CreateScope<filewatch::FileWatch<std::string>>(path.string(), OnAppAssemblyFileSystemEvent);
@@ -121,7 +110,7 @@ namespace EulerEngine {
 		InitMono();
 		ScriptGlue::RegisterFunctions();
 		LoadAssembly("Scripts/EulerScript.dll");
-		LoadAppAssembly("Project/Resource/Scripts/Binaries/Sandbox.dll");
+		LoadAppAssembly("Project/Assets/Scripts/Binaries/Sandbox.dll");
 		s_Data->SuperClass = ScriptClass("EulerEngine", "EulerBehaviour", true);
 		LoadAssemblyClasses();
 		ScriptGlue::RegisterComponents();
@@ -228,17 +217,21 @@ namespace EulerEngine {
 	void ScriptEngine::InitMono()
 	{
 		mono_set_assemblies_path("Mono/lib");
+		if (s_Data->EnableDebug) {
+			const char* argv[2] = {
+				"--debugger-agent=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:2550,loglevel=3,logfile= KinkDebug.log",
+				"--soft-breakpoints"
+			};
+			mono_jit_parse_options(2, (char**)argv);
+			mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+		}
 		MonoDomain* root_domain = mono_jit_init("KinkJitRuntime");
 		KINK_CORE_ASSERT(root_domain != nullptr, "Could not initialize mono runtime");
 		s_Data->RootDomain = root_domain;
 		if (s_Data->EnableDebug) {
-			char* argv[2] = {
-				"--debugger-agent=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:56000,loglevel=3,logfile=Logs/KinkDebug.log",
-				"--soft-breakpoints"
-			};
-			mono_jit_parse_options(2, argv);
-			mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+			mono_debug_domain_create(s_Data->RootDomain);
 		}
+		mono_thread_set_main(mono_thread_current());
 	}
 	void ScriptEngine::ShutDownMono()
 	{

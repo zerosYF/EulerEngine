@@ -13,10 +13,6 @@ void TestLayer::OnDetach()
 
 void TestLayer::OnAttach()
 {
-	auto shader = m_ResourceLib.LoadShader("common", "Shaders/Camera/first_test.glsl");
-	auto texture2D = m_ResourceLib.LoadTexture2D("texture1", "Assets/mytextures/container2.png");
-	auto material = m_ResourceLib.LoadMaterial("first");
-	material->SetTexture(texture2D);
 	EulerEngine::Renderer::Init();
 
     EulerEngine::FrameBufferSpecification spec;
@@ -42,14 +38,6 @@ void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
 	{
 		KINK_PROFILE_SCOPE("renderer_draw");
 		EulerEngine::Renderer::BeginScene(m_CameraController.GetCamera());
-
-		for (int i = 0; i < 10; i++) {
-			float angle = 20.0f * i;
-			auto material = m_ResourceLib.GetMaterial("first");
-			material->SetColor(m_Color);
-			auto shader = m_ResourceLib.GetShader("common");
-			EulerEngine::Renderer::DrawCube(m_CubePositions[i], glm::vec3(angle), glm::vec3(0.5f), material, -1);
-		}
 		EulerEngine::Renderer::EndScene();
 	}
 }

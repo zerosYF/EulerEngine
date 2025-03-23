@@ -19,6 +19,11 @@ namespace EulerEngine {
 
 		void OnOverlayRender();
 
+		void NewProject();
+		bool OpenProject();
+		void OpenProject(const std::filesystem::path& path);
+		void SaveProject();
+
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
@@ -65,7 +70,7 @@ namespace EulerEngine {
 		int m_GizmosType = -1;
 
 		HierarchyPanel m_SceneHierarchyPanel;
-		AssetBrowserPanel m_AssetBrowserPanel;
+		Scope<AssetBrowserPanel> m_AssetBrowserPanel;
 		GameObject m_HoveredGameObject;
 
 		enum class SceneState {

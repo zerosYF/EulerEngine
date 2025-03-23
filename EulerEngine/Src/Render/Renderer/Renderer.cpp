@@ -11,8 +11,8 @@ namespace EulerEngine {
 	{
 		RenderCommand::Init();
 
-		m_SceneData->CircleShader = EulerShader::Create("Shaders/Camera/circle.glsl");
-		m_SceneData->LineShader = EulerShader::Create("Shaders/Camera/line.glsl");
+		m_SceneData->CircleShader = ResourceLibrary::LoadShaderInner("Camera/circle.glsl");
+		m_SceneData->LineShader = ResourceLibrary::LoadShaderInner("Camera/line.glsl");
 
 		if (false){
 			m_SceneData->Cube_VA = EulerEngine::VertexArray::Create();

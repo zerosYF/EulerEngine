@@ -1,7 +1,6 @@
 #include"EditorLayer.h"
 #include"ImGuizmo.h"
 namespace EulerEngine {
-    extern const std::filesystem::path g_AssetsPath;
     EditorLayer::EditorLayer() :EulerLayer("EditorLayer"), m_ViewportSize(0, 0), m_EditorCameraController(),m_ViewportBounds()
     {
     }
@@ -29,13 +28,15 @@ namespace EulerEngine {
         m_EditorScene = CreateRef<Scene>();
         m_ActiveScene = m_EditorScene;
 
-        auto shader = ResourceLibrary::GetResourceLibrary()->LoadShader("common", "Shaders/Camera/first_test.glsl");
-        auto texture2D = ResourceLibrary::GetResourceLibrary()->LoadTexture2D("cube_texture", "Assets/mytextures/container2.png");
-
         auto commandArgs = Application::Get().GetSpecification().CmdArgs;
         if (commandArgs.Count > 1) {
-            auto sceneFilePath = commandArgs[1];
-            OpenScene(sceneFilePath);
+            auto projectFilePath = commandArgs[1];
+            OpenProject(projectFilePath);
+        }
+        else {
+            if (!OpenProject()) {
+                Application::Get().Close();
+            }
         }
     }
 
@@ -105,9 +106,6 @@ namespace EulerEngine {
         static bool opt_fullscreen = true;
         static bool opt_padding = false;
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
-
-        // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
-        // because it would be confusing to have two docking targets within each others.
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
         if (opt_fullscreen)
         {
@@ -157,15 +155,18 @@ namespace EulerEngine {
         {
             if (ImGui::BeginMenu("Files"))
             {
-                // Disabling fullscreen would allow the window to be moved to the front of other windows,
-                // which we can't undo at the moment without finer window depth/z control.
-                if (ImGui::MenuItem("New")) {
+                if (ImGui::MenuItem("Open Project")) {
+                    OpenProject();
+                }
+
+                ImGui::Separator();
+                if (ImGui::MenuItem("New Scene")) {
                     NewScene();
                 }
-                if (ImGui::MenuItem("Open...")) {
+                if (ImGui::MenuItem("Open Scene...")) {
                     OpenScene();
                 }
-                if (ImGui::MenuItem("Save as...")) {
+                if (ImGui::MenuItem("Save Scene as...")) {
                     SaveSceneAs();
                 }
                 ImGui::Separator();
@@ -186,7 +187,7 @@ namespace EulerEngine {
         
 
         m_SceneHierarchyPanel.OnImGuiRender();
-        m_AssetBrowserPanel.OnImGuiRender();
+        m_AssetBrowserPanel->OnImGuiRender();
 
         ImGui::Begin("Statistics");
         ImGui::Text("Hovered Object: %s", m_HoveredGameObject? m_HoveredGameObject.GetComponent<Profile>().Tag.c_str() : "None");
@@ -221,7 +222,7 @@ namespace EulerEngine {
         if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
                 const wchar_t* path = (const wchar_t*)payload->Data;
-                OpenScene(std::filesystem::path(g_AssetsPath) / path);
+                OpenScene(path);
             }
             ImGui::EndDragDropTarget();
         }
@@ -371,6 +372,35 @@ namespace EulerEngine {
             }
         }
         Renderer::EndScene();
+    }
+    void EditorLayer::NewProject()
+    {
+        Project::New();
+    }
+    bool EditorLayer::OpenProject()
+    {
+        std::string filepath = FileDialogs::OpenFile("Euler Project(*.kproj)\0*.kproj\0");
+        if (!filepath.empty()) {
+            OpenProject();
+            return true;
+        }
+        return false;
+    }
+    void EditorLayer::OpenProject(const std::filesystem::path& path)
+    {
+        if (Project::Load(path)) {
+            auto start_scene_path = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().m_StartScene);
+            KINK_CORE_WARN("SCENE LOAD: {0}", start_scene_path.string());
+            OpenScene(start_scene_path);
+            m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>();
+        }
+        else {
+            KINK_CORE_WARN("SCENE LOAD FAILED...");
+        }
+    }
+    void EditorLayer::SaveProject()
+    {
+
     }
     void EditorLayer::NewScene()
     {
