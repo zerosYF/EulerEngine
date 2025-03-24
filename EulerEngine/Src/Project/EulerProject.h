@@ -18,7 +18,7 @@ namespace EulerEngine {
 		static const std::filesystem::path& GetActiveProjectDir() {
 			return s_ActiveProject->m_ActiveProjectDir;
 		}
-		static std::filesystem::path GetAssetFileSystemPath(const std::filesystem::path& path) {
+		static std::filesystem::path GetPath(const std::filesystem::path& path) {
 			return GetActiveProjectDir() / GetAssetDir() / path;
 		}
 		ProjectConfig& GetConfig() { 

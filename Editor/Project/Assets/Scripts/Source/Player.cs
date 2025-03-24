@@ -10,7 +10,7 @@ namespace Sandbox {
             rb = gameObject.GetComponent<Rigidbody2D>();
             speed = 100.0f;
         }
-        void OnUpdate(float ts) {
+        void OnUpdate() {
             if (rb == null) {
                 return;
             }

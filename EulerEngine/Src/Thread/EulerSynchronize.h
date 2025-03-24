@@ -3,13 +3,11 @@ namespace EulerEngine {
 	class EulerCriticalSection {
 	public:
 		CRITICAL_SECTION section;
-		//�ٽ���
 		EulerCriticalSection(void);
 		~EulerCriticalSection(void);
 		void Enter(void);
 		void Leave(void);
 	};
-	//�ź�����
 	class EulerSemaphore {
 	protected:
 		HANDLE semaphore;
@@ -23,7 +21,6 @@ namespace EulerEngine {
 			return semaphore;
 		}
 	};
-	//��������
 	class EulerMutex {
 	protected:
 		HANDLE mutex;

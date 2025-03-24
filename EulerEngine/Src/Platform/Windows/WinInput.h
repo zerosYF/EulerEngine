@@ -1,5 +1,5 @@
 #pragma once
-#include"../../Core/Input/EulerInput.h"
+#include"Core/IO/EulerInput.h"
 namespace EulerEngine {
 	class WinInput :public InputSystem {
 	protected:

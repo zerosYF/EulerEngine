@@ -1260,16 +1260,16 @@
     <ClInclude Include="Src\Core\EulerDelegate.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerImage.h">
+    <ClInclude Include="Src\Data\EulerImage.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerInstrumentor.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerTimer.h">
+    <ClInclude Include="Src\Core\Global\EulerTimer.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerUUID.h">
+    <ClInclude Include="Src\Core\Global\EulerUUID.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerWindow.h">
@@ -1281,13 +1281,13 @@
     <ClInclude Include="Src\Core\Events\Event.h">
       <Filter>Src\Core\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Events\InputEvent.h">
+    <ClInclude Include="Src\Core\Events\MouseEvent.h">
       <Filter>Src\Core\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Input\EulerInput.h">
+    <ClInclude Include="Src\Core\IO\EulerInput.h">
       <Filter>Src\Core\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Input\InputCodes.h">
+    <ClInclude Include="Src\Core\IO\EulerInputCodes.h">
       <Filter>Src\Core\Input</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Layer\EulerLayer.h">
@@ -1393,9 +1393,6 @@
       <Filter>Src\Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLLight.h">
-      <Filter>Src\Render\GLObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLRenderObject.h">
       <Filter>Src\Render\GLObjects</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
@@ -1524,11 +1521,12 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\EulerBuffer.h" />
-    <ClInclude Include="Src\Core\FileSystem.h" />
+    <ClInclude Include="Src\Core\Memory\EulerBuffer.h" />
+    <ClInclude Include="Src\Core\IO\FileSystem.h" />
     <ClInclude Include="Src\Project\EulerProject.h" />
     <ClInclude Include="Src\Project\ProjectSerializer.h" />
     <ClInclude Include="Src\UI\EulerUI.h" />
+    <ClInclude Include="Src\Core\Events\KeyboardEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1537,20 +1535,14 @@
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
       <Filter>External\include\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerImage.cpp">
+    <ClCompile Include="Src\Data\EulerImage.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerTimer.cpp">
+    <ClCompile Include="Src\Core\Global\EulerTimer.cpp">
       <Filter>Src\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\EulerUUID.cpp">
+    <ClCompile Include="Src\Core\Global\EulerUUID.cpp">
       <Filter>Src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\Input\EulerInput.cpp">
-      <Filter>Src\Core\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Core\Layer\EulerLayer.cpp">
-      <Filter>Src\Core\Layer</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp">
       <Filter>Src\Core\Layer</Filter>
@@ -1603,7 +1595,7 @@
     <ClCompile Include="Src\Platform\Windows\WinInput.cpp">
       <Filter>Src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Platform\Windows\WinPlatformUtils.cpp">
+    <ClCompile Include="Src\Platform\Windows\WinUtils.cpp">
       <Filter>Src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
@@ -1634,9 +1626,6 @@
       <Filter>Src\Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
-      <Filter>Src\Render\GLObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\GLObjects\GLRenderObject.cpp">
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp">
@@ -1684,9 +1673,6 @@
     <ClCompile Include="Src\Thread\EulerThread.cpp">
       <Filter>Src\Thread</Filter>
     </ClCompile>
-    <ClCompile Include="Src\World\EulerObject.cpp">
-      <Filter>Src\World</Filter>
-    </ClCompile>
     <ClCompile Include="Src\World\EulerScene.cpp">
       <Filter>Src\World</Filter>
     </ClCompile>
@@ -1699,7 +1685,7 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\FileSystem.cpp" />
+    <ClCompile Include="Src\Core\IO\FileSystem.cpp" />
     <ClCompile Include="Src\Project\EulerProject.cpp" />
     <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
   </ItemGroup>

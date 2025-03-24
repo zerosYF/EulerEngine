@@ -1,7 +1,7 @@
 #pragma once
 #include"entt/entt.hpp"
-#include"Core/EulerTimer.h"
-#include"Core/EulerUUID.h"
+#include"Core/Global/EulerTimer.h"
+#include"Core/Global/EulerUUID.h"
 #include"Render/Camera/EulerCamera.h"
 #include"world.h"
 #include"body.h"
@@ -26,9 +26,9 @@ namespace EulerEngine {
 		void OnSimulationStart();
 		void OnSimulationStop();
 
-		void OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera);
-		void OnUpdateRuntime(TimerSystem ts);
-		void OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera);
+		void OnUpdateEditor(EulerCamera& editorCamera);
+		void OnUpdateRuntime();
+		void OnUpdateSimulation(EulerCamera& editorCamera);
 
 		void OnViewportResize(int width, int height);
 		GameObject GetGameObject(uint64_t UUID);
@@ -51,7 +51,15 @@ namespace EulerEngine {
 		void OnPhysics2DStart(); 
 		void OnPhysics2DStop();
 		void OnRenderScene(EulerCamera& camera);
-		void OnPhysics2DUpdate(TimerSystem ts);
+		void OnPhysics2DUpdate();
+
+		void OnNativeScriptStart();
+		void OnNativeScriptStop();
+		void OnNativeScriptUpdate();
+
+		void OnCSharpScriptStart();
+		void OnCSharpScriptStop();
+		void OnCSharpScriptUpdate();
 	private:
 		entt::registry m_Registry;
 		unsigned int m_ViewportWidth = 1200;

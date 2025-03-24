@@ -114,22 +114,14 @@ namespace EulerEngine {
 	{
 		m_IsRunning = true;
 		OnPhysics2DStart();
-		ScriptEngine::OnRuntimeStart(this);
-		auto view = m_Registry.view<CSharpScript>();
-		for (auto e : view) {
-			GameObject obj = {e, this};
-			ScriptEngine::OnCreateGameObject(obj);
-		}
+		OnCSharpScriptStart();
+		OnNativeScriptStart();
 	}
 	void Scene::OnRuntimeStop()
 	{
 		OnPhysics2DStop();
-		auto view = m_Registry.view<CSharpScript>();
-		for (auto e : view) {
-			GameObject obj = { e, this };
-			ScriptEngine::OnDestroyGameObject(obj);
-		}
-		ScriptEngine::OnRuntimeStop();
+		OnCSharpScriptStop();
+		OnNativeScriptStop();
 		m_IsRunning = false;
 	}
 	void Scene::OnSimulationStart()
@@ -140,28 +132,12 @@ namespace EulerEngine {
 	{
 		OnPhysics2DStop();
 	}
-	void Scene::OnUpdateRuntime(TimerSystem ts)
+	void Scene::OnUpdateRuntime()
 	{
 		if (!m_IsPaused || m_StepFrame-- > 0) {
-			{
-				auto view = m_Registry.view<CSharpScript>();
-				for (auto e : view) {
-					GameObject obj = { e, this };
-					ScriptEngine::OnUpdateGameObject(obj, ts.GetDeltaTime());
-				}
-			}
-			{
-				m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
-					if (nsc.Instance == nullptr) {
-						nsc.Instance = nsc.InstantiateScript();
-						nsc.Instance->m_gameObject = GameObject{ entity, this };
-						nsc.Instance->OnCreate();
-					}
-					nsc.Instance->OnUpdate(ts);
-
-				});
-			}
-			OnPhysics2DUpdate(ts);
+			OnCSharpScriptUpdate();
+			OnNativeScriptUpdate();
+			OnPhysics2DUpdate();
 		}
 
 		EulerCamera* mainCamera = nullptr;
@@ -179,14 +155,14 @@ namespace EulerEngine {
 			OnRenderScene(*mainCamera);
 		}
 	}
-	void Scene::OnUpdateSimulation(TimerSystem ts, EulerCamera& editorCamera)
+	void Scene::OnUpdateSimulation(EulerCamera& editorCamera)
 	{
 		if (!m_IsPaused || m_StepFrame-- > 0) {
-			OnPhysics2DUpdate(ts);
+			OnPhysics2DUpdate();
 		}
 		OnRenderScene(editorCamera);
 	}
-	void Scene::OnUpdateEditor(TimerSystem ts, EulerCamera& editorCamera)
+	void Scene::OnUpdateEditor(EulerCamera& editorCamera)
 	{
 		OnRenderScene(editorCamera);
 	}
@@ -309,10 +285,10 @@ namespace EulerEngine {
 		Renderer::EndScene();
 	}
 
-	void Scene::OnPhysics2DUpdate(TimerSystem ts)
+	void Scene::OnPhysics2DUpdate()
 	{
 		const int subSteps = 4;
-		b2World_Step(m_PhysicsWorld, ts.GetDeltaTime(), subSteps);
+		b2World_Step(m_PhysicsWorld, TimerSystem::GetDeltaTime(), subSteps);
 		auto view = m_Registry.view<Rigidbody2D>();
 		for (auto e : view) {
 			GameObject obj = { e, this };
@@ -323,6 +299,64 @@ namespace EulerEngine {
 			transform.Position = glm::vec3(position.x, position.y, transform.Position.z);
 			const auto& rotation = b2Body_GetRotation(runtime_body);
 			transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
+		}
+	}
+
+	void Scene::OnNativeScriptStart()
+	{
+		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
+			if (nsc.Instance == nullptr) {
+				nsc.Instance = nsc.InstantiateScript();
+				nsc.Instance->m_gameObject = GameObject{ entity, this };
+				nsc.Instance->OnCreate();
+			}
+		});
+	}
+
+	void Scene::OnNativeScriptStop()
+	{
+		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
+			if (nsc.Instance == nullptr) {
+				nsc.Instance->OnDestroy();
+			}
+		});
+	}
+
+	void Scene::OnNativeScriptUpdate()
+	{
+		m_Registry.view<NativeScript>().each([=](auto entity, auto& nsc) {
+			if (nsc.Instance == nullptr) {
+				nsc.Instance->OnUpdate();
+			}
+		});
+	}
+
+	void Scene::OnCSharpScriptStart()
+	{
+		ScriptEngine::OnRuntimeStart(this);
+		auto view = m_Registry.view<CSharpScript>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			ScriptEngine::OnCreateGameObject(obj);
+		}
+	}
+
+	void Scene::OnCSharpScriptStop()
+	{
+		auto view = m_Registry.view<CSharpScript>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			ScriptEngine::OnDestroyGameObject(obj);
+		}
+		ScriptEngine::OnRuntimeStop();
+	}
+
+	void Scene::OnCSharpScriptUpdate()
+	{
+		auto view = m_Registry.view<CSharpScript>();
+		for (auto e : view) {
+			GameObject obj = { e, this };
+			ScriptEngine::OnUpdateGameObject(obj);
 		}
 	}
 

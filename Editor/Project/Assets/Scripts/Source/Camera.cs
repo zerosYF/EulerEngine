@@ -10,7 +10,7 @@ namespace Sandbox {
             transform.position = new Vector3(transform.position.XY, DistanceFromPlayer);
             another = GameObject.FindGameObjectByName("Circle");
         }
-        void OnUpdate(float ts)
+        void OnUpdate()
         {
             Console.WriteLine("Camera OnUpdate called:" + this.gameObject.uuid);
             transform.position = new Vector3(another.transform.position.XY, DistanceFromPlayer + 10.0f);

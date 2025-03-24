@@ -6,7 +6,8 @@
 #include"mono/metadata/reflection.h"
 #include"glm/glm.hpp"
 #include"GutKink/Core.h"
-#include"Core/Input/EulerInput.h"
+#include"Core/IO/EulerInput.h"
+#include"Core/Global/EulerTimer.h"
 #define KINK_ADD_INTERNAL_CALL(Name) mono_add_internal_call("EulerEngine.InternalCalls::"#Name, Name) 
 namespace EulerEngine {
     static std::unordered_map<MonoType*, std::function<bool(GameObject)>> s_HasComponentFuncs;
@@ -58,6 +59,9 @@ namespace EulerEngine {
     static bool IsKeyDown(int key) {
         return InputSystem::IsKeyDown(key);
     }
+    static float GetDeltaTime() {
+        return TimerSystem::GetDeltaTime();
+    }
     void ScriptGlue::RegisterFunctions()
     {
         KINK_CORE_TRACE("Registering internal calls");
@@ -68,6 +72,7 @@ namespace EulerEngine {
         KINK_ADD_INTERNAL_CALL(Transform_SetPosition);
         KINK_ADD_INTERNAL_CALL(Rigidbody2D_ApplyLinearImpulse);
         KINK_ADD_INTERNAL_CALL(Rigidbody2D_ApplyAngularImpulse);
+        KINK_ADD_INTERNAL_CALL(GetDeltaTime);
         KINK_ADD_INTERNAL_CALL(IsKeyDown);
     }
     template <typename ... Component>

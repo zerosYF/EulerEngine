@@ -1,5 +1,5 @@
 #pragma once
-#include"../../Core/Reflection/ClassRegister.h"
+#include"Core/Reflection/ClassRegister.h"
 #include<iostream>
 namespace EulerEngine {
 	class A :public Object {
@@ -28,15 +28,4 @@ namespace EulerEngine {
 	REGISTER_FIELD(A,ss,string);
 	REGISTER_FIELD(A,a,int);
 	REGISTER_METHOD(A, f1);
-
-	void test() {
-		ClassFactory *factory = Singleton<ClassFactory>::Instance();
-		Object *a = factory->create_class("A");
-		std::string name = a->getClassName();
-		std::cout << name << std::endl;
-		//a->set("ss","fuck you");
-		a->call("f1");
-		a->call("show");
-		system("pause");
-	}
 }

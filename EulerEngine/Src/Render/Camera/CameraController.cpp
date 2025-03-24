@@ -1,9 +1,9 @@
 #include"gkpch.h"
 #include"CameraController.h"
-#include"Core/Input/EulerInput.h"
+#include"Core/IO/EulerInput.h"
 #include"Core/Logs/EulerLog.h"
 namespace EulerEngine{
-	void CameraController::OnUpdate(TimerSystem ts)
+	void CameraController::OnUpdate()
 	{
 		if (InputSystem::IsKeyDown(KINK_KEY_LEFT_ALT)) {
 			const glm::vec2& mouse{ InputSystem::GetCursorPosition().first, InputSystem::GetCursorPosition().second };
@@ -12,7 +12,6 @@ namespace EulerEngine{
 
 			if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_MIDDLE)) {
 				Pan(delta);
-				//KINK_CORE_INFO("PAN:{0}, {1}, {2}", m_CameraPosition.x, m_CameraPosition.y, m_CameraPosition.z);
 			}
 			else if (InputSystem::IsMouseBtnDown(KINK_MOUSE_BUTTON_LEFT)) {
 				Rotate(delta);

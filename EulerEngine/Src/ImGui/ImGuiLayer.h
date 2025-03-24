@@ -1,7 +1,8 @@
 #pragma once
-#include "../Core/Layer/EulerLayer.h"
-#include "../Core/Events/InputEvent.h"
-#include "../Core/Events/ApplicationEvent.h"
+#include "Core/Layer/EulerLayer.h"
+#include "Core/Events/KeyboardEvent.h"
+#include "Core/Events/MouseEvent.h"
+#include "Core/Events/ApplicationEvent.h"
 namespace EulerEngine {
 	class KINK_API ImGuiLayer :public EulerLayer {
 	public:

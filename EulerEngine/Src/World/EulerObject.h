@@ -3,12 +3,13 @@
 #include"entt/entt.hpp"
 #include"GutKink/Core.h"
 #include"EulerScene.h"
-#include"Core/EulerUUID.h"
+#include"Core/Global/EulerUUID.h"
 namespace EulerEngine {
 	class GameObject{
 	public:
 		GameObject() = default;
-		GameObject(entt::entity entity, Scene* scene);
+		GameObject(entt::entity entity, Scene* scene) :m_Entity(entity), m_Scene(scene) {
+		}
 		GameObject(const GameObject& other) = default;
 
 		template<typename T, typename... Args>

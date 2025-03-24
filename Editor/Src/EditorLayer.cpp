@@ -40,7 +40,7 @@ namespace EulerEngine {
         }
     }
 
-    void EditorLayer::OnUpdate(TimerSystem ts)
+    void EditorLayer::OnUpdate()
     {
         FrameBufferSpecification spec = m_FrameBuffer->GetSpecifications();
         if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y)) {
@@ -61,14 +61,14 @@ namespace EulerEngine {
             switch (m_SceneState) {
             case SceneState::Edit:
                 if (m_ViewportFocused || m_ViewportHovered)
-                    m_EditorCameraController.OnUpdate(ts);
-                m_ActiveScene->OnUpdateEditor(ts, m_EditorCameraController.GetCamera());
+                    m_EditorCameraController.OnUpdate();
+                m_ActiveScene->OnUpdateEditor(m_EditorCameraController.GetCamera());
                 break;
             case SceneState::Play:
-                m_ActiveScene->OnUpdateRuntime(ts);
+                m_ActiveScene->OnUpdateRuntime();
                 break;
             case SceneState::Simulate:
-                m_ActiveScene->OnUpdateSimulation(ts, m_EditorCameraController.GetCamera());
+                m_ActiveScene->OnUpdateSimulation(m_EditorCameraController.GetCamera());
                 break;
             }
         }
@@ -389,7 +389,7 @@ namespace EulerEngine {
     void EditorLayer::OpenProject(const std::filesystem::path& path)
     {
         if (Project::Load(path)) {
-            auto start_scene_path = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().m_StartScene);
+            auto start_scene_path = Project::GetPath(Project::GetActive()->GetConfig().m_StartScene);
             KINK_CORE_WARN("SCENE LOAD: {0}", start_scene_path.string());
             OpenScene(start_scene_path);
             m_AssetBrowserPanel = CreateScope<AssetBrowserPanel>();

@@ -4,7 +4,7 @@
 #include"Platform/OpenGL/GLShader.h"
 #include"Core/Logs/EulerLog.h"
 #include"Resource/ResourceLibrary.h"
-#include <glm/gtx/quaternion.hpp>
+#include<glm/gtx/quaternion.hpp>
 namespace EulerEngine {
 	Scope<Renderer::SceneData> Renderer::m_SceneData = CreateScope<Renderer::SceneData>();
 	void Renderer::Init()

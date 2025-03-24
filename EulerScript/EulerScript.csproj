@@ -21,7 +21,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -33,7 +34,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -45,7 +47,8 @@
     <OutputPath>..\Editor\Scripts\</OutputPath>
     <BaseIntermediateOutputPath>..\Editor\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -60,6 +63,7 @@
     <Compile Include="Source\EulerEngine\EulerBehaviour.cs" />
     <Compile Include="Source\EulerEngine\EulerData.cs" />
     <Compile Include="Source\EulerEngine\EulerInput.cs" />
+    <Compile Include="Source\EulerEngine\EulerTime.cs" />
     <Compile Include="Source\EulerEngine\GameObject.cs" />
     <Compile Include="Source\EulerEngine\InternalCalls.cs" />
   </ItemGroup>

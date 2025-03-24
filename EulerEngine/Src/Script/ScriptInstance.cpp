@@ -7,7 +7,7 @@ namespace EulerEngine {
 		m_Instance = m_Cls->Instantiate();
 		m_Constructor = ScriptEngine::GetSuperClass().GetMethod(".ctor", 1);
 		m_OnCreate = m_Cls->GetMethod("OnCreate", 0);
-		m_OnUpdate = m_Cls->GetMethod("OnUpdate", 1);
+		m_OnUpdate = m_Cls->GetMethod("OnUpdate", 0);
 		m_OnDestroy = m_Cls->GetMethod("OnDestroy", 0);
 		{
 			uint64_t uuid = obj.GetUUID();
@@ -22,13 +22,12 @@ namespace EulerEngine {
 		}
 		m_Cls->InvokeMethod(m_Instance, m_OnCreate, nullptr);
 	}
-	void ScriptInstance::InvokeOnUpdate(float ts)
+	void ScriptInstance::InvokeOnUpdate()
 	{
 		if (m_OnUpdate == nullptr) {
 			return;
 		}
-		void* param = &ts;
-		m_Cls->InvokeMethod(m_Instance, m_OnUpdate, &param);
+		m_Cls->InvokeMethod(m_Instance, m_OnUpdate, nullptr);
 	}
 	void ScriptInstance::InvokeOnDestroy()
 	{

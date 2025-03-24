@@ -6,7 +6,7 @@ public:
 	virtual ~TestLayer() = default;
 	virtual void OnDetach() override;
 	virtual void OnAttach() override;
-	virtual void OnUpdate(EulerEngine::TimerSystem ts) override;
+	virtual void OnUpdate() override;
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(EulerEngine::Event& e) override;
 private:

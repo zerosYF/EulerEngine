@@ -1,14 +1,14 @@
 #pragma once
 #include"Core/Events/Event.h"
-#include"Core/Events/InputEvent.h"
+#include"Core/Events/KeyboardEvent.h"
+#include"Core/Events/MouseEvent.h"
 #include"Core/Events/ApplicationEvent.h"
-#include"Core/EulerTimer.h"
 #include"EulerCamera.h"
 namespace EulerEngine {
 	class CameraController {
 	public:
 		CameraController() = default;
-		void OnUpdate(TimerSystem ts);
+		void OnUpdate();
 		void OnEvent(Event& e);
 		void OnResize(float width, float height);
 		EulerCamera& GetCamera() { return m_Camera; }

@@ -1,5 +1,5 @@
 #pragma once
-#include"Core/EulerUUID.h"
+#include"Core/Global/EulerUUID.h"
 namespace EulerEngine{
 	struct IDCom {
 		EulerUUID ID;

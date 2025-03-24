@@ -17,15 +17,14 @@ void _2DLayer::OnAttach()
 	EulerEngine::Renderer::Init();
 }
 
-void _2DLayer::OnUpdate(EulerEngine::TimerSystem ts)
+void _2DLayer::OnUpdate()
 {
-	m_OrthoCameraController.OnUpdate(ts);
+	m_OrthoCameraController.OnUpdate();
 
 	EulerEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.3f, 1.0f });
 	EulerEngine::RenderCommand::Clear();
 
 	EulerEngine::Renderer::BeginScene(m_OrthoCameraController.GetCamera());
-	EulerEngine::Renderer::DrawQuad({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, { 1.0f, 1.0f, 1.0f }, m_Material, -1);
 	EulerEngine::Renderer::EndScene();
 }
 

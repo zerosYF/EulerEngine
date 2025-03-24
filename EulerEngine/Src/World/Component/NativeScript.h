@@ -1,6 +1,5 @@
 #pragma once
 #include"glm/glm.hpp"
-#include"Core/EulerTimer.h"
 namespace EulerEngine {
 	// Forward declaration
 	class EulerBehaviour;

@@ -21,12 +21,12 @@ void TestLayer::OnAttach()
     m_FrameBuffer = EulerEngine::FrameBuffer::Create(spec);
 }
 
-void TestLayer::OnUpdate(EulerEngine::TimerSystem ts)
+void TestLayer::OnUpdate()
 {
 	KINK_PROFILE_FUNCTION();
 	{
 		KINK_PROFILE_SCOPE("camera_controller");
-		m_CameraController.OnUpdate(ts);
+		m_CameraController.OnUpdate();
 	}
 	EulerEngine::Renderer::ResetStatistic();
 	{

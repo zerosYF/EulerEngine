@@ -1,11 +1,9 @@
-#include "gkpch.h"
-#include "WinInput.h"
-#include "GutKink\Application.h"
+#include"gkpch.h"
+#include"WinInput.h"
+#include"GutKink/Application.h"
 #include<GLFW/glfw3.h>
 namespace EulerEngine {
-
 	InputSystem* InputSystem::s_Instance = new WinInput();
-
 	bool WinInput::I_IsKeyDown(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

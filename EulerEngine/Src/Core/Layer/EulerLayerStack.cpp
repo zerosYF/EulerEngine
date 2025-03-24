@@ -1,8 +1,6 @@
 ﻿#include "gkpch.h"
 #include "EulerLayerStack.h"
 namespace EulerEngine {
-	EulerLayerStack::EulerLayerStack() {
-	}
 	EulerLayerStack::~EulerLayerStack() {
 		for (EulerLayer* layer: m_Layers) {
 			layer->OnDetach();

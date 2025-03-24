@@ -7,7 +7,7 @@
 #include"mono/metadata/threads.h"
 #include"ScriptClass.h"
 #include"ScriptInstance.h"
-#include"GutKink/Core.h"
+#include"Core/Global/EulerUUID.h"
 #include"World/EulerScene.h"
 #include"World/EulerObject.h"
 #include"filewatch/filewatch.h"
@@ -62,7 +62,7 @@ namespace EulerEngine {
 		static MonoImage* GetCoreImage() { return GetData()->CoreImage; }
 
 		static void OnCreateGameObject(GameObject obj);
-		static void OnUpdateGameObject(GameObject obj, float ts);
+		static void OnUpdateGameObject(GameObject obj);
 		static void OnDestroyGameObject(GameObject obj);
 		static Ref<ScriptInstance> GetScriptFromGameObject(EulerUUID uuid);
 		static MonoObject* GetManagedInstance(uint64_t uuid);

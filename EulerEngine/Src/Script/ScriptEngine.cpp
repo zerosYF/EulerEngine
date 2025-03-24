@@ -3,8 +3,8 @@
 #include"ScriptEngine.h"
 #include"GutKink/Core.h"
 #include"GutKink/Application.h"
-#include"Core/EulerBuffer.h"
-#include"Core/FileSystem.h"
+#include"Core/Memory/EulerBuffer.h"
+#include"Core/IO/FileSystem.h"
 namespace EulerEngine {
 	extern ScriptEngineData* s_Data = nullptr;
 
@@ -165,11 +165,11 @@ namespace EulerEngine {
 			instance->InvokeOnCreate();
 		}
 	}
-	void ScriptEngine::OnUpdateGameObject(GameObject obj, float ts)
+	void ScriptEngine::OnUpdateGameObject(GameObject obj)
 	{
 		KINK_CORE_ASSERT(s_Data->GameObjectInstances.find(obj.GetUUID()) != s_Data->GameObjectInstances.end(), "GameObject instance not found");
 		Ref<ScriptInstance> instance = s_Data->GameObjectInstances[obj.GetUUID()];
-		instance->InvokeOnUpdate(ts);
+		instance->InvokeOnUpdate();
 	}
 	void ScriptEngine::OnDestroyGameObject(GameObject obj)
 	{

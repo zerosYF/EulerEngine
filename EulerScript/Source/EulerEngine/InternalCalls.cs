@@ -23,7 +23,8 @@ namespace EulerEngine {
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal extern static object GameObject_GetScriptInstance(ulong uuid);
 
-
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal extern static float GetDeltaTime();
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal extern static bool IsKeyDown(KeyCode key);
     }

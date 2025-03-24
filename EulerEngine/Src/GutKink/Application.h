@@ -8,7 +8,6 @@
 #include"Render/EulerShader.h"
 #include"Render/EulerBuffer.h"
 #include"Render/VertexArray.h"
-#include"Core/EulerTimer.h"
 #include<mutex>
 namespace EulerEngine {
 	struct ApplicationCommandLineArgs {
@@ -50,7 +49,6 @@ namespace EulerEngine {
 		bool m_Running = true;
 		EulerLayerStack m_LayerStack;
 		static Application* s_Instance;
-		TimerSystem m_Timer;
 		std::vector<std::function<void()>> m_MainThreadQueue;
 		std::mutex m_MainThreadQueueMutex;
 	};

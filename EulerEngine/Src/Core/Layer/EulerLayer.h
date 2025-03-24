@@ -1,17 +1,19 @@
 #pragma once
 #include "GutKink/Core.h"
 #include "Core/Events/Event.h"
-#include "Core/EulerTimer.h"
 namespace EulerEngine {
 	class KINK_API EulerLayer
 	{
 	public:
-		EulerLayer(const std::string& name = "Layer");
-		virtual ~EulerLayer();
+		EulerLayer() = default;
+		EulerLayer(const std::string& name = "Layer") :m_Name(name) {
+
+		}
+		virtual ~EulerLayer() = default;
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate(TimerSystem timer) {}
+		virtual void OnUpdate() {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

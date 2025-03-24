@@ -4,7 +4,7 @@
 #include<glad/glad.h>
 #include<filesystem>
 #include"Core/Logs/EulerLog.h"
-#include"Core/EulerTimer.h"
+#include"Core/IO/FileSystem.h"
 namespace EulerEngine {
 	static GLenum ShaderTypeFromString(std::string& type) {
 		if (type == "vertex") return GL_VERTEX_SHADER;
@@ -20,21 +20,6 @@ namespace EulerEngine {
 		if (!std::filesystem::exists(cacheDir)) {
 			std::filesystem::create_directory(cacheDir);
 		}
-	}
-	static std::string ReadFile(std::string path) {
-		std::ifstream ShaderFile;
-		ShaderFile.exceptions(std::ifstream::badbit | std::ifstream::failbit);
-		try {
-			ShaderFile.open(path);
-			std::stringstream ShaderStream;
-			ShaderStream << ShaderFile.rdbuf();
-			std::string shaderSource = ShaderStream.str();
-			return shaderSource;
-		}
-		catch (std::ifstream::failure e) {
-			KINK_CORE_ERROR("read file error: {0}", std::string(e.what()));
-		}
-		return std::string();
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc) {
@@ -59,11 +44,12 @@ namespace EulerEngine {
 	OpenGLShader::OpenGLShader(const std::string & path):m_Path(path)
 	{
 		//CreateCacheDirectoryIfNeeded();
-		std::string shaderSource = ReadFile(path);
-		unsigned int vertexShader;
-		unsigned int fragmentShader;
+		std::string shaderSource = FileSystem::ReadFileText(path);
+		unsigned int vertexShader = 0;
+		unsigned int fragmentShader = 0;
 		auto shaders = PreProcess(shaderSource);
-		GetFileName(path);
+		std::string fileName = FileSystem::GetFileName(path);
+		KINK_CORE_INFO("SHADER NAME: {0}", fileName);
 
 		for (auto& kv : shaders) {
 			GLenum type = kv.first;
@@ -149,14 +135,6 @@ namespace EulerEngine {
 				glDeleteProgram(object);
 			}
 		}
-	}
-	std::string OpenGLShader::GetFileName(const std::string & path)
-	{
-		auto lastSlash = path.find_last_of("/\\");
-		lastSlash = lastSlash == path.npos ? 0 : lastSlash + 1;
-		auto lastDot = path.rfind('.');
-		auto count = lastDot == path.npos ? path.size() - lastSlash : lastDot - lastSlash;
-		return path.substr(lastSlash, count);
 	}
 	void OpenGLShader::Bind() const {
 		glUseProgram(m_RendererID);

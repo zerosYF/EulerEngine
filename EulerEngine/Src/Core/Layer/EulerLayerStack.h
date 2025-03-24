@@ -1,12 +1,12 @@
 #pragma once
-#include "../../GutKink/Core.h"
-#include "EulerLayer.h"
+#include"Core.h"
+#include"EulerLayer.h"
 #include<vector>
 namespace EulerEngine {
 	class EulerLayerStack
 	{
 	public:
-		EulerLayerStack();
+		EulerLayerStack() = default;
 		~EulerLayerStack();
 
 		void PushLayer(EulerLayer* layer);

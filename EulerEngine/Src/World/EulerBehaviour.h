@@ -11,7 +11,7 @@ namespace EulerEngine {
 	protected:
 		virtual void OnCreate() {}
 		virtual void OnDestroy() {}
-		virtual void OnUpdate(TimerSystem ts) {}
+		virtual void OnUpdate() {}
 	private:
 		GameObject m_gameObject;
 		friend class Scene;

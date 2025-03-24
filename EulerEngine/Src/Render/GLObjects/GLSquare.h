@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include"GLRenderObject.h"
 #include<iostream>
 namespace EulerEngine {
 	/*class Square :public RenderObject{

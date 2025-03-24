@@ -2,11 +2,12 @@
 #include"Application.h"
 #include"Core/Logs/EulerLog.h"
 #include"Core/Events/Event.h"
-#include"Core/Input/EulerInput.h"
+#include"Core/IO/EulerInput.h"
 #include<GLFW/glfw3.h>
 #include<backends/imgui_impl_opengl3_loader.h>
 #include"Render/Renderer/Renderer.h"
 #include"Script/ScriptEngine.h"
+#include"Core/Global/EulerTimer.h"
 namespace EulerEngine {
 	Application* Application::s_Instance = nullptr;
 	Application::Application(const ApplicationSpecification& spec):m_Specification(spec)
@@ -19,13 +20,11 @@ namespace EulerEngine {
 			std::filesystem::current_path(m_Specification.WorkingDir);
 		}
 
-		//Renderer::Init();
+		Renderer::Init();
 		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
-		m_Timer = TimerSystem();
 	}
 
 	Application::~Application()
@@ -34,19 +33,17 @@ namespace EulerEngine {
 	}
 	void Application :: Run() {
 		while (m_Running) {
-			m_Timer.Tick();
+			TimerSystem::Tick();
 			ExecuteMainthreadQueue();   
 			for (EulerLayer* layer : m_LayerStack) {
-				layer->OnUpdate(m_Timer);
+				layer->OnUpdate();
 			}
 			m_ImGuiLayer->Begin();
 			for (EulerLayer* layer : m_LayerStack) {
 				layer->OnImGuiRender();
 			}
 			m_ImGuiLayer->End();
-
 			m_Window->OnUpdate();
-			auto [x, y] = InputSystem::GetCursorPosition();
 		}
 	}
 	void Application::Close() {

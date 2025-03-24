@@ -10,7 +10,7 @@ namespace EulerEngine {
 	public:
 		ScriptInstance(Ref<ScriptClass> cls, GameObject obj);
 		void InvokeOnCreate();
-		void InvokeOnUpdate(float ts);
+		void InvokeOnUpdate();
 		void InvokeOnDestroy();
 		Ref<ScriptClass> GetClass() { return m_Cls; }
 		template<typename T>

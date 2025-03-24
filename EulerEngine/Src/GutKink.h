@@ -1,10 +1,10 @@
 #pragma once
 #include"GutKink/Application.h"
-#include"Core/Input/EulerInput.h"
-#include"Core/Input/InputCodes.h"
+#include"Core/IO/EulerInput.h"
+#include"Core/IO/EulerInputCodes.h"
 #include"Core/Layer/EulerLayer.h"
 #include"Core/Logs/EulerLog.h"
-#include"Core/EulerTimer.h"
+#include"Core/Global/EulerTimer.h"
 #include"Core/EulerInstrumentor.h"
 #include"ImGui/ImGuiLayer.h"
 #include"Render/Vertices/EulerVertices.h"

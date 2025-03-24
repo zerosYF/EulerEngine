@@ -1,8 +1,6 @@
 #pragma once
 #include<iostream>
 #include"GutKink/Core.h"
-#ifndef  TEXTURE_H
-#define TEXTURE_H
 #include<glfw/glfw3.h>
 #include<glad/glad.h>
 #include<string>
@@ -29,4 +27,3 @@ namespace EulerEngine {
 	};
 	
 }
-#endif

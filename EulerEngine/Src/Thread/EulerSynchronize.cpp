@@ -6,7 +6,6 @@ using namespace EulerEngine;
 EulerCriticalSection::EulerCriticalSection() {
 	InitializeCriticalSection(&section);
 	SetCriticalSectionSpinCount(&section, 4000);
-	//�����������л�����
 }
 EulerCriticalSection::~EulerCriticalSection() {
 	DeleteCriticalSection(&section);
@@ -31,7 +30,6 @@ EulerSemaphore::~EulerSemaphore() {
 }
 void EulerSemaphore::Enter() {
 	DWORD result = WaitForSingleObject(semaphore,INFINITE);
-	//windows�´����Ķ���ᱻ����״̬����object����ʹ�����źţ�object�ȴ���ʹ�������źţ�
 	assert(result);
 }
 void EulerSemaphore::Leave(unsigned int leaveCOunt) {

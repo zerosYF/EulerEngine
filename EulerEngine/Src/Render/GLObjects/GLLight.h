@@ -2,7 +2,6 @@
 #include"Math/EulerMath.h"
 #include"Render/EulerMesh.h"
 #include"Render/EulerShader.h"
-#include"GLRenderObject.h"
 #include"Render/Vertices/EulerVertices.h"
 namespace EulerEngine {
 	enum Light_Type {

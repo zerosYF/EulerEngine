@@ -11,7 +11,7 @@ namespace EulerEngine {
 	Ref<Texture2D> ResourceLibrary::LoadTexture2D(const std::string & path)
 	{
 		std::string path_ = "Resource/" + path;
-		std::filesystem::path texture_path = Project::GetAssetFileSystemPath(path_);
+		std::filesystem::path texture_path = Project::GetPath(path_);
 		auto texture = Texture2D::Create(texture_path.string());
 		KINK_CORE_INFO("Create texture success...");
 		return texture;

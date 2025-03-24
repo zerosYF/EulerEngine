@@ -30,7 +30,7 @@ namespace EulerEngine{
 		KINK_EVENT_CATEGORY_INPUT = BIT(1),
 		KINK_EVENT_CATEGORY_KEYBOARD = BIT(2),
 		KINK_EVENT_CATEGORY_MOUSE = BIT(3),
-		KINK_EVENT_CATEGORY_MOUSE_BUTTON = BIT(4)
+		KINK_EVENT_CATEGORY_MOUSE_BUTTON = BIT(4),
 	};
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\

@@ -13,7 +13,6 @@ namespace EulerEngine {
 		}
 	};
 
-
 	class KINK_API EulerWindow 
 	{
 	public:
