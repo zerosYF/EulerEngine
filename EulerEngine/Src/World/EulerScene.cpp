@@ -280,7 +280,7 @@ namespace EulerEngine {
 		auto view = m_Registry.view<Transform, CircleRenderer>();
 		for (auto entity : view) {
 			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
-			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, circle.Thickness, circle.Fade, (int)entity);
+			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, (int)entity);
 		}
 		Renderer::EndScene();
 	}

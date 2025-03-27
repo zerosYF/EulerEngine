@@ -34,7 +34,7 @@ namespace EulerEngine {
 		}
 		return std::string();
 	}
-	std::string FileSystem::GetFileName(const std::string& path)
+	const std::string FileSystem::GetFileName(const std::string& path)
 	{
 		auto lastSlash = path.find_last_of("/\\");
 		lastSlash = lastSlash == path.npos ? 0 : lastSlash + 1;

@@ -33,4 +33,14 @@ namespace EulerEngine {
 		return nullptr;
 	}
 
+	Ref<IndexBuffer> IndexBuffer::Create(unsigned int count)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None: return nullptr;
+		case RendererAPI::API::OpenGL: return CreateRef<OpenGLIndexBuffer>(count);
+		}
+		return nullptr;
+	}
+
 }

@@ -18,9 +18,11 @@ namespace EulerEngine {
 	class OpenGLIndexBuffer :public IndexBuffer {
 	public:
 		OpenGLIndexBuffer(unsigned int* indices, unsigned int count);
+		OpenGLIndexBuffer(unsigned int count);
 		virtual ~OpenGLIndexBuffer();
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+		virtual void SetData(const void* data, unsigned int count) override;
 		virtual unsigned int GetCount() const override { return m_Count; }
 	private:
 		unsigned int m_RendererID;

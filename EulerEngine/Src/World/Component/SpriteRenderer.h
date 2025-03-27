@@ -1,12 +1,12 @@
 #pragma once
-#include"Render/EulerMaterial.h"
+#include"Render/RawData/EulerMaterial2D.h"
 #include"glm/glm.hpp"
 namespace EulerEngine {
 	struct SpriteRenderer {
-		Ref<EulerMaterial> Material;
+		Ref<EulerMaterial2D> Material;
 		SpriteRenderer() = default;
 		SpriteRenderer(const SpriteRenderer&) = default;
-		SpriteRenderer(const Ref<EulerMaterial> material) : Material(material) {}
+		SpriteRenderer(const Ref<EulerMaterial2D> material) : Material(material) {}
 
 	};
 }

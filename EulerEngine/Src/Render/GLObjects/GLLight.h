@@ -1,8 +1,8 @@
 #pragma once
 #include"Math/EulerMath.h"
-#include"Render/EulerMesh.h"
+#include"Render/RawData/EulerMesh.h"
 #include"Render/EulerShader.h"
-#include"Render/Vertices/EulerVertices.h"
+#include"Render/RawData/EulerVertices.h"
 namespace EulerEngine {
 	enum Light_Type {
 		POINT_LIGHT,
@@ -13,9 +13,9 @@ namespace EulerEngine {
 	class EulerLight {
 	public:
 		glm::vec3 color{1.0f,1.0f,1.0f};
-		Ref<Mesh> m_Mesh;
+		Ref<EulerMesh> m_Mesh;
 		Ref<EulerShader> m_Shader;
-		EulerLight(Ref<EulerShader> shader, Ref<Mesh> mesh) :m_Shader(shader), m_Mesh(mesh) {
+		EulerLight(Ref<EulerShader> shader, Ref<EulerMesh> mesh) :m_Shader(shader), m_Mesh(mesh) {
 		}
 		void setColor(glm::vec3 color) {this->color = color;}
 		void Render(glm::mat4 model, glm::mat4 view, glm::mat4 projection);

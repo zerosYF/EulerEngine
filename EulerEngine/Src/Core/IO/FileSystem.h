@@ -6,7 +6,7 @@ namespace EulerEngine{
 	public:
 		static Buffer ReadFileBinary(const std::filesystem::path& filePath);
 		static std::string ReadFileText(const std::filesystem::path& filePath);
-		static std::string GetFileName(const std::string& path);
+		static const std::string GetFileName(const std::string& path);
 	};
 
 }

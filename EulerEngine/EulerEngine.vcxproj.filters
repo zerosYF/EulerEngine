@@ -1377,10 +1377,10 @@
     <ClInclude Include="Src\Render\EulerBuffer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\EulerMaterial.h">
+    <ClInclude Include="Src\Render\RawData\EulerMaterial.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\EulerMesh.h">
+    <ClInclude Include="Src\Render\RawData\EulerMesh.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\EulerShader.h">
@@ -1389,22 +1389,10 @@
     <ClInclude Include="Src\Render\FrameBuffer.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLCube.h">
-      <Filter>Src\Render\GLObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\GLObjects\GLLight.h">
       <Filter>Src\Render\GLObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\GLObjects\GLSquare.h">
-      <Filter>Src\Render\GLObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLModel.h">
-      <Filter>Src\Render\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLMyError.h">
-      <Filter>Src\Render\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\OpenGL\GLScene.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
@@ -1419,16 +1407,16 @@
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h">
       <Filter>Src\Render\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Texture\EulerTexture.h">
+    <ClInclude Include="Src\Render\RawData\EulerTexture.h">
       <Filter>Src\Render\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Texture\SubTexture2D.h">
+    <ClInclude Include="Src\Render\RawData\SubTexture2D.h">
       <Filter>Src\Render\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\VertexArray.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Vertices\EulerVertices.h">
+    <ClInclude Include="Src\Render\RawData\EulerVertices.h">
       <Filter>Src\Render\Vertices</Filter>
     </ClInclude>
     <ClInclude Include="Src\Resource\ResourceLibrary.h">
@@ -1527,6 +1515,8 @@
     <ClInclude Include="Src\Project\ProjectSerializer.h" />
     <ClInclude Include="Src\UI\EulerUI.h" />
     <ClInclude Include="Src\Core\Events\KeyboardEvent.h" />
+    <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
+    <ClInclude Include="Src\Render\EulerBatch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1613,10 +1603,10 @@
     <ClCompile Include="Src\Render\EulerBuffer.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\EulerMaterial.cpp">
+    <ClCompile Include="Src\Render\RawData\EulerMaterial.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\EulerMesh.cpp">
+    <ClCompile Include="Src\Render\RawData\EulerMesh.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\EulerShader.cpp">
@@ -1637,17 +1627,14 @@
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp">
       <Filter>Src\Render\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Texture\EulerTexture.cpp">
+    <ClCompile Include="Src\Render\RawData\EulerTexture.cpp">
       <Filter>Src\Render\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\Texture\SubTexture2D.cpp">
+    <ClCompile Include="Src\Render\RawData\SubTexture2D.cpp">
       <Filter>Src\Render\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\VertexArray.cpp">
       <Filter>Src\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\Vertices\EulerVertices.cpp">
-      <Filter>Src\Render\Vertices</Filter>
     </ClCompile>
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp">
       <Filter>Src\Resource</Filter>
@@ -1688,5 +1675,8 @@
     <ClCompile Include="Src\Core\IO\FileSystem.cpp" />
     <ClCompile Include="Src\Project\EulerProject.cpp" />
     <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp" />
+    <ClCompile Include="Src\Render\EulerBatch.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerVertices.cpp" />
   </ItemGroup>
 </Project>

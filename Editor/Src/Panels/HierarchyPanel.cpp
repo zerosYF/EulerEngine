@@ -197,7 +197,7 @@ namespace EulerEngine {
 			}
 		});
 		DrawComponent<MeshRenderer>("MeshRenderer", gameObject, [](MeshRenderer& com) {
-			ImGui::ColorEdit4("Color", &com.Material->GetColor()[0]);
+			ImGui::ColorEdit4("Roughness", &com.Material->GetRoughness());
 			ImGui::Button("Texture", ImVec2{ 100, 0 });
 			if(ImGui::BeginDragDropTarget()) {
 				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {

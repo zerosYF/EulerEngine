@@ -9,6 +9,7 @@ namespace EulerEngine {
 	static GLenum ShaderTypeFromString(std::string& type) {
 		if (type == "vertex") return GL_VERTEX_SHADER;
 		else if (type == "fragment") return GL_FRAGMENT_SHADER;
+		else if (type == "geometry") return GL_GEOMETRY_SHADER;
 		std::cout << "which type of shader?" << std::endl;
 		return 0;
 	}
@@ -25,9 +26,9 @@ namespace EulerEngine {
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc) {
 
 		unsigned int vertexShader;
-		CompileShader(vertexSrc.c_str(), vertexShader, EULER_VERTEX);
+		CompileShader(vertexSrc.c_str(), vertexShader, GL_VERTEX_SHADER);
 		unsigned int fragmentShader;
-		CompileShader(fragmentSrc.c_str(), fragmentShader, EULER_FRAGMENT);
+		CompileShader(fragmentSrc.c_str(), fragmentShader, GL_FRAGMENT_SHADER);
 		unsigned int program = glCreateProgram();
 		m_RendererID = program;
 		std::cout << "GL_program_ID:" << program << std::endl;
@@ -35,7 +36,7 @@ namespace EulerEngine {
 		glAttachShader(program, fragmentShader);
 
 		glLinkProgram(program);
-		CheckError(program, EULER_LINK_PROGRAM);
+		CheckError(program, ErrorType::LINK);
 		glDetachShader(program, vertexShader);
 		glDetachShader(program, fragmentShader);
 		glDeleteShader(vertexShader);
@@ -45,34 +46,28 @@ namespace EulerEngine {
 	{
 		//CreateCacheDirectoryIfNeeded();
 		std::string shaderSource = FileSystem::ReadFileText(path);
-		unsigned int vertexShader = 0;
-		unsigned int fragmentShader = 0;
+		std::unordered_map<GLenum, unsigned int> shader_objs;
+		shader_objs[GL_VERTEX_SHADER] = 0;
+		shader_objs[GL_FRAGMENT_SHADER] = 0;
 		auto shaders = PreProcess(shaderSource);
 		std::string fileName = FileSystem::GetFileName(path);
 		KINK_CORE_INFO("SHADER NAME: {0}", fileName);
 
 		for (auto& kv : shaders) {
-			GLenum type = kv.first;
-			if (type == GL_VERTEX_SHADER) {
-				CompileShader(kv.second.c_str(), vertexShader, EULER_VERTEX);
-			}
-			else if (type == GL_FRAGMENT_SHADER) {
-				CompileShader(kv.second.c_str(), fragmentShader, EULER_FRAGMENT);
-			}
+			CompileShader(kv.second.c_str(), shader_objs[kv.first], kv.first);
 		}
 		unsigned int program = glCreateProgram();
 		m_RendererID = program;
 		KINK_CORE_INFO("GL_PROGRAM_ID: {0}", m_RendererID);
-		glAttachShader(program, vertexShader);
-		glAttachShader(program, fragmentShader);
-
+		for (auto& kv : shader_objs) {
+			glAttachShader(program, kv.second);
+		}
 		glLinkProgram(program);
-		CheckError(program, EULER_LINK_PROGRAM);
-		glDetachShader(program, vertexShader);
-		glDetachShader(program, fragmentShader);
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-
+		CheckError(program, ErrorType::LINK);
+		for (auto& kv : shader_objs) {
+			glDetachShader(program, kv.second);
+			glDeleteShader(kv.second);
+		}
 	}
 	OpenGLShader::~OpenGLShader() {
 		glDeleteProgram(m_RendererID);
@@ -100,29 +95,19 @@ namespace EulerEngine {
 		}
 		return shaderSources;
 	}
-	void OpenGLShader::CompileShader(const char* Code, unsigned int& shader, CompileShaderType type) {
-		if (type == EULER_VERTEX)
-			shader = glCreateShader(GL_VERTEX_SHADER);
-		else if (type == EULER_FRAGMENT)
-			shader = glCreateShader(GL_FRAGMENT_SHADER);
-		else
-			shader = glCreateShader(GL_GEOMETRY_SHADER);
-		glShaderSource(shader, 1, &Code, NULL);
+	void OpenGLShader::CompileShader(const char* code, unsigned int& shader, GLenum type) {
+		shader = glCreateShader(type);
+		glShaderSource(shader, 1, &code, NULL);
 		glCompileShader(shader);
 		KINK_CORE_INFO("COMPILE SHADER...{0}", shader);
-		CheckError(shader, type);
+		CheckError(shader, ErrorType::COMPILE);
 	}
-	void OpenGLShader::CheckError(unsigned int object, unsigned int type) {
+	void OpenGLShader::CheckError(unsigned int object, ErrorType type) {
 		int success;
 		char infoLog[512];
-		if (type != EULER_LINK_PROGRAM) {
+		if (type != ErrorType::LINK) {
 			glGetShaderiv(object, GL_COMPILE_STATUS, &success);
 			if (!success) {
-				std::string t;
-				if (type == EULER_VERTEX) t = "vertex shader";
-				else if (type == EULER_FRAGMENT) t = "fragment shader";
-				else if (type == EULER_GEOMETRY) t = "geometry shader";
-
 				glGetShaderInfoLog(object, 512, NULL, infoLog);
 				KINK_CORE_ERROR("INFO: {0}", infoLog);
 			}

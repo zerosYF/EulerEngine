@@ -1,8 +1,9 @@
 #pragma once
 #include<GLFW/glfw3.h>
 #include"Render/EulerShader.h"
-#include"Render/Texture/EulerTexture.h"
-#include"Render/EulerMaterial.h"
+#include"Render/RawData/EulerTexture.h"
+#include"Render/RawData/EulerMaterial.h"
+#include"Render/RawData/EulerMaterial2D.h"
 #include"stb_image/stb_image.h"
 #include"Project/EulerProject.h"
 #include<filesystem>

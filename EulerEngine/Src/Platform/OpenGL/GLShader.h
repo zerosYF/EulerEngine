@@ -6,11 +6,9 @@
 #include<glad/glad.h>
 #include"Render/EulerShader.h"
 namespace EulerEngine {
-	enum CompileShaderType {
-		EULER_VERTEX,
-		EULER_FRAGMENT,
-		EULER_GEOMETRY,
-		EULER_LINK_PROGRAM,
+	enum class ErrorType {
+		COMPILE,
+		LINK,
 	};
 	class OpenGLShader:public EulerShader{
 	public:
@@ -61,8 +59,8 @@ namespace EulerEngine {
 		}
 	private:
 		std::unordered_map<GLenum, std::string> PreProcess(std::string& source);
-		void CompileShader(const char* Code, unsigned int& shader, CompileShaderType type);
-		void CheckError(unsigned int object, unsigned int type);
+		void CompileShader(const char* code, unsigned int& shader, GLenum type);
+		void CheckError(unsigned int object, ErrorType type);
 	private:
 		unsigned int m_RendererID;
 		std::string m_Path;

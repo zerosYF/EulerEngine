@@ -154,7 +154,7 @@ namespace EulerEngine {
 			auto material = gameObj.GetComponent<MeshRenderer>().Material;
 			if (material) {
 				out << YAML::Key << "Shader" << YAML::Value << material->GetShader()->GetPath();
-				out << YAML::Key << "Color" << YAML::Value << material->GetColor();
+				//
 				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
 			}
 			out << YAML::EndMap;
@@ -329,14 +329,14 @@ namespace EulerEngine {
 
 						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
 						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["MeshRenderer"]["Shader"].as<std::string>()));
-						material->SetColor(gameObject["MeshRenderer"]["Color"].as<glm::vec4>());
+						//
 						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
 						meshRenderer.Material = material;
 					}
 					if (gameObject["SpriteRenderer"]) {
 						auto& spriteRenderer = gameObj.AddComponent<SpriteRenderer>();
 
-						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
+						Ref<EulerMaterial2D> material = CreateRef<EulerMaterial2D>();
 						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
 						material->SetColor(gameObject["SpriteRenderer"]["Color"].as<glm::vec4>());
 						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["SpriteRenderer"]["TexturePath"].as<std::string>()));

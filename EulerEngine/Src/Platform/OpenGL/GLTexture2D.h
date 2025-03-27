@@ -1,5 +1,5 @@
 #pragma once
-#include"Render/Texture/EulerTexture.h"
+#include"Render/RawData/EulerTexture.h"
 namespace EulerEngine {
 	class OpenGLTexture2D :public Texture2D {
 	private:
