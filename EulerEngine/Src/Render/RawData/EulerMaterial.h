@@ -25,7 +25,6 @@ namespace EulerEngine {
 		glm::vec3& GetAlbedo();
 		float& GetRoughness();
 		float GetFloatParam(const std::string& name) const;
-		void Apply(int texture_slot) const;
-		static Ref<EulerMaterial> Create();
+		void Apply(int texture_slot_index = 0) const;
 	};
 }

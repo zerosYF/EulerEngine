@@ -7,37 +7,38 @@ namespace EulerEngine {
 	}
 	void EulerMaterial::SetShader(Ref<EulerShader> shader)
 	{
+		m_Shader = shader;
 	}
 	void EulerMaterial::SetTexture(Ref<Texture2D> texture)
 	{
+		m_Texture = texture;
 	}
 	void EulerMaterial::SetAlbedo(glm::vec3 albedo)
 	{
+		m_Albedo = albedo;
 	}
 	void EulerMaterial::SetRoughness(float roughness)
 	{
+		m_Roughness = roughness;
 	}
 	void EulerMaterial::AddFloatParam(std::string& name, float param)
 	{
+		m_Paramters[name] = param;
 	}
 	Ref<EulerShader>& EulerMaterial::GetShader()
 	{
-		// TODO: 在此处插入 return 语句
 		return m_Shader;
 	}
 	Ref<Texture2D>& EulerMaterial::GetTexture()
 	{
-		// TODO: 在此处插入 return 语句
 		return m_Texture;
 	}
 	glm::vec3& EulerMaterial::GetAlbedo()
 	{
-		// TODO: 在此处插入 return 语句
 		return m_Albedo;
 	}
 	float& EulerMaterial::GetRoughness()
 	{
-		// TODO: 在此处插入 return 语句
 		return m_Roughness;
 	}
 	float EulerMaterial::GetFloatParam(const std::string& name) const
@@ -46,9 +47,21 @@ namespace EulerEngine {
 	}
 	void EulerMaterial::Apply(int texture_slot) const
 	{
-	}
-	Ref<EulerMaterial> EulerMaterial::Create()
-	{
-		return CreateRef<EulerMaterial>();
+		m_Shader->Bind();
+		m_Shader->SetVec3("u_Material.albedo", m_Albedo);
+		m_Shader->SetFloat("u_Material.roughness", m_Roughness);
+		if (m_Texture)
+		{
+			m_Texture->Bind(texture_slot);
+			m_Shader->SetInt("texture_index", texture_slot);
+		}
+		else
+		{
+			m_Shader->SetInt("texture_index", -1);
+		}
+		for (auto& param : m_Paramters)
+		{
+			m_Shader->SetFloat(param.first.c_str(), param.second);
+		}
 	}
 }

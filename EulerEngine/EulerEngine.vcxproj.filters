@@ -1464,9 +1464,6 @@
     <ClInclude Include="Src\World\Component\CircleCollider2D.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\World\Component\CircleRenderer.h">
-      <Filter>Src\World\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Src\World\Component\Component.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>

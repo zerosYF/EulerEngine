@@ -67,11 +67,11 @@ namespace EulerEngine{
 	public:
 		static void Init();
 		static void Shutdown();
-		static void SubmitCube(glm::mat4& model, glm::mat4&view, glm::mat4&projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID);
-		static void SubmitSphere(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID);
-		static void SubmitQuad(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial2D>& material, int objID);
-		static void SubmitLine(glm::mat4& view, glm::mat4& projection, const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID);
-		static void SubmitModel(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID);
+		static void SubmitCube(const glm::mat4& model, const glm::mat4&view, const glm::mat4&projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, const int objID);
+		static void SubmitSphere(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, const int objID);
+		static void SubmitQuad(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, const int objID);
+		static void SubmitModel(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, const int objID);
+		static void SubmitLine(const glm::mat4& view, const glm::mat4& projection, const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID);
 		static void Clear();
 		static unsigned int Flush();
 	private:

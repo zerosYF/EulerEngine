@@ -71,7 +71,6 @@ namespace EulerEngine {
 		CopyComponent<MeshRenderer>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<NativeScript>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
-		CopyComponent<CircleRenderer>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<CircleCollider2D>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<CSharpScript>(dstRegistry, srcregistry, entityMap);
 		return newScene;
@@ -100,7 +99,6 @@ namespace EulerEngine {
 		CopyComponent<MeshRenderer>(newObj, obj);
 		CopyComponent<NativeScript>(newObj, obj);
 		CopyComponent<Camera>(newObj, obj);
-		CopyComponent<CircleRenderer>(newObj, obj);
 		CopyComponent<CircleCollider2D>(newObj, obj);
 		CopyComponent<CSharpScript>(newObj, obj);
 	}
@@ -268,19 +266,13 @@ namespace EulerEngine {
 		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
 		for (auto entity : group) {
 			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Material, (int)entity);
+			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Mesh, mesh.Material, (int)entity);
 		}*/
 
 		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
 		for (auto entity : sprite_group) {
 			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
-			Renderer::DrawQuad(transform.Position, transform.Rotation, transform.Scale, sprite.Material, (int)entity);
-		}
-
-		auto view = m_Registry.view<Transform, CircleRenderer>();
-		for (auto entity : view) {
-			auto& [transform, circle] = view.get<Transform, CircleRenderer>(entity);
-			Renderer::DrawCircle(transform.Position, transform.Rotation, transform.Scale, circle.Color, (int)entity);
+			Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, sprite.Mesh, sprite.Material, (int)entity);
 		}
 		Renderer::EndScene();
 	}
@@ -386,25 +378,28 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
-		//temp;
-		//auto shader = ResourceLibrary::LoadShaderInner("common");
-		//auto texture2D = ResourceLibrary::LoadTexture2D("cube_texture");
-		//auto material = EulerMaterial::Create();
-		//material->SetShader(shader);
-		//material->SetColor(glm::vec4(1.0f));
-		//material->SetTexture(texture2D);
-		//component.Material = material;
+		auto shader = ResourceLibrary::LoadShaderInner("Camera/cube.glsl");
+		auto material = CreateRef<EulerMaterial>();
+		material->SetShader(shader);
+		component.Material = material;
+
+		std::vector<float> cubeVertices(std::begin(CubeVertices), std::end(CubeVertices));
+		std::vector<unsigned int> cubeIndices;
+		auto mesh = CreateRef<EulerMesh>(MeshType::Cube, cubeVertices, cubeIndices);
+		component.Mesh = mesh;
 	}
 	template<>
 	void Scene::OnComponentAdded<SpriteRenderer>(GameObject obj, SpriteRenderer& component) {
-		//temp;
-		//auto shader = ResourceLibrary::LoadShaderInner("common");
-		//auto texture2D = ResourceLibrary::LoadTexture2D("cube_texture");
-		//auto material = EulerMaterial::Create();
-		//material->SetShader(shader);
-		//material->SetColor(glm::vec4(1.0f));
-		//material->SetTexture(texture2D);
-		//component.Material = material;
+		auto shader = ResourceLibrary::LoadShaderInner("Camera/quad.glsl");
+		auto material = CreateRef<EulerMaterial2D>();
+		material->SetShader(shader);
+		material->SetColor(glm::vec4(1.0f));
+		component.Material = material;
+
+		std::vector<float> quadVertices(std::begin(QuadVertices), std::end(QuadVertices));
+		std::vector<unsigned int> quadIndices(std::begin(QuadIndices), std::end(QuadIndices));
+		auto mesh = CreateRef<EulerMesh>(MeshType::Sprite, quadVertices, quadIndices);
+		component.Mesh = mesh;
 	}
 	template<>
 	void Scene::OnComponentAdded<NativeScript>(GameObject obj, NativeScript& component) {
@@ -415,10 +410,6 @@ namespace EulerEngine {
 	}
 	template<>
 	void Scene::OnComponentAdded<BoxCollider2D>(GameObject obj, BoxCollider2D& component) {
-	}
-	template<>
-	void Scene::OnComponentAdded<CircleRenderer>(GameObject obj, CircleRenderer& component) {
-	
 	}
 	template<>
 	void Scene::OnComponentAdded<CircleCollider2D>(GameObject obj, CircleCollider2D& component) {

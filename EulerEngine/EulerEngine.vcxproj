@@ -588,7 +588,6 @@
     <ClInclude Include="Src\World\Component\CSharpScript.h" />
     <ClInclude Include="Src\World\Component\Camera.h" />
     <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
-    <ClInclude Include="Src\World\Component\CircleRenderer.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
     <ClInclude Include="Src\World\Component\IDCom.h" />
     <ClInclude Include="Src\World\Component\MeshRenderer.h" />

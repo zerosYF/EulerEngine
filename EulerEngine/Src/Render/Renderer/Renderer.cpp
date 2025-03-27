@@ -27,21 +27,29 @@ namespace EulerEngine {
 		s_RenderData->Stats.DrawCalls += EulerBatch::Flush();
 	}
 
-	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID)
+	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID)
 	{
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+		model *= glm::toMat4(glm::quat(rotation));
+		model = glm::scale(model, scale);
+		EulerBatch::SubmitCube(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
 		s_RenderData->Stats.CubeCount++;
 	}
-	void Renderer::DrawQuad(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial2D>& material, int objID)
+	void Renderer::DrawSprite(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID)
 	{
-		DrawQuad({ position.x, position.y, 0.0f }, rotation, scale, material, objID);
+		DrawSprite({ position.x, position.y, 0.0f }, rotation, scale, mesh, material, objID);
 	}
-	void Renderer::DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial2D>& material, int objID)
+	void Renderer::DrawSprite(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID)
 	{
-
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+		model *= glm::toMat4(glm::quat(rotation));
+		model = glm::scale(model, scale);
+		EulerBatch::SubmitQuad(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
 		s_RenderData->Stats.QuadCount++;
 	}
 	void Renderer::DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID)
 	{
+		EulerBatch::SubmitLine(s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, start, end, color, objID);
 		s_RenderData->Stats.LineCount++;
 	}
 	void Renderer::DrawRect(const glm::vec2 position, const glm::vec3 size, const glm::vec4 color, int objID)

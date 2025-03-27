@@ -9,7 +9,6 @@
 
 #include"MeshRenderer.h"
 #include"SpriteRenderer.h"
-#include"CircleRenderer.h"
 
 #include"Rigidbody2D.h"
 #include"BoxCollider2D.h"
@@ -20,11 +19,9 @@ namespace EulerEngine {
 
 	};
 	using AllComponents = ComponentGroup<
-		IDCom, Transform, Profile,
-		Camera, NativeScript,
-		CSharpScript, MeshRenderer,
-		SpriteRenderer, CircleRenderer,
-		Rigidbody2D, BoxCollider2D,
-		CircleCollider2D
+		IDCom, Transform, Profile,Camera, 
+		NativeScript,CSharpScript, 
+		MeshRenderer,SpriteRenderer,
+		Rigidbody2D, BoxCollider2D, CircleCollider2D
 		>;
 }

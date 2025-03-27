@@ -20,7 +20,6 @@ namespace EulerEngine {
 		glm::vec4& GetColor();
 		Ref<Texture2D>& GetTexture();
 		float GetFloatParam(const std::string& name) const;
-		void Apply(int texture_slot) const;
-		static Ref<EulerMaterial2D> Create();
+		void Apply(int texture_slot_index = 0) const;
 	};
 }

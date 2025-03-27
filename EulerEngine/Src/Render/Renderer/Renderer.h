@@ -21,10 +21,10 @@ namespace EulerEngine {
 		static void EndScene();
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 
-		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial>& material, int objID);
+		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID);
 
-		static void DrawQuad(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial2D>& material, int objID);
-		static void DrawQuad(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMaterial2D>& material, int objID);
+		static void DrawSprite(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);
+		static void DrawSprite(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);
 	
 		static void DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID = -1);
 		static void DrawRect(const glm::vec2 position, const glm::vec3 size, const glm::vec4 color, int objID = -1);

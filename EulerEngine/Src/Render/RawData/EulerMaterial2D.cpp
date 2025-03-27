@@ -1,11 +1,6 @@
 #include"gkpch.h"
 #include"EulerMaterial2D.h"
 namespace EulerEngine {
-	Ref<EulerMaterial2D> EulerMaterial2D::Create()
-	{
-		return CreateRef<EulerMaterial2D>();
-	}
-
 	EulerMaterial2D::EulerMaterial2D() {
 		m_Color = glm::vec4(1.0f);
 	}
@@ -50,11 +45,23 @@ namespace EulerEngine {
 
 	void EulerMaterial2D::Apply(int texture_slot) const
 	{
-		m_Shader->Bind();
-		m_Texture->Bind(texture_slot);
-		for (const auto& [name, param] : m_Paramters) {
-			m_Shader->SetFloat(name, param);
+		if (m_Shader)
+		{
+			m_Shader->Bind();
+			m_Shader->SetVec4("u_Color", m_Color);
+			if (m_Texture)
+			{
+				m_Texture->Bind(texture_slot);
+				m_Shader->SetFloat("texture_index", texture_slot);
+			}
+			else
+			{
+				m_Shader->SetFloat("texture_index", -1.0f);
+			}
+			for (auto& param : m_Paramters)
+			{
+				m_Shader->SetFloat(param.first.c_str(), param.second);
+			}
 		}
-		m_Shader->SetVec4("color", m_Color);
 	}
 }

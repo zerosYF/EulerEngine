@@ -33,6 +33,11 @@ layout(location = 0) out vec4 Color;
 layout(location = 1) out int Color_red;
 void main() {
 	
-	Color = mix(texture(textures[texture_index], TexCoord), color, 0.2f);
+	if (texture_index == -1) {
+		Color = color;
+	}
+	else{
+		Color = mix(texture(textures[texture_index], TexCoord), color, 0.2f);
+	}
 	Color_red = ObjID;
 }

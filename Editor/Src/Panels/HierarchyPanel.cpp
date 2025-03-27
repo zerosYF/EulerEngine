@@ -137,7 +137,6 @@ namespace EulerEngine {
 			DisplayAddComponentPopup<SpriteRenderer>("SpriteRenderer");
 			DisplayAddComponentPopup<Rigidbody2D>("Rigidbody2D");
 			DisplayAddComponentPopup<BoxCollider2D>("BoxCollider2D");
-			DisplayAddComponentPopup<CircleRenderer>("CirlceRenderer");
 			DisplayAddComponentPopup<CircleCollider2D>("CircleCollider2D");
 			DisplayAddComponentPopup<CSharpScript>("CSharpScript");
 			ImGui::EndPopup();
@@ -249,11 +248,6 @@ namespace EulerEngine {
 			ImGui::DragFloat("Density", &com.Density, 0.1f, 0.0f, 1.0f);
 			ImGui::DragFloat("Friction", &com.Friction, 0.1f, 0.0f, 1.0f);
 			ImGui::DragFloat("Restitution", &com.Restitution, 0.1f, 0.0f, 1.0f);
-		});
-		DrawComponent<CircleRenderer>("CircleRenderer", gameObject, [](CircleRenderer& com) {
-			ImGui::ColorEdit4("Color", &com.Color[0]);
-			ImGui::DragFloat("Thickness", &com.Thickness, 0.1f, 0.0f, 1000.0f);
-			ImGui::DragFloat("Fade", &com.Fade, 0.0025f, 0.0f, 1.0f);
 		});
 		DrawComponent<CircleCollider2D>("CircleCollider2D", gameObject, [](CircleCollider2D& com) {
 			ImGui::DragFloat2("Offset", glm::value_ptr(com.Offset));

@@ -24,7 +24,7 @@ namespace EulerEngine {
 		delete[] s_QuadData->VertexBase;
 		delete[] s_LineData->VertexBase;
 	}
-	void EulerBatch::SubmitCube(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID)
+	void EulerBatch::SubmitCube(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID)
 	{
 		auto shader = material->GetShader();
 		s_CubeData->Shader = shader; //this should be an buffer if we want to use multiple shaders
@@ -69,10 +69,10 @@ namespace EulerEngine {
 		}
 		s_CubeData->VertexCount += CUBE_VERTEX_CNT;
 	}
-	void EulerBatch::SubmitSphere(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID)
+	void EulerBatch::SubmitSphere(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, const int objID)
 	{
 	}
-	void EulerBatch::SubmitQuad(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial2D>& material, int objID)
+	void EulerBatch::SubmitQuad(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, const int objID)
 	{
 		auto shader = material->GetShader();
 		s_QuadData->Shader = shader;
@@ -117,7 +117,11 @@ namespace EulerEngine {
 		}
 		s_QuadData->IndexCount += QUAD_INDEX_CNT;
 	}
-	void EulerBatch::SubmitLine(glm::mat4& view, glm::mat4& projection, const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID)
+	void EulerBatch::SubmitModel(const glm::mat4& model, const glm::mat4& view, const glm::mat4& projection, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, const int objID)
+	{
+
+	}
+	void EulerBatch::SubmitLine(const glm::mat4& view, const glm::mat4& projection, const const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, const int objID)
 	{
 		s_LineData->VertexArrayPtr->Position = start;
 		s_LineData->VertexArrayPtr->Color = color;
@@ -131,10 +135,6 @@ namespace EulerEngine {
 		s_LineData->Shader->Bind();
 		s_LineData->Shader->SetMat4("view", view);
 		s_LineData->Shader->SetMat4("projection", projection);
-	}
-	void EulerBatch::SubmitModel(glm::mat4& model, glm::mat4& view, glm::mat4& projection, Ref<EulerMesh>& mesh, Ref<EulerMaterial>& material, int objID)
-	{
-
 	}
 	void EulerBatch::Clear()
 	{
