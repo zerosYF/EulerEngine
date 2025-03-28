@@ -43,7 +43,7 @@ namespace EulerEngine {
 			unsigned int RectCount = 0;
 			unsigned int LineCount = 0;
 			unsigned int GetTotalVertexCount() { return CubeCount * CUBE_VERTEX_CNT + QuadCount * QUAD_VERTEX_CNT + CircleCount * QUAD_VERTEX_CNT; }
-			unsigned int GetTotalIndicesCount() { return CubeCount * CUBE_INDEX_CNT + QuadCount * QUAD_INDEX_CNT + CircleCount * QUAD_INDEX_CNT; }
+			unsigned int GetTotalIndexCount() { return CubeCount * CUBE_INDEX_CNT + QuadCount * QUAD_INDEX_CNT + CircleCount * QUAD_INDEX_CNT; }
 		};
 		struct RenderData {
 			glm::mat4 ViewMatrix = glm::mat4(1.0f);

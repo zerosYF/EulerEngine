@@ -49,6 +49,10 @@ namespace EulerEngine {
 				s_CubeData->Texture2DSlots[s_CubeData->Texture2DSlotLoadedCount++] = texture;
 			}
 		}
+		else {
+			textureIndex = -1.0f;
+			KINK_CORE_WARN("No texture found for cube");
+		}
 
 		shader->Bind();
 		shader->SetMat4("view", view);
@@ -97,11 +101,14 @@ namespace EulerEngine {
 				s_QuadData->Texture2DSlots[s_QuadData->Texture2DSlotLoadedCount++] = texture;
 			}
 		}
+		else {
+			textureIndex = -1.0f;
+			KINK_CORE_WARN("No texture found for quad");
+		}
 
 		shader->SetMat4("view", view);
 		shader->SetMat4("projection", projection);
 		shader->SetInt("texture_index", textureIndex);
-		shader->SetVec4("color", material->GetColor());
 
 		std::vector<float> vertices = mesh->GetVertices();
 		if (s_QuadData->SingleIndices.size() == 0) {
@@ -143,6 +150,9 @@ namespace EulerEngine {
 		s_LineData->VertexArrayPtr = s_LineData->VertexBase;
 		s_QuadData->Texture2DSlotLoadedCount = 0;
 		s_CubeData->Texture2DSlotLoadedCount = 0;
+		s_LineData->VertexCount = 0;
+		s_QuadData->IndexCount = 0;
+		s_CubeData->VertexCount = 0;
 	}
 	unsigned int EulerBatch::Flush()
 	{
@@ -166,8 +176,8 @@ namespace EulerEngine {
 			unsigned int byte_offset = (unsigned int)((uint8_t*)s_QuadData->VertexArrayPtr - (uint8_t*)s_QuadData->VertexBase);
 			s_QuadData->VB->SetData(s_QuadData->VertexBase, byte_offset);
 
-			unsigned int* indices = Generator::GenerateCubeIndices(s_QuadData->SingleIndices, s_CubeData->MaxIndices);
-			s_QuadData->IB->SetData(indices, s_CubeData->MaxIndices);
+			unsigned int* indices = Generator::GenerateQuadIndices(s_QuadData->SingleIndices, s_QuadData->IndexCount);
+			s_QuadData->IB->SetData(indices, s_QuadData->IndexCount);
 
 			for (unsigned int i = 0; i < s_QuadData->Texture2DSlotLoadedCount; i++) {
 				s_QuadData->Texture2DSlots[i]->Bind(i);

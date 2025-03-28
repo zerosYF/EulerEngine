@@ -22,7 +22,7 @@ namespace EulerEngine {
 		}
 	}
 
-	Scene::Scene()
+	Scene::Scene():m_PhysicsWorld(b2_nullWorldId)
 	{
 	}
 	Scene::~Scene()
@@ -150,7 +150,7 @@ namespace EulerEngine {
 			}
 		}
 		if (mainCamera) {
-			OnRenderScene(*mainCamera);
+			RenderScene(*mainCamera);
 		}
 	}
 	void Scene::OnUpdateSimulation(EulerCamera& editorCamera)
@@ -158,11 +158,11 @@ namespace EulerEngine {
 		if (!m_IsPaused || m_StepFrame-- > 0) {
 			OnPhysics2DUpdate();
 		}
-		OnRenderScene(editorCamera);
+		RenderScene(editorCamera);
 	}
 	void Scene::OnUpdateEditor(EulerCamera& editorCamera)
 	{
-		OnRenderScene(editorCamera);
+		RenderScene(editorCamera);
 	}
 	void Scene::OnViewportResize(int width, int height)
 	{
@@ -260,19 +260,22 @@ namespace EulerEngine {
 		m_PhysicsWorld = b2_nullWorldId;
 	}
 
-	void Scene::OnRenderScene(EulerCamera& camera)
+	void Scene::RenderScene(EulerCamera& camera)
 	{
 		Renderer::BeginScene(camera);
-		/*auto group = m_Registry.group<Transform>(entt::get<MeshRenderer>);
-		for (auto entity : group) {
-			auto& [transform, mesh] = group.get<Transform, MeshRenderer>(entity);
-			Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Mesh, mesh.Material, (int)entity);
-		}*/
-
-		auto sprite_group = m_Registry.group<Transform>(entt::get<SpriteRenderer>);
-		for (auto entity : sprite_group) {
-			auto& [transform, sprite] = sprite_group.get<Transform, SpriteRenderer>(entity);
-			Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, sprite.Mesh, sprite.Material, (int)entity);
+		{
+			auto view = m_Registry.view<Transform, MeshRenderer>();
+			for (auto entity : view) {
+				auto [transform, mesh] = view.get<Transform, MeshRenderer>(entity);
+				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Mesh, mesh.Material, (int)entity);
+			}
+		}
+		{
+			auto view = m_Registry.view<Transform, SpriteRenderer>();
+			for (auto entity : view) {
+				auto [transform, sprite] = view.get<Transform, SpriteRenderer>(entity);
+				Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, sprite.Mesh, sprite.Material, (int)entity);
+			}
 		}
 		Renderer::EndScene();
 	}

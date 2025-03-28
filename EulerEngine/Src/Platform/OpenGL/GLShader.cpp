@@ -13,6 +13,13 @@ namespace EulerEngine {
 		std::cout << "which type of shader?" << std::endl;
 		return 0;
 	}
+	static std::string StringFromShaderType(GLenum type) {
+		if (type == GL_VERTEX_SHADER) return "vertex";
+		else if (type == GL_FRAGMENT_SHADER) return "fragment";
+		else if (type == GL_GEOMETRY_SHADER) return "geometry";
+		std::cout << "which type of shader?" << std::endl;
+		return "";
+	}
 	static std::string GetCacheDirectory() {
 		return "assets/cache/shaders/opengl";
 	}
@@ -99,7 +106,7 @@ namespace EulerEngine {
 		shader = glCreateShader(type);
 		glShaderSource(shader, 1, &code, NULL);
 		glCompileShader(shader);
-		KINK_CORE_INFO("COMPILE SHADER...{0}", shader);
+		KINK_CORE_INFO("Compile {0} shader...:{1}", StringFromShaderType(type), shader);
 		CheckError(shader, ErrorType::COMPILE);
 	}
 	void OpenGLShader::CheckError(unsigned int object, ErrorType type) {

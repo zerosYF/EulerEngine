@@ -50,7 +50,7 @@ namespace EulerEngine {
 		void OnComponentAdded(GameObject obj, T& component);
 		void OnPhysics2DStart(); 
 		void OnPhysics2DStop();
-		void OnRenderScene(EulerCamera& camera);
+		void RenderScene(EulerCamera& camera);
 		void OnPhysics2DUpdate();
 
 		void OnNativeScriptStart();

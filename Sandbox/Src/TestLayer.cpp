@@ -50,6 +50,7 @@ void TestLayer::OnImGuiRender()
     ImGui::Text("Draw Calls: %d", EulerEngine::Renderer::GetStats().DrawCalls);
     ImGui::Text("Cubes: %d", EulerEngine::Renderer::GetStats().CubeCount);
     ImGui::Text("Vertices: %d", EulerEngine::Renderer::GetStats().GetTotalVertexCount());
+    ImGui::Text("Indices: %d", EulerEngine::Renderer::GetStats().GetTotalIndexCount());
 
     ImGui::End();
 }

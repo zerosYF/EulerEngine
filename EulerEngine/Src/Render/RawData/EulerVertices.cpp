@@ -1,5 +1,6 @@
 #include"gkpch.h"
 #include"EulerVertices.h"
+#include"Core/Logs/EulerLog.h"
 namespace EulerEngine {
 	extern float CubeVertices[CUBE_VERTICE_CNT * CUBE_DATA_SIZE] = {
 		//Pos                 TexCoord    Normal
@@ -68,6 +69,7 @@ namespace EulerEngine {
 			}
 			offset += QUAD_VERTEX_CNT;
 		}
+		//KINK_CORE_INFO("{0} Quad Indices Generated.", count);
 		return QuadIndices;
 	}
 }

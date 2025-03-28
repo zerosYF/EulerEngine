@@ -8,7 +8,7 @@ GameObjects:
       Rotation: [0, 0, 0.0015882496]
       Scale: [1, 1, 1]
     SpriteRenderer:
-      Shader: Camera/first_test.glsl
+      Shader: Camera/quad.glsl
       Color: [1, 1, 1, 1]
       TexturePath: mytextures/container2.png
     Rigidbody2D:
@@ -41,7 +41,7 @@ GameObjects:
       Rotation: [0, 0, 0.15165329]
       Scale: [5.3, 0.4, 1]
     SpriteRenderer:
-      Shader: Camera/first_test.glsl
+      Shader: Camera/quad.glsl
       Color: [1, 1, 1, 1]
       TexturePath: mytextures/container2.png
     Rigidbody2D:
@@ -53,30 +53,6 @@ GameObjects:
     BoxCollider2D:
       Offset: [0, 0]
       Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      IsTrigger: false
-  - GameObject: 10566830585299912585
-    Profile:
-      Tag: Circle
-    Transform:
-      Position: [-0.161, 0.631, 0]
-      Rotation: [0, 0, 2.3126316]
-      Scale: [1, 1, 1]
-    Rigidbody2D:
-      Type: Dynamic
-      FixedRotation: false
-      Mass: 1
-      LinearDamping: 0
-      AngularDamping: 0
-    CircleRenderer:
-      Color: [0, 0, 0, 1]
-      Thickness: 0.1
-      Fade: 0
-    CircleCollider2D:
-      Offset: [0, 0]
-      Radius: 0.5
       Density: 1
       Friction: 0.5
       Restitution: 0

@@ -200,6 +200,7 @@ namespace EulerEngine {
         ImGui::Text("Circles: %d", Renderer::GetStats().CircleCount);
         ImGui::Text("Lines: %d", Renderer::GetStats().LineCount);
         ImGui::Text("Vertices: %d", Renderer::GetStats().GetTotalVertexCount());
+        ImGui::Text("Indices: %d", Renderer::GetStats().GetTotalIndexCount());
         ImGui::End();
 
         ImGui::Begin("Gizmos");

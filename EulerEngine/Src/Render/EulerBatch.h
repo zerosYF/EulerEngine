@@ -59,7 +59,7 @@ namespace EulerEngine{
 			Ref<VertexBuffer> VB;
 			unsigned int VertexCount = 0;
 			Ref<EulerShader> Shader;
-			float LineWidth = 10.0f;
+			float LineWidth = 2.0f;
 		};
 		static Scope<CubeBatchData> s_CubeData;
 		static Scope<QuadBatchData> s_QuadData;
