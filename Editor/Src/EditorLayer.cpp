@@ -13,11 +13,11 @@ namespace EulerEngine {
     {
         Renderer::Init();  //此方法应该放在application中
 
-        m_IconPlay = Texture2D::Create("Assets/Editor/Icons/PlayButton.png");
-        m_IconStop = Texture2D::Create("Assets/Editor/Icons/StopButton.png");
-        m_IconSimulate = Texture2D::Create("Assets/Editor/Icons/SimulateButton.png");
-        m_IconPause = Texture2D::Create("Assets/Editor/Icons/PauseButton.png");
-        m_IconStep = Texture2D::Create("Assets/Editor/Icons/StepButton.png");
+        m_IconPlay = ResourceLibrary::LoadTexture2DInner("Icons/PlayButton.png");
+        m_IconStop = ResourceLibrary::LoadTexture2DInner("Icons/StopButton.png");
+        m_IconSimulate = ResourceLibrary::LoadTexture2DInner("Icons/SimulateButton.png");
+        m_IconPause = ResourceLibrary::LoadTexture2DInner("Icons/PauseButton.png");
+        m_IconStep = ResourceLibrary::LoadTexture2DInner("Icons/StepButton.png");
 
         FrameBufferSpecification spec;
         spec.Width = 1280;
@@ -195,7 +195,9 @@ namespace EulerEngine {
         ImGui::Text("Renderer Info:");
         ImGui::Text("Draw Calls: %d", Renderer::GetStats().DrawCalls);
         ImGui::Text("Cubes: %d", Renderer::GetStats().CubeCount);
-        ImGui::Text("Quads: %d", Renderer::GetStats().QuadCount);
+        ImGui::Text("Planes: %d", Renderer::GetStats().PlaneCount);
+        ImGui::Text("Spheres: %d", Renderer::GetStats().SphereCount);
+        ImGui::Text("Sprites: %d", Renderer::GetStats().SpriteCount);
         ImGui::Text("Rect: %d", Renderer::GetStats().RectCount);
         ImGui::Text("Circles: %d", Renderer::GetStats().CircleCount);
         ImGui::Text("Lines: %d", Renderer::GetStats().LineCount);

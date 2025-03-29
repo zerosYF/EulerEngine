@@ -10,10 +10,9 @@ namespace EulerEngine {
 	enum class MeshType {
 		None = 0,
 		Cube,
+		Plane,
 		Sphere,
-		Sprite,
 		Model,
-		Line,
 	};
 	struct Vertex {
 		glm::vec3 Position;
@@ -35,14 +34,15 @@ namespace EulerEngine {
 	class EulerMesh {
 	public:
 		EulerMesh() = default;
-		EulerMesh(MeshType type, std::vector<float> vertices, std::vector<unsigned int> indices);
+		EulerMesh(std::vector<float> vertices, std::vector<unsigned int> indices);
 		inline void SetVertices(std::vector<float> vertices) { m_Vertices = vertices; }
 		inline void SetIndices(std::vector<unsigned int> indices) { m_Indices = indices; }
 		inline std::vector<float>& GetVertices() { return m_Vertices; }
 		inline std::vector<unsigned int>& GetIndices() { return m_Indices; }
-		inline MeshType GetType() { return m_Type; }
+
+		static MeshType StringToMeshType(std::string type);
+		static std::string MeshTypeToString(MeshType type);
 	private:
-		MeshType m_Type;
 		std::vector<float> m_Vertices;
 		std::vector<unsigned int> m_Indices;
 	};

@@ -4,6 +4,7 @@
 #include"EulerObject.h"
 #include"Component/Component.h"
 #include"Resource/ResourceLibrary.h"
+#include"Render/RawData/EulerMesh.h"
 #include"Script/ScriptEngine.h"
 #include"Project/EulerProject.h"
 namespace YAML {
@@ -148,14 +149,20 @@ namespace EulerEngine {
 			out << YAML::Key << "Orthographic_FarClip" << YAML::Value << gameObj.GetComponent<Camera>().RendererCamera.GetOrthographicFarClip();
 			out << YAML::EndMap;
 		}
+		if (gameObj.HasComponent<MeshFilter>()) {
+			out << YAML::Key << "MeshFilter";
+			out << YAML::BeginMap;
+			out << YAML::Key << "MeshType" << YAML::Value << EulerMesh::MeshTypeToString(gameObj.GetComponent<MeshFilter>().Type);
+			out << YAML::EndMap;
+		}
 		if (gameObj.HasComponent<MeshRenderer>()) {
 			out << YAML::Key << "MeshRenderer";
 			out << YAML::BeginMap;
 			auto material = gameObj.GetComponent<MeshRenderer>().Material;
 			if (material) {
-				out << YAML::Key << "Shader" << YAML::Value << material->GetShader()->GetPath();
+				out << YAML::Key << "Shader" << YAML::Value << ResourceLibrary::GetShaderInnerPath(material->GetShader());
 				//
-				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
+				out << YAML::Key << "TexturePath" << YAML::Value << ResourceLibrary::GetTexture2DResourcePath(material->GetTexture());
 			}
 			out << YAML::EndMap;
 		}
@@ -164,9 +171,9 @@ namespace EulerEngine {
 			out << YAML::BeginMap;
 			auto material = gameObj.GetComponent<SpriteRenderer>().Material;
 			if (material) {
-				out << YAML::Key << "Shader" << YAML::Value << material->GetShader()->GetPath();
+				out << YAML::Key << "Shader" << YAML::Value << ResourceLibrary::GetShaderInnerPath(material->GetShader());
 				out << YAML::Key << "Color" << YAML::Value << material->GetColor();
-				out << YAML::Key << "TexturePath" << YAML::Value << material->GetTexture()->GetPath();
+				out << YAML::Key << "TexturePath" << YAML::Value << ResourceLibrary::GetTexture2DResourcePath(material->GetTexture());
 			}
 			out << YAML::EndMap;
 		}
@@ -288,12 +295,12 @@ namespace EulerEngine {
 				for (auto gameObject : gameObjects) {
 					uint64_t uuid = gameObject["GameObject"].as<uint64_t>();
 
-					KINK_CORE_INFO("Deserializing GameObject: {0}", uuid);
 					std::string objName;
 					if (gameObject["Profile"]) {
 						objName = gameObject["Profile"]["Tag"].as<std::string>();
 					}
 					GameObject gameObj = m_Scene->CreateObject(uuid, objName);
+					KINK_CORE_INFO("Deserializing GameObject: {0}", objName);
 
 					if (gameObject["Transform"]) {
 						auto& transform = gameObj.GetComponent<Transform>();
@@ -316,11 +323,16 @@ namespace EulerEngine {
 						camera.RendererCamera.SetOrthographicNearClip(gameObject["Camera"]["Orthographic_NearClip"].as<float>());
 						camera.RendererCamera.SetOrthographicFarClip(gameObject["Camera"]["Orthographic_FarClip"].as<float>());
 					}
+					if (gameObject["MeshFilter"]) {
+						auto& meshFilter = gameObj.AddComponent<MeshFilter>();
+						std::string meshType = gameObject["MeshFilter"]["MeshType"].as<std::string>();
+						meshFilter.Type = EulerMesh::StringToMeshType(meshType);
+					}
 					if (gameObject["MeshRenderer"]) {
 						auto& meshRenderer = gameObj.AddComponent<MeshRenderer>();
 
 						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
-						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["MeshRenderer"]["Shader"].as<std::string>()));
+						material->SetShader(ResourceLibrary::LoadShader(gameObject["MeshRenderer"]["Shader"].as<std::string>()));
 						//
 						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));
 						meshRenderer.Material = material;
@@ -329,7 +341,7 @@ namespace EulerEngine {
 						auto& spriteRenderer = gameObj.AddComponent<SpriteRenderer>();
 
 						Ref<EulerMaterial2D> material = CreateRef<EulerMaterial2D>();
-						material->SetShader(ResourceLibrary::LoadShaderInner(gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
+						material->SetShader(ResourceLibrary::LoadShader(gameObject["SpriteRenderer"]["Shader"].as<std::string>()));
 						material->SetColor(gameObject["SpriteRenderer"]["Color"].as<glm::vec4>());
 						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["SpriteRenderer"]["TexturePath"].as<std::string>()));
 						spriteRenderer.Material = material;

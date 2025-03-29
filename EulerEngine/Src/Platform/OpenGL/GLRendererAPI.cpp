@@ -19,6 +19,11 @@ namespace EulerEngine {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
+	void GLRendererAPI::SetLineWidth(float width)
+	{
+		glLineWidth(width);
+	}
+
 	void GLRendererAPI::Draw(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt)
 	{
 		vertexArray->Bind();
@@ -29,12 +34,6 @@ namespace EulerEngine {
 		vertexArray->Bind();
 		glDrawArrays(GL_LINES, 0, vertex_cnt);
 	}
-
-	void GLRendererAPI::SetLineWidth(float width)
-	{
-		glLineWidth(width);
-	}
-
 	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_cnt)
 	{
 		unsigned int count = index_cnt ? index_cnt : vertexArray->GetIndexBuffer()->GetCount();

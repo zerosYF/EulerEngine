@@ -1,12 +1,11 @@
 #type vertex
 #version 450 core
 layout(location = 0) in vec3 aPosition;
-layout(location = 1) in vec3 aTexCoord;
-layout(location = 2) in vec4 aColor;
+layout(location = 1) in vec2 aTexCoord;
+layout(location = 2) in vec3 aNormal;
 layout(location = 3) in int aGameObjectID;
 
 out vec2 TexCoord;
-out vec4 color;
 out flat int ObjID;
 
 uniform mat4 view;
@@ -15,7 +14,6 @@ uniform mat4 projection;
 void main() {
 	gl_Position = projection * view * vec4(aPosition, 1.0f);
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
-	color = aColor;
 	ObjID = aGameObjectID;
 }
 
@@ -23,7 +21,6 @@ void main() {
 #version 450 core
 
 in vec2 TexCoord;
-in vec4 color;
 in flat int ObjID;
 
 uniform int texture_index;
@@ -34,10 +31,10 @@ layout(location = 1) out int Color_red;
 void main() {
 	
 	if (texture_index == -1) {
-		Color = color;
+		Color = vec4(1.0f);
 	}
 	else{
-		Color = mix(texture(textures[texture_index], TexCoord), color, 0.2f);
+		Color = mix(texture(textures[texture_index], TexCoord), vec4(1.0f), 0.2f);
 	}
 	Color_red = ObjID;
 }

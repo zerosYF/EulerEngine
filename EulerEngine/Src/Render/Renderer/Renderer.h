@@ -7,10 +7,6 @@
 #include"Render/Camera/EulerCamera.h"
 #include"Render/RawData/EulerMesh.h"
 #include"Render/EulerBatch.h"
-#define QUAD_VERTEX_CNT 4
-#define CUBE_VERTEX_CNT 8
-#define QUAD_INDEX_CNT 6
-#define CUBE_INDEX_CNT 24
 #define CIRCLE_VERTEX_CNT 12
 namespace EulerEngine {
 	class Renderer {
@@ -21,7 +17,7 @@ namespace EulerEngine {
 		static void EndScene();
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 
-		static void DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID);
+		static void DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID);
 
 		static void DrawSprite(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);
 		static void DrawSprite(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);
@@ -38,12 +34,25 @@ namespace EulerEngine {
 		struct Statistics {
 			unsigned int DrawCalls = 0;
 			unsigned int CubeCount = 0;
-			unsigned int QuadCount = 0;
+			unsigned int PlaneCount = 0;
+			unsigned int SphereCount = 0;
+			unsigned int SpriteCount = 0;
 			unsigned int CircleCount = 0;
 			unsigned int RectCount = 0;
 			unsigned int LineCount = 0;
-			unsigned int GetTotalVertexCount() { return CubeCount * CUBE_VERTEX_CNT + QuadCount * QUAD_VERTEX_CNT + CircleCount * QUAD_VERTEX_CNT; }
-			unsigned int GetTotalIndexCount() { return CubeCount * CUBE_INDEX_CNT + QuadCount * QUAD_INDEX_CNT + CircleCount * QUAD_INDEX_CNT; }
+			unsigned int GetTotalVertexCount() { 
+				return CubeCount * CUBE_VERTEX_CNT
+					+ PlaneCount * PLANE_VERTEX_CNT
+					+ SphereCount * SPHERE_VERTEX_CNT
+					+ SpriteCount * SPRITE_VERTEX_CNT 
+					+ LineCount * 2;
+			}
+			unsigned int GetTotalIndexCount() {
+				return CubeCount * CUBE_INDEX_CNT 
+					+ PlaneCount * PLANE_INDEX_CNT
+					+ SphereCount * SPHERE_INDEX_CNT
+					+ SpriteCount * SPRITE_INDEX_CNT; 
+			}
 		};
 		struct RenderData {
 			glm::mat4 ViewMatrix = glm::mat4(1.0f);

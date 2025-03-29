@@ -92,7 +92,7 @@ namespace EulerEngine {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual unsigned int GetCount() const = 0;
-		virtual void SetData(const void* data, unsigned int count) = 0;
+		virtual void SetData(const unsigned int* data, unsigned int count) = 0;
 		static Ref<IndexBuffer> Create(unsigned int* indices, unsigned int count);
 		static Ref<IndexBuffer> Create(unsigned int count);
 	};

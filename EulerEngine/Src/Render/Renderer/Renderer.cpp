@@ -27,13 +27,26 @@ namespace EulerEngine {
 		s_RenderData->Stats.DrawCalls += EulerBatch::Flush();
 	}
 
-	void Renderer::DrawCube(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID)
+	void Renderer::DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID)
 	{
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
 		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
-		EulerBatch::SubmitCube(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
-		s_RenderData->Stats.CubeCount++;
+		switch (type)
+		{
+		case MeshType::Cube:
+			EulerBatch::SubmitCube(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
+			s_RenderData->Stats.CubeCount++;
+			break;
+		case MeshType::Plane:
+			EulerBatch::SubmitPlane(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
+			s_RenderData->Stats.PlaneCount++;
+			break;
+		case MeshType::Sphere:
+			EulerBatch::SubmitSphere(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
+			s_RenderData->Stats.SphereCount++;
+			break;
+		}
 	}
 	void Renderer::DrawSprite(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID)
 	{
@@ -44,8 +57,8 @@ namespace EulerEngine {
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
 		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
-		EulerBatch::SubmitQuad(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
-		s_RenderData->Stats.QuadCount++;
+		EulerBatch::SubmitSprite(model, s_RenderData->ViewMatrix, s_RenderData->ProjectionMatrix, mesh, material, objID);
+		s_RenderData->Stats.SpriteCount++;
 	}
 	void Renderer::DrawLine(const glm::vec3 start, const glm::vec3 end, const glm::vec4 color, int objID)
 	{
@@ -68,22 +81,23 @@ namespace EulerEngine {
 		DrawLine(p2, p3, color, objID);
 		DrawLine(p3, p0, color, objID);
 		s_RenderData->Stats.RectCount++;
+		s_RenderData->Stats.LineCount += 4;
 	}
 	void Renderer::DrawRect(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, int objID)
 	{
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
 		model *= glm::toMat4(glm::quat(rotation));
 		model = glm::scale(model, scale);
-		glm::vec3 LineVertices[QUAD_VERTEX_CNT];
-		glm::vec4 QuadPositions[QUAD_VERTEX_CNT];
-		for (unsigned int i = 0; i < QUAD_VERTEX_CNT; i++) {
-			unsigned int head_index = QUAD_DATA_SIZE * i;
+		glm::vec3 LineVertices[SPRITE_VERTEX_CNT];
+		glm::vec4 QuadPositions[SPRITE_VERTEX_CNT];
+		for (unsigned int i = 0; i < SPRITE_VERTEX_CNT; i++) {
+			unsigned int head_index = SPRITE_DATA_SIZE * i;
 			glm::vec4 VerticePosition
-				= glm::vec4(QuadVertices[head_index], QuadVertices[head_index + 1], QuadVertices[head_index + 2], 1.0f);
+				= glm::vec4(SpriteVertices[head_index], SpriteVertices[head_index + 1], SpriteVertices[head_index + 2], 1.0f);
 			QuadPositions[i] = VerticePosition;
 		}
 
-		for (unsigned int i = 0; i < QUAD_VERTEX_CNT; i++) {
+		for (unsigned int i = 0; i < SPRITE_VERTEX_CNT; i++) {
 			LineVertices[i] = model * QuadPositions[i];
 		}
 		DrawLine(LineVertices[0], LineVertices[1], color);
@@ -92,6 +106,7 @@ namespace EulerEngine {
 		DrawLine(LineVertices[3], LineVertices[0], color);
 
 		s_RenderData->Stats.RectCount++;
+		s_RenderData->Stats.LineCount += 4;
 	}
 	void Renderer::DrawCircle(const glm::vec2 position, const float radius, const glm::vec4 color, int objID)
 	{
@@ -114,6 +129,7 @@ namespace EulerEngine {
 		DrawLine(LineVertices[CIRCLE_VERTEX_CNT - 1], LineVertices[0], color, objID);
 
 		s_RenderData->Stats.CircleCount++;
+		s_RenderData->Stats.LineCount += CIRCLE_VERTEX_CNT;
 	}
 	void Renderer::DrawCircle(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const glm::vec4 color, int objID)
 	{
@@ -144,6 +160,7 @@ namespace EulerEngine {
 		DrawLine(LineVertices[CIRCLE_VERTEX_CNT - 1], LineVertices[0], color, objID);
 
 		s_RenderData->Stats.CircleCount++;
+		s_RenderData->Stats.LineCount += CIRCLE_VERTEX_CNT;
 	}
 	void Renderer::ResetStatistic()
 	{

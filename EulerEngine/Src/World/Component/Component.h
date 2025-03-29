@@ -7,6 +7,7 @@
 #include"NativeScript.h"
 #include"CSharpScript.h"
 
+#include"MeshFilter.h"
 #include"MeshRenderer.h"
 #include"SpriteRenderer.h"
 
@@ -21,7 +22,7 @@ namespace EulerEngine {
 	using AllComponents = ComponentGroup<
 		IDCom, Transform, Profile,Camera, 
 		NativeScript,CSharpScript, 
-		MeshRenderer,SpriteRenderer,
+		MeshFilter, MeshRenderer, SpriteRenderer,
 		Rigidbody2D, BoxCollider2D, CircleCollider2D
 		>;
 }

@@ -590,6 +590,7 @@
     <ClInclude Include="Src\World\Component\CircleCollider2D.h" />
     <ClInclude Include="Src\World\Component\Component.h" />
     <ClInclude Include="Src\World\Component\IDCom.h" />
+    <ClInclude Include="Src\World\Component\MeshFilter.h" />
     <ClInclude Include="Src\World\Component\MeshRenderer.h" />
     <ClInclude Include="Src\World\Component\NativeScript.h" />
     <ClInclude Include="Src\World\Component\Profile.h" />

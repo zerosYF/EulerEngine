@@ -132,6 +132,7 @@ namespace EulerEngine {
 			ImGui::OpenPopup("AddComponent");
 		}
 		if (ImGui::BeginPopup("AddComponent")) {
+			DisplayAddComponentPopup<MeshFilter>("MeshFilter");
 			DisplayAddComponentPopup<MeshRenderer>("MeshRenderer");
 			DisplayAddComponentPopup<Camera>("Camera");
 			DisplayAddComponentPopup<SpriteRenderer>("SpriteRenderer");
@@ -195,6 +196,23 @@ namespace EulerEngine {
 				}
 			}
 		});
+		DrawComponent<MeshFilter>("MeshFilter", gameObject, [](MeshFilter& com) {
+			const char* meshTypeStrings[] = { "None", "Cube", "Plane", "Sphere", "Model"};
+			std::string currentMeshTypeString = meshTypeStrings[(int)com.GetType()];
+			if (ImGui::BeginCombo("MeshType", currentMeshTypeString.c_str())) {
+				for (int i = 0; i < 5; i++) {
+					bool isSelected = currentMeshTypeString == meshTypeStrings[i];
+					if (ImGui::Selectable(meshTypeStrings[i], isSelected)) {
+						currentMeshTypeString = meshTypeStrings[i];
+						com.SetType(EulerMesh::StringToMeshType(currentMeshTypeString));
+					}
+					if (isSelected) {
+						ImGui::SetItemDefaultFocus();
+					}
+				}
+				ImGui::EndCombo();
+			}
+		});
 		DrawComponent<MeshRenderer>("MeshRenderer", gameObject, [](MeshRenderer& com) {
 			ImGui::ColorEdit4("Roughness", &com.Material->GetRoughness());
 			ImGui::Button("Texture", ImVec2{ 100, 0 });
@@ -202,7 +220,8 @@ namespace EulerEngine {
 				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
 					const wchar_t* path = (const wchar_t*)payload->Data;
 					std::filesystem::path texturePath(path);
-					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
+					std::filesystem::path relativePath = Project::GetPathInActiveProjectAsset(texturePath);
+					com.Material->SetTexture(ResourceLibrary::LoadTexture2D(relativePath.string()));
 				}
 				ImGui::EndDragDropTarget();
 			}
@@ -214,7 +233,8 @@ namespace EulerEngine {
 				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("AssetBrowserItem")) {
 					const wchar_t* path = (const wchar_t*)payload->Data;
 					std::filesystem::path texturePath(path);
-					com.Material->SetTexture(Texture2D::Create(texturePath.string()));
+					std::filesystem::path relativePath = Project::GetPathInActiveProjectAsset(texturePath);
+					com.Material->SetTexture(ResourceLibrary::LoadTexture2D(relativePath.string()));
 				}
 				ImGui::EndDragDropTarget();
 			}

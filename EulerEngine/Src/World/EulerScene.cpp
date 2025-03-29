@@ -68,6 +68,7 @@ namespace EulerEngine {
 		CopyComponent<BoxCollider2D>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<Rigidbody2D>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<SpriteRenderer>(dstRegistry, srcregistry, entityMap);
+		CopyComponent<MeshFilter>(dstRegistry, srcregistry, entityMap );
 		CopyComponent<MeshRenderer>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<NativeScript>(dstRegistry, srcregistry, entityMap);
 		CopyComponent<Camera>(dstRegistry, srcregistry, entityMap);
@@ -96,6 +97,7 @@ namespace EulerEngine {
 		CopyComponent<BoxCollider2D>(newObj, obj);
 		CopyComponent<Rigidbody2D>(newObj, obj);
 		CopyComponent<SpriteRenderer>(newObj, obj);
+		CopyComponent<MeshFilter>(newObj, obj);
 		CopyComponent<MeshRenderer>(newObj, obj);
 		CopyComponent<NativeScript>(newObj, obj);
 		CopyComponent<Camera>(newObj, obj);
@@ -264,17 +266,42 @@ namespace EulerEngine {
 	{
 		Renderer::BeginScene(camera);
 		{
-			auto view = m_Registry.view<Transform, MeshRenderer>();
+			auto view = m_Registry.view<Transform, MeshFilter, MeshRenderer>();
 			for (auto entity : view) {
-				auto [transform, mesh] = view.get<Transform, MeshRenderer>(entity);
-				Renderer::DrawCube(transform.Position, transform.Rotation, transform.Scale, mesh.Mesh, mesh.Material, (int)entity);
+				auto [transform, filter, renderer] = view.get<Transform, MeshFilter, MeshRenderer>(entity);
+				if (filter.GetType() == MeshType::None) {
+					KINK_CORE_WARN("MeshFilter has no mesh");
+					continue;
+				}
+				std::vector<float> vertices;
+				std::vector<unsigned int> indices;
+				if (filter.GetType() == MeshType::Cube) {
+					vertices = std::vector<float>(std::begin(CubeVertices), std::end(CubeVertices));
+				}
+				else if (filter.GetType() == MeshType::Plane) {
+					vertices = std::vector<float>(std::begin(PlaneVertices), std::end(PlaneVertices));
+					indices = std::vector<unsigned int>(std::begin(PlaneIndices), std::end(PlaneIndices));
+				}
+				else if (filter.GetType() == MeshType::Sphere) {
+					vertices = Generator::GenerateSphereVertices(1.0f, 16, 16);
+					indices = Generator::GenerateSphereIndices(16, 16);
+				}
+				
+				if (filter.Mesh == nullptr) {
+					filter.Mesh = CreateRef<EulerMesh>(vertices, indices);
+				}
+				else {
+					filter.Mesh->SetVertices(vertices);
+					filter.Mesh->SetIndices(indices);
+				}
+				Renderer::DrawMesh(filter.Type,transform.Position, transform.Rotation, transform.Scale, filter.Mesh, renderer.Material, (int)entity);
 			}
 		}
 		{
 			auto view = m_Registry.view<Transform, SpriteRenderer>();
 			for (auto entity : view) {
-				auto [transform, sprite] = view.get<Transform, SpriteRenderer>(entity);
-				Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, sprite.Mesh, sprite.Material, (int)entity);
+				auto [transform, renderer] = view.get<Transform, SpriteRenderer>(entity);
+				Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, renderer.Mesh, renderer.Material, (int)entity);
 			}
 		}
 		Renderer::EndScene();
@@ -380,33 +407,30 @@ namespace EulerEngine {
 		component.RendererCamera.SetViewportSize((float)m_ViewportWidth, (float)m_ViewportHeight);
 	}
 	template<>
+	void Scene::OnComponentAdded<MeshFilter>(GameObject obj, MeshFilter& component) {
+	}
+	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
-		auto shader = ResourceLibrary::LoadShaderInner("Camera/cube.glsl");
+		auto shader = ResourceLibrary::LoadShader("Shaders/Default/3d_default.glsl");
 		auto material = CreateRef<EulerMaterial>();
 		material->SetShader(shader);
 		component.Material = material;
-
-		std::vector<float> cubeVertices(std::begin(CubeVertices), std::end(CubeVertices));
-		std::vector<unsigned int> cubeIndices;
-		auto mesh = CreateRef<EulerMesh>(MeshType::Cube, cubeVertices, cubeIndices);
-		component.Mesh = mesh;
 	}
 	template<>
 	void Scene::OnComponentAdded<SpriteRenderer>(GameObject obj, SpriteRenderer& component) {
-		auto shader = ResourceLibrary::LoadShaderInner("Camera/quad.glsl");
+		auto shader = ResourceLibrary::LoadShader("Shaders/Default/sprite.glsl");
 		auto material = CreateRef<EulerMaterial2D>();
 		material->SetShader(shader);
 		material->SetColor(glm::vec4(1.0f));
 		component.Material = material;
 
-		std::vector<float> quadVertices(std::begin(QuadVertices), std::end(QuadVertices));
-		std::vector<unsigned int> quadIndices(std::begin(QuadIndices), std::end(QuadIndices));
-		auto mesh = CreateRef<EulerMesh>(MeshType::Sprite, quadVertices, quadIndices);
+		std::vector<float> spriteVertices(std::begin(SpriteVertices), std::end(SpriteVertices));
+		std::vector<unsigned int> spriteIndices(std::begin(SpriteIndices), std::end(SpriteIndices));
+		auto mesh = CreateRef<EulerMesh>(spriteVertices, spriteIndices);
 		component.Mesh = mesh;
 	}
 	template<>
 	void Scene::OnComponentAdded<NativeScript>(GameObject obj, NativeScript& component) {
-		
 	}
 	template<>
 	void Scene::OnComponentAdded<Rigidbody2D>(GameObject obj, Rigidbody2D& component) {

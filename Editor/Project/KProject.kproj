@@ -1,5 +1,5 @@
 Project:
   Name: EulerProject
-  StartScene: "Scenes/scene.kink"
+  StartScene: "Scenes/3dscene.kink"
   AssetDirectory: "Assets"
   ScriptModulePath: "Scripts/Binaries/Sandbox.dll"

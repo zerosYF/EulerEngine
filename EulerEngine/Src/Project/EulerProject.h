@@ -21,6 +21,9 @@ namespace EulerEngine {
 		static std::filesystem::path GetPath(const std::filesystem::path& path) {
 			return GetActiveProjectDir() / GetAssetDir() / path;
 		}
+		static std::filesystem::path GetPathInActiveProjectAsset(const std::filesystem::path& path) {
+			return path.lexically_relative(GetActiveProjectDir() / GetAssetDir() / "");
+		}
 		ProjectConfig& GetConfig() { 
 			return m_Config; 
 		}

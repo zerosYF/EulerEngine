@@ -8,9 +8,9 @@ GameObjects:
       Rotation: [0, 0, 0.0015882496]
       Scale: [1, 1, 1]
     SpriteRenderer:
-      Shader: Camera/quad.glsl
+      Shader: Shaders/Default/sprite.glsl
       Color: [1, 1, 1, 1]
-      TexturePath: mytextures/container2.png
+      TexturePath: Resource/mytextures/container2.png
     Rigidbody2D:
       Type: Dynamic
       FixedRotation: false
@@ -41,9 +41,9 @@ GameObjects:
       Rotation: [0, 0, 0.15165329]
       Scale: [5.3, 0.4, 1]
     SpriteRenderer:
-      Shader: Camera/quad.glsl
+      Shader: Shaders/Default/sprite.glsl
       Color: [1, 1, 1, 1]
-      TexturePath: mytextures/container2.png
+      TexturePath: Resource/mytextures/container2.png
     Rigidbody2D:
       Type: Static
       FixedRotation: false

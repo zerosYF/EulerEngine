@@ -9,7 +9,6 @@ namespace EulerEngine {
 		DIR_LIGHT,
 		SPOT_LIGHT,
 	};
-	extern float vertices[CUBE_VERTICE_CNT*CUBE_DATA_SIZE];
 	class EulerLight {
 	public:
 		glm::vec3 color{1.0f,1.0f,1.0f};

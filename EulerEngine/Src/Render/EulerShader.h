@@ -14,7 +14,6 @@ namespace EulerEngine {
 		virtual std::string GetPath() const = 0;
 
 		static Ref<EulerShader> Create(const std::string& vertexSrc, const std::string& fragmentSrc);
-		static Ref<EulerShader> Create(const std::string& path);
 		//uniform;
 		virtual void inline SetBool(const std::string& name, bool value) const = 0;
 		virtual void inline SetInt(const std::string& name, int value) const = 0;
@@ -28,5 +27,8 @@ namespace EulerEngine {
 		virtual void inline SetVec3(const std::string& name, glm::vec3 value) const = 0;
 		virtual void inline SetVec4(const std::string& name, float x, float y, float z, float w) const = 0;
 		virtual void inline SetVec4(const std::string& name, glm::vec4 value) const = 0;
+	private:
+		static Ref<EulerShader> Create(const std::string& path);
+		friend class ResourceLibrary;
 	};
 }

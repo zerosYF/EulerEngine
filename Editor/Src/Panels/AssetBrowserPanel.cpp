@@ -4,8 +4,8 @@
 #include"GutKink/Core.h"
 namespace EulerEngine {
 	AssetBrowserPanel::AssetBrowserPanel():m_BasePath(Project::GetActiveProjectDir() / Project::GetAssetDir()), m_CurrentDirectory(m_BasePath) {
-		m_DirectoryIcon = Texture2D::Create("Assets/Editor/Icons/DirectoryIcon.png");
-		m_FileIcon = Texture2D::Create("Assets/Editor/Icons/FileIcon.png");
+		m_DirectoryIcon = ResourceLibrary::LoadTexture2DInner("Icons/DirectoryIcon.png");
+		m_FileIcon = ResourceLibrary::LoadTexture2DInner("Icons/FileIcon.png");
 	}
 
 	void AssetBrowserPanel::OnImGuiRender()
