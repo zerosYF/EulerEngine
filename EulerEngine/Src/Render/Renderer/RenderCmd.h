@@ -21,7 +21,7 @@ namespace EulerEngine {
 		inline static void SetLineWidth(float width) {
 			m_RendererAPI->SetLineWidth(width);
 		}
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_count) {
+		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_count = 0) {
 			m_RendererAPI->DrawIndexed(vertexArray, index_count);
 		}
 	private:

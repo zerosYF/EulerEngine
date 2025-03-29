@@ -261,13 +261,13 @@ namespace EulerEngine {
 		s_SpriteData->VA = VertexArray::Create();
 		s_SpriteData->VB = VertexBuffer::Create(s_SpriteData->MaxVertices * sizeof(SpriteVertex));
 		s_SpriteData->IB = IndexBuffer::Create(s_SpriteData->MaxIndices);
-		BufferLayout quad_layout = {
+		BufferLayout sprite_layout = {
 			{ShaderDataType::Float3, "aPosition"},
 			{ShaderDataType::Float2, "aTexCoord"},
 			{ShaderDataType::Float4, "aColor"},
 			{ShaderDataType::Int, "aGameObjectID"},
 		};
-		s_SpriteData->VB->SetLayout(quad_layout);
+		s_SpriteData->VB->SetLayout(sprite_layout);
 		s_SpriteData->VA->AddVertexBuffer(s_SpriteData->VB);
 		s_SpriteData->VA->SetIndexBuffer(s_SpriteData->IB);
 		s_SpriteData->VertexBase = new SpriteVertex[s_SpriteData->MaxVertices];

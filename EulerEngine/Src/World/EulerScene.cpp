@@ -106,9 +106,9 @@ namespace EulerEngine {
 	}
 	void Scene::DestroyObject(GameObject obj)
 	{
-		KINK_CORE_ERROR("Destroy OBJ:{0}", (unsigned int)obj);
-		m_Registry.destroy(obj);
+		KINK_CORE_WARN("Destroy OBJ:{0}", (unsigned int)obj);
 		m_EntityMap.erase(obj.GetUUID());
+		m_Registry.destroy(obj);
 	}
 	void Scene::OnRuntimeStart()
 	{
@@ -277,6 +277,7 @@ namespace EulerEngine {
 				std::vector<unsigned int> indices;
 				if (filter.GetType() == MeshType::Cube) {
 					vertices = std::vector<float>(std::begin(CubeVertices), std::end(CubeVertices));
+					//indices = std::vector<unsigned int>(std::begin(CubeIndices), std::end(CubeIndices));
 				}
 				else if (filter.GetType() == MeshType::Plane) {
 					vertices = std::vector<float>(std::begin(PlaneVertices), std::end(PlaneVertices));
@@ -294,7 +295,7 @@ namespace EulerEngine {
 					filter.Mesh->SetVertices(vertices);
 					filter.Mesh->SetIndices(indices);
 				}
-				Renderer::DrawMesh(filter.Type,transform.Position, transform.Rotation, transform.Scale, filter.Mesh, renderer.Material, (int)entity);
+				Renderer::DrawMesh(filter.Type, transform.Position, transform.Rotation, transform.Scale, filter.Mesh, renderer.Material, (int)entity);
 			}
 		}
 		{

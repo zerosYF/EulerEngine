@@ -8,6 +8,7 @@ namespace EulerEngine {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		glDepthMask(GL_TRUE);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LINE_SMOOTH);
 	}
@@ -28,16 +29,19 @@ namespace EulerEngine {
 	{
 		vertexArray->Bind();
 		glDrawArrays(GL_TRIANGLES, 0, vertex_cnt);
+		vertexArray->Unbind();
 	}
 	void GLRendererAPI::DrawLines(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int vertex_cnt)
 	{
 		vertexArray->Bind();
 		glDrawArrays(GL_LINES, 0, vertex_cnt);
+		vertexArray->Unbind();
 	}
 	void GLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const unsigned int index_cnt)
 	{
 		unsigned int count = index_cnt ? index_cnt : vertexArray->GetIndexBuffer()->GetCount();
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		vertexArray->Unbind();
 	}
 }

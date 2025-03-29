@@ -7,11 +7,11 @@
 #include"Render/EulerShader.h"
 #include<array>
 #define MAX_TEXTURE_SLOTS 32
-#define MAX_CUBE_COUNT 10000
-#define MAX_PLANE_COUNT 10000
-#define MAX_SPHERE_COUNT 10000
-#define MAX_SPRITE_COUNT 10000
-#define MAX_LINE_COUNT 50000
+#define MAX_CUBE_COUNT 1000
+#define MAX_PLANE_COUNT 1000
+#define MAX_SPHERE_COUNT 1000
+#define MAX_SPRITE_COUNT 1000
+#define MAX_LINE_COUNT 5000
 #define LINE_VERTEX_CNT 2
 namespace EulerEngine{
 	class EulerBatch {
