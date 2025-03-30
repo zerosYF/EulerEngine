@@ -116,9 +116,6 @@ namespace EulerEngine {
 				}
 				offset += m_SingleVerticeCount;
 			}
-			for (unsigned int i = 0; i < maxTotalIndiceCount; i++) {
-				printf("%d ", Indices[i]);
-			}
 			m_IB = IndexBuffer::Create(Indices, maxTotalIndiceCount);
 			m_VA->SetIndexBuffer(m_IB);
 			delete[] Indices;
