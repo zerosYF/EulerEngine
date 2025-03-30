@@ -5,10 +5,10 @@
 #include"glm/glm.hpp"
 namespace EulerEngine {
 	struct MeshRenderer{
-		Ref<EulerMaterial> Material;
+		Ref<EulerMaterial3D> Material;
 		MeshRenderer() = default;
 		MeshRenderer(const MeshRenderer&) = default;
-		MeshRenderer(const Ref<EulerMaterial> material) : Material(material) {}
-		Ref<EulerMaterial> GetMaterial() const { return Material; }
+		MeshRenderer(const Ref<EulerMaterial3D> material) : Material(material) {}
+		Ref<EulerMaterial3D> GetMaterial() const { return Material; }
 	};
 }

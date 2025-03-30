@@ -331,7 +331,7 @@ namespace EulerEngine {
 					if (gameObject["MeshRenderer"]) {
 						auto& meshRenderer = gameObj.AddComponent<MeshRenderer>();
 
-						Ref<EulerMaterial> material = CreateRef<EulerMaterial>();
+						Ref<EulerMaterial3D> material = CreateRef<EulerMaterial3D>();
 						material->SetShader(ResourceLibrary::LoadShader(gameObject["MeshRenderer"]["Shader"].as<std::string>()));
 						//
 						material->SetTexture(ResourceLibrary::LoadTexture2D(gameObject["MeshRenderer"]["TexturePath"].as<std::string>()));

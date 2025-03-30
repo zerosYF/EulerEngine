@@ -1513,8 +1513,9 @@
     <ClInclude Include="Src\UI\EulerUI.h" />
     <ClInclude Include="Src\Core\Events\KeyboardEvent.h" />
     <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
-    <ClInclude Include="Src\Render\EulerBatch.h" />
+    <ClInclude Include="Src\Render\Batch\EulerBatch.h" />
     <ClInclude Include="Src\World\Component\MeshFilter.h" />
+    <ClInclude Include="Src\Render\Batch\BatchData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1674,7 +1675,7 @@
     <ClCompile Include="Src\Project\EulerProject.cpp" />
     <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
     <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp" />
-    <ClCompile Include="Src\Render\EulerBatch.cpp" />
+    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp" />
     <ClCompile Include="Src\Render\RawData\EulerVertices.cpp" />
   </ItemGroup>
 </Project>

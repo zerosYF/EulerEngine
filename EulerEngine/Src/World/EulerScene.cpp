@@ -413,7 +413,7 @@ namespace EulerEngine {
 	template<>
 	void Scene::OnComponentAdded<MeshRenderer>(GameObject obj, MeshRenderer& component) {
 		auto shader = ResourceLibrary::LoadShader("Shaders/Default/3d_default.glsl");
-		auto material = CreateRef<EulerMaterial>();
+		auto material = CreateRef<EulerMaterial3D>();
 		material->SetShader(shader);
 		component.Material = material;
 	}

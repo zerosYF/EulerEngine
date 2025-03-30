@@ -59,6 +59,8 @@ namespace EulerEngine {
 		const std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 		const std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 		inline const unsigned int GetStride() const { return m_Stride; }
+		template<typename T>
+		static BufferLayout GetLayoutFromVertexType();
 	private:
 		void CalculateOffsetsAndStride() {
 			unsigned int offset = 0;
@@ -92,8 +94,35 @@ namespace EulerEngine {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 		virtual unsigned int GetCount() const = 0;
-		virtual void SetData(const unsigned int* data, unsigned int count) = 0;
 		static Ref<IndexBuffer> Create(unsigned int* indices, unsigned int count);
 		static Ref<IndexBuffer> Create(unsigned int count);
 	};
+	template<typename T>
+	inline BufferLayout BufferLayout::GetLayoutFromVertexType()
+	{
+		if constexpr (std::is_same<T, NormalVertex>::value) {
+			return {
+				{ShaderDataType::Float3, "aPosition"},
+				{ShaderDataType::Float2, "aTexCoord"},
+				{ShaderDataType::Float3, "aNormal"},
+				{ShaderDataType::Int, "aGameObjectID"},
+			};
+		}
+		else if constexpr (std::is_same<T, SpriteVertex>::value) {
+			return {
+				{ShaderDataType::Float3, "aPosition"},
+				{ShaderDataType::Float2, "aTexCoord"},
+				{ShaderDataType::Float4, "aColor"},
+				{ShaderDataType::Int, "aGameObjectID"},
+			};
+		}
+		else if constexpr (std::is_same<T, LineVertex>::value) {
+			return {
+				{ShaderDataType::Float3, "aPosition"},
+				{ShaderDataType::Float4, "aColor"},
+				{ShaderDataType::Int, "aGameObjectID"},
+			};
+		}
+		return BufferLayout();
+	}
 }

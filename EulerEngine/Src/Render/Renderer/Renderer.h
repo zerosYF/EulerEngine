@@ -6,7 +6,7 @@
 #include"Render/RawData/EulerVertices.h"
 #include"Render/Camera/EulerCamera.h"
 #include"Render/RawData/EulerMesh.h"
-#include"Render/EulerBatch.h"
+#include"Render/Batch/EulerBatch.h"
 #define CIRCLE_VERTEX_CNT 12
 namespace EulerEngine {
 	class Renderer {
@@ -17,7 +17,7 @@ namespace EulerEngine {
 		static void EndScene();
 		inline static RendererAPI::API GetAPI() { return RendererAPI::getAPI(); }
 
-		static void DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID);
+		static void DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial3D>& material, int objID);
 
 		static void DrawSprite(const glm::vec2 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);
 		static void DrawSprite(const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial2D>& material, int objID);

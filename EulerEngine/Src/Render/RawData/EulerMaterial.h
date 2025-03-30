@@ -3,8 +3,15 @@
 #include"Render/EulerShader.h"
 #include<array>
 namespace EulerEngine {
-
 	class EulerMaterial {
+	public:
+		virtual void SetShader(Ref<EulerShader> shader) = 0;
+		virtual void SetTexture(Ref<Texture2D> texture) = 0;
+		virtual Ref<EulerShader>& GetShader() = 0;
+		virtual Ref<Texture2D>& GetTexture() = 0;
+	};
+
+	class EulerMaterial3D: public EulerMaterial {
 	private:
 		Ref<EulerShader> m_Shader;
 		Ref<Texture2D> m_Texture;
@@ -13,15 +20,15 @@ namespace EulerEngine {
 		float m_Roughness;
 
 	public:
-		EulerMaterial();
-		void SetShader(Ref<EulerShader> shader);
-		void SetTexture(Ref<Texture2D> texture);
+		EulerMaterial3D();
+		void SetShader(Ref<EulerShader> shader) override;
+		void SetTexture(Ref<Texture2D> texture) override;
 		void SetAlbedo(glm::vec3 albedo);
 		void SetRoughness(float roughness);
 		void AddFloatParam(std::string& name, float param);
 
-		Ref<EulerShader>& GetShader();
-		Ref<Texture2D>& GetTexture();
+		Ref<EulerShader>& GetShader() override;
+		Ref<Texture2D>& GetTexture() override;
 		glm::vec3& GetAlbedo();
 		float& GetRoughness();
 		float GetFloatParam(const std::string& name) const;

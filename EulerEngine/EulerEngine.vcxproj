@@ -552,10 +552,11 @@
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h" />
     <ClInclude Include="Src\Project\EulerProject.h" />
     <ClInclude Include="Src\Project\ProjectSerializer.h" />
+    <ClInclude Include="Src\Render\Batch\BatchData.h" />
     <ClInclude Include="Src\Render\Camera\CameraController.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
-    <ClInclude Include="Src\Render\EulerBatch.h" />
+    <ClInclude Include="Src\Render\Batch\EulerBatch.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
     <ClInclude Include="Src\Render\RawData\EulerMaterial.h" />
     <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
@@ -642,7 +643,7 @@
     <ClCompile Include="Src\Render\EulerShader.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
-    <ClCompile Include="Src\Render\EulerBatch.cpp" />
+    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp" />
     <ClCompile Include="Src\Render\RawData\EulerVertices.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />

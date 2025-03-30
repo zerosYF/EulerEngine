@@ -27,7 +27,7 @@ namespace EulerEngine {
 		s_RenderData->Stats.DrawCalls += EulerBatch::Flush();
 	}
 
-	void Renderer::DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial>& material, int objID)
+	void Renderer::DrawMesh(MeshType type, const glm::vec3 position, const glm::vec3 rotation, const glm::vec3 scale, const Ref<EulerMesh>& mesh, const Ref<EulerMaterial3D>& material, int objID)
 	{
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
 		model *= glm::toMat4(glm::quat(rotation));

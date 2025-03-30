@@ -58,9 +58,4 @@ namespace EulerEngine {
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-	void OpenGLIndexBuffer::SetData(const unsigned int* data, unsigned int count)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, count * sizeof(unsigned int), data);
-	}
 }

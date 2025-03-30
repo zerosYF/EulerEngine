@@ -22,7 +22,6 @@ namespace EulerEngine {
 		virtual ~OpenGLIndexBuffer();
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
-		virtual void SetData(const unsigned int* data, unsigned int count) override;
 		virtual unsigned int GetCount() const override { return m_Count; }
 	private:
 		unsigned int m_RendererID;

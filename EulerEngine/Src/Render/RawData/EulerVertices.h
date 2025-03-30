@@ -24,8 +24,6 @@ namespace EulerEngine {
 	extern unsigned int PlaneIndices[PLANE_INDEX_CNT];
 	class Generator {
 	public:
-		static unsigned int* GenerateIndices(std::vector<unsigned int>& singleIndices, unsigned int totalCount, const unsigned int vertexCnt);
-
 		static std::vector<float>& GenerateSphereVertices(int slices, int stacks, float radius);
 		static std::vector<unsigned int>& GenerateSphereIndices(int slices, int stacks);
 	};
