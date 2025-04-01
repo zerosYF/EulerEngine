@@ -88,7 +88,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Debug\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;\mono\Deb\libmono-static-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -110,7 +110,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Release\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;\mono\Rel\libmono-static-sgen.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;\mono\Dist\libmono-static-sgen.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;Ws2_32.lib;Winmm.lib;Version.lib;Bcrypt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>External\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
@@ -511,23 +511,22 @@
     <ClInclude Include="External\include\glm\vec4.hpp" />
     <ClInclude Include="External\include\glm\vector_relational.hpp" />
     <ClInclude Include="External\include\stb_image\stb_image.h" />
-    <ClInclude Include="Src\Core\Memory\EulerBuffer.h" />
     <ClInclude Include="Src\Core\EulerDelegate.h" />
-    <ClInclude Include="Src\Data\EulerImage.h" />
     <ClInclude Include="Src\Core\EulerInstrumentor.h" />
-    <ClInclude Include="Src\Core\Global\EulerTimer.h" />
-    <ClInclude Include="Src\Core\Global\EulerUUID.h" />
     <ClInclude Include="Src\Core\EulerWindow.h" />
     <ClInclude Include="Src\Core\Events\ApplicationEvent.h" />
     <ClInclude Include="Src\Core\Events\Event.h" />
-    <ClInclude Include="Src\Core\Events\MouseEvent.h" />
     <ClInclude Include="Src\Core\Events\KeyboardEvent.h" />
-    <ClInclude Include="Src\Core\IO\FileSystem.h" />
+    <ClInclude Include="Src\Core\Events\MouseEvent.h" />
+    <ClInclude Include="Src\Core\Global\EulerTimer.h" />
+    <ClInclude Include="Src\Core\Global\EulerUUID.h" />
     <ClInclude Include="Src\Core\IO\EulerInput.h" />
     <ClInclude Include="Src\Core\IO\EulerInputCodes.h" />
+    <ClInclude Include="Src\Core\IO\FileSystem.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayer.h" />
     <ClInclude Include="Src\Core\Layer\EulerLayerStack.h" />
     <ClInclude Include="Src\Core\Logs\EulerLog.h" />
+    <ClInclude Include="Src\Core\Memory\EulerBuffer.h" />
     <ClInclude Include="Src\Core\Memory\EulerMemManager.h" />
     <ClInclude Include="Src\Core\Memory\EulerMemOperator.h" />
     <ClInclude Include="Src\Core\Memory\EulerSystem.h" />
@@ -535,6 +534,7 @@
     <ClInclude Include="Src\Core\Reflection\ClassMethod.h" />
     <ClInclude Include="Src\Core\Reflection\ClassRegister.h" />
     <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h" />
+    <ClInclude Include="Src\Data\EulerImage.h" />
     <ClInclude Include="Src\GutKink.h" />
     <ClInclude Include="Src\GutKink\Application.h" />
     <ClInclude Include="Src\GutKink\Core.h" />
@@ -553,26 +553,26 @@
     <ClInclude Include="Src\Project\EulerProject.h" />
     <ClInclude Include="Src\Project\ProjectSerializer.h" />
     <ClInclude Include="Src\Render\Batch\BatchData.h" />
+    <ClInclude Include="Src\Render\Batch\EulerBatch.h" />
     <ClInclude Include="Src\Render\Camera\CameraController.h" />
     <ClInclude Include="Src\Render\Camera\EulerCamera.h" />
     <ClInclude Include="Src\Render\Context\EulerContext.h" />
-    <ClInclude Include="Src\Render\Batch\EulerBatch.h" />
     <ClInclude Include="Src\Render\EulerBuffer.h" />
-    <ClInclude Include="Src\Render\RawData\EulerMaterial.h" />
-    <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
-    <ClInclude Include="Src\Render\RawData\EulerMesh.h" />
     <ClInclude Include="Src\Render\EulerShader.h" />
     <ClInclude Include="Src\Render\FrameBuffer.h" />
     <ClInclude Include="Src\Render\GLObjects\GLLight.h" />
     <ClInclude Include="Src\Render\OpenGL\GLModel.h" />
     <ClInclude Include="Src\Render\OpenGL\GLText.h" />
+    <ClInclude Include="Src\Render\RawData\EulerMaterial.h" />
+    <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
+    <ClInclude Include="Src\Render\RawData\EulerMesh.h" />
+    <ClInclude Include="Src\Render\RawData\EulerTexture.h" />
+    <ClInclude Include="Src\Render\RawData\EulerVertices.h" />
+    <ClInclude Include="Src\Render\RawData\SubTexture2D.h" />
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h" />
     <ClInclude Include="Src\Render\Renderer\Renderer.h" />
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h" />
-    <ClInclude Include="Src\Render\RawData\EulerTexture.h" />
-    <ClInclude Include="Src\Render\RawData\SubTexture2D.h" />
     <ClInclude Include="Src\Render\VertexArray.h" />
-    <ClInclude Include="Src\Render\RawData\EulerVertices.h" />
     <ClInclude Include="Src\Resource\ResourceLibrary.h" />
     <ClInclude Include="Src\Script\ScriptClass.h" />
     <ClInclude Include="Src\Script\ScriptEngine.h" />
@@ -608,7 +608,6 @@
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c" />
     <ClCompile Include="External\include\stb_image\stb_image.cpp" />
-    <ClCompile Include="Src\Data\EulerImage.cpp" />
     <ClCompile Include="Src\Core\Global\EulerTimer.cpp" />
     <ClCompile Include="Src\Core\Global\EulerUUID.cpp" />
     <ClCompile Include="Src\Core\IO\FileSystem.cpp" />
@@ -617,6 +616,7 @@
     <ClCompile Include="Src\Core\Memory\EulerMemManager.cpp" />
     <ClCompile Include="Src\Core\Memory\EulerSystem.cpp" />
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp" />
+    <ClCompile Include="Src\Data\EulerImage.cpp" />
     <ClCompile Include="Src\GutKink\Application.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="Src\ImGui\ImGuiLayer.cpp" />
@@ -633,23 +633,23 @@
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp" />
     <ClCompile Include="Src\Project\EulerProject.cpp" />
     <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
+    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp" />
     <ClCompile Include="Src\Render\Camera\CameraController.cpp" />
     <ClCompile Include="Src\Render\Camera\EulerCamera.cpp" />
     <ClCompile Include="Src\Render\Context\EulerContext.cpp" />
     <ClCompile Include="Src\Render\EulerBuffer.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerMaterial.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerMesh.cpp" />
     <ClCompile Include="Src\Render\EulerShader.cpp" />
     <ClCompile Include="Src\Render\FrameBuffer.cpp" />
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp" />
-    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerMaterial.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerMesh.cpp" />
+    <ClCompile Include="Src\Render\RawData\EulerTexture.cpp" />
     <ClCompile Include="Src\Render\RawData\EulerVertices.cpp" />
+    <ClCompile Include="Src\Render\RawData\SubTexture2D.cpp" />
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp" />
     <ClCompile Include="Src\Render\Renderer\Renderer.cpp" />
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerTexture.cpp" />
-    <ClCompile Include="Src\Render\RawData\SubTexture2D.cpp" />
     <ClCompile Include="Src\Render\VertexArray.cpp" />
     <ClCompile Include="Src\Resource\ResourceLibrary.cpp" />
     <ClCompile Include="Src\Script\ScriptClass.cpp" />

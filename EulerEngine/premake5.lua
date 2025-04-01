@@ -42,7 +42,6 @@ project "EulerEngine"
 		"ImGui",
 		"Yaml-cpp",
 		"opengl32",
-		"/mono/%{cfg.buildcfg}/libmono-static-sgen",
 	}
 
 	filter "system:windows"
@@ -62,9 +61,15 @@ project "EulerEngine"
 		}
 	filter "configurations:Debug"
 		defines "KINK_DEBUG"
+		links{
+			"/mono/Deb/libmono-static-sgen",
+		}
 		symbols "On"
 	filter "configurations:Release"
 		defines "KINK_RELEASE"
+		links{
+			"/mono/Rel/libmono-static-sgen",
+		}
 		symbols "On"
 	filter "configurations:Dist"
 		defines "KINK_DIST"

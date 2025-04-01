@@ -49,8 +49,11 @@
     <Filter Include="Src\Core\Events">
       <UniqueIdentifier>{C99B0723-3527-75E7-3E38-F8DBAA42D1E7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Core\Input">
-      <UniqueIdentifier>{44B77A9C-3085-6EA2-1919-DFC805864A07}</UniqueIdentifier>
+    <Filter Include="Src\Core\Global">
+      <UniqueIdentifier>{453E0227-B1C9-6FEB-BADA-F2DF26E5CBEB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core\IO">
+      <UniqueIdentifier>{0C971492-784C-8D87-0141-875E6DF5838B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Core\Layer">
       <UniqueIdentifier>{1104AA9C-FDD1-9DA2-E665-0EC9D2D27907}</UniqueIdentifier>
@@ -63,6 +66,9 @@
     </Filter>
     <Filter Include="Src\Core\Reflection">
       <UniqueIdentifier>{1F1148F8-8B72-2506-14E0-6BB880405CC5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Data">
+      <UniqueIdentifier>{9688E246-8255-3D52-AB6E-2BFA979A72E0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\GutKink">
       <UniqueIdentifier>{996813D4-051E-8CC9-8E12-86A0FAC682CD}</UniqueIdentifier>
@@ -82,8 +88,14 @@
     <Filter Include="Src\Platform\Windows">
       <UniqueIdentifier>{3B395FFD-27C8-E8C6-D0E6-FCC1BC54F96C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Project">
+      <UniqueIdentifier>{53849681-BF39-0F77-482E-094EB4E2057B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Render">
       <UniqueIdentifier>{DC7094AA-C828-D6F7-3130-AF531D0771E8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Render\Batch">
+      <UniqueIdentifier>{0D98B85D-F990-D7AF-22C3-BC340E1BB7BB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Render\Camera">
       <UniqueIdentifier>{D4F51C17-400C-1BAD-8983-A6CEF5D8EB34}</UniqueIdentifier>
@@ -97,14 +109,11 @@
     <Filter Include="Src\Render\OpenGL">
       <UniqueIdentifier>{900A2634-FC20-24CA-4598-AFEBB1EDF451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Render\RawData">
+      <UniqueIdentifier>{AFD6077E-9BBA-C8D3-041B-C326F01DB355}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Src\Render\Renderer">
       <UniqueIdentifier>{026C3260-6ECD-0F6E-F73A-5620639B462D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Render\Texture">
-      <UniqueIdentifier>{3CB27D21-2896-3E77-91F6-38CA7DF928F9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Render\Vertices">
-      <UniqueIdentifier>{D0DBB11B-3C3D-8F29-C5AA-D5DB310BC6E8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Resource">
       <UniqueIdentifier>{C4C3EDAD-B026-7D52-59AC-B50845EE48D5}</UniqueIdentifier>
@@ -120,6 +129,9 @@
     </Filter>
     <Filter Include="Src\Thread">
       <UniqueIdentifier>{D44077AF-C0F8-B8FC-2900-925815D753ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\UI">
+      <UniqueIdentifier>{1A37C1D1-06D9-EBA7-EF93-FFFBDBD472F8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Utils">
       <UniqueIdentifier>{2D7A7124-99E4-259B-E222-D7404ECC03F0}</UniqueIdentifier>
@@ -1260,16 +1272,7 @@
     <ClInclude Include="Src\Core\EulerDelegate.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Data\EulerImage.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\EulerInstrumentor.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Global\EulerTimer.h">
-      <Filter>Src\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Global\EulerUUID.h">
       <Filter>Src\Core</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\EulerWindow.h">
@@ -1281,14 +1284,26 @@
     <ClInclude Include="Src\Core\Events\Event.h">
       <Filter>Src\Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Events\KeyboardEvent.h">
+      <Filter>Src\Core\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\Events\MouseEvent.h">
       <Filter>Src\Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Global\EulerTimer.h">
+      <Filter>Src\Core\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Global\EulerUUID.h">
+      <Filter>Src\Core\Global</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Core\IO\EulerInput.h">
-      <Filter>Src\Core\Input</Filter>
+      <Filter>Src\Core\IO</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\IO\EulerInputCodes.h">
-      <Filter>Src\Core\Input</Filter>
+      <Filter>Src\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\IO\FileSystem.h">
+      <Filter>Src\Core\IO</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Layer\EulerLayer.h">
       <Filter>Src\Core\Layer</Filter>
@@ -1298,6 +1313,9 @@
     </ClInclude>
     <ClInclude Include="Src\Core\Logs\EulerLog.h">
       <Filter>Src\Core\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Memory\EulerBuffer.h">
+      <Filter>Src\Core\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Memory\EulerMemManager.h">
       <Filter>Src\Core\Memory</Filter>
@@ -1319,6 +1337,9 @@
     </ClInclude>
     <ClInclude Include="Src\Core\Reflection\EulerClassFactory.h">
       <Filter>Src\Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Data\EulerImage.h">
+      <Filter>Src\Data</Filter>
     </ClInclude>
     <ClInclude Include="Src\GutKink.h">
       <Filter>Src</Filter>
@@ -1365,6 +1386,18 @@
     <ClInclude Include="Src\Platform\Windows\WinWIndow.h">
       <Filter>Src\Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Project\EulerProject.h">
+      <Filter>Src\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Project\ProjectSerializer.h">
+      <Filter>Src\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Batch\BatchData.h">
+      <Filter>Src\Render\Batch</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Batch\EulerBatch.h">
+      <Filter>Src\Render\Batch</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\Camera\CameraController.h">
       <Filter>Src\Render\Camera</Filter>
     </ClInclude>
@@ -1375,12 +1408,6 @@
       <Filter>Src\Render\Context</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\EulerBuffer.h">
-      <Filter>Src\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\RawData\EulerMaterial.h">
-      <Filter>Src\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\RawData\EulerMesh.h">
       <Filter>Src\Render</Filter>
     </ClInclude>
     <ClInclude Include="Src\Render\EulerShader.h">
@@ -1398,6 +1425,24 @@
     <ClInclude Include="Src\Render\OpenGL\GLText.h">
       <Filter>Src\Render\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\RawData\EulerMaterial.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RawData\EulerMesh.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RawData\EulerTexture.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RawData\EulerVertices.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\RawData\SubTexture2D.h">
+      <Filter>Src\Render\RawData</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Render\Renderer\RenderCmd.h">
       <Filter>Src\Render\Renderer</Filter>
     </ClInclude>
@@ -1407,17 +1452,8 @@
     <ClInclude Include="Src\Render\Renderer\RendererAPI.h">
       <Filter>Src\Render\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\RawData\EulerTexture.h">
-      <Filter>Src\Render\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\RawData\SubTexture2D.h">
-      <Filter>Src\Render\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Render\VertexArray.h">
       <Filter>Src\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\RawData\EulerVertices.h">
-      <Filter>Src\Render\Vertices</Filter>
     </ClInclude>
     <ClInclude Include="Src\Resource\ResourceLibrary.h">
       <Filter>Src\Resource</Filter>
@@ -1449,6 +1485,9 @@
     <ClInclude Include="Src\Thread\EulerThread.h">
       <Filter>Src\Thread</Filter>
     </ClInclude>
+    <ClInclude Include="Src\UI\EulerUI.h">
+      <Filter>Src\UI</Filter>
+    </ClInclude>
     <ClInclude Include="Src\Utils\PlatformUtils.h">
       <Filter>Src\Utils</Filter>
     </ClInclude>
@@ -1468,6 +1507,9 @@
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\IDCom.h">
+      <Filter>Src\World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\World\Component\MeshFilter.h">
       <Filter>Src\World\Component</Filter>
     </ClInclude>
     <ClInclude Include="Src\World\Component\MeshRenderer.h">
@@ -1506,16 +1548,6 @@
     <ClInclude Include="Vendor\ImGuizmo\ImGuizmo.h">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Memory\EulerBuffer.h" />
-    <ClInclude Include="Src\Core\IO\FileSystem.h" />
-    <ClInclude Include="Src\Project\EulerProject.h" />
-    <ClInclude Include="Src\Project\ProjectSerializer.h" />
-    <ClInclude Include="Src\UI\EulerUI.h" />
-    <ClInclude Include="Src\Core\Events\KeyboardEvent.h" />
-    <ClInclude Include="Src\Render\RawData\EulerMaterial2D.h" />
-    <ClInclude Include="Src\Render\Batch\EulerBatch.h" />
-    <ClInclude Include="Src\World\Component\MeshFilter.h" />
-    <ClInclude Include="Src\Render\Batch\BatchData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\include\glad\glad.c">
@@ -1524,14 +1556,14 @@
     <ClCompile Include="External\include\stb_image\stb_image.cpp">
       <Filter>External\include\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Data\EulerImage.cpp">
-      <Filter>Src\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\Global\EulerTimer.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Src\Core\Global</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Global\EulerUUID.cpp">
-      <Filter>Src\Core</Filter>
+      <Filter>Src\Core\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\IO\FileSystem.cpp">
+      <Filter>Src\Core\IO</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Layer\EulerLayerStack.cpp">
       <Filter>Src\Core\Layer</Filter>
@@ -1547,6 +1579,9 @@
     </ClCompile>
     <ClCompile Include="Src\Core\Reflection\EulerClassFactory.cpp">
       <Filter>Src\Core\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Data\EulerImage.cpp">
+      <Filter>Src\Data</Filter>
     </ClCompile>
     <ClCompile Include="Src\GutKink\Application.cpp">
       <Filter>Src\GutKink</Filter>
@@ -1590,6 +1625,15 @@
     <ClCompile Include="Src\Platform\Windows\WinWindow.cpp">
       <Filter>Src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Project\EulerProject.cpp">
+      <Filter>Src\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Project\ProjectSerializer.cpp">
+      <Filter>Src\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp">
+      <Filter>Src\Render\Batch</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Render\Camera\CameraController.cpp">
       <Filter>Src\Render\Camera</Filter>
     </ClCompile>
@@ -1602,12 +1646,6 @@
     <ClCompile Include="Src\Render\EulerBuffer.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Render\RawData\EulerMaterial.cpp">
-      <Filter>Src\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\RawData\EulerMesh.cpp">
-      <Filter>Src\Render</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Render\EulerShader.cpp">
       <Filter>Src\Render</Filter>
     </ClCompile>
@@ -1617,6 +1655,24 @@
     <ClCompile Include="Src\Render\GLObjects\GLLight.cpp">
       <Filter>Src\Render\GLObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\RawData\EulerMaterial.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RawData\EulerMesh.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RawData\EulerTexture.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RawData\EulerVertices.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\RawData\SubTexture2D.cpp">
+      <Filter>Src\Render\RawData</Filter>
+    </ClCompile>
     <ClCompile Include="Src\Render\Renderer\RenderCmd.cpp">
       <Filter>Src\Render\Renderer</Filter>
     </ClCompile>
@@ -1625,12 +1681,6 @@
     </ClCompile>
     <ClCompile Include="Src\Render\Renderer\RendererAPI.cpp">
       <Filter>Src\Render\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\RawData\EulerTexture.cpp">
-      <Filter>Src\Render\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Render\RawData\SubTexture2D.cpp">
-      <Filter>Src\Render\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Src\Render\VertexArray.cpp">
       <Filter>Src\Render</Filter>
@@ -1671,11 +1721,5 @@
     <ClCompile Include="Vendor\ImGuizmo\ImGuizmo.cpp">
       <Filter>Vendor\ImGuizmo</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\IO\FileSystem.cpp" />
-    <ClCompile Include="Src\Project\EulerProject.cpp" />
-    <ClCompile Include="Src\Project\ProjectSerializer.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerMaterial2D.cpp" />
-    <ClCompile Include="Src\Render\Batch\EulerBatch.cpp" />
-    <ClCompile Include="Src\Render\RawData\EulerVertices.cpp" />
   </ItemGroup>
 </Project>
