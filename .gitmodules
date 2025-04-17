@@ -10,3 +10,6 @@
 [submodule "EulerEngine/Vendor/Box2d"]
 	path = EulerEngine/Vendor/Box2d
 	url = https://gitee.com/ets_zeros/box2d
+[submodule "EulerEngine/Vendor/Jolt"]
+	path = EulerEngine/Vendor/Jolt
+	url = https://gitee.com/ets_zeros/JoltPhysics
