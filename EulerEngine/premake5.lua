@@ -21,7 +21,9 @@ project "EulerEngine"
 		"External/include/entt/**.hpp",
 		"External/include/filewatch/**.h",
 		"Vendor/ImGuizmo/ImGuizmo.h",
-		"Vendor/ImGuizmo/ImGuizmo.cpp",
+		"Vendor/ImGuizmo/ImGuizmo.cpp", 
+		"Vendor/Jolt/Jolt/**.h",
+		"Vendor/Jolt/Jolt/**.cpp",
 	}
 	includedirs{
 		"Src",
@@ -32,6 +34,7 @@ project "EulerEngine"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.Box2d}",
 		"%{IncludeDir.Box2d_src}",
+		"%{IncludeDir.Jolt}",
 	}
 	libdirs{
 		"External/libs",
@@ -64,13 +67,15 @@ project "EulerEngine"
 		links{
 			"/mono/Deb/libmono-static-sgen",
 		}
+		runtime "Debug"
 		symbols "On"
 	filter "configurations:Release"
 		defines "KINK_RELEASE"
 		links{
 			"/mono/Rel/libmono-static-sgen",
 		}
-		symbols "On"
+		runtime "Release"
+		optimize "On"
 	filter "configurations:Dist"
 		defines "KINK_DIST"
 		symbols "On"

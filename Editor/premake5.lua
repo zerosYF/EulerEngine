@@ -21,6 +21,7 @@ project "Editor"
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.Box2d}",
 		"%{IncludeDir.Box2d_src}",
+		"%{IncludeDir.Jolt}",
 	}
 	links{
 		"EulerEngine"
@@ -35,13 +36,10 @@ project "Editor"
 		}
 	filter "configurations:Debug"
 		defines "KINK_DEBUG"
-		runtime "Debug"
 		symbols "On"
 	filter "configurations:Release"
 		defines "KINK_RELEASE"
-		runtime "Release"
 		symbols "On"
 	filter "configurations:Dist"
 		defines "KINK_DIST"
-		runtime "Release"
 		symbols "On"

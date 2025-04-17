@@ -29,13 +29,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
@@ -78,7 +78,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;..\EulerEngine\Vendor\Jolt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -96,10 +96,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;..\EulerEngine\Vendor\Jolt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -114,10 +114,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>YAML_CPP_STATIC_DEFINE;KINK_PLATFORM_WINDOWS;KINK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EulerEngine\Src;..\EulerEngine\External\include;..\EulerEngine\External\include\glad;..\EulerEngine\Vendor\ImGui;..\EulerEngine\Vendor\Yaml-cpp\include;..\EulerEngine\Vendor\ImGuizmo;..\EulerEngine\Vendor\Box2d\include;..\EulerEngine\Vendor\Box2d\src;..\EulerEngine\Vendor\Jolt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>

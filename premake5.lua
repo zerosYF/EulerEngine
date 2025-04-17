@@ -16,6 +16,7 @@ IncludeDir["Yaml_cpp"] = "%{wks.location}/EulerEngine/Vendor/Yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "%{wks.location}/EulerEngine/Vendor/ImGuizmo"
 IncludeDir["Box2d"] = "%{wks.location}/EulerEngine/Vendor/Box2d/include"
 IncludeDir["Box2d_src"] = "%{wks.location}/EulerEngine/Vendor/Box2d/src"
+IncludeDir["Jolt"] = "%{wks.location}/EulerEngine/Vendor/Jolt"
 
 Library = {}
 Library["WinSock"] = "Ws2_32.lib"
