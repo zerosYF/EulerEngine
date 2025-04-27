@@ -48,10 +48,15 @@ namespace EulerEngine {
 	private:
 		template<typename T>
 		void OnComponentAdded(GameObject obj, T& component);
+		void RenderScene(EulerCamera& camera);
+
 		void OnPhysics2DStart(); 
 		void OnPhysics2DStop();
-		void RenderScene(EulerCamera& camera);
 		void OnPhysics2DUpdate();
+
+		void OnPhysicsStart();
+		void OnPhysicsStop();
+		void OnPhysicsUpdate();
 
 		void OnNativeScriptStart();
 		void OnNativeScriptStop();

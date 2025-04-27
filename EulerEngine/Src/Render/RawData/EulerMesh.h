@@ -6,7 +6,6 @@
 #include"EulerMaterial.h"
 #include"Render/Renderer/RenderCmd.h"
 #include<glad/glad.h>
-#include"Jolt/Jolt.h"
 namespace EulerEngine {
 	enum class MeshType {
 		None = 0,

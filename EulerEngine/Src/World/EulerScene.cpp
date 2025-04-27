@@ -6,6 +6,10 @@
 #include"EulerBehaviour.h"
 #include"Resource/ResourceLibrary.h"
 #include"Script/ScriptEngine.h"
+#include"Jolt/Jolt.h"
+#include"Jolt/Physics/PhysicsSystem.h"
+#include"Jolt/Physics/Collision/Shape/BoxShape.h"
+#include"Jolt/Physics/Body/BodyCreationSettings.h"
 namespace EulerEngine {
 	static b2BodyType KinkRigidbody2DTypeToBox2DType(Rigidbody2D::BodyType type)
 	{
@@ -212,6 +216,52 @@ namespace EulerEngine {
 		m_StepFrame = frame;
 	}
 
+	void Scene::RenderScene(EulerCamera& camera)
+	{
+		Renderer::BeginScene(camera);
+		{
+			auto view = m_Registry.view<Transform, MeshFilter, MeshRenderer>();
+			for (auto entity : view) {
+				auto [transform, filter, renderer] = view.get<Transform, MeshFilter, MeshRenderer>(entity);
+				if (filter.GetType() == MeshType::None) {
+					KINK_CORE_WARN("MeshFilter has no mesh");
+					continue;
+				}
+				std::vector<float> vertices;
+				std::vector<unsigned int> indices;
+				if (filter.GetType() == MeshType::Cube) {
+					vertices = std::vector<float>(std::begin(CubeVertices), std::end(CubeVertices));
+					//indices = std::vector<unsigned int>(std::begin(CubeIndices), std::end(CubeIndices));
+				}
+				else if (filter.GetType() == MeshType::Plane) {
+					vertices = std::vector<float>(std::begin(PlaneVertices), std::end(PlaneVertices));
+					indices = std::vector<unsigned int>(std::begin(PlaneIndices), std::end(PlaneIndices));
+				}
+				else if (filter.GetType() == MeshType::Sphere) {
+					vertices = Generator::GenerateSphereVertices(1.0f, 16, 16);
+					indices = Generator::GenerateSphereIndices(16, 16);
+				}
+
+				if (filter.Mesh == nullptr) {
+					filter.Mesh = CreateRef<EulerMesh>(vertices, indices);
+				}
+				else {
+					filter.Mesh->SetVertices(vertices);
+					filter.Mesh->SetIndices(indices);
+				}
+				Renderer::DrawMesh(filter.Type, transform.Position, transform.Rotation, transform.Scale, filter.Mesh, renderer.Material, (int)entity);
+			}
+		}
+		{
+			auto view = m_Registry.view<Transform, SpriteRenderer>();
+			for (auto entity : view) {
+				auto [transform, renderer] = view.get<Transform, SpriteRenderer>(entity);
+				Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, renderer.Mesh, renderer.Material, (int)entity);
+			}
+		}
+		Renderer::EndScene();
+	}
+
 	void Scene::OnPhysics2DStart()
 	{
 		b2Vec2 gravity = b2Vec2({ 0.0f, -9.81f });
@@ -262,51 +312,6 @@ namespace EulerEngine {
 		m_PhysicsWorld = b2_nullWorldId;
 	}
 
-	void Scene::RenderScene(EulerCamera& camera)
-	{
-		Renderer::BeginScene(camera);
-		{
-			auto view = m_Registry.view<Transform, MeshFilter, MeshRenderer>();
-			for (auto entity : view) {
-				auto [transform, filter, renderer] = view.get<Transform, MeshFilter, MeshRenderer>(entity);
-				if (filter.GetType() == MeshType::None) {
-					KINK_CORE_WARN("MeshFilter has no mesh");
-					continue;
-				}
-				std::vector<float> vertices;
-				std::vector<unsigned int> indices;
-				if (filter.GetType() == MeshType::Cube) {
-					vertices = std::vector<float>(std::begin(CubeVertices), std::end(CubeVertices));
-					//indices = std::vector<unsigned int>(std::begin(CubeIndices), std::end(CubeIndices));
-				}
-				else if (filter.GetType() == MeshType::Plane) {
-					vertices = std::vector<float>(std::begin(PlaneVertices), std::end(PlaneVertices));
-					indices = std::vector<unsigned int>(std::begin(PlaneIndices), std::end(PlaneIndices));
-				}
-				else if (filter.GetType() == MeshType::Sphere) {
-					vertices = Generator::GenerateSphereVertices(1.0f, 16, 16);
-					indices = Generator::GenerateSphereIndices(16, 16);
-				}
-				
-				if (filter.Mesh == nullptr) {
-					filter.Mesh = CreateRef<EulerMesh>(vertices, indices);
-				}
-				else {
-					filter.Mesh->SetVertices(vertices);
-					filter.Mesh->SetIndices(indices);
-				}
-				Renderer::DrawMesh(filter.Type, transform.Position, transform.Rotation, transform.Scale, filter.Mesh, renderer.Material, (int)entity);
-			}
-		}
-		{
-			auto view = m_Registry.view<Transform, SpriteRenderer>();
-			for (auto entity : view) {
-				auto [transform, renderer] = view.get<Transform, SpriteRenderer>(entity);
-				Renderer::DrawSprite(transform.Position, transform.Rotation, transform.Scale, renderer.Mesh, renderer.Material, (int)entity);
-			}
-		}
-		Renderer::EndScene();
-	}
 
 	void Scene::OnPhysics2DUpdate()
 	{
@@ -323,6 +328,29 @@ namespace EulerEngine {
 			const auto& rotation = b2Body_GetRotation(runtime_body);
 			transform.Rotation = glm::vec3(transform.Rotation.x, transform.Rotation.y, b2Rot_GetAngle(rotation));
 		}
+	}
+
+	void Scene::OnPhysicsStart()
+	{
+		const unsigned int MaxBodys = 1024;
+		const unsigned int NumLayers = 4;
+		const unsigned int MaxBodyPairs = 1024;
+		const unsigned int MaxContactConstraints = 1024;
+		/*const JPH::BroadPhaseLayerInterface broadPhaseLayerInterface;
+		const JPH::ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
+		const JPH::ObjectLayerPairFilter objectLayerPairFilter;
+		JPH::PhysicsSystem physicsSystem;
+		physicsSystem.Init(MaxBodys, NumLayers, MaxBodyPairs, MaxContactConstraints, 
+			broadPhaseLayerInterface, objectVsBroadPhaseLayerFilter, objectLayerPairFilter);
+		physicsSystem.SetGravity({ 0.0f, -9.81f, 0.0f });*/
+	}
+
+	void Scene::OnPhysicsStop()
+	{
+	}
+
+	void Scene::OnPhysicsUpdate()
+	{
 	}
 
 	void Scene::OnNativeScriptStart()
